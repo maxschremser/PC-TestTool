@@ -1,0 +1,32 @@
+<ivy-module version="2.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation=
+                    "http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+  <info organisation='vie.TestTool' module='TestTool'/>
+
+  <configurations defaultconfmapping="*->default">
+    <conf name="compile" description="Implementation and private API's"/>
+    <!--<conf name="runtime" description="runtime scope"/>-->
+    <!--<conf name="test" extends="runtime" description="unit test"/>-->
+    <conf name="default" extends="compile"/>
+    <!--<conf name="sources"/>-->
+
+  </configurations>
+
+  <publications>
+    <artifact name="TestTool" type="jar"/>
+  </publications>
+
+  <dependencies>
+    <!--<dependency org="antlr" name="antlr" rev="2.7.7" transitive="false"/>-->
+    <!--<dependency org="asm" name="asm" rev="3.2" transitive="false"/>-->
+    <dependency org="com.jgoodies" name="forms" rev="1.2.1" transitive="false"/>
+    <dependency org="com.jgoodies" name="looks" rev="2.2.0" transitive="false"/>
+    <dependency org="jfree" name="jfreechart" rev="1.0.13"  transitive="false"/>
+    <dependency org="jfree" name="jcommon" rev="1.0.12" />
+    <!--<dependency org="org.codehaus.groovy" name="groovy" rev="1.7.1" transitive="false"/>-->
+    <!--<dependency org="com.incors.plaf" name="kunststoff" rev="2.0.2" transitive="false"/>-->
+    <dependency org="org.apache.poi" name="poi" rev="3.6"/>
+  </dependencies>
+</ivy-module>

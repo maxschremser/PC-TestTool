@@ -1,0 +1,48 @@
+<project name="runtomcat" basedir="." default="run_tomcat6">
+
+  <description>TestTool runtomcat</description>
+
+  <property name="Jdev" location="${basedir}/../../.." />
+  <property name="ProjDir" location="${Jdev}/projects/TestTool" />
+  <property name="3rdparty" value="${Jdev}/3rdparty" />
+  <property file="${Jdev}/projects/versions.properties" />
+
+  <import file="../../../build/import/common.xml"/>
+
+  <!-- ================== -->
+  <!-- === CLASSPATHS === -->
+  <!-- ================== -->
+
+  <path id="proj.classpath">
+    <pathelement path="${ProjDir}/classes"/>
+  </path>
+
+  <path id="3rdparty.classpath">
+    <pathelement location="${3rdparty}/jcert.jar"/>
+    <pathelement location="${3rdparty}/jnet.jar"/>
+    <pathelement location="${3rdparty}/jsse.jar"/>
+    <fileset dir="${TOMCAT_HOME}/bin">
+      <include name="*.jar"/>
+    </fileset>
+    <fileset dir="${TOMCAT_HOME}/lib">
+      <include name="*.jar"/>
+    </fileset>
+    <pathelement location="${JAVA_HOME}/lib/tools.jar"/>
+  </path>
+
+  <echopath pathid="proj.classpath"/>
+
+  <target name="run_tomcat6" description="run tomcat6" >
+    <java classname="org.apache.catalina.startup.Bootstrap" fork="true">
+      <classpath refid="proj.classpath"/>
+      <classpath refid="3rdparty.classpath" />
+      <jvmarg value="-Xms64M"/>
+      <jvmarg value="-Xmx1024M"/>
+      <jvmarg line="${RDEBUG} ${OPTS}"/>
+      <sysproperty key="catalina.base" value="${TOMCAT_BASE}"/>
+      <sysproperty key="catalina.home" value="${TOMCAT_HOME}"/>
+      <sysproperty key="java.io.tmpdir" value="${TOMCAT_BASE}/temp"/>
+      <arg value="start"/>
+    </java>
+  </target>
+</project>

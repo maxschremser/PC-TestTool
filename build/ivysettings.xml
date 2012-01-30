@@ -1,0 +1,16 @@
+<ivysettings>
+	<property name="resolver-name" value="my-resolver" override="false"/>
+    <property name="dev.repo-root" value="\\\\vienas4\\schremse\\repos" override="false"/>
+    <property name="dev.repo.dir" value="${dev.repo-root}/devel" override="false"/>
+    <settings defaultResolver="${resolver-name}"/>
+    <!--<settings defaultResolver="schremse-resolver"/>-->
+
+	<caches defaultCacheDir="${user.home}/.ivy2/${resolver-name}" />
+
+	<resolvers>
+        <chain name="my-resolver" returnFirst="false" checkmodified="true" changingPattern=".*" latest="latest-time" >
+            <ibiblio name="ibiblio" m2compatible="true"/>
+        </chain>
+	</resolvers>
+
+</ivysettings>
