@@ -138,7 +138,7 @@ public abstract class AntwortList extends JList implements ActionListener {
     } else if (e.getSource() == menuDelete) {
       Antwort antwort = (Antwort) getSelectedValue();
       String name = antwort.getName();
-      int n = JOptionPane.showOptionDialog(frame, "Wirklich '" + name + "' l�schen ?", "L�schen",
+      int n = JOptionPane.showOptionDialog(frame, "Wirklich '" + name + "' löschen ?", "Löschen",
           JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ja", "Nein"}, "Ja");
       if (n == 0) { // JA
         model.remove(getSelectedIndex());
