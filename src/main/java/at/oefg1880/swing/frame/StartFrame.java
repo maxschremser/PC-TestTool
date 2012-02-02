@@ -12,7 +12,10 @@ import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Created by IntelliJ IDEA.
@@ -43,8 +46,8 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
       }
     });
     FormLayout layout = new FormLayout(
-            "6dlu,pref,6dlu",
-            "6dlu,pref,6dlu,pref,6dlu");
+        "6dlu,pref,6dlu",
+        "6dlu,pref,6dlu,pref,6dlu");
     CellConstraints cc = new CellConstraints();
     GradientPanel panel = new GradientPanel();
     panel.setLayout(layout);
@@ -75,6 +78,16 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
           new OEFGTestToolFrame(ResourceHandler.getInstance().getString(OEFGTestToolFrame.class.getName() + "." + TITLE));
           dispose();
         }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+          oefgImagePanel.setBorder(BorderFactory.createLineBorder(Color.black, 7));
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+          oefgImagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        }
       });
     }
     return oefgImagePanel;
@@ -89,6 +102,16 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
         public void mouseClicked(MouseEvent e) {
           new WFATestToolFrame(ResourceHandler.getInstance().getString(WFATestToolFrame.class.getName() + "." + TITLE));
           dispose();
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+          wfaImagePanel.setBorder(BorderFactory.createLineBorder(Color.black, 7));
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+          wfaImagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
         }
       });
     }

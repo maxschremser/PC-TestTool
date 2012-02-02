@@ -1,5 +1,11 @@
 package at.oefg1880.swing.frame;
 
+import at.oefg1880.swing.panel.FragebogenPanel;
+import at.oefg1880.swing.panel.WFAFragebogenPanel;
+
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Created by IntelliJ IDEA.
  * User: maxschremser
@@ -21,4 +27,13 @@ public class WFATestToolFrame extends TestToolFrame {
   public String getFavicon() {
     return "resources/wfa_favicon.gif";
   }
+
+  public FragebogenPanel getFragebogenPanel() {
+    if (fragebogenPanel == null) {
+      fragebogenPanel = new WFAFragebogenPanel(this);
+      fragebogenPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+    }
+    return fragebogenPanel;
+  }
+
 }

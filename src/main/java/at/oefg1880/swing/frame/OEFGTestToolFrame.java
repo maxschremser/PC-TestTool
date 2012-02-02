@@ -1,5 +1,11 @@
 package at.oefg1880.swing.frame;
 
+import at.oefg1880.swing.panel.FragebogenPanel;
+import at.oefg1880.swing.panel.OEFGFragebogenPanel;
+
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Created by IntelliJ IDEA.
  * User: maxschremser
@@ -21,4 +27,13 @@ public class OEFGTestToolFrame extends TestToolFrame {
   public String getFavicon() {
     return "resources/oefg_favicon.gif";
   }
+
+  public FragebogenPanel getFragebogenPanel() {
+    if (fragebogenPanel == null) {
+      fragebogenPanel = new OEFGFragebogenPanel(this);
+      fragebogenPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+    }
+    return fragebogenPanel;
+  }
+
 }

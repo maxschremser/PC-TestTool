@@ -13,33 +13,33 @@ import java.net.URL;
  * To change this template use File | Settings | File Templates.
  */
 public class ImagePanel extends GradientPanel {
-    private Image image;
+  private Image image;
 
-    public ImagePanel(String image) {
-        this(new ImageIcon(image).getImage());
-    }
+  public ImagePanel(String image) {
+    this(new ImageIcon(image).getImage());
+  }
 
-    public ImagePanel(URL url) {
-        this(new ImageIcon(url).getImage());
-    }
+  public ImagePanel(URL url) {
+    this(new ImageIcon(url).getImage());
+  }
 
-    public ImagePanel(Image image) {
-        super(HORIZONTAL);
-        this.image = image;
-        Dimension size = new Dimension(image.getWidth(null) + 14, image.getHeight(null) + 14);
-        setPreferredSize(size);
-        setMaximumSize(size);
-        setMinimumSize(size);
-        setSize(size);
-        setBackground(Color.white);
-    }
+  public ImagePanel(Image image) {
+    super(HORIZONTAL);
+    this.image = image;
+    Dimension size = new Dimension(image.getWidth(null) + 14, image.getHeight(null) + 14);
+    setPreferredSize(size);
+    setMaximumSize(size);
+    setMinimumSize(size);
+    setSize(size);
+    setBackground(Color.white);
+  }
 
-    public void paintComponent(Graphics g) {
-        BufferedImage buf = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D _g = buf.createGraphics();
-        _g.setComposite(AlphaComposite.Src);
-        _g.drawImage(image, 0, 0, null);
-        // the transparent color (white)
+  public void paintComponent(Graphics g) {
+    BufferedImage buf = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+    Graphics2D _g = buf.createGraphics();
+    _g.setComposite(AlphaComposite.Src);
+    _g.drawImage(image, 0, 0, null);
+    // the transparent color (white)
 //        int markerRGB = Color.white.getRGB() | 0xFFFFFFFF;
 //        for (int i = 0; i < buf.getWidth(); i++) {
 //            for (int j = 0; j < buf.getHeight(); j++) {
@@ -48,9 +48,9 @@ public class ImagePanel extends GradientPanel {
 //                }
 //            }
 //        }
-        g.setColor(Color.white);
-        g.fillRect(0, 0, getWidth(), getHeight());
-        g.drawImage(buf, 7, 7, null);
+    g.setColor(Color.white);
+    g.fillRect(0, 0, getWidth(), getHeight());
+    g.drawImage(buf, 7, 7, null);
 //    super.paintComponent(g);
-    }
+  }
 }

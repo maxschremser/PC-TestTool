@@ -4,7 +4,7 @@ import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.list.Antwort;
 import at.oefg1880.swing.list.Fragebogen;
-import at.oefg1880.swing.panel.FragebogenPane;
+import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.ImagePanel;
 import at.oefg1880.swing.text.AntwortTextField;
@@ -41,7 +41,7 @@ import java.util.GregorianCalendar;
  */
 public abstract class TestToolFrame extends SheetableFrame implements ITexts, IConfig {
   private ImagePanel imagePanel;
-  private FragebogenPane fragebogenPane;
+  protected FragebogenPanel fragebogenPanel;
   private PropertyHandler props = PropertyHandler.getInstance();
   private ResourceHandler rh = ResourceHandler.getInstance();
   private final Logger log = Logger.getLogger(TestToolFrame.class);
@@ -49,7 +49,10 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
   private JDialog dialog;
 
   public abstract String getImageName();
+
   public abstract String getFavicon();
+
+  public abstract FragebogenPanel getFragebogenPanel();
 
   public TestToolFrame(String title) throws HeadlessException {
     super(title);
@@ -61,17 +64,17 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
 
   private void test() {
-    getFragebogenPane().getFragebogenList().add("LFV I", 7, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
-    getFragebogenPane().getFragebogenList().add("LFV II", 5, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
-    getFragebogenPane().getFragebogenList().add("LFV III", 2, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
-    getFragebogenPane().getFragebogenList().add("LFV IV", 3, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
-    getFragebogenPane().getFragebogenList().add("LFV V", 5, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
+    getFragebogenPanel().getFragebogenList().add("LFV I", 7, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
+    getFragebogenPanel().getFragebogenList().add("LFV II", 5, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
+    getFragebogenPanel().getFragebogenList().add("LFV III", 2, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
+    getFragebogenPanel().getFragebogenList().add("LFV IV", 3, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
+    getFragebogenPanel().getFragebogenList().add("LFV V", 5, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
   }
 
   private void setup() {
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
-        if (fragebogenPane.getFragebogenList().getModel().getSize() > 0) {
+        if (fragebogenPanel.getFragebogenList().getModel().getSize() > 0) {
           int a = JOptionPane.showConfirmDialog(getParent(), "Möchten Sie die Daten speichern ?");
           if (JOptionPane.YES_OPTION == a) {
             exportData();
@@ -88,13 +91,13 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
       }
     });
     FormLayout layout = new FormLayout(
-            "6dlu,pref,6dlu",
-            "6dlu,pref,6dlu,pref,6dlu");
+        "6dlu,pref,6dlu",
+        "6dlu,pref,6dlu,pref,6dlu");
     CellConstraints cc = new CellConstraints();
     GradientPanel panel = new GradientPanel();
     panel.setLayout(layout);
     panel.add(getImagePane(), cc.xy(2, 2));
-    panel.add(getFragebogenPane(), cc.xy(2, 4));
+    panel.add(getFragebogenPanel(), cc.xy(2, 4));
 //    panel.add(getButtonPane(), cc.xy(2, 6));
     getContentPane().add(panel);
 
@@ -118,14 +121,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     return imagePanel;
   }
 
-  public FragebogenPane getFragebogenPane() {
-    if (fragebogenPane == null) {
-      fragebogenPane = new FragebogenPane(this);
-      fragebogenPane.setBorder(BorderFactory.createLineBorder(Color.black));
-    }
-    return fragebogenPane;
-  }
-
   public void setReturnValue(int returnValue) {
     this.returnValue = returnValue;
   }
@@ -138,7 +133,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     // Ja, Nein, Abbrechen Dialog mit einer Frage und einem Icon
     dialog = new JDialog(this, title, true);
     FormLayout layout = new FormLayout(
-            "6dlu,center:pref,6dlu", "6dlu,pref,6dlu,pref,6dlu"
+        "6dlu,center:pref,6dlu", "6dlu,pref,6dlu,pref,6dlu"
     );
     PanelBuilder builder = new PanelBuilder(layout);
     CellConstraints cc = new CellConstraints();
@@ -171,7 +166,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
       file.createNewFile();
       log.info("Saved at: " + file.getAbsolutePath());
       FileOutputStream fos = new FileOutputStream(file);
-      DefaultListModel model = (DefaultListModel) fragebogenPane.getFragebogenList().getModel();
+      DefaultListModel model = (DefaultListModel) fragebogenPanel.getFragebogenList().getModel();
       Enumeration<Fragebogen> enums = (Enumeration<Fragebogen>) model.elements();
       while (enums.hasMoreElements()) {
         Fragebogen f = enums.nextElement();
