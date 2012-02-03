@@ -51,8 +51,8 @@ public class WFAAntwortPanel extends AntwortPanel {
 
     // answer fields
     int k = 0;
-    for (int i = 4; i <= 22; i += 2) {
-      for (int j = 4; j <= 12; j += 2) {
+    for (int j = 4; j <= 12; j += 2) {
+      for (int i = 4; i <= 22; i += 2) {
         add(new AntwortTextField("", k++), cc.xy(i, j));
       }
     }

@@ -42,8 +42,8 @@ public class OEFGAntwortPanel extends AntwortPanel {
 
     // answer fields
     int k = 0;
-    for (int i = 4; i <= 12; i += 2) {
-      for (int j = 4; j <= 10; j += 2) {
+    for (int j = 4; j <= 10; j += 2) {
+      for (int i = 4; i <= 12; i += 2) {
         add(new AntwortTextField("", k++), cc.xy(i, j));
       }
     }
