@@ -291,9 +291,10 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
             }
           }
         }
-        dataset.setValue(CORRECT, correctAnswers * 5);
-        dataset.setValue(WRONG, (20 - correctAnswers) * 5);
-        chart.setTitle(correctAnswers * 5 + "%");
+        int iPercentage = 100/antwortPanel.getNumAnswers();
+        dataset.setValue(CORRECT, correctAnswers * iPercentage);
+        dataset.setValue(WRONG, (20 - correctAnswers) * iPercentage);
+        chart.setTitle(correctAnswers * iPercentage + "%");
 //                if (antwortPanel.isFullyFilled())
         if (index == (solutions.length - 1)) {
           saveButton.setEnabled(true);

@@ -35,7 +35,6 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     super(title);
     props.setOwner(this);
     setup();
-//    test();
     pack();
   }
 
@@ -53,7 +52,6 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     panel.setLayout(layout);
     panel.add(getOEFGImagePane(), cc.xy(2, 2));
     panel.add(getWFAImagePane(), cc.xy(2, 4));
-//    panel.add(getButtonPane(), cc.xy(2, 6));
     getContentPane().add(panel);
 
     int x = Integer.valueOf(props.getProperty("x"));

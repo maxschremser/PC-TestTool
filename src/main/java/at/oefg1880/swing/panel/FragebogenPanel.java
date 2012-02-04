@@ -28,7 +28,7 @@ import java.awt.event.ActionListener;
 public abstract class FragebogenPanel extends GradientPanel implements ITexts, IConfig, ActionListener {
   protected TestToolFrame frame;
   protected FragebogenDialog fragebogenDialog;
-  private AntwortDialog antwortDialog;
+  protected AntwortDialog antwortDialog;
   private PropertyHandler props = PropertyHandler.getInstance();
   private ResourceHandler rh = ResourceHandler.getInstance();
   private FragebogenList list;
@@ -36,8 +36,8 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
   private JButton buttonSpeichern;
 
   public abstract JDialog createNewFragebogenDialog();
-
   public abstract FragebogenDialog editFragebogenDialog(Fragebogen fragebogen);
+  public abstract AntwortDialog getAntwortDialog(Fragebogen fragebogen);
 
   public FragebogenPanel(TestToolFrame frame) {
     super(DIAGONAL);
@@ -87,16 +87,12 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     return fragebogenDialog;
   }
 
-  public AntwortDialog getAntwortDialog() {
-    return antwortDialog;
-  }
-
   public AntwortDialog createNewAntwortDialog(Fragebogen fragebogen) {
     if (fragebogen == null) return null;
     if (fragebogen.getSolved() == fragebogen.getExisting()) {
       return null;
     }
-    antwortDialog = getAntwortDialog(); //new AntwortDialog(frame, "Neue Antworten hinzufügen ...", fragebogen);
+    antwortDialog = getAntwortDialog(fragebogen);
     antwortDialog.setVisible(true);
     return antwortDialog;
   }

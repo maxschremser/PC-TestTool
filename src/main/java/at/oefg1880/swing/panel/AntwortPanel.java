@@ -12,25 +12,17 @@ import java.awt.*;
  * Time: 12:54:36
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AntwortPanel extends JPanel {
+public abstract class AntwortPanel extends JPanel { //FormDebugPanel {
   private int[] values;
+
+  public abstract int getNumAnswers();
+  public abstract AntwortTextField getAntwortTextField(int index);
+  protected abstract void setup();
+  protected abstract boolean isInValue(char answer);
 
   public AntwortPanel() {
     super();
     setup();
-  }
-
-  public abstract int getNumAnswers();
-
-  public abstract void setup();
-
-  public AntwortTextField getAntwortTextField(int index) {
-    if (index >= 0 && index < getNumAnswers()) {
-      Component c = getComponent(index + 9);
-      if (c instanceof AntwortTextField)
-        return (AntwortTextField) getComponent(index + 9);
-    }
-    return null;
   }
 
   public void reset() {
@@ -59,11 +51,6 @@ public abstract class AntwortPanel extends JPanel {
         atf.setText(values[atf.getIndex()] + "");
       }
     }
-  }
-
-  private boolean isInValue(char answer) {
-    if (answer == 'A' || answer == 'B' || answer == 'C' || answer == ' ') return true;
-    return false;
   }
 
   public boolean isFullyFilled() {

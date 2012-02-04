@@ -5,6 +5,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,10 +22,10 @@ public class WFAAntwortPanel extends AntwortPanel {
     return NUM_ANSWERS;
   }
 
-  public void setup() {
+  protected void setup() {
     FormLayout layout = new FormLayout(
         "6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow," +
-            "6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu",
+            "6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,12dlu",
         "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu"
     );
     setLayout(layout);
@@ -56,5 +57,19 @@ public class WFAAntwortPanel extends AntwortPanel {
         add(new AntwortTextField("", k++), cc.xy(i, j));
       }
     }
+  }
+
+  public AntwortTextField getAntwortTextField(int index) {
+    if (index >= 0 && index < getNumAnswers()) {
+      Component c = getComponent(index + 15);
+      if (c instanceof AntwortTextField)
+        return (AntwortTextField) c;
+    }
+    return null;
+  }
+
+  protected boolean isInValue(char answer) {
+    if (answer == 'A' || answer == 'B' || answer == 'C' || answer == 'D' || answer == ' ') return true;
+    return false;
   }
 }

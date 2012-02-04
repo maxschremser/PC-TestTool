@@ -49,26 +49,14 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
   private JDialog dialog;
 
   public abstract String getImageName();
-
   public abstract String getFavicon();
-
   public abstract FragebogenPanel getFragebogenPanel();
 
   public TestToolFrame(String title) throws HeadlessException {
     super(title);
     props.setOwner(this);
     setup();
-//    test();
     pack();
-  }
-
-
-  private void test() {
-    getFragebogenPanel().getFragebogenList().add("LFV I", 7, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
-    getFragebogenPanel().getFragebogenList().add("LFV II", 5, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
-    getFragebogenPanel().getFragebogenList().add("LFV III", 2, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
-    getFragebogenPanel().getFragebogenList().add("LFV IV", 3, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
-    getFragebogenPanel().getFragebogenList().add("LFV V", 5, new int[]{3, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 2, 3, 2, 1, 2, 3, 2});
   }
 
   private void setup() {

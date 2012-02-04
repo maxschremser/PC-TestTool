@@ -105,6 +105,8 @@ public class AntwortTextField extends JTextField implements IConfig {
                         answer = 'B';
                     } else if (value == 3) {
                         answer = 'C';
+                    } else if (value == 4) {
+                        answer = 'D';
                     } else {
                         value = 0;
                         answer = ' ';
@@ -121,6 +123,9 @@ public class AntwortTextField extends JTextField implements IConfig {
                     } else if (newString.equalsIgnoreCase("C")) {
                         answer = 'C';
                         value = 3;
+                    } else if (newString.equalsIgnoreCase("D")) {
+                        answer = 'D';
+                        value = 4;
                     } else {
                         answer = ' ';
                         value = 0;
@@ -199,6 +204,7 @@ public class AntwortTextField extends JTextField implements IConfig {
         if (answer == 'A') return 1;
         else if (answer == 'B') return 2;
         else if (answer == 'C') return 3;
+        else if (answer == 'D') return 4;
         return 0;
     }
 
@@ -206,6 +212,7 @@ public class AntwortTextField extends JTextField implements IConfig {
         if (value == 1) return 'A';
         else if (value == 2) return 'B';
         else if (value == 3) return 'C';
+        else if (value == 4) return 'D';
         return ' ';
     }
 }

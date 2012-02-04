@@ -1,6 +1,8 @@
 package at.oefg1880.swing.panel;
 
+import at.oefg1880.swing.dialog.AntwortDialog;
 import at.oefg1880.swing.dialog.FragebogenDialog;
+import at.oefg1880.swing.dialog.OEFGAntwortDialog;
 import at.oefg1880.swing.dialog.OEFGFragebogenDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.list.Fragebogen;
@@ -35,4 +37,8 @@ public class OEFGFragebogenPanel extends FragebogenPanel {
     return fragebogenDialog;
   }
 
+  @Override
+  public AntwortDialog getAntwortDialog(Fragebogen fragebogen) {
+    return new OEFGAntwortDialog(frame, "Neue Antworten hinzufügen ...", fragebogen);
+  }
 }

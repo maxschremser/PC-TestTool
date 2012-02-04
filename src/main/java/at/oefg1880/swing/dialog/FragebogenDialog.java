@@ -39,14 +39,13 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
   private final Logger log = Logger.getLogger(FragebogenDialog.class);
 
   public abstract AntwortPanel getAntwortPanel();
-
   public abstract AntwortList getAntwortList();
 
   public FragebogenDialog(TestToolFrame frame, String title) {
     super(frame, title, true);
     this.frame = frame;
     FormLayout layout = new FormLayout(
-        "6dlu,pref,6dlu,49dlu,6dlu",
+        "6dlu,pref,6dlu,64dlu,6dlu",
         "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
 
     builder = new PanelBuilder(layout);
@@ -59,11 +58,11 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     FormLayout layout;
     if (fragebogen != null && fragebogen.getSolved() > 0) {
       layout = new FormLayout(
-          "6dlu,pref,6dlu,49dlu,6dlu",
+          "6dlu,pref,6dlu,64dlu,6dlu",
           "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
     } else {
       layout = new FormLayout(
-          "6dlu,pref,6dlu,49dlu,6dlu",
+          "6dlu,pref,6dlu,64dlu,6dlu",
           "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
     }
 
@@ -150,7 +149,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     gradientPanel.add(builder.getPanel());
     getContentPane().add(gradientPanel);
     pack();
-    setResizable(false);
+    setResizable(true);
   }
 
 

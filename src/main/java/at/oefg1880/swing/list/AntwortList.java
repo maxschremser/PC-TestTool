@@ -82,7 +82,7 @@ public abstract class AntwortList extends JList implements ActionListener {
             createEditAntwortDialog((Antwort) getSelectedValue());
         } else if (key == KeyEvent.VK_DELETE) {
           String title = ((Antwort) getSelectedValue()).getName();
-          int n = frame.showDeleteFragebogenDialog(frame.getFragebogenPanel().getAntwortDialog(), "Wirklich '" + title + "' löschen ?", "Löschen");
+          int n = frame.showDeleteFragebogenDialog(frame.getFragebogenPanel().getAntwortDialog(fragebogen), "Wirklich '" + title + "' löschen ?", "Löschen");
           if (n == JOptionPane.OK_OPTION) // JA
             model.remove(getSelectedIndex());
         } else {
