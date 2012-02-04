@@ -12,10 +12,7 @@ import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -61,6 +58,17 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     // we are now using the Dissolver to fade out the frame
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     setIconImage(new ImageIcon(getClass().getClassLoader().getResource("resources/oefg_favicon.gif")).getImage());
+    addKeyListener(new KeyAdapter() {
+      public void keyTyped(KeyEvent e) {
+        if (e.getKeyChar() == KeyEvent.VK_1) {
+          new OEFGTestToolFrame(ResourceHandler.getInstance().getString(OEFGTestToolFrame.class.getName() + "." + TITLE));
+          dispose();
+        } else if (e.getKeyChar() == KeyEvent.VK_2) {
+          new WFATestToolFrame(ResourceHandler.getInstance().getString(WFATestToolFrame.class.getName() + "." + TITLE));
+          dispose();
+        }
+      }
+    });
     pack();
     setResizable(false);
     setVisible(true);
