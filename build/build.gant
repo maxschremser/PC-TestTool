@@ -7,7 +7,7 @@ property(file: 'build.properties')
 includeTool << gant.tools.Ivy
 
 // CLEAN TARGET ---------------------------------------------------------------
-target (clean: "Clean Environment") {
+target(clean: "Clean Environment") {
   ant.echo("Clean Environment");
   ant.delete(failonerror: false, dir: CLASSES_RESOURCE_DIR)
   ant.delete(failonerror: false, dir: CLASSES_DIR)
@@ -34,50 +34,50 @@ target (clean: "Clean Environment") {
 }
 
 // COMPILE.PREPARE TARGET -------------------------------------------------------------
-target (compile_prepare: "Prepare Compile Environment ") {
-   depends(clean)
-    ant.echo("Prepare Compile Environment");
-   ivy.settings(file: 'ivysettings.xml')
-   ivy.retrieve(sync: 'true', pattern: BASE_DIR + '/target/[conf]/[artifact]-[revision].[ext]', type: 'jar' )
-   ivy.report(todir: BASE_DIR + '/target/buildDataDir')
+target(compile_prepare: "Prepare Compile Environment ") {
+  depends(clean)
+  ant.echo("Prepare Compile Environment");
+  ivy.settings(file: 'ivysettings.xml')
+  ivy.retrieve(sync: 'true', pattern: BASE_DIR + '/target/[conf]/[artifact]-[revision].[ext]', type: 'jar')
+  ivy.report(todir: BASE_DIR + '/target/buildDataDir')
 }
 
 // COMPILE TARGET -------------------------------------------------------------
-target (compile: "Compile Environment to /classes") {
-   depends(compile_prepare)
-   def javaCompileClasspath = ant.path {
-     fileset(dir: COMPILE_DIR) {include(name: '*.jar')}
-   }
-   ant.javac(destdir: CLASSES_DIR, srcdir: SRC_DIR,
-    classpath: javaCompileClasspath)
-   ant.copy(todir: CLASSES_DIR) {
-     fileset(dir: SRC_DIR) {include(name: '**/*.properties')}
-   }
-   ant.copy(todir: CLASSES_RESOURCE_DIR) {
-     fileset(dir: SRC_RESOURCE_DIR){include(name: '**/*.properties')}
-     fileset(dir: SRC_RESOURCE_DIR){include(name: '**/*.gif')}
-   }
+target(compile: "Compile Environment to /classes") {
+  depends(compile_prepare)
+  def javaCompileClasspath = ant.path {
+    fileset(dir: COMPILE_DIR) {include(name: '*.jar')}
+  }
+  ant.javac(destdir: CLASSES_DIR, srcdir: SRC_DIR,
+      classpath: javaCompileClasspath)
+  ant.copy(todir: CLASSES_DIR) {
+    fileset(dir: SRC_DIR) {include(name: '**/*.properties')}
+  }
+  ant.copy(todir: CLASSES_RESOURCE_DIR) {
+    fileset(dir: SRC_RESOURCE_DIR) {include(name: '**/*.properties')}
+    fileset(dir: SRC_RESOURCE_DIR) {include(name: '**/*.gif')}
+  }
 }
 
 // JAR TARGET -----------------------------------------------------------------
-target (jar: """Create JAR File containing classes from CLASSES_DIR and reources from SRC_DIR""") {
+target(jar: """Create JAR File containing classes from CLASSES_DIR and reources from SRC_DIR""") {
   depends(compile);
 
   def jarfiles = "";
-  fileset(dir: COMPILE_DIR) {include(name: '*.jar')}.each{jarfiles += ' ' + it.name;}
-  fileset(dir: LIB_DIR) {include(name: '*.jar')}.each{jarfiles += ' ' + it.name;}
+  fileset(dir: COMPILE_DIR) {include(name: '*.jar')}.each {jarfiles += ' ' + it.name;}
+  fileset(dir: LIB_DIR) {include(name: '*.jar')}.each {jarfiles += ' ' + it.name;}
 
-  ant.manifest ( file : META_DIR + '/MANIFEST.MF' ) {
-    attribute ( name : 'Built-By' , value : System.properties.'user.name' )
-    attribute ( name : 'Extension-Name' , value : 'gant' )
-    attribute ( name : 'Specification-Title' , value : 'TestTool, used to create and solve Testcases' )
-    attribute ( name : 'Main-Class' , value : 'at.oefg1880.swing.TestTool' )
-    attribute ( name : 'Class-Path' , value : jarfiles )
+  ant.manifest(file: META_DIR + '/MANIFEST.MF') {
+    attribute(name: 'Built-By', value: System.properties.'user.name')
+    attribute(name: 'Extension-Name', value: 'gant')
+    attribute(name: 'Specification-Title', value: 'TestTool, used to create and solve Testcases')
+    attribute(name: 'Main-Class', value: 'at.oefg1880.swing.TestTool')
+    attribute(name: 'Class-Path', value: jarfiles)
   }
 
   ant.jar(jarfile: LIB_DIR + '/' + JAR_FILE,
       basedir: CLASSES_DIR, includes: "**/**",
-      manifest : META_DIR + '/MANIFEST.MF')
+      manifest: META_DIR + '/MANIFEST.MF')
 
   // create run.bat
   def f = new File(APP_DIR + '/run.bat')
@@ -86,8 +86,8 @@ target (jar: """Create JAR File containing classes from CLASSES_DIR and reources
 
   // copy all jars to app/lib
   ant.copy(todir: APP_LIB_DIR) {
-    fileset(dir: COMPILE_DIR){include(name: '*.jar')}
-    fileset(dir: LIB_DIR){include(name: '*.jar')}
+    fileset(dir: COMPILE_DIR) {include(name: '*.jar')}
+    fileset(dir: LIB_DIR) {include(name: '*.jar')}
   }
 
   // create zip file with all jars (unsigned ones)
@@ -96,18 +96,18 @@ target (jar: """Create JAR File containing classes from CLASSES_DIR and reources
   }
 }
 
-target (webstart: "Create a WebStart project") {
+target(webstart: "Create a WebStart project") {
   depends(jar);
 
   // sign the jars to web/lib for JavaWebStart permissions
   // keystore must exist in current directory
   // create a keystore using:$> keytool -genkey -keystore keystore -alias TestTool
   ant.signjar(
-          alias: APP_NAME,
-          keystore: 'keystore',
-          storepass: 'weed4me2',
-          keypass: 'weed4me2',
-          destDir: WEB_LIB_DIR) {
+      alias: APP_NAME,
+      keystore: 'keystore',
+      storepass: 'changeit',
+      keypass: 'changeit',
+      destDir: WEB_LIB_DIR) {
     fileset(dir: LIB_DIR) {include(name: '*.jar')}
     fileset(dir: COMPILE_DIR) {include(name: '*.jar')}
   }
@@ -132,8 +132,8 @@ target (webstart: "Create a WebStart project") {
 """);
 
   def jarfiles = "";
-  fileset(dir: LIB_DIR) {include(name: '*.jar')}.each{jarfiles += '    <jar href=\"lib/' + it.name + "\"/>\r\n";}
-  fileset(dir: COMPILE_DIR) {include(name: '*.jar')}.each{jarfiles += '    <jar href=\"lib/' + it.name + "\"/>\r\n";}
+  fileset(dir: LIB_DIR) {include(name: '*.jar')}.each {jarfiles += '    <jar href=\"lib/' + it.name + "\"/>\r\n";}
+  fileset(dir: COMPILE_DIR) {include(name: '*.jar')}.each {jarfiles += '    <jar href=\"lib/' + it.name + "\"/>\r\n";}
 
   f.append(jarfiles);
 
@@ -142,7 +142,7 @@ target (webstart: "Create a WebStart project") {
 </jnlp>""")
 }
 
-target(war: "Create a WAR archive for WebStart"){
+target(war: "Create a WAR archive for WebStart") {
   depends(webstart)
 
   // create a html page for the testtool launch
@@ -174,7 +174,7 @@ target(war: "Create a WAR archive for WebStart"){
 """);
 
   // create a war file with the html page, jnlp file, TestTool.jar + depending jars
-  ant.war(warfile:WAR_DIR + WAR_FILE, needxmlfile:'false') {
+  ant.war(warfile: WAR_DIR + WAR_FILE, needxmlfile: 'false') {
     fileset(dir: WEB_DIR) {
       include(name: '**/*.html')
       include(name: '**/*.jar')
@@ -193,29 +193,28 @@ target(war: "Create a WAR archive for WebStart"){
   incrementVersion();
 }
 
-
 // COMPILE-TEST TARGET --------------------------------------------------------
-target (compile_test: "Compile Test Sources for JUnit Tests") {
+target(compile_test: "Compile Test Sources for JUnit Tests") {
   depends(compile)
   def javaCompileClasspath = ant.path {
     fileset(dir: LIB_DIR) {include(name: '*.jar')}
   }
   ant.javac(destdir: CLASSES_DIR, srcdir: TEST_DIR,
-   classpath: javaCompileClasspath)
+      classpath: javaCompileClasspath)
 }
 
-target (junit: "Run JUnit Tests matching 'Test*.groovy'") {
+target(junit: "Run JUnit Tests matching 'Test*.groovy'") {
   depends(compile_test)
   junit()
 }
 
-target (run: "Run TestTool jar file") {
+target(run: "Run TestTool jar file") {
   depends(jar);
-  ant.java(jar: APP_LIB_DIR + '/' + JAR_FILE, fork: true, spawn: true){}
+  ant.java(jar: APP_LIB_DIR + '/' + JAR_FILE, fork: true, spawn: true) {}
 }
 
-target (incrementVersion: "schreib ins propertyfile") {
-  def min = Integer.valueOf(MINOR).intValue()+1;
+target(incrementVersion: "schreib ins propertyfile") {
+  def min = Integer.valueOf(MINOR).intValue() + 1;
   def file = new File("build.properties");
   def newfile = new File("build2.properties");
   newfile.deleteOnExit();
@@ -224,10 +223,10 @@ target (incrementVersion: "schreib ins propertyfile") {
     if (it =~ 'MINOR:*') it = "MINOR:" + min;
     newfile << it + "\n";
   }
-  ant.move (file: newfile.getName(), tofile: file.getName());
+  ant.move(file: newfile.getName(), tofile: file.getName());
 }
 
-target (lib: "whoever needs that") {
+target(lib: "whoever needs that") {
   ant.echo("Wer will das ?");
 }
 // DEFAULT TARGET -------------------------------------------------------------
