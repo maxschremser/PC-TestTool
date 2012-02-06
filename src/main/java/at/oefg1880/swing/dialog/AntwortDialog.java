@@ -33,32 +33,31 @@ import java.beans.PropertyChangeListener;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class AntwortDialog extends JDialog implements ActionListener, PropertyChangeListener, IConfig {
-  TestToolFrame frame;
-  JTextField tfName;
-  AntwortPanel antwortPanel;
-  Fragebogen fragebogen;
-  Antwort antwort;
-  ButtonGroup bgGeschlecht, bgAlter;
-  DefaultPieDataset dataset;
-  int correctAnswers = 0;
-  JFreeChart chart;
-  JButton saveButton;
-  JRadioButton rbM, rbW, rb1115, rb1620, rb2130, rb30;
+  private TestToolFrame frame;
+  private JTextField tfName;
+  private AntwortPanel antwortPanel;
+  private Fragebogen fragebogen;
+  private Antwort antwort;
+  private ButtonGroup bgGeschlecht, bgAlter;
+  private DefaultPieDataset dataset;
+  private int correctAnswers = 0;
+  private JFreeChart chart;
+  private JButton saveButton;
+  private JRadioButton rbM, rbW, rb1115, rb1620, rb2130, rb30;
 
-  final String SAVE = "update";
-  final String CORRECT = "Richtig";
-  final String WRONG = "Falsch";
+  private final String SAVE = "update";
+  private final String CORRECT = "Richtig";
+  private final String WRONG = "Falsch";
 
-  final String MASCULIN = "Männlich";
-  final String FEMININ = "Weiblich";
+  private final String MASCULIN = "Männlich";
+  private final String FEMININ = "Weiblich";
 
-  final String _1115 = "11-15";
-  final String _1620 = "16-20";
-  final String _2130 = "21-30";
-  final String _30 = "30+  ";
+  private final String _1115 = "11-15";
+  private final String _1620 = "16-20";
+  private final String _2130 = "21-30";
+  private final String _30 = "30+  ";
 
   public abstract AntwortPanel getAntwortPanel();
-
 
   // New Answers given by user
 
@@ -291,7 +290,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
             }
           }
         }
-        int iPercentage = 100/antwortPanel.getNumAnswers();
+        int iPercentage = 100 / antwortPanel.getNumAnswers();
         dataset.setValue(CORRECT, correctAnswers * iPercentage);
         dataset.setValue(WRONG, (20 - correctAnswers) * iPercentage);
         chart.setTitle(correctAnswers * iPercentage + "%");

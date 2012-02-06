@@ -28,6 +28,7 @@ public class OEFGFragebogenDialog extends FragebogenDialog {
     return new OEFGAntwortPanel();
   }
 
+  @Override
   public AntwortList getAntwortList() {
     if (list == null) {
       list = new OEFGAntwortList(frame, fragebogen);

@@ -41,6 +41,8 @@ public abstract class AntwortList extends JList implements ActionListener, IText
     listSelectionForeground = new Color(255, 255, 255);
   }
 
+  protected abstract void createEditAntwortDialog(Antwort antwort);
+
   public AntwortList(TestToolFrame frame, Fragebogen fragebogen) {
     super();
     this.frame = frame;
@@ -132,8 +134,6 @@ public abstract class AntwortList extends JList implements ActionListener, IText
       model.addElement(antwort);
     }
   }
-
-  protected abstract void createEditAntwortDialog(Antwort antwort);
 
   @Override
   public void actionPerformed(ActionEvent e) {

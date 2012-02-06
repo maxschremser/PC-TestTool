@@ -22,6 +22,7 @@ public class OEFGAntwortPanel extends AntwortPanel {
     return NUM_ANSWERS;
   }
 
+  @Override
   protected void setup() {
     FormLayout layout = new FormLayout(
         "6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu",
@@ -50,6 +51,7 @@ public class OEFGAntwortPanel extends AntwortPanel {
     }
   }
 
+  @Override
   public AntwortTextField getAntwortTextField(int index) {
     if (index >= 0 && index < getNumAnswers()) {
       Component c = getComponent(index + 9);
@@ -59,10 +61,9 @@ public class OEFGAntwortPanel extends AntwortPanel {
     return null;
   }
 
+  @Override
   protected boolean isInValue(char answer) {
     if (answer == 'A' || answer == 'B' || answer == 'C' || answer == ' ') return true;
     return false;
   }
-
-
 }

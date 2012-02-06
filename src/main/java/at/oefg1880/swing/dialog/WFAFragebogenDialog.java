@@ -28,6 +28,7 @@ public class WFAFragebogenDialog extends FragebogenDialog {
     return new WFAAntwortPanel();
   }
 
+  @Override
   public AntwortList getAntwortList() {
     if (list == null) {
       list = new WFAAntwortList(frame, fragebogen);

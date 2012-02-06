@@ -2,12 +2,10 @@ package at.oefg1880.swing.frame;
 
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
-import at.oefg1880.swing.list.Antwort;
 import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.ImagePanel;
-import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
@@ -16,8 +14,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,9 +25,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Enumeration;
-import java.util.GregorianCalendar;
 
 /**
  * Created by IntelliJ IDEA.
@@ -40,11 +37,11 @@ import java.util.GregorianCalendar;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class TestToolFrame extends SheetableFrame implements ITexts, IConfig {
-  private ImagePanel imagePanel;
   protected FragebogenPanel fragebogenPanel;
+  protected final Logger log = Logger.getLogger(TestToolFrame.class);
   private PropertyHandler props = PropertyHandler.getInstance();
+  private ImagePanel imagePanel;
   private ResourceHandler rh = ResourceHandler.getInstance();
-  private final Logger log = Logger.getLogger(TestToolFrame.class);
   private int returnValue;
   private JDialog dialog;
 
@@ -53,6 +50,10 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
   public abstract String getFavicon();
 
   public abstract FragebogenPanel getFragebogenPanel();
+
+  public abstract void exportFragebogen(Workbook wb, Fragebogen f);
+
+  public abstract String getFragebogenName();
 
   public TestToolFrame(String title) throws HeadlessException {
     super(title);
@@ -150,9 +151,11 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
   public void exportData() {
     try {
       Workbook wb = new HSSFWorkbook();
-      Calendar cal = new GregorianCalendar();
-      String date = "" + cal.get(Calendar.YEAR) + cal.get(Calendar.MONTH) + cal.get(Calendar.DAY_OF_MONTH);
-      File file = new File("TestTool-" + date + ".xls");
+      Calendar cal = Calendar.getInstance();
+      final String DATE_FORMAT = "yyyyMMdd";
+      SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+      String date = sdf.format(cal.getTime());
+      File file = new File(getFragebogenName() + "-" + date + ".xls");
       file.createNewFile();
       log.info("Saved at: " + file.getAbsolutePath());
       FileOutputStream fos = new FileOutputStream(file);
@@ -160,108 +163,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
       Enumeration<Fragebogen> enums = (Enumeration<Fragebogen>) model.elements();
       while (enums.hasMoreElements()) {
         Fragebogen f = enums.nextElement();
-        Sheet sheet = wb.createSheet(f.getTitle());
-        CellStyle boldStyle = wb.createCellStyle();
-        Font font = wb.createFont();
-        font.setBoldweight(Font.BOLDWEIGHT_BOLD);
-        boldStyle.setFont(font);
-
-        // Title
-        Row row = sheet.createRow(0);
-        Cell cell = row.createCell(0);
-        cell.setCellValue(f.getTitle());
-        cell.setCellStyle(boldStyle);
-        // Lösungen
-        row = sheet.createRow(2);
-        cell = row.createCell(0);
-        cell.setCellValue("Lösungen");
-        cell.setCellStyle(boldStyle);
-
-        int c = 4;
-        cell = row.createCell(c++);
-        cell.setCellValue("A1");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("A2");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("A3");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("A4");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("A5");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("B1");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("B2");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("B3");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("B4");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("B5");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("C1");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("C2");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("C3");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("C4");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("C5");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("D1");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("D2");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("D3");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("D4");
-        cell.setCellStyle(boldStyle);
-        cell = row.createCell(c++);
-        cell.setCellValue("D5");
-        cell.setCellStyle(boldStyle);
-
-        row = sheet.createRow(3);
-        int i = 4;
-        for (int v : f.getSolutions()) {
-          row.createCell(i++).setCellValue(AntwortTextField.translate(v) + "");
-        }
-
-        row = sheet.createRow(5);
-        cell = row.createCell(0);
-        cell.setCellValue("Antworten");
-        cell.setCellStyle(boldStyle);
-        // Antworten
-        int r = 6;
-        for (Antwort a : f.getAntworten()) {
-          row = sheet.createRow(r++);
-          row.createCell(0).setCellValue(a.getName());
-          row.createCell(1).setCellValue(a.getAlter());
-          row.createCell(2).setCellValue(a.getGeschlecht());
-          row.createCell(3).setCellValue(a.getPercentages() + "%");
-          i = 4;
-          for (int v : a.getAnswers()) {
-            row.createCell(i++).setCellValue((AntwortTextField.translate(v) + ""));
-          }
-        }
+        exportFragebogen(wb, f);
       }
       wb.write(fos);
       fos.close();
