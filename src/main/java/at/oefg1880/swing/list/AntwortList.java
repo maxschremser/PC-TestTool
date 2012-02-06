@@ -88,7 +88,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
             createEditAntwortDialog((Antwort) getSelectedValue());
         } else if (key == KeyEvent.VK_DELETE) {
           String title = ((Antwort) getSelectedValue()).getName();
-          int n = frame.showDeleteFragebogenDialog(frame.getFragebogenPanel().getAntwortDialog(fragebogen), "Wirklich '" + title + "' löschen ?", "Löschen");
+          int n = frame.showDeleteFragebogenDialog(frame.getFragebogenPanel().getAntwortDialog(fragebogen), rh.getString(getClass(), QUESTION_DELETE, new String[]{title}), rh.getString(getClass(), DELETE));
           if (n == JOptionPane.OK_OPTION) // JA
             model.remove(getSelectedIndex());
         } else {
@@ -142,7 +142,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
     } else if (e.getSource() == menuDelete) {
       Antwort antwort = (Antwort) getSelectedValue();
       String name = antwort.getName();
-      int n = JOptionPane.showOptionDialog(frame, "Wirklich '" + name + "' löschen ?", "Löschen",
+      int n = JOptionPane.showOptionDialog(frame, rh.getString(getClass(), QUESTION_DELETE, new String[]{name}), rh.getString(getClass(), DELETE),
           JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ja", "Nein"}, "Ja");
       if (n == 0) { // JA
         model.remove(getSelectedIndex());

@@ -44,12 +44,14 @@ public interface ITexts {
   public static final String FEMININ = "feminin";
   public static final String AGE_11_15 = "age_11_15";
   public static final String AGE_16_20 = "age_16_20";
-  public static final String AGE_21_30 = "age_31_30";
+  public static final String AGE_21_30 = "age_21_30";
   public static final String AGE_30_PLUS = "age_30_plus";
   public static final String NAME = "name";
   public static final String SEX = "sex";
   public static final String AGE = "age";
   public static final String ANSWERS = "answers";
 
+  public static final String YES = "yes";
+  public static final String NO = "no";
   public static final String DIALOG_CREATE_DIR = "dialog_create_dir";
 }
