@@ -1,8 +1,10 @@
 package at.oefg1880.swing.list;
 
 import at.oefg1880.swing.IConfig;
+import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.panel.GradientPanel;
+import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.apache.log4j.Logger;
@@ -18,15 +20,17 @@ import java.awt.event.*;
  * Time: 14:32:28
  * To change this template use File | Settings | File Templates.
  */
-public class FragebogenList extends JList implements ActionListener, IConfig {
-  GradientPanel cell;
-  JLabel labelTitle, labelVorhanden, labelGeloest, labelOffen,
+public class FragebogenList extends JList implements ActionListener, IConfig, ITexts {
+  private ResourceHandler rh = ResourceHandler.getInstance();
+
+  private GradientPanel cell;
+  private JLabel labelTitle, labelVorhanden, labelGeloest, labelOffen,
       labelTextVorhanden, labelTextGeloest, labelTextOffen;
-  static Color listForeground, listBackground, listSelectionForeground, listSelectionBackground;
-  DefaultListModel model;
-  TestToolFrame frame;
-  JPopupMenu menu;
-  JMenuItem menuEdit, menuDelete;
+  private static Color listForeground, listBackground, listSelectionForeground, listSelectionBackground;
+  private DefaultListModel model;
+  private TestToolFrame frame;
+  private JPopupMenu menu;
+  private JMenuItem menuEdit, menuDelete;
   private static Logger log = Logger.getLogger(FragebogenList.class);
 
   static {
@@ -46,9 +50,9 @@ public class FragebogenList extends JList implements ActionListener, IConfig {
   private void setup() {
     menu = new JPopupMenu();
     menu.setBorderPainted(true);
-    menu.add(menuEdit = new JMenuItem("Bearbeiten"));
+    menu.add(menuEdit = new JMenuItem(rh.getString(getClass(), EDIT)));
     menuEdit.addActionListener(this);
-    menu.add(menuDelete = new JMenuItem("Löschen"));
+    menu.add(menuDelete = new JMenuItem(rh.getString(getClass(), DELETE)));
     menuDelete.addActionListener(this);
     addMouseListener(new MouseAdapter() {
       @Override
@@ -83,7 +87,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig {
             frame.exportData();
         } else if (key == KeyEvent.VK_DELETE) {
           String title = ((Fragebogen) getSelectedValue()).getTitle();
-          int n = frame.showDeleteFragebogenDialog(frame.getFragebogenPanel().getFragebogenList(), "Wirklich '" + title + "' löschen ?", "Löschen");
+          int n = frame.showDeleteFragebogenDialog(frame.getFragebogenPanel().getFragebogenList(), rh.getString(getClass(), QUESTION_DELETE, new String[]{title}), rh.getString(getClass(), DELETE));
           if (n == JOptionPane.OK_OPTION) // JA
             model.remove(getSelectedIndex());
         } else {
@@ -117,9 +121,9 @@ public class FragebogenList extends JList implements ActionListener, IConfig {
     labelGeloest = new JLabel();
     labelOffen = new JLabel();
 
-    labelTextVorhanden = new JLabel("Vorhanden:");
-    labelTextGeloest = new JLabel("Gelöst:");
-    labelTextOffen = new JLabel("Offen:");
+    labelTextVorhanden = new JLabel(rh.getString(getClass(), AVAILABLE));
+    labelTextGeloest = new JLabel(rh.getString(getClass(), SOLVED));
+    labelTextOffen = new JLabel(rh.getString(getClass(), OPENED));
 
     cell.add(labelTitle, cc.xywh(2, 2, 11, 1));
     cell.add(labelTextVorhanden, cc.xy(2, 4));
@@ -152,7 +156,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig {
       frame.getFragebogenPanel().editFragebogenDialog((Fragebogen) getSelectedValue());
     } else if (e.getSource() == menuDelete) {
       String title = ((Fragebogen) getSelectedValue()).getTitle();
-      int n = frame.showDeleteFragebogenDialog(this, "Wirklich '" + title + "' löschen ?", "Löschen");
+      int n = frame.showDeleteFragebogenDialog(this, rh.getString(getClass(), QUESTION_DELETE, new String[]{title}), rh.getString(getClass(), DELETE));
       if (n == 0) // JA
         model.remove(getSelectedIndex());
       if (model.getSize() <= 0)

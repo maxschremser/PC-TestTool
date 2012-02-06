@@ -61,10 +61,10 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     addKeyListener(new KeyAdapter() {
       public void keyTyped(KeyEvent e) {
         if (e.getKeyChar() == KeyEvent.VK_1) {
-          new OEFGTestToolFrame(ResourceHandler.getInstance().getString(OEFGTestToolFrame.class.getName() + "." + TITLE));
+          new OEFGTestToolFrame(rh.getString(OEFGTestToolFrame.class, TITLE));
           dispose();
         } else if (e.getKeyChar() == KeyEvent.VK_2) {
-          new WFATestToolFrame(ResourceHandler.getInstance().getString(WFATestToolFrame.class.getName() + "." + TITLE));
+          new WFATestToolFrame(rh.getString(WFATestToolFrame.class, TITLE));
           dispose();
         }
       }
@@ -81,7 +81,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
       oefgImagePanel.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          new OEFGTestToolFrame(ResourceHandler.getInstance().getString(OEFGTestToolFrame.class.getName() + "." + TITLE));
+          new OEFGTestToolFrame(rh.getString(OEFGTestToolFrame.class, TITLE));
           dispose();
         }
 
@@ -106,7 +106,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
       wfaImagePanel.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          new WFATestToolFrame(ResourceHandler.getInstance().getString(WFATestToolFrame.class.getName() + "." + TITLE));
+          new WFATestToolFrame(rh.getString(WFATestToolFrame.class, TITLE));
           dispose();
         }
 

@@ -29,14 +29,16 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
   protected TestToolFrame frame;
   protected FragebogenDialog fragebogenDialog;
   protected AntwortDialog antwortDialog;
-  private PropertyHandler props = PropertyHandler.getInstance();
-  private ResourceHandler rh = ResourceHandler.getInstance();
+  protected PropertyHandler props = PropertyHandler.getInstance();
+  protected ResourceHandler rh = ResourceHandler.getInstance();
   private FragebogenList list;
   private final String NEW = "new", SPEICHERN = "speichern";
   private JButton buttonSpeichern;
 
   public abstract JDialog createNewFragebogenDialog();
+
   public abstract FragebogenDialog editFragebogenDialog(Fragebogen fragebogen);
+
   public abstract AntwortDialog getAntwortDialog(Fragebogen fragebogen);
 
   public FragebogenPanel(TestToolFrame frame) {
@@ -49,13 +51,13 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     FormLayout layout = new FormLayout("6dlu,pref:grow,6dlu,pref,6dlu", "6dlu,pref,6dlu,pref,6dlu");
     setLayout(layout);
     CellConstraints cc = new CellConstraints();
-    add(new JLabel("Fragebogen"), cc.xy(2, 2));
-    JButton buttonNew = new JButton("Neu...");
+    add(new JLabel(rh.getString(getClass(), LABEL)), cc.xy(2, 2));
+    JButton buttonNew = new JButton(rh.getString(getClass(), BUTTON_NEW));
     buttonNew.addActionListener(this);
     buttonNew.setActionCommand(NEW);
     buttonNew.setFocusable(false);
     buttonNew.setMnemonic('N');
-    buttonSpeichern = new JButton("Speichern");
+    buttonSpeichern = new JButton(rh.getString(getClass(), BUTTON_SAVE));
     buttonSpeichern.addActionListener(this);
     buttonSpeichern.setActionCommand(SPEICHERN);
     buttonSpeichern.setFocusable(false);

@@ -1,6 +1,7 @@
 package at.oefg1880.swing.dialog;
 
 import at.oefg1880.swing.IConfig;
+import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.document.FilterTextDocument;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.list.AntwortList;
@@ -8,6 +9,7 @@ import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.list.FragebogenList;
 import at.oefg1880.swing.panel.AntwortPanel;
 import at.oefg1880.swing.panel.GradientPanel;
+import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -24,21 +26,23 @@ import java.awt.event.*;
  * Time: 13:21:52
  * To change this template use File | Settings | File Templates.
  */
-public abstract class FragebogenDialog extends JDialog implements ActionListener, IConfig {
-  TestToolFrame frame;
-  JTextField textFieldName;
-  JTextField spinnerEditorField;
-  JSpinner spinner;
-  AntwortPanel answerPanel;
-  Fragebogen fragebogen;
-  PanelBuilder builder;
-  JButton button;
-  AntwortList list;
-  final String SAVE = "save";
-  final String UPDATE = "update";
+public abstract class FragebogenDialog extends JDialog implements ActionListener, IConfig, ITexts {
+  protected ResourceHandler rh = ResourceHandler.getInstance();
+  protected TestToolFrame frame;
+  protected Fragebogen fragebogen;
+  protected AntwortList list;
+  private JTextField textFieldName;
+  private JTextField spinnerEditorField;
+  private JSpinner spinner;
+  private AntwortPanel answerPanel;
+  private PanelBuilder builder;
+  private JButton button;
+  private final String SAVE = "save";
+  private final String UPDATE = "update";
   private final Logger log = Logger.getLogger(FragebogenDialog.class);
 
   public abstract AntwortPanel getAntwortPanel();
+
   public abstract AntwortList getAntwortList();
 
   public FragebogenDialog(TestToolFrame frame, String title) {
@@ -113,7 +117,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
         }
       }
     });
-    button = new JButton("Speichern");
+    button = new JButton(rh.getString(getClass(), BUTTON_SAVE));
     button.addActionListener(this);
     button.addKeyListener(new KeyAdapter() {
       @Override
@@ -126,18 +130,18 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     button.setEnabled(false);
     answerPanel = getAntwortPanel();
 
-    builder.addSeparator("Fragebogen", cc.xywh(2, 2, 3, 1));
-    builder.addLabel("Name", cc.xy(2, 4));
-    builder.addLabel("Wieviele Fragebögen werden ausgeteilt ?", cc.xy(2, 6));
+    builder.addSeparator(rh.getString(getClass(), LABEL_FRAGEBOGEN), cc.xywh(2, 2, 3, 1));
+    builder.addLabel(rh.getString(getClass(), LABEL_NAME), cc.xy(2, 4));
+    builder.addLabel(rh.getString(getClass(), QUESTION_FRAGEBOGEN), cc.xy(2, 6));
     builder.add(textFieldName, cc.xy(4, 4));
     builder.add(spinner, cc.xy(4, 6));
-    builder.addSeparator("Lösungen", cc.xywh(2, 8, 3, 1));
+    builder.addSeparator(rh.getString(getClass(), LABEL_SOLUTION), cc.xywh(2, 8, 3, 1));
     builder.add(answerPanel, cc.xywh(2, 10, 3, 1));
     builder.add(button, cc.xy(4, 12));
 
     if (fragebogen != null && fragebogen.getSolved() > 0) {
       // add Antworten to Table
-      builder.addSeparator("Antworten", cc.xywh(2, 14, 3, 1));
+      builder.addSeparator(rh.getString(getClass(), LABEL_ANSWER), cc.xywh(2, 14, 3, 1));
       JScrollPane scrollPane = new JScrollPane(getAntwortList(),
           JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
           JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

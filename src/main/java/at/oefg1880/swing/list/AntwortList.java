@@ -1,9 +1,11 @@
 package at.oefg1880.swing.list;
 
 import at.oefg1880.swing.IConfig;
+import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.dialog.AntwortDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.panel.GradientPanel;
+import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -18,16 +20,18 @@ import java.awt.event.*;
  * Time: 14:32:28
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AntwortList extends JList implements ActionListener {
-  GradientPanel cell;
-  static Color listForeground, listBackground, listSelectionForeground, listSelectionBackground;
-  JLabel labelName, labelAlter, labelGeschlecht, labelPercentages;
-  DefaultListModel model;
-  Fragebogen fragebogen;
-  TestToolFrame frame;
-  JPopupMenu menu;
-  JMenuItem menuEdit, menuDelete;
-  AntwortDialog dialog;
+public abstract class AntwortList extends JList implements ActionListener, ITexts {
+  protected ResourceHandler rh = ResourceHandler.getInstance();
+
+  protected TestToolFrame frame;
+  protected AntwortDialog dialog;
+  protected Fragebogen fragebogen;
+  private GradientPanel cell;
+  private static Color listForeground, listBackground, listSelectionForeground, listSelectionBackground;
+  private JLabel labelName, labelAlter, labelGeschlecht, labelPercentages;
+  private DefaultListModel model;
+  private JPopupMenu menu;
+  private JMenuItem menuEdit, menuDelete;
 
   static {
     UIDefaults uid = UIManager.getLookAndFeel().getDefaults();
@@ -49,10 +53,10 @@ public abstract class AntwortList extends JList implements ActionListener {
   private void setup() {
     menu = new JPopupMenu();
     menu.setBorderPainted(true);
-    menu.add(menuEdit = new JMenuItem("Bearbeiten"));
+    menu.add(menuEdit = new JMenuItem(rh.getString(getClass(), EDIT)));
     menuEdit.addActionListener(this);
 //    menu.add(new JPopupMenu.Separator());
-    menu.add(menuDelete = new JMenuItem("Löschen"));
+    menu.add(menuDelete = new JMenuItem(rh.getString(getClass(), DELETE)));
     menuDelete.addActionListener(this);
     addMouseListener(new MouseAdapter() {
       @Override

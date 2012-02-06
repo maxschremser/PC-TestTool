@@ -23,7 +23,7 @@ public class OEFGFragebogenPanel extends FragebogenPanel {
 
   @Override
   public JDialog createNewFragebogenDialog() {
-    fragebogenDialog = new OEFGFragebogenDialog(frame, "Neuen Fragebogen erstellen ...");
+    fragebogenDialog = new OEFGFragebogenDialog(frame, rh.getString(getClass(), FRAGEBOGEN_NEW));
     fragebogenDialog.setVisible(true);
     return fragebogenDialog;
   }
@@ -31,7 +31,7 @@ public class OEFGFragebogenPanel extends FragebogenPanel {
   @Override
   public FragebogenDialog editFragebogenDialog(Fragebogen fragebogen) {
     if (fragebogen == null) return null;
-    fragebogenDialog = new OEFGFragebogenDialog(frame, "Fragebogen bearbeiten ...", fragebogen);
+    fragebogenDialog = new OEFGFragebogenDialog(frame, rh.getString(getClass(), FRAGEBOGEN_EDIT), fragebogen);
     fragebogenDialog.setVisible(true);
     fragebogenDialog.getAntwortList().requestFocus();
     return fragebogenDialog;
@@ -39,6 +39,6 @@ public class OEFGFragebogenPanel extends FragebogenPanel {
 
   @Override
   public AntwortDialog getAntwortDialog(Fragebogen fragebogen) {
-    return new OEFGAntwortDialog(frame, "Neue Antworten hinzufügen ...", fragebogen);
+    return new OEFGAntwortDialog(frame, rh.getString(getClass(), ANTWORT_NEW), fragebogen);
   }
 }

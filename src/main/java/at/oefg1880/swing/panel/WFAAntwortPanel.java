@@ -32,11 +32,11 @@ public class WFAAntwortPanel extends AntwortPanel {
     CellConstraints cc = new CellConstraints();
 
     // categories
-    add(new JLabel("Kat A"), cc.xy(2, 4));
-    add(new JLabel("Kat B"), cc.xy(2, 6));
-    add(new JLabel("Kat C"), cc.xy(2, 8));
-    add(new JLabel("Kat D"), cc.xy(2, 10));
-    add(new JLabel("Kat E"), cc.xy(2, 12));
+    add(new JLabel(rh.getString(getClass(), KAT_A)), cc.xy(2, 4));
+    add(new JLabel(rh.getString(getClass(), KAT_B)), cc.xy(2, 6));
+    add(new JLabel(rh.getString(getClass(), KAT_C)), cc.xy(2, 8));
+    add(new JLabel(rh.getString(getClass(), KAT_D)), cc.xy(2, 10));
+    add(new JLabel(rh.getString(getClass(), KAT_E)), cc.xy(2, 12));
 
     // answer labels
     add(new JLabel("1"), cc.xy(4, 2));

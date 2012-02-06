@@ -49,7 +49,9 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
   private JDialog dialog;
 
   public abstract String getImageName();
+
   public abstract String getFavicon();
+
   public abstract FragebogenPanel getFragebogenPanel();
 
   public TestToolFrame(String title) throws HeadlessException {
@@ -63,7 +65,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
         if (fragebogenPanel.getFragebogenList().getModel().getSize() > 0) {
-          int a = JOptionPane.showConfirmDialog(getParent(), "Möchten Sie die Daten speichern ?");
+          int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), QUESTION_SAVE));
           if (JOptionPane.YES_OPTION == a) {
             exportData();
             dispose();

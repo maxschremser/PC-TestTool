@@ -1,6 +1,8 @@
 package at.oefg1880.swing.panel;
 
+import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.text.AntwortTextField;
+import at.oefg1880.swing.utils.ResourceHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,12 +14,16 @@ import java.awt.*;
  * Time: 12:54:36
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AntwortPanel extends JPanel { //FormDebugPanel {
+public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebugPanel {
   private int[] values;
+  protected ResourceHandler rh = ResourceHandler.getInstance();
 
   public abstract int getNumAnswers();
-  public abstract AntwortTextField getAntwortTextField(int index);
+
   protected abstract void setup();
+
+  public abstract AntwortTextField getAntwortTextField(int index);
+
   protected abstract boolean isInValue(char answer);
 
   public AntwortPanel() {
