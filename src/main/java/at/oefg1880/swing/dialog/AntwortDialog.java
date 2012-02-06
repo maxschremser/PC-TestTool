@@ -1,12 +1,14 @@
 package at.oefg1880.swing.dialog;
 
 import at.oefg1880.swing.IConfig;
+import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.list.Antwort;
 import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.panel.AntwortPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.text.AntwortTextField;
+import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -32,7 +34,8 @@ import java.beans.PropertyChangeListener;
  * Time: 13:21:52
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AntwortDialog extends JDialog implements ActionListener, PropertyChangeListener, IConfig {
+public abstract class AntwortDialog extends JDialog implements ActionListener, PropertyChangeListener, IConfig, ITexts {
+  private ResourceHandler rh = ResourceHandler.getInstance();
   private TestToolFrame frame;
   private JTextField tfName;
   private AntwortPanel antwortPanel;
@@ -46,16 +49,16 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   private JRadioButton rbM, rbW, rb1115, rb1620, rb2130, rb30;
 
   private final String SAVE = "update";
-  private final String CORRECT = "Richtig";
-  private final String WRONG = "Falsch";
+  private final String CORRECT = rh.getString(getClass(), GRAPH_CORRECT);
+  private final String WRONG = rh.getString(getClass(), GRAPH_WRONG);
 
-  private final String MASCULIN = "Männlich";
-  private final String FEMININ = "Weiblich";
+  private final String sMASCULIN = rh.getString(getClass(), MASCULIN);
+  private final String sFEMININ = rh.getString(getClass(), FEMININ);
 
-  private final String _1115 = "11-15";
-  private final String _1620 = "16-20";
-  private final String _2130 = "21-30";
-  private final String _30 = "30+  ";
+  private final String _1115 = rh.getString(getClass(), AGE_11_15);
+  private final String _1620 = rh.getString(getClass(), AGE_16_20);
+  private final String _2130 = rh.getString(getClass(), AGE_21_30);
+  private final String _30 = rh.getString(getClass(), AGE_30_PLUS);
 
   public abstract AntwortPanel getAntwortPanel();
 
@@ -88,7 +91,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     PanelBuilder builder = new PanelBuilder(layout);
     CellConstraints cc = new CellConstraints();
 
-    saveButton = new JButton("Speichern");
+    saveButton = new JButton(rh.getString(getClass(), BUTTON_SAVE));
     saveButton.addActionListener(this);
     saveButton.addKeyListener(new KeyAdapter() {
       @Override
@@ -120,12 +123,12 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     });
 
     bgGeschlecht = new ButtonGroup();
-    rbM = new JRadioButton(MASCULIN);
+    rbM = new JRadioButton(sMASCULIN);
     rbM.setActionCommand(MASCULIN);
     rbM.addActionListener(this);
     rbM.setSelected(true);
     rbM.setMnemonic('m');
-    rbW = new JRadioButton(FEMININ);
+    rbW = new JRadioButton(sFEMININ);
     rbW.setActionCommand(FEMININ);
     rbW.setMnemonic('w');
     bgGeschlecht.add(rbM);
@@ -161,17 +164,17 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     chartPanel.setPreferredSize(new Dimension(200, 200));
 
     builder.add(labelTitle, cc.xywh(2, 2, 5, 1));
-    builder.addSeparator("Name", cc.xywh(2, 4, 3, 1));
+    builder.addSeparator(rh.getString(getClass(), NAME), cc.xywh(2, 4, 3, 1));
     builder.add(tfName, cc.xywh(2, 6, 3, 1));
-    builder.addSeparator("Geschlecht", cc.xywh(2, 8, 3, 1));
+    builder.addSeparator(rh.getString(getClass(), SEX), cc.xywh(2, 8, 3, 1));
     builder.add(rbM, cc.xy(2, 10));
     builder.add(rbW, cc.xy(4, 10));
-    builder.addSeparator("Alter", cc.xywh(2, 12, 3, 1));
+    builder.addSeparator(rh.getString(getClass(), AGE), cc.xywh(2, 12, 3, 1));
     builder.add(rb1115, cc.xy(2, 14));
     builder.add(rb1620, cc.xy(4, 14));
     builder.add(rb2130, cc.xy(2, 16));
     builder.add(rb30, cc.xy(4, 16));
-    builder.addSeparator("Antworten", cc.xywh(2, 18, 5, 1));
+    builder.addSeparator(rh.getString(getClass(), ANSWERS), cc.xywh(2, 18, 5, 1));
     builder.add(antwortPanel, cc.xywh(2, 20, 5, 1));
     builder.add(saveButton, cc.xy(6, 22));
     builder.add(chartPanel, cc.xywh(6, 4, 1, 13));
@@ -290,9 +293,10 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
             }
           }
         }
-        int iPercentage = 100 / antwortPanel.getNumAnswers();
+        int iNumAnswers = antwortPanel.getNumAnswers();
+        int iPercentage = 100 / iNumAnswers;
         dataset.setValue(CORRECT, correctAnswers * iPercentage);
-        dataset.setValue(WRONG, (antwortPanel.getNumAnswers() - correctAnswers) * iPercentage);
+        dataset.setValue(WRONG, (iNumAnswers - correctAnswers) * iPercentage);
         chart.setTitle(correctAnswers * iPercentage + "%");
 //                if (antwortPanel.isFullyFilled())
         if (index == (solutions.length - 1)) {
