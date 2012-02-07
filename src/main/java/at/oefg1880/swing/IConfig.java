@@ -19,5 +19,5 @@ public interface IConfig {
     public final Color color_1 = new Color(255, 251, 234), color_2 = new Color(219, 216, 201);
     public final Color selectedTextForeground = new Color(136, 181, 232), selectedListForeground = new Color(199, 215, 234), finishedColor = new Color(0, 100, 55);
     public final static int VERTICAL = 0, HORIZONTAL = 1, DIAGONAL = 2, PLAIN_1 = 3, PLAIN_2 = 4;
-    public final static String OK = "OK", CANCEL = "CANCEL", NO = "NO";
+    public final static String OK = "OK", CANCEL = "CANCEL";
 }
