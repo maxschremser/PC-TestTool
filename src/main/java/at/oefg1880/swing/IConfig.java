@@ -18,9 +18,6 @@ public interface IConfig {
   public final static String LICENSE_FILE = "license.file";
   public final static String PUBLIC_KEY = "public.key";
 
-  public final static String LICENSE_ISSUE_DATE = "issue-date";
-  public final static String LICENSE_VALID_DATE = "valid-date";
-
   public final Color color_1 = new Color(255, 251, 234), color_2 = new Color(219, 216, 201);
   public final Color selectedTextForeground = new Color(136, 181, 232), selectedListForeground = new Color(199, 215, 234), finishedColor = new Color(0, 100, 55);
   public final static int VERTICAL = 0, HORIZONTAL = 1, DIAGONAL = 2, PLAIN_1 = 3, PLAIN_2 = 4;

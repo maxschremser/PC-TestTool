@@ -67,8 +67,8 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     buttonBarPanel.setOpaque(true);
     add(buttonBarPanel, cc.xy(4, 2));
     JScrollPane scrollPaneList = new JScrollPane(getFragebogenList(),
-        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     scrollPaneList.setPreferredSize(new Dimension((int) getWidth(), 170));
     add(scrollPaneList, cc.xywh(2, 4, 3, 1));
   }

@@ -49,8 +49,8 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     super(frame, title, true);
     this.frame = frame;
     FormLayout layout = new FormLayout(
-        "6dlu,pref,6dlu,64dlu,6dlu",
-        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
+            "6dlu,pref,6dlu,64dlu,6dlu",
+            "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
 
     builder = new PanelBuilder(layout);
     setup();
@@ -62,12 +62,12 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     FormLayout layout;
     if (fragebogen != null && fragebogen.getSolved() > 0) {
       layout = new FormLayout(
-          "6dlu,pref,6dlu,64dlu,6dlu",
-          "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
+              "6dlu,pref,6dlu,64dlu,6dlu",
+              "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
     } else {
       layout = new FormLayout(
-          "6dlu,pref,6dlu,64dlu,6dlu",
-          "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
+              "6dlu,pref,6dlu,64dlu,6dlu",
+              "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
     }
 
     builder = new PanelBuilder(layout);
@@ -143,8 +143,8 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
       // add Antworten to Table
       builder.addSeparator(rh.getString(getClass(), LABEL_ANSWER), cc.xywh(2, 14, 3, 1));
       JScrollPane scrollPane = new JScrollPane(getAntwortList(),
-          JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-          JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+              JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+              JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
       scrollPane.setPreferredSize(new Dimension((int) getWidth(), 150));
       builder.add(scrollPane, cc.xywh(2, 16, 3, 1));
     }
@@ -177,9 +177,9 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
   private void save() {
     FragebogenList list = frame.getFragebogenPanel().getFragebogenList();
     list.add(
-        textFieldName.getText(),
-        Integer.valueOf(spinner.getValue().toString()),
-        answerPanel.getValues()
+            textFieldName.getText(),
+            Integer.valueOf(spinner.getValue().toString()),
+            answerPanel.getValues()
     );
     log.info("Added item '" + textFieldName.getText() + "' to list.");
     if (frame.getFragebogenPanel().getFragebogenList().getModel().getSize() > 0) {

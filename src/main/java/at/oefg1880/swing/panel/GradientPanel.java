@@ -38,7 +38,7 @@ public class GradientPanel extends JPanel implements IConfig {
     this.direction = direction;
     if (direction < 0 || direction >= 5)
       throw new UnsupportedOperationException("direction (" + direction + ") is invalid. " +
-          "Use 0 for VERTICAL, 1 for HORIZONTAL and 2 for DIAGONAL, 3 for PLAIN_1, 4 for PLAIN_2.");
+              "Use 0 for VERTICAL, 1 for HORIZONTAL and 2 for DIAGONAL, 3 for PLAIN_1, 4 for PLAIN_2.");
   }
 
   public void setDirection(int direction) {

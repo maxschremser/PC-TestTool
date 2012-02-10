@@ -68,7 +68,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
         if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
           createEditAntwortDialog((Antwort) getSelectedValue());
         } else if (SwingUtilities.isRightMouseButton(e) && !isSelectionEmpty() &&
-            locationToIndex(e.getPoint()) == getSelectedIndex()) {
+                locationToIndex(e.getPoint()) == getSelectedIndex()) {
           // right click, open edit menu
           menu.show((JList) e.getSource(), e.getX(), e.getY());
         }
@@ -93,7 +93,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
             model.remove(getSelectedIndex());
         } else {
           int index = (key >= 49 && key <= 57) ? key - 49 :
-              (key >= 97 && key <= 105) ? key - 97 : -1;
+                  (key >= 97 && key <= 105) ? key - 97 : -1;
           if (index >= 0 && index <= 9) {
             setSelectedIndex(index);
             ensureIndexIsVisible(index);
@@ -109,7 +109,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
     setBorder(BorderFactory.createLineBorder(Color.black));
 
     FormLayout layout = new FormLayout("6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu",
-        "6dlu,pref,3dlu,pref,6dlu");
+            "6dlu,pref,3dlu,pref,6dlu");
     CellConstraints cc = new CellConstraints();
     cell = new GradientPanel(IConfig.HORIZONTAL);
     cell.setLayout(layout);
@@ -143,7 +143,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
       Antwort antwort = (Antwort) getSelectedValue();
       String name = antwort.getName();
       int n = JOptionPane.showOptionDialog(frame, rh.getString(getClass(), QUESTION_DELETE, new String[]{name}), rh.getString(getClass(), DELETE),
-          JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ja", "Nein"}, "Ja");
+              JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ja", "Nein"}, "Ja");
       if (n == 0) { // JA
         model.remove(getSelectedIndex());
         fragebogen.removeAntwort(antwort);

@@ -21,14 +21,14 @@ public class PropertyHandler implements PropertyChangeListener, ITexts {
   private final static String file_separator = System.getProperty("file.separator");
   private final static String user_home = System.getProperty("user.home");
   private final static String LIB_PATH = new StringBuffer(user_home).
-      append(file_separator).
-      append(APP_DIR).
-      append(file_separator).
-      append(CONFIG_FILE).toString();
+          append(file_separator).
+          append(APP_DIR).
+          append(file_separator).
+          append(CONFIG_FILE).toString();
 
   private final static String APP_PATH = new StringBuffer("resources").
-      append("/").
-      append(CONFIG_FILE).toString();
+          append("/").
+          append(CONFIG_FILE).toString();
 
   private PropertyHandler() {
     props = new Properties();
@@ -66,7 +66,7 @@ public class PropertyHandler implements PropertyChangeListener, ITexts {
       log.info("store props to : " + f.getAbsoluteFile());
       if (!f.getParentFile().exists()) {
         JOptionPane directoryCreateDialog = new JOptionPane(rh.getString(getClass(), DIALOG_CREATE_DIR),
-            JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
+                JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
         directoryCreateDialog.addPropertyChangeListener(this);
         JDialog dialog = directoryCreateDialog.createDialog(frame, "TestTool - Create Directory");
         if (frame != null) {

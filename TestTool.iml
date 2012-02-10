@@ -2,12 +2,7 @@
 <module relativePaths="false" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="IvyIDEA" name="IvyIDEA">
-      <configuration ivyFile="D:\projects\TestTool\build\ivy.xml" useProjectSettings="false" ivySettingsFile="D:\projects\TestTool\build\ivysettings.xml" onlyResolveSelectedConfigs="false">
-        <configsToResolve>
-          <config>compile</config>
-          <config>default</config>
-        </configsToResolve>
-      </configuration>
+      <configuration ivyFile="D:\projects\TestTool\build\ivy.xml" useProjectSettings="false" ivySettingsFile="D:\projects\TestTool\build\ivysettings.xml" onlyResolveSelectedConfigs="false" />
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
@@ -66,6 +61,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="license3j" level="project" />
   </component>
 </module>
 
