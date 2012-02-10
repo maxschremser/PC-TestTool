@@ -18,6 +18,9 @@
       <fileset dir="${COMPILE_DIR}">
         <include name="**/*.jar"/>
       </fileset>
+      <fileset dir="${BIN_DIR}">
+        <include name="**/*.jar"/>
+      </fileset>
     </path>
   </target>
 
@@ -60,6 +63,7 @@
       <fileset dir="${SRC_RESOURCE_DIR}">
         <include name="**/*.properties"/>
         <include name="**/*.gif"/>
+        <include name="**/*.gpg"/>
       </fileset>
     </copy>
     <copy todir="${CLASSES_DIR}">
@@ -87,6 +91,9 @@
         <fileset dir="${LIB_DIR}">
           <include name="**/*.jar"/>
         </fileset>
+        <fileset dir="${BIN_DIR}/lib">
+          <include name="**/*.jar"/>
+        </fileset>
       </path>
     </pathconvert>
 
@@ -109,8 +116,10 @@
     <copy todir="${APP_LIB_DIR}">
       <fileset dir="${COMPILE_DIR}"/>
       <fileset dir="${LIB_DIR}"/>
+      <fileset dir="${BIN_DIR}/lib"/>
     </copy>
 
+    <copy todir="${APP_DIR}" file="${BIN_DIR}/license.out"/>
     <!--
     // create zip file with all jars (unsigned ones)
     -->
@@ -124,11 +133,12 @@
     <!--
     // sign the jars to web/lib for JavaWebStart permissions
     // keystore must exist in current directory
-    // create a keystore using:$> keytool -genkey -keystore keystore -alias TestTool
+    // create a keystore using:$> keytool -genkey -keystore keystore -alias PC-TestTool
     -->
-    <signjar alias="${APP_NAME}" keystore="keystore" storepass="changeit" keypass="changeit" destdir="${WEB_LIB_DIR}">
+    <signjar alias="${APP_NAME}" keystore="keystore" storepass="weeds23" keypass="weeds23" destdir="${WEB_LIB_DIR}">
       <fileset dir="${LIB_DIR}" includes="*.jar"/>
       <fileset dir="${COMPILE_DIR}" includes="*.jar"/>
+      <fileset dir="${BIN_DIR}/lib" includes="*.jar"/>
     </signjar>
 
     <pathconvert property="webstart.classpath" pathsep=" ">
@@ -148,7 +158,7 @@
 
     <echo file="${WEB_DIR}/${JNLP_FILE}">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
       &lt;jnlp spec="1.0+"
-      codebase="http://maxi.schremser.com/Content.Node2/${APP_NAME}" href="${JNLP_FILE}"&gt;
+      codebase="${HOST}/${APP_NAME}" href="${JNLP_FILE}"&gt;
       &lt;information&gt;
       &lt;title&gt;${APP_NAME} v${VERSION}.${MAJOR}_${MINOR}&lt;/title&gt;
       &lt;vendor&gt;DI(FH) Maximilian Schremser&lt;/vendor&gt;
@@ -160,14 +170,12 @@
       &lt;all-permissions/&gt;
       &lt;/security&gt;
       &lt;resources&gt;
-      &lt;j2se version="1.5+"/&gt;
+      &lt;j2se version="1.6"/&gt;
       ${webstart.classpath}
       &lt;/resources&gt;
       &lt;application-desc main-class="at.oefg1880.swing.TestTool"/&gt;
       &lt;/jnlp&gt;
     </echo>
-
-
   </target>
 
 
@@ -203,7 +211,7 @@
     <!--
     // create a war file with the html page, jnlp file, TestTool.jar + depending jars
     -->
-    <war warfile="${WAR_DIR}/${WAR_FILE}" needxmlfile='false'>
+    <war warfile="${WAR_DIR}/${APP_NAME}.war" needxmlfile='false'>
       <fileset dir="${WEB_DIR}"/>
     </war>
 
