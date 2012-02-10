@@ -14,14 +14,6 @@
     <property name="ivy.lib.dir" value="${ivy.dir}/[conf]"/>
     <property name="ivy.dep.file" value="${BUILD_DIR}/ivy.xml"/>
 
-    <path id="compile.classpath">
-      <fileset dir="${COMPILE_DIR}">
-        <include name="**/*.jar"/>
-      </fileset>
-      <fileset dir="${BIN_DIR}">
-        <include name="**/*.jar"/>
-      </fileset>
-    </path>
   </target>
 
 
@@ -31,11 +23,22 @@
     <delete dir="${CLASSES_DIR}"/>
     <delete dir="${APP_LIB_DIR}"/>
     <delete dir="${APP_DIR}"/>
+    <delete dir="${BIN_DIR}"/>
     <delete dir="${WEB_DIR}"/>
     <delete dir="${LIB_DIR}"/>
     <delete dir="${META_DIR}"/>
     <delete dir="${WAR_DIR}"/>
+    <delete dir="${WEBPROJ_DIR}"/>
     <delete dir="${TARGET_DIR}"/>
+  </target>
+
+  <target name="zip" unless="compile.prepare" depends="clean">
+    <zip destfile='../../${APP_NAME}-all-${VERSION}.${MAJOR}.${MINOR}.zip'>
+      <zipfileset dir='../../${APP_NAME}' includes="**/**"/>
+    </zip>
+  </target>
+
+  <target name="compile.prepare" unless="compile.prepare" depends="zip">
     <mkdir dir="${CLASSES_DIR}"/>
     <mkdir dir="${CLASSES_RESOURCE_DIR}"/>
     <mkdir dir="${APP_DIR}"/>
@@ -46,13 +49,14 @@
     <mkdir dir="${WAR_DIR}"/>
     <mkdir dir="${TARGET_DIR}"/>
 
-    <zip destfile='../../${APP_NAME}-all-${VERSION}.${MAJOR}.${MINOR}.zip'>
-      <zipfileset dir='../../${APP_NAME}' includes="**/**"/>
-    </zip>
-  </target>
+    <path id="compile.classpath">
+      <fileset dir="${COMPILE_DIR}">
+        <include name="**/*.jar"/>
+      </fileset>
+    </path>
 
-  <target name="compile.prepare" unless="compile.prepare" depends="clean">
     <echo>resolve with ivy</echo>
+
     <ivy:settings file="${BUILD_DIR}/ivysettings.xml"/>
     <ivy:retrieve sync="true" pattern="${ivy.lib.dir}/[artifact]-[revision].[ext]" type="jar"/>
   </target>
@@ -91,9 +95,6 @@
         <fileset dir="${LIB_DIR}">
           <include name="**/*.jar"/>
         </fileset>
-        <fileset dir="${BIN_DIR}/lib">
-          <include name="**/*.jar"/>
-        </fileset>
       </path>
     </pathconvert>
 
@@ -116,10 +117,8 @@
     <copy todir="${APP_LIB_DIR}">
       <fileset dir="${COMPILE_DIR}"/>
       <fileset dir="${LIB_DIR}"/>
-      <fileset dir="${BIN_DIR}/lib"/>
     </copy>
 
-    <copy todir="${APP_DIR}" file="${BIN_DIR}/license.out"/>
     <!--
     // create zip file with all jars (unsigned ones)
     -->
@@ -135,10 +134,9 @@
     // keystore must exist in current directory
     // create a keystore using:$> keytool -genkey -keystore keystore -alias PC-TestTool
     -->
-    <signjar alias="${APP_NAME}" keystore="keystore" storepass="weeds23" keypass="weeds23" destdir="${WEB_LIB_DIR}">
+    <signjar alias="${APP_NAME}" keystore="keystore" storepass="changeit" keypass="changeit" destdir="${WEB_LIB_DIR}">
       <fileset dir="${LIB_DIR}" includes="*.jar"/>
       <fileset dir="${COMPILE_DIR}" includes="*.jar"/>
-      <fileset dir="${BIN_DIR}/lib" includes="*.jar"/>
     </signjar>
 
     <pathconvert property="webstart.classpath" pathsep=" ">
