@@ -3,7 +3,7 @@
   <!--
   // Author: DI (FH) Maximilian Schremser
   // Date: 03.02.2010
-  // Description: Gant Build Script for creating the TestTool Java Archive File
+  // Description: Build Script for creating the TestTool
   -->
   <!--
     TARGET: init
