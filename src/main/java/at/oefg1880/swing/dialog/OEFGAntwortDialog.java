@@ -24,6 +24,6 @@ public class OEFGAntwortDialog extends AntwortDialog {
 
   @Override
   public AntwortPanel getAntwortPanel() {
-    return new OEFGAntwortPanel();
+    return new OEFGAntwortPanel(fragebogen == null);
   }
 }

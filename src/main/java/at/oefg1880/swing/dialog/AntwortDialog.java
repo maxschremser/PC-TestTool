@@ -39,7 +39,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   private TestToolFrame frame;
   private JTextField tfName;
   private AntwortPanel antwortPanel;
-  private Fragebogen fragebogen;
+  protected Fragebogen fragebogen;
   private Antwort antwort;
   private ButtonGroup bgGeschlecht, bgAlter;
   private DefaultPieDataset dataset;
@@ -85,8 +85,8 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   private void setup() {
     setLocation(((int) frame.getLocation().getX()) + 50, ((int) frame.getLocation().getY()) + 50);
     FormLayout layout = new FormLayout(
-            "6dlu,100dlu,6dlu,pref,6dlu,pref,6dlu",
-            "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,12dlu,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
+        "6dlu,100dlu,6dlu,pref,6dlu,pref,6dlu",
+        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,12dlu,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
     GradientPanel gradientPanel = new GradientPanel();
     PanelBuilder builder = new PanelBuilder(layout);
     CellConstraints cc = new CellConstraints();
@@ -212,14 +212,14 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     antwort.setAnswers(antwortPanel.getValues());
     fragebogen.setAntwort(antwort);
     ((DefaultListModel) frame.getFragebogenPanel().getFragebogenDialog().
-            getAntwortList().getModel()).setElementAt(antwort, antwort.getIndex());
+        getAntwortList().getModel()).setElementAt(antwort, antwort.getIndex());
   }
 
   private void save() {
     String sGeschlecht = bgGeschlecht.getSelection().getActionCommand();
     String sAlter = bgAlter.getSelection().getActionCommand();
     Antwort antwort = new Antwort(fragebogen.getSolved(), tfName.getText(), sAlter,
-            sGeschlecht, dataset.getValue(1).intValue(), antwortPanel.getValues());
+        sGeschlecht, dataset.getValue(1).intValue(), antwortPanel.getValues());
     fragebogen.addAntwort(antwort);
   }
 
@@ -298,12 +298,13 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         dataset.setValue(CORRECT, correctAnswers * iPercentage);
         dataset.setValue(WRONG, (iNumAnswers - correctAnswers) * iPercentage);
         chart.setTitle(correctAnswers * iPercentage + "%");
-//                if (antwortPanel.isFullyFilled())
-        if (index == (solutions.length - 1)) {
-          saveButton.setEnabled(true);
-          saveButton.requestFocus();
+        // if is in create mode then ' ' is not allowed
+        if (antwortPanel.isFullyFilled(fragebogen == null)) {
+          if (index == (solutions.length - 1)) {
+            saveButton.setEnabled(true);
+            saveButton.requestFocus();
+          }
         }
-
       }
     }
   }

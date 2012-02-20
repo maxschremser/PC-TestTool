@@ -25,7 +25,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
 
   private GradientPanel cell;
   private JLabel labelTitle, labelVorhanden, labelGeloest, labelOffen,
-          labelTextVorhanden, labelTextGeloest, labelTextOffen;
+      labelTextVorhanden, labelTextGeloest, labelTextOffen;
   private static Color listForeground, listBackground, listSelectionForeground, listSelectionBackground;
   private DefaultListModel model;
   private TestToolFrame frame;
@@ -62,7 +62,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
         if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
           frame.getFragebogenPanel().createNewAntwortDialog((Fragebogen) getSelectedValue());
         } else if (SwingUtilities.isRightMouseButton(e) && !isSelectionEmpty() &&
-                locationToIndex(e.getPoint()) == getSelectedIndex()) {
+            locationToIndex(e.getPoint()) == getSelectedIndex()) {
           // right click, open edit menu
           menu.show((JList) e.getSource(), e.getX(), e.getY());
         }
@@ -83,8 +83,10 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
         } else if (key == KeyEvent.VK_N) {
           frame.getFragebogenPanel().createNewFragebogenDialog();
         } else if (key == KeyEvent.VK_S) {
-          if (frame.getFragebogenPanel().getSpeichernButton().isEnabled())
-            frame.exportData();
+          if (frame.getFragebogenPanel().getSpeichernButton().isEnabled()) {
+            String filePath = frame.exportData();
+            JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.DEFAULT_OPTION);
+          }
         } else if (key == KeyEvent.VK_DELETE) {
           String title = ((Fragebogen) getSelectedValue()).getTitle();
           int n = frame.showDeleteFragebogenDialog(frame.getFragebogenPanel().getFragebogenList(), rh.getString(getClass(), QUESTION_DELETE, new String[]{title}), rh.getString(getClass(), DELETE));
@@ -92,7 +94,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
             model.remove(getSelectedIndex());
         } else {
           int index = (key >= 49 && key <= 57) ? key - 49 :
-                  (key >= 97 && key <= 105) ? key - 97 : -1;
+              (key >= 97 && key <= 105) ? key - 97 : -1;
           if (index >= 0 && index <= 9) {
             setSelectedIndex(index);
             ensureIndexIsVisible(index);
@@ -108,7 +110,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
     setBorder(BorderFactory.createLineBorder(Color.black));
 
     FormLayout layout = new FormLayout("6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu",
-            "6dlu,pref,3dlu,pref,6dlu");
+        "6dlu,pref,3dlu,pref,6dlu");
     CellConstraints cc = new CellConstraints();
     cell = new GradientPanel(IConfig.HORIZONTAL);
     cell.setLayout(layout);

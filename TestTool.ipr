@@ -57,7 +57,17 @@
   </component>
   <component name="IdProvider" IDEtalkID="5640E7D0DC576798F11690E7706C31AB" />
   <component name="IvyIDEA.ProjectSettings">
-    <option name="ivySettingsFile" value="D:\projects\TestTool\build\ivysettings.xml" />
+    <option name="artifactTypeSettings">
+      <ArtifactTypeSettings>
+        <option name="classesTypes" value="jar, mar, sar, war, ear, ejb, bundle, test-jar" />
+        <option name="javadocTypes" value="javadoc, doc, docs, apidoc, apidocs, documentation, documents" />
+        <option name="sourcesTypes" value="source, src, sources, srcs" />
+      </ArtifactTypeSettings>
+    </option>
+    <option name="ivySettingsFile" value="J:\android\PC-TestTool\build\ivysettings.xml" />
+    <option name="propertiesSettings">
+      <PropertiesSettings />
+    </option>
     <option name="validateIvyFiles" value="true" />
   </component>
   <component name="JavadocGenerationManager">
@@ -219,15 +229,5 @@
     <mapping directory="" vcs="Git" />
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
-  <component name="libraryTable">
-    <library name="license3j">
-      <CLASSES>
-        <root url="file://$PROJECT_DIR$/bin/lib" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-      <jarDirectory url="file://$PROJECT_DIR$/bin/lib" recursive="false" />
-    </library>
-  </component>
 </project>
 

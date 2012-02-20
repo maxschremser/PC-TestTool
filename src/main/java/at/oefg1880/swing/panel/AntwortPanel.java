@@ -16,6 +16,8 @@ import java.awt.*;
  */
 public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebugPanel {
   private int[] values;
+  protected boolean isInCreateMode = false;
+
   protected ResourceHandler rh = ResourceHandler.getInstance();
 
   public abstract int getNumAnswers();
@@ -24,10 +26,11 @@ public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebu
 
   public abstract AntwortTextField getAntwortTextField(int index);
 
-  protected abstract boolean isInValue(char answer);
+  public abstract char[] getAllowedValues();
 
-  public AntwortPanel() {
+  public AntwortPanel(boolean isInCreateMode) {
     super();
+    this.isInCreateMode = isInCreateMode;
     setup();
   }
 
@@ -50,6 +53,17 @@ public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebu
     return values;
   }
 
+  public boolean isInValue(char answer, boolean isInCreateMode) {
+    if (isInCreateMode && answer == ' ') return false;
+    char[] answers = getAllowedValues();
+    for (char a : answers) {
+      if (a == answer) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public void setValues(int[] values) {
     for (Component c : getComponents()) {
       if (c instanceof AntwortTextField) {
@@ -59,10 +73,10 @@ public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebu
     }
   }
 
-  public boolean isFullyFilled() {
+  public boolean isFullyFilled(boolean isInCreateMode) {
     for (int i = 0; i < getNumAnswers(); i++) {
       AntwortTextField atf = getAntwortTextField(i);
-      if (!isInValue(atf.getAnswer()))
+      if (!isInValue(atf.getAnswer(), isInCreateMode))
         return false;
     }
     return true;

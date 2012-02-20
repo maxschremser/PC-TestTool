@@ -130,7 +130,7 @@ public class OEFGTestToolFrame extends TestToolFrame {
     row = sheet.createRow(3);
     int i = 4;
     for (int v : f.getSolutions()) {
-      row.createCell(i++).setCellValue(AntwortTextField.translate(v) + "");
+      row.createCell(i++).setCellValue(AntwortTextField.translate(getFragebogenPanel().getAntwortDialog(f).getAntwortPanel().getAllowedValues(), v) + "");
     }
 
     row = sheet.createRow(5);
@@ -147,7 +147,7 @@ public class OEFGTestToolFrame extends TestToolFrame {
       row.createCell(3).setCellValue(a.getPercentages() + "%");
       i = 4;
       for (int v : a.getAnswers()) {
-        row.createCell(i++).setCellValue((AntwortTextField.translate(v) + ""));
+        row.createCell(i++).setCellValue((AntwortTextField.translate(getFragebogenPanel().getAntwortDialog(f).getAntwortPanel().getAllowedValues(), v) + ""));
       }
     }
   }

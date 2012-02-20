@@ -25,6 +25,7 @@ public interface ITexts {
   public static final String OPENED = "opened";
   public static final String QUESTION_DELETE = "question_delete";
   public static final String QUESTION_SAVE = "question_save";
+  public static final String DIALOG_SAVED = "dialog_saved";
 
   public static final String LABEL_FRAGEBOGEN = "label_fragebogen";
   public static final String LABEL_NAME = "label_name";

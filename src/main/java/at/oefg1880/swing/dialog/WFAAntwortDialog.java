@@ -24,6 +24,6 @@ public class WFAAntwortDialog extends AntwortDialog {
 
   @Override
   public AntwortPanel getAntwortPanel() {
-    return new WFAAntwortPanel();
+    return new WFAAntwortPanel(fragebogen == null);
   }
 }

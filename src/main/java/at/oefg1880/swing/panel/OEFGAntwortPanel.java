@@ -16,6 +16,11 @@ import java.awt.*;
  */
 public class OEFGAntwortPanel extends AntwortPanel {
   private final static int NUM_ANSWERS = 20;
+  private char[] allowedValues;
+
+  public OEFGAntwortPanel(boolean isInCreateMode) {
+    super(isInCreateMode);
+  }
 
   @Override
   public int getNumAnswers() {
@@ -25,8 +30,8 @@ public class OEFGAntwortPanel extends AntwortPanel {
   @Override
   protected void setup() {
     FormLayout layout = new FormLayout(
-            "6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu",
-            "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu"
+        "6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu",
+        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu"
     );
     setLayout(layout);
     CellConstraints cc = new CellConstraints();
@@ -46,7 +51,7 @@ public class OEFGAntwortPanel extends AntwortPanel {
     int k = 0;
     for (int j = 4; j <= 10; j += 2) {
       for (int i = 4; i <= 12; i += 2) {
-        add(new AntwortTextField("", k++), cc.xy(i, j));
+        add(new AntwortTextField("", k++, getAllowedValues(), isInCreateMode), cc.xy(i, j));
       }
     }
   }
@@ -62,8 +67,10 @@ public class OEFGAntwortPanel extends AntwortPanel {
   }
 
   @Override
-  protected boolean isInValue(char answer) {
-    if (answer == 'A' || answer == 'B' || answer == 'C' || answer == ' ') return true;
-    return false;
+  public char[] getAllowedValues() {
+    if (allowedValues == null) {
+      allowedValues = new char[]{' ', 'A', 'B', 'C'};
+    }
+    return allowedValues;
   }
 }

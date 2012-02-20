@@ -21,13 +21,17 @@ import java.awt.event.FocusListener;
  */
 public class AntwortTextField extends JTextField implements IConfig {
   private int index;        // to identify the focused component
+  protected char[] allowedValues;
   public final static String VALUE_CHANGED = "valueChanged";
   private Color oldColor;
+  private boolean isInCreateMode = false;
   JButton button = null;
 
-  public AntwortTextField(String s, int index) {
+  public AntwortTextField(String s, int index, char[] allowedValues, boolean isInCreateMode) {
     super(s);
     this.index = index;
+    this.allowedValues = allowedValues;
+    this.isInCreateMode = isInCreateMode;
     setColumns(1);
     Font font = getFont();
     setFont(font.deriveFont(Font.BOLD));
@@ -72,7 +76,7 @@ public class AntwortTextField extends JTextField implements IConfig {
   }
 
   public void enableButton() {
-    if (((AntwortPanel) getParent()).isFullyFilled()) {
+    if (((AntwortPanel) getParent()).isFullyFilled(isInCreateMode)) {
       // enable saveButton and focus it
       Object o = getParent().getParent().getComponent(7);
       if (o instanceof JButton) {
@@ -90,7 +94,7 @@ public class AntwortTextField extends JTextField implements IConfig {
     private int value;     // 1,2,3
 
     public void insertString(int offs, String str, AttributeSet a)
-            throws BadLocationException {
+        throws BadLocationException {
       if (str == null)
         return;
       String newString = str.substring(0, 1);
@@ -99,38 +103,27 @@ public class AntwortTextField extends JTextField implements IConfig {
       if (newString.length() > 0) {
         try {
           value = Integer.parseInt(newString);
-          if (value == 1) {
-            answer = 'A';
-          } else if (value == 2) {
-            answer = 'B';
-          } else if (value == 3) {
-            answer = 'C';
-          } else if (value == 4) {
-            answer = 'D';
-          } else {
-            value = 0;
-            answer = ' ';
+          answer = allowedValues[value];
+          if (isInCreateMode && answer == ' ') {
             bSkip = true;
           }
         } catch (NumberFormatException nfe) {
-          // no number was entered, check for A,B,C
-          if (newString.equalsIgnoreCase("A")) {
-            answer = 'A';
-            value = 1;
-          } else if (newString.equalsIgnoreCase("B")) {
-            answer = 'B';
-            value = 2;
-          } else if (newString.equalsIgnoreCase("C")) {
-            answer = 'C';
-            value = 3;
-          } else if (newString.equalsIgnoreCase("D")) {
-            answer = 'D';
-            value = 4;
-          } else {
-            answer = ' ';
-            value = 0;
+          // no number was entered, check for A,B,C,D,' '
+          boolean bFound = false;
+          for (int i = 0; i < allowedValues.length; i++) {
+            if ((answer = newString.toCharArray()[0]) == allowedValues[i]) {
+              value = i;
+              bFound = true;
+              break;
+            }
+          }
+          // the value must be valid, in create mode ' ' is not allowed
+          if ((isInCreateMode && answer == ' ') || !bFound) {
             bSkip = true;
           }
+        } catch (ArrayIndexOutOfBoundsException aiobe) {
+          // skip the value
+          bSkip = true;
         }
         // set the value text A,B,C
         if (!bSkip) {
@@ -187,12 +180,12 @@ public class AntwortTextField extends JTextField implements IConfig {
   }
 
   public void setAnswer(char answer) {
-    ((InputTextDocument) getDocument()).setValue(translate(answer));
+    ((InputTextDocument) getDocument()).setValue(translate(allowedValues, answer));
     setText(answer + "");
   }
 
   public void setValue(int value) {
-    ((InputTextDocument) getDocument()).setAnswer(translate(value));
+    ((InputTextDocument) getDocument()).setAnswer(translate(allowedValues, value));
     setText(((InputTextDocument) getDocument()).getAnswer() + "");
   }
 
@@ -200,20 +193,16 @@ public class AntwortTextField extends JTextField implements IConfig {
     this.oldColor = c;
   }
 
-  public static int translate(char answer) {
-    if (answer == 'A') return 1;
-    else if (answer == 'B') return 2;
-    else if (answer == 'C') return 3;
-    else if (answer == 'D') return 4;
+  public static int translate(char[] allowedValues, char answer) {
+    for (int i = 0; i < allowedValues.length; i++) {
+      if (allowedValues[i] == answer)
+        return i;
+    }
     return 0;
   }
 
-  public static char translate(int value) {
-    if (value == 1) return 'A';
-    else if (value == 2) return 'B';
-    else if (value == 3) return 'C';
-    else if (value == 4) return 'D';
-    return ' ';
+  public static char translate(char[] allowedValues, int value) {
+    return allowedValues[value];
   }
 }
 

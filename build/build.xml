@@ -151,6 +151,7 @@
       <path>
         <!-- lib.home contains all jar files, in several subdirectories -->
         <fileset dir="${WEB_LIB_DIR}" includes="**/*.jar"/>
+        o
       </path>
     </pathconvert>
 

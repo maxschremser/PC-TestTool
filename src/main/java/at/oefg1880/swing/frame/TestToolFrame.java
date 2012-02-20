@@ -68,7 +68,8 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         if (fragebogenPanel.getFragebogenList().getModel().getSize() > 0) {
           int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), QUESTION_SAVE));
           if (JOptionPane.YES_OPTION == a) {
-            exportData();
+            String filePath = exportData();
+            JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.DEFAULT_OPTION);
             dispose();
             return;
           } else if (JOptionPane.NO_OPTION == a) {
@@ -82,8 +83,8 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
       }
     });
     FormLayout layout = new FormLayout(
-            "6dlu,pref,6dlu",
-            "6dlu,pref,6dlu,pref,6dlu");
+        "6dlu,pref,6dlu",
+        "6dlu,pref,6dlu,pref,6dlu");
     CellConstraints cc = new CellConstraints();
     GradientPanel panel = new GradientPanel();
     panel.setLayout(layout);
@@ -124,7 +125,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     // Ja, Nein, Abbrechen Dialog mit einer Frage und einem Icon
     dialog = new JDialog(this, title, true);
     FormLayout layout = new FormLayout(
-            "6dlu,center:pref,6dlu", "6dlu,pref,6dlu,pref,6dlu"
+        "6dlu,center:pref,6dlu", "6dlu,pref,6dlu,pref,6dlu"
     );
     PanelBuilder builder = new PanelBuilder(layout);
     CellConstraints cc = new CellConstraints();
@@ -148,14 +149,15 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     return returnValue;
   }
 
-  public void exportData() {
+  public String exportData() {
+    File file;
     try {
       Workbook wb = new HSSFWorkbook();
       Calendar cal = Calendar.getInstance();
       final String DATE_FORMAT = "yyyyMMdd";
       SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
       String date = sdf.format(cal.getTime());
-      File file = new File(getFragebogenName() + "-" + date + ".xls");
+      file = new File(getFragebogenName() + "-" + date + ".xls");
       file.createNewFile();
       log.info("Saved at: " + file.getAbsolutePath());
       FileOutputStream fos = new FileOutputStream(file);
@@ -167,9 +169,11 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
       }
       wb.write(fos);
       fos.close();
+      return file.getAbsolutePath().replaceAll("\\\\", "/");
     } catch (FileNotFoundException fnfne) {
     } catch (IOException ioe) {
     }
+    return "";
   }
 
 }
