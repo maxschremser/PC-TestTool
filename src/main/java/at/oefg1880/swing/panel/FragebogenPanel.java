@@ -112,7 +112,7 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
       createNewFragebogenDialog();
     } else if (SAVE.equals(e.getActionCommand())) {
       String filePath = frame.exportData();
-      int selectedOption = JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.YES_NO_CANCEL_OPTION);
+      int selectedOption = JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.YES_NO_OPTION);
       if (JOptionPane.OK_OPTION == selectedOption) {
         try {
           URI uri = new URI(filePath);
