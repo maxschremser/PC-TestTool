@@ -32,18 +32,24 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     super(title);
     props.setOwner(this);
     setup();
-    pack();
   }
 
+  private void checkLicense() {
+//    System.exit(0);
+//    props.getProperty()
+  }
+
+
   private void setup() {
+    checkLicense();
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
         dispose();
       }
     });
     FormLayout layout = new FormLayout(
-            "6dlu,pref,6dlu",
-            "6dlu,pref,6dlu,pref,6dlu");
+        "6dlu,pref,6dlu",
+        "6dlu,pref,6dlu,pref,6dlu");
     CellConstraints cc = new CellConstraints();
     GradientPanel panel = new GradientPanel();
     panel.setLayout(layout);

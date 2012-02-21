@@ -12,11 +12,13 @@ import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,9 +33,10 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
   protected AntwortDialog antwortDialog;
   protected PropertyHandler props = PropertyHandler.getInstance();
   protected ResourceHandler rh = ResourceHandler.getInstance();
+  protected final Logger log = Logger.getLogger(getClass());
   private FragebogenList list;
-  private final String NEW = "new", SPEICHERN = "speichern";
-  private JButton buttonSpeichern;
+  private final String NEW = "new", SAVE = "save";
+  private JButton buttonSave, buttonNew;
 
   public abstract JDialog createNewFragebogenDialog();
 
@@ -52,18 +55,18 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     setLayout(layout);
     CellConstraints cc = new CellConstraints();
     add(new JLabel(rh.getString(getClass(), LABEL)), cc.xy(2, 2));
-    JButton buttonNew = new JButton(rh.getString(getClass(), BUTTON_NEW));
+    buttonNew = new JButton(rh.getString(getClass(), BUTTON_NEW));
     buttonNew.addActionListener(this);
     buttonNew.setActionCommand(NEW);
     buttonNew.setFocusable(false);
     buttonNew.setMnemonic('N');
-    buttonSpeichern = new JButton(rh.getString(getClass(), BUTTON_SAVE));
-    buttonSpeichern.addActionListener(this);
-    buttonSpeichern.setActionCommand(SPEICHERN);
-    buttonSpeichern.setFocusable(false);
-    buttonSpeichern.setMnemonic('S');
-    buttonSpeichern.setEnabled(false);
-    JPanel buttonBarPanel = ButtonBarFactory.buildAddRemoveRightBar(buttonSpeichern, buttonNew);
+    buttonSave = new JButton(rh.getString(getClass(), BUTTON_SAVE));
+    buttonSave.addActionListener(this);
+    buttonSave.setActionCommand(SAVE);
+    buttonSave.setFocusable(false);
+    buttonSave.setMnemonic('S');
+    buttonSave.setEnabled(false);
+    JPanel buttonBarPanel = ButtonBarFactory.buildAddRemoveRightBar(buttonSave, buttonNew);
     buttonBarPanel.setOpaque(true);
     add(buttonBarPanel, cc.xy(4, 2));
     JScrollPane scrollPaneList = new JScrollPane(getFragebogenList(),
@@ -81,8 +84,12 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     return list;
   }
 
-  public JButton getSpeichernButton() {
-    return buttonSpeichern;
+  public JButton getButtonSave() {
+    return buttonSave;
+  }
+
+  public JButton getButtonNew() {
+    return buttonNew;
   }
 
   public FragebogenDialog getFragebogenDialog() {
@@ -103,10 +110,17 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
   public void actionPerformed(ActionEvent e) {
     if (NEW.equals(e.getActionCommand())) {
       createNewFragebogenDialog();
-    } else if (SPEICHERN.equals(e.getActionCommand())) {
+    } else if (SAVE.equals(e.getActionCommand())) {
       String filePath = frame.exportData();
-      JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.DEFAULT_OPTION);
-      frame.dispose();
+      int selectedOption = JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.YES_NO_CANCEL_OPTION);
+      if (JOptionPane.OK_OPTION == selectedOption) {
+        try {
+          URI uri = new URI(filePath);
+          Desktop.getDesktop().browse(uri);
+        } catch (Exception exp) {
+          log.info(exp.getMessage());
+        }
+      }
     }
   }
 }

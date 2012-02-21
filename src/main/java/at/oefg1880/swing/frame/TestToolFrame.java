@@ -41,7 +41,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
   protected final Logger log = Logger.getLogger(TestToolFrame.class);
   private PropertyHandler props = PropertyHandler.getInstance();
   private ImagePanel imagePanel;
-  private ResourceHandler rh = ResourceHandler.getInstance();
+  protected ResourceHandler rh = ResourceHandler.getInstance();
   private int returnValue;
   private JDialog dialog;
 
@@ -59,7 +59,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     super(title);
     props.setOwner(this);
     setup();
-    pack();
   }
 
   private void setup() {
@@ -68,8 +67,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         if (fragebogenPanel.getFragebogenList().getModel().getSize() > 0) {
           int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), QUESTION_SAVE));
           if (JOptionPane.YES_OPTION == a) {
-            String filePath = exportData();
-            JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.DEFAULT_OPTION);
+            getFragebogenPanel().getButtonSave().doClick();
             dispose();
             return;
           } else if (JOptionPane.NO_OPTION == a) {

@@ -81,11 +81,10 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
           if (getSelectedIndex() >= 0)
             frame.getFragebogenPanel().createNewAntwortDialog((Fragebogen) getSelectedValue());
         } else if (key == KeyEvent.VK_N) {
-          frame.getFragebogenPanel().createNewFragebogenDialog();
+          frame.getFragebogenPanel().getButtonNew().doClick();
         } else if (key == KeyEvent.VK_S) {
-          if (frame.getFragebogenPanel().getSpeichernButton().isEnabled()) {
-            String filePath = frame.exportData();
-            JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.DEFAULT_OPTION);
+          if (frame.getFragebogenPanel().getButtonSave().isEnabled()) {
+            frame.getFragebogenPanel().getButtonSave().doClick();
           }
         } else if (key == KeyEvent.VK_DELETE) {
           String title = ((Fragebogen) getSelectedValue()).getTitle();
@@ -162,7 +161,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
       if (n == 0) // JA
         model.remove(getSelectedIndex());
       if (model.getSize() <= 0)
-        frame.getFragebogenPanel().getSpeichernButton().setEnabled(false);
+        frame.getFragebogenPanel().getButtonSave().setEnabled(false);
     } else if (OK.equals(e.getActionCommand())) {
       frame.setReturnValue(JOptionPane.OK_OPTION);
       frame.getDialog().dispose();

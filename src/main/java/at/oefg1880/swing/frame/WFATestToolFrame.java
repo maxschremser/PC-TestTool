@@ -62,7 +62,7 @@ public class WFATestToolFrame extends TestToolFrame {
     // Lösungen
     row = sheet.createRow(2);
     cell = row.createCell(0);
-    cell.setCellValue("Lösungen");
+    cell.setCellValue(rh.getString(getClass(), LABEL_SOLUTION));
     cell.setCellStyle(boldStyle);
 
     int c = 4;
@@ -218,14 +218,15 @@ public class WFATestToolFrame extends TestToolFrame {
     cell.setCellStyle(boldStyle);
 
     row = sheet.createRow(3);
+    char[] allowedValues = getFragebogenPanel().getAntwortDialog(f).getAntwortPanel().getAllowedValues();
     int i = 4;
     for (int v : f.getSolutions()) {
-      row.createCell(i++).setCellValue(AntwortTextField.translate(getFragebogenPanel().getAntwortDialog(f).getAntwortPanel().getAllowedValues(), v) + "");
+      row.createCell(i++).setCellValue(AntwortTextField.translate(allowedValues, v) + "");
     }
 
     row = sheet.createRow(5);
     cell = row.createCell(0);
-    cell.setCellValue("Antworten");
+    cell.setCellValue(rh.getString(getClass(), LABEL_ANSWER));
     cell.setCellStyle(boldStyle);
     // Antworten
     int r = 6;
@@ -237,7 +238,7 @@ public class WFATestToolFrame extends TestToolFrame {
       row.createCell(3).setCellValue(a.getPercentages() + "%");
       i = 4;
       for (int v : a.getAnswers()) {
-        row.createCell(i++).setCellValue((AntwortTextField.translate(getFragebogenPanel().getAntwortDialog(f).getAntwortPanel().getAllowedValues(), v) + ""));
+        row.createCell(i++).setCellValue((AntwortTextField.translate(allowedValues, v) + ""));
       }
     }
   }

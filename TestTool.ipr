@@ -213,7 +213,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TestTool.iml" filepath="$PROJECT_DIR$/TestTool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PC-TestTool.iml" filepath="$PROJECT_DIR$/PC-TestTool.iml" />
     </modules>
   </component>
   <component name="ProjectResources">
