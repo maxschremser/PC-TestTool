@@ -1,0 +1,35 @@
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>..\app\lib\TestTool-1.2.jar</jar>
+  <outfile>J:\android\PC-TestTool\launch4j\PC-TestTool.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>..\app</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <customProcName>false</customProcName>
+  <stayAlive>false</stayAlive>
+  <manifest></manifest>
+  <icon></icon>
+  <classPath>
+    <mainClass>at.oefg1880.swing.TestTool</mainClass>
+    <cp>avalon-framework-4.1.3.jar</cp>
+    <cp>commons-logging-1.1.jar</cp>
+    <cp>forms-1.2.1.jar</cp>
+    <cp>jcommon-1.0.12.jar</cp>
+    <cp>jfreechart-1.0.13.jar</cp>
+    <cp>log4j-1.2.13.jar</cp>
+    <cp>logkit-1.0.1.jar</cp>
+    <cp>looks-2.2.0.jar</cp>
+    <cp>poi-3.6.jar</cp>
+    <cp>servlet-api-2.3.jar</cp>
+  </classPath>
+  <jre>
+    <path></path>
+    <minVersion>1.6.0</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+  </jre>
+</launch4jConfig>
