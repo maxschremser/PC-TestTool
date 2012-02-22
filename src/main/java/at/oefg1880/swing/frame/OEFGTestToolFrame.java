@@ -6,6 +6,7 @@ import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.OEFGFragebogenPanel;
 import at.oefg1880.swing.text.AntwortTextField;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Font;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,17 +48,24 @@ public class OEFGTestToolFrame extends TestToolFrame {
   }
 
   @Override
-  public void exportFragebogen(Workbook wb, Fragebogen f) {
-    Sheet sheet = wb.createSheet(f.getTitle());
+  public void exportFragebogen(Workbook wb, Fragebogen fragebogen) {
+    Sheet sheet = wb.createSheet(fragebogen.getTitle());
     CellStyle boldStyle = wb.createCellStyle();
-    org.apache.poi.ss.usermodel.Font font = wb.createFont();
-    font.setBoldweight(org.apache.poi.ss.usermodel.Font.BOLDWEIGHT_BOLD);
+    CellStyle greenStyle = wb.createCellStyle();
+    CellStyle redStyle = wb.createCellStyle();
+    Font font = wb.createFont();
+    font.setBoldweight(Font.BOLDWEIGHT_BOLD);
     boldStyle.setFont(font);
+
+    redStyle.setFillBackgroundColor(IndexedColors.RED.getIndex());
+    redStyle.setFillPattern(CellStyle.BIG_SPOTS);
+    greenStyle.setFillBackgroundColor(IndexedColors.GREEN.getIndex());
+    greenStyle.setFillPattern(CellStyle.BIG_SPOTS);
 
     // Title
     Row row = sheet.createRow(0);
     Cell cell = row.createCell(0);
-    cell.setCellValue(f.getTitle());
+    cell.setCellValue(fragebogen.getTitle());
     cell.setCellStyle(boldStyle);
     // Lösungen
     row = sheet.createRow(2);
@@ -128,9 +136,10 @@ public class OEFGTestToolFrame extends TestToolFrame {
     cell.setCellStyle(boldStyle);
 
     row = sheet.createRow(3);
-    char[] allowedValues = getFragebogenPanel().getAntwortDialog(f).getAntwortPanel().getAllowedValues();
+    char[] allowedValues = getFragebogenPanel().getAntwortDialog(fragebogen).getAntwortPanel().getAllowedValues();
+    int[] solutions = fragebogen.getSolutions();
     int i = 4;
-    for (int v : f.getSolutions()) {
+    for (int v : fragebogen.getSolutions()) {
       row.createCell(i++).setCellValue(AntwortTextField.translate(allowedValues, v) + "");
     }
 
@@ -140,15 +149,22 @@ public class OEFGTestToolFrame extends TestToolFrame {
     cell.setCellStyle(boldStyle);
     // Antworten
     int r = 6;
-    for (Antwort a : f.getAntworten()) {
+    for (Antwort a : fragebogen.getAntworten()) {
       row = sheet.createRow(r++);
       row.createCell(0).setCellValue(a.getName());
       row.createCell(1).setCellValue(a.getAlter());
       row.createCell(2).setCellValue(a.getGeschlecht());
       row.createCell(3).setCellValue(a.getPercentages() + "%");
       i = 4;
-      for (int v : a.getAnswers()) {
-        row.createCell(i++).setCellValue((AntwortTextField.translate(allowedValues, v) + ""));
+      int j = 0;
+      for (int iAnswer : a.getAnswers()) {
+        Cell cellAnswer = row.createCell(i++);
+        cellAnswer.setCellValue((AntwortTextField.translate(allowedValues, iAnswer) + ""));
+        if (iAnswer == solutions[j++]) {
+          cellAnswer.setCellStyle(greenStyle);
+        } else {
+          cellAnswer.setCellStyle(redStyle);
+        }
       }
     }
   }
