@@ -57,10 +57,10 @@ public class WFATestToolFrame extends TestToolFrame {
     font.setBoldweight(Font.BOLDWEIGHT_BOLD);
     boldStyle.setFont(font);
 
-    redStyle.setFillBackgroundColor(IndexedColors.RED.getIndex());
-    redStyle.setFillPattern(CellStyle.BIG_SPOTS);
-    greenStyle.setFillBackgroundColor(IndexedColors.GREEN.getIndex());
-    greenStyle.setFillPattern(CellStyle.BIG_SPOTS);
+    redStyle.setFillForegroundColor(IndexedColors.RED.getIndex());
+    redStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+    greenStyle.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+    greenStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
 
     // Title
     Row row = sheet.createRow(0);
