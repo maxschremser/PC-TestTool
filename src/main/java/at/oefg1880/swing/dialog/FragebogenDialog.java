@@ -9,6 +9,7 @@ import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.list.FragebogenList;
 import at.oefg1880.swing.panel.AntwortPanel;
 import at.oefg1880.swing.panel.GradientPanel;
+import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -27,7 +28,9 @@ import java.awt.event.*;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class FragebogenDialog extends JDialog implements ActionListener, IConfig, ITexts {
+  public final String PROPERTY_NAME = "at.oefg1880.swing.dialog.FragebogenDialog";
   protected ResourceHandler rh = ResourceHandler.getInstance();
+  private PropertyHandler props = PropertyHandler.getInstance();
   protected TestToolFrame frame;
   protected Fragebogen fragebogen;
   protected AntwortList list;
@@ -70,6 +73,20 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
           "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
     }
 
+    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
+      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
+      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
+
+      Point p = new Point(x, y);
+      setLocation(p);
+    }
+    addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        storeProps();
+      }
+    });
+
     builder = new PanelBuilder(layout);
     this.fragebogen = fragebogen;
     setup();
@@ -83,7 +100,6 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
   }
 
   private void setup() {
-    setLocation(((int) frame.getLocation().getX()) + 50, ((int) frame.getLocation().getY()) + 50);
     GradientPanel gradientPanel = new GradientPanel();
     CellConstraints cc = new CellConstraints();
 
@@ -94,6 +110,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
       public void keyTyped(KeyEvent e) {
         if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
           reset();
+          storeProps();
           dispose();
         }
       }
@@ -164,9 +181,16 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     answerPanel.reset();
   }
 
+  private void storeProps() {
+    props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
+    props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
+    props.store();
+  }
+
   private void saveOrUpdate() {
     if (SAVE.equals(button.getActionCommand())) {
       save();
+      storeProps();
     } else {
       if (UPDATE.equals(button.getActionCommand())) {
         update();

@@ -22,6 +22,7 @@ import java.awt.event.*;
  * To change this template use File | Settings | File Templates.
  */
 public class StartFrame extends SheetableFrame implements ITexts, IConfig {
+  public final String PROPERTY_NAME = "at.oefg1880.swing.frame.StartFrame";
   private ImagePanel oefgImagePanel;
   private ImagePanel wfaImagePanel;
   private PropertyHandler props = PropertyHandler.getInstance();
@@ -35,8 +36,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
   }
 
   private void checkLicense() {
-//    System.exit(0);
-//    props.getProperty()
+
   }
 
 
@@ -56,11 +56,21 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     panel.add(getOEFGImagePane(), cc.xy(2, 2));
     panel.add(getWFAImagePane(), cc.xy(2, 4));
     getContentPane().add(panel);
+    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
+      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
+      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
+      Point p = new Point(x, y);
+      setLocation(p);
+    }
+    addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
+        props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
+        props.store();
+      }
+    });
 
-    int x = Integer.valueOf(props.getProperty("x"));
-    int y = Integer.valueOf(props.getProperty("y"));
-    Point p = new Point(x, y);
-    setLocation(p);
     // we are now using the Dissolver to fade out the frame
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     setIconImage(new ImageIcon(getClass().getClassLoader().getResource("resources/oefg_favicon.gif")).getImage());
@@ -88,6 +98,8 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
         @Override
         public void mouseClicked(MouseEvent e) {
           new OEFGTestToolFrame(rh.getString(OEFGTestToolFrame.class, TITLE));
+          props.setProperty(getClass().getName() + "." + POS_X, getX() + "");
+          props.setProperty(getClass().getName() + "." + POS_Y, getY() + "");
           dispose();
         }
 
@@ -113,6 +125,8 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
         @Override
         public void mouseClicked(MouseEvent e) {
           new WFATestToolFrame(rh.getString(WFATestToolFrame.class, TITLE));
+          props.setProperty(getClass().getName() + "." + POS_X, getX() + "");
+          props.setProperty(getClass().getName() + "." + POS_Y, getY() + "");
           dispose();
         }
 

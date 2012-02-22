@@ -102,11 +102,11 @@ public class PropertyHandler implements PropertyChangeListener, ITexts {
 
   public void propertyChange(PropertyChangeEvent evt) {
     if (evt.getPropertyName().equals(JOptionPane.VALUE_PROPERTY)) {
-      frame.hideSheet();
       if (Integer.valueOf(evt.getNewValue().toString()).intValue() == 0) { // OK Button pressed
         File f = new File(LIB_PATH);
         try {
-          createRecursive(f);
+          if (!f.exists())
+            createRecursive(f);
           store();
         } catch (IOException ioe) {
           ioe.printStackTrace();
@@ -123,7 +123,7 @@ public class PropertyHandler implements PropertyChangeListener, ITexts {
     }
 
     File app_homeDir = new File(user_home + file_separator + APP_DIR);
-    if (!app_homeDir.mkdirs()) {
+    if (!app_homeDir.exists() && !app_homeDir.mkdirs()) {
       throw new IOException("Could not create directory <app.dir> (" + app_homeDir.getAbsolutePath() + ").");
     }
 

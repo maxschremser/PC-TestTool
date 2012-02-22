@@ -11,12 +11,10 @@ import java.awt.*;
  */
 public interface IConfig {
   // SAR GLOBAL CONFIGURATION PROPERTIES
-  public final static String NUM_ANSWERS = "numAnswers";
-  public final static String NUM_QUESTIONS = "numQuestions";
-  public final static String NUM_CATEGORIES = "numCategories";
-  public final static String NUM_SPREADS = "numSpreads";
   public final static String LICENSE_FILE = "license.file";
   public final static String PUBLIC_KEY = "public.key";
+  public final static String POS_X = "x";
+  public final static String POS_Y = "y";
 
   public final Color color_1 = new Color(255, 251, 234), color_2 = new Color(219, 216, 201);
   public final Color selectedTextForeground = new Color(136, 181, 232), selectedListForeground = new Color(199, 215, 234), finishedColor = new Color(0, 100, 55);

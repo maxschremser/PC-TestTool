@@ -8,6 +8,7 @@ import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.panel.AntwortPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.text.AntwortTextField;
+import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -20,10 +21,7 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -35,7 +33,9 @@ import java.beans.PropertyChangeListener;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class AntwortDialog extends JDialog implements ActionListener, PropertyChangeListener, IConfig, ITexts {
+  public final String PROPERTY_NAME = "at.oefg1880.swing.dialog.AntwortDialog";
   private ResourceHandler rh = ResourceHandler.getInstance();
+  private PropertyHandler props = PropertyHandler.getInstance();
   private TestToolFrame frame;
   private JTextField tfName;
   private AntwortPanel antwortPanel;
@@ -83,13 +83,26 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   }
 
   private void setup() {
-    setLocation(((int) frame.getLocation().getX()) + 50, ((int) frame.getLocation().getY()) + 50);
     FormLayout layout = new FormLayout(
         "6dlu,100dlu,6dlu,pref,6dlu,pref,6dlu",
         "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,12dlu,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
     GradientPanel gradientPanel = new GradientPanel();
     PanelBuilder builder = new PanelBuilder(layout);
     CellConstraints cc = new CellConstraints();
+
+    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
+      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
+      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
+
+      Point p = new Point(x, y);
+      setLocation(p);
+    }
+    addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        storeProps();
+      }
+    });
 
     saveButton = new JButton(rh.getString(getClass(), BUTTON_SAVE));
     saveButton.addActionListener(this);
@@ -117,6 +130,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
       public void keyTyped(KeyEvent e) {
         if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
           reset();
+          storeProps();
           dispose();
         }
       }
@@ -202,6 +216,12 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     else rbW.setSelected(true);
   }
 
+  private void storeProps() {
+    props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
+    props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
+    props.store();
+  }
+
   private void update() {
     String sGeschlecht = bgGeschlecht.getSelection().getActionCommand();
     String sAlter = bgAlter.getSelection().getActionCommand();
@@ -228,6 +248,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
       save();
     else
       update();
+    storeProps();
   }
 
   private void close() {

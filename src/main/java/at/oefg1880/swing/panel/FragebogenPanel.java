@@ -18,6 +18,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
 import java.net.URI;
 
 /**
@@ -111,6 +112,7 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     if (NEW.equals(e.getActionCommand())) {
       createNewFragebogenDialog();
     } else if (SAVE.equals(e.getActionCommand())) {
+      props.propertyChange(new PropertyChangeEvent(this, JOptionPane.VALUE_PROPERTY, 0, 0));
       String filePath = frame.exportData();
       int selectedOption = JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.YES_NO_OPTION);
       if (JOptionPane.OK_OPTION == selectedOption) {
@@ -121,6 +123,7 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
           log.info(exp.getMessage());
         }
       }
+
     }
   }
 }

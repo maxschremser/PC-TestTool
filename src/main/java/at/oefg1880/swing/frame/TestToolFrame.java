@@ -37,6 +37,7 @@ import java.util.Enumeration;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class TestToolFrame extends SheetableFrame implements ITexts, IConfig {
+  public final String PROPERTY_NAME = "at.oefg1880.swing.frame.TestToolFrame";
   protected FragebogenPanel fragebogenPanel;
   protected final Logger log = Logger.getLogger(TestToolFrame.class);
   private PropertyHandler props = PropertyHandler.getInstance();
@@ -91,10 +92,20 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 //    panel.add(getButtonPane(), cc.xy(2, 6));
     getContentPane().add(panel);
 
-    int x = Integer.valueOf(props.getProperty("x"));
-    int y = Integer.valueOf(props.getProperty("y"));
-    Point p = new Point(x, y);
-    setLocation(p);
+    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
+      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
+      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
+
+      Point p = new Point(x, y);
+      setLocation(p);
+    }
+    addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        storeProps();
+      }
+    });
+
     // we are now using the Dissolver to fade out the frame
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     setIconImage(new ImageIcon(getClass().getClassLoader().getResource(getFavicon())).getImage());
@@ -145,6 +156,12 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     dialog.dispose();
 
     return returnValue;
+  }
+
+  private void storeProps() {
+    props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
+    props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
+    props.store();
   }
 
   public String exportData() {
