@@ -17,18 +17,13 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0da3a4a3-1c36-4e82-aa3e-6f4c5093c636" name="Default" comment="tried the launch4j">
+    <list default="true" id="0da3a4a3-1c36-4e82-aa3e-6f4c5093c636" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/license/License.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/license/exception/LicenseException.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestTool.iws" afterPath="$PROJECT_DIR$/TestTool.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/IConfig.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/IConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/FragebogenDialog.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/FragebogenDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/OEFGTestToolFrame.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/OEFGTestToolFrame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/TestToolFrame.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/TestToolFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/FragebogenPanel.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/FragebogenPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/OEFGFragebogenPanel.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/OEFGFragebogenPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/PropertyHandler.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/PropertyHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/resources/config.properties" afterPath="$PROJECT_DIR$/src/main/java/resources/config.properties" />
     </list>
     <list id="4e2c01bd-1f04-49ab-a76a-cc845bf37436" name="Failed commit: Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/launch4j/PC-TestTool.exe" />
@@ -136,7 +131,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java" line="58" class="at.oefg1880.swing.frame.StartFrame" package="at.oefg1880.swing.frame">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java" line="70" class="at.oefg1880.swing.frame.StartFrame" package="at.oefg1880.swing.frame">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -201,7 +196,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java" line="67" class="at.oefg1880.swing.frame.StartFrame$2" package="at.oefg1880.swing.frame">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java" line="79" class="at.oefg1880.swing.frame.StartFrame$2" package="at.oefg1880.swing.frame">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -311,10 +306,64 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="StartFrame.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="StartFrame.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="73" selection-start="1978" selection-end="1978" vertical-scroll-proportion="0.38907284">
+            <state line="40" column="28" selection-start="1340" selection-end="1340" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LicenseException.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/license/exception/LicenseException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="7" selection-start="294" selection-end="294" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Exception.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://D:/Java/jdk1.6.0_24/src.zip!/java/lang/Exception.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="4" selection-start="1221" selection-end="1221" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Throwable.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://D:/Java/jdk1.6.0_24/src.zip!/java/lang/Throwable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="194" column="11" selection-start="8845" selection-end="8845" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.properties" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/resources/config.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="75" selection-start="752" selection-end="752" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PropertyHandler.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/PropertyHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="53" column="27" selection-start="2459" selection-end="2459" vertical-scroll-proportion="0.5887446">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IConfig.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/IConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="0" selection-start="233" selection-end="233" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -323,16 +372,7 @@
       <file leaf-file-name="TestToolFrame.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/TestToolFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="0" selection-start="3140" selection-end="3140" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AntwortDialog.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="8" selection-start="1236" selection-end="1236" vertical-scroll-proportion="0.0">
+            <state line="68" column="18" selection-start="2315" selection-end="2315" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -341,61 +381,16 @@
       <file leaf-file-name="FragebogenDialog.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/FragebogenDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="192" column="77" selection-start="6847" selection-end="6847" vertical-scroll-proportion="0.0">
+            <state line="13" column="11" selection-start="531" selection-end="531" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ITexts.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/ITexts.java">
+      <file leaf-file-name="AntwortDialog.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="38" selection-start="474" selection-end="474" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OEFGFragebogenPanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/OEFGFragebogenPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="90" selection-start="1512" selection-end="1512" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Component.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://D:/Java/jdk1.6.0_24/src.zip!/java/awt/Component.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2017" column="16" selection-start="69566" selection-end="69566" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OEFGFragebogenDialog.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/OEFGFragebogenDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="52" selection-start="513" selection-end="513" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FragebogenPanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/FragebogenPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="52" selection-start="992" selection-end="992" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GradientPanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/GradientPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="13" selection-start="282" selection-end="282" vertical-scroll-proportion="0.0">
+            <state line="264" column="27" selection-start="9214" selection-end="9214" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -415,7 +410,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/resources/texts.properties" />
         <option value="$PROJECT_DIR$/src/main/java/resources/texts_en.properties" />
         <option value="$PROJECT_DIR$/launch4j/PC-TestTool.cfg.xml" />
         <option value="$PROJECT_DIR$/launch4j/launch4j.log" />
@@ -423,14 +417,15 @@
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/OEFGTestToolFrame.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/WFATestToolFrame.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/FragebogenPanel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/IConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/resources/config.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/PropertyHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/TestToolFrame.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/OEFGFragebogenPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/FragebogenDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/license/exception/LicenseException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/IConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/PropertyHandler.java" />
       </list>
     </option>
   </component>
@@ -444,8 +439,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1696" />
-    <option name="height" value="1026" />
+    <option name="width" value="1364" />
+    <option name="height" value="666" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -618,7 +613,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="swing" />
+              <option name="myItemId" value="oefg1880" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -644,41 +639,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="swing" />
+              <option name="myItemId" value="oefg1880" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="panel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TestTool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PC-TestTool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="swing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frame" />
+              <option name="myItemId" value="license" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -704,45 +669,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="swing" />
+              <option name="myItemId" value="oefg1880" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="frame" />
+              <option name="myItemId" value="license" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dissolver" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TestTool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PC-TestTool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="swing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dialog" />
+              <option name="myItemId" value="exception" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1051,14 +986,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
+    <frame x="-8" y="-8" width="1364" height="666" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3160855" sideWeight="0.74071264" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24943139" sideWeight="0.6903553" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2654668" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44612476" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IvyIDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32945284" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -1068,7 +1003,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22256285" sideWeight="0.43644544" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32927817" sideWeight="0.49243307" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22256285" sideWeight="0.7345332" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27944574" sideWeight="0.5538752" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22497188" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295325" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1115,7 +1050,7 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="red and green background color in excel cells" />
+    <option name="LAST_COMMIT_MESSAGE" value="safe location in a user's properties file for each frame and dialog" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1138,6 +1073,7 @@
     <MESSAGE value="YES_NO_OPTION is enough for dialog_save - Dialog" />
     <MESSAGE value="tried to implement launch4j" />
     <MESSAGE value="red and green background color in excel cells" />
+    <MESSAGE value="safe location in a user's properties file for each frame and dialog" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="C:\Program Files\Microsoft Visual Studio\VSS\win32\SS.EXE" />
@@ -1203,51 +1139,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://D:/Java/jdk1.6.0_24/src.zip!/java/util/Properties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="792" column="16" selection-start="31161" selection-end="31161" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/OEFGTestToolFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="640" selection-end="640" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/resources/config.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="75" selection-start="752" selection-end="752" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/PropertyHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="14" selection-start="2485" selection-end="2485" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/IConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="34" selection-start="466" selection-end="466" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/resources/texts.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="58" selection-start="3801" selection-end="3815" vertical-scroll-proportion="-8.136364">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/ITexts.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="38" selection-start="474" selection-end="474" vertical-scroll-proportion="0.0">
@@ -1276,13 +1167,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="8" selection-start="1236" selection-end="1236" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://D:/Java/jdk1.6.0_24/src.zip!/java/awt/Component.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2017" column="16" selection-start="69566" selection-end="69566" vertical-scroll-proportion="0.0">
@@ -1297,23 +1181,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/TestToolFrame.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/resources/config.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="0" selection-start="3140" selection-end="3140" vertical-scroll-proportion="0.0">
+        <state line="13" column="75" selection-start="752" selection-end="752" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Java/jdk1.6.0_24/src.zip!/java/lang/Exception.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="4" selection-start="1221" selection-end="1221" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Java/jdk1.6.0_24/src.zip!/java/lang/Throwable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="194" column="11" selection-start="8845" selection-end="8845" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/FragebogenDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="192" column="77" selection-start="6847" selection-end="6847" vertical-scroll-proportion="0.0">
+        <state line="13" column="11" selection-start="531" selection-end="531" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="264" column="27" selection-start="9214" selection-end="9214" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/TestToolFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="18" selection-start="2315" selection-end="2315" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/license/exception/LicenseException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="7" selection-start="294" selection-end="294" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/IConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="233" selection-end="233" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="73" selection-start="1978" selection-end="1978" vertical-scroll-proportion="0.38907284">
+        <state line="40" column="28" selection-start="1340" selection-end="1340" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/PropertyHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="27" selection-start="2459" selection-end="2459" vertical-scroll-proportion="0.5887446">
           <folding />
         </state>
       </provider>

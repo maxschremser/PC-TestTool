@@ -10,9 +10,6 @@ import java.awt.*;
  * To change this template use File | Settings | File Templates.
  */
 public interface IConfig {
-  // SAR GLOBAL CONFIGURATION PROPERTIES
-  public final static String LICENSE_FILE = "license.file";
-  public final static String PUBLIC_KEY = "public.key";
   public final static String POS_X = "x";
   public final static String POS_Y = "y";
 
