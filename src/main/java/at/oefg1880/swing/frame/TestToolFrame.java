@@ -69,6 +69,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
           int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), QUESTION_SAVE));
           if (JOptionPane.YES_OPTION == a) {
             getFragebogenPanel().getButtonSave().doClick();
+            storeProps();
             dispose();
             return;
           } else if (JOptionPane.NO_OPTION == a) {
@@ -99,12 +100,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
       Point p = new Point(x, y);
       setLocation(p);
     }
-    addWindowListener(new WindowAdapter() {
-      @Override
-      public void windowClosing(WindowEvent e) {
-        storeProps();
-      }
-    });
 
     // we are now using the Dissolver to fade out the frame
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

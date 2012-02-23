@@ -55,6 +55,9 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     }
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
+        props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
+        props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
+        props.store();
         dispose();
       }
     });
@@ -73,14 +76,6 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
       Point p = new Point(x, y);
       setLocation(p);
     }
-    addWindowListener(new WindowAdapter() {
-      @Override
-      public void windowClosing(WindowEvent e) {
-        props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
-        props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
-        props.store();
-      }
-    });
 
     // we are now using the Dissolver to fade out the frame
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
