@@ -63,7 +63,7 @@ public class PropertyHandler implements PropertyChangeListener, ITexts, IConfig 
         log.info("Load from: " + APP_CONFIG_PATH);
         props.load(getClass().getClassLoader().getResourceAsStream(APP_CONFIG_PATH));
       } catch (IOException ioe2) {
-        ioe2.printStackTrace();
+      } catch (NullPointerException npe) {
       }
     }
   }
@@ -82,17 +82,17 @@ public class PropertyHandler implements PropertyChangeListener, ITexts, IConfig 
     try {
       File f = new File(USER_CONFIG_PATH);
       log.info("store props to : " + f.getAbsoluteFile());
-      if (!f.getParentFile().exists()) {
-        JOptionPane directoryCreateDialog = new JOptionPane(rh.getString(getClass(), DIALOG_CREATE_DIR),
-            JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
-        directoryCreateDialog.addPropertyChangeListener(this);
-        JDialog dialog = directoryCreateDialog.createDialog(frame, "TestTool - Create Directory");
-        if (frame != null) {
-          frame.showDialogAsSheet(dialog);
-        } else {
-          dialog.setVisible(true);
-        }
-      }
+//      if (!f.getParentFile().exists()) {
+//        JOptionPane directoryCreateDialog = new JOptionPane(rh.getString(getClass(), DIALOG_CREATE_DIR),
+//            JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
+//        directoryCreateDialog.addPropertyChangeListener(this);
+//        JDialog dialog = directoryCreateDialog.createDialog(frame, "TestTool - Create Directory");
+//        if (frame != null) {
+//          frame.showDialogAsSheet(dialog);
+//        } else {
+//          dialog.setVisible(true);
+//        }
+//      }
       OutputStream os = new FileOutputStream(f);
       try {
         props.store(os, "");

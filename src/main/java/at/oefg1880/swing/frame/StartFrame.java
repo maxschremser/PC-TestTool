@@ -37,11 +37,11 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
   }
 
   private void checkLicense() throws LicenseException {
-    if (props.getLicense().length() > 0) {
-
-    } else {
-      throw new LicenseException("No License was found, please download a valid license.");
-    }
+//    if (props.getLicense().length() > 0) {
+//
+//    } else {
+//      throw new LicenseException("No License was found, please download a valid license.");
+//    }
   }
 
 

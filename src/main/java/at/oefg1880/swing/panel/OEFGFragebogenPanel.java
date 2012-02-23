@@ -24,8 +24,7 @@ public class OEFGFragebogenPanel extends FragebogenPanel {
   @Override
   public JDialog createNewFragebogenDialog() {
     fragebogenDialog = new OEFGFragebogenDialog(frame, rh.getString(getClass(), FRAGEBOGEN_NEW));
-    fragebogenDialog.setLocation(Integer.valueOf(props.getProperty(fragebogenDialog.PROPERTY_NAME + "." + POS_X)),
-        Integer.valueOf(props.getProperty(fragebogenDialog.PROPERTY_NAME + "." + POS_Y)));
+    fragebogenDialog.loadProps();
     fragebogenDialog.setVisible(true);
     return fragebogenDialog;
   }

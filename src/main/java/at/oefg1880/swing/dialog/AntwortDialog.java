@@ -90,13 +90,8 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     PanelBuilder builder = new PanelBuilder(layout);
     CellConstraints cc = new CellConstraints();
 
-    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
-      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
-      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
+    loadProps();
 
-      Point p = new Point(x, y);
-      setLocation(p);
-    }
     addWindowListener(new WindowAdapter() {
       @Override
       public void windowClosing(WindowEvent e) {
@@ -198,6 +193,16 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     getContentPane().add(gradientPanel);
     pack();
     setResizable(false);
+  }
+
+  public void loadProps() {
+    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
+      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
+      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
+
+      Point p = new Point(x, y);
+      setLocation(p);
+    }
   }
 
   private void reset() {

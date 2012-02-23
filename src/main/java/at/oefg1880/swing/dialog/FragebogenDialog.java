@@ -73,13 +73,8 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
           "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
     }
 
-    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
-      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
-      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
+    loadProps();
 
-      Point p = new Point(x, y);
-      setLocation(p);
-    }
     addWindowListener(new WindowAdapter() {
       @Override
       public void windowClosing(WindowEvent e) {
@@ -97,6 +92,16 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     button.setActionCommand(UPDATE);
     button.setEnabled(true);
     getAntwortList().requestFocus();
+  }
+
+  public void loadProps() {
+    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
+      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
+      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
+
+      Point p = new Point(x, y);
+      setLocation(p);
+    }
   }
 
   private void setup() {

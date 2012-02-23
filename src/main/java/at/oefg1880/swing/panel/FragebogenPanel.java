@@ -103,6 +103,7 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
       return null;
     }
     antwortDialog = getAntwortDialog(fragebogen);
+    antwortDialog.loadProps();
     antwortDialog.setVisible(true);
     return antwortDialog;
   }
