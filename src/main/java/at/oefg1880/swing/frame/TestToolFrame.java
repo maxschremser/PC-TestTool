@@ -93,13 +93,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 //    panel.add(getButtonPane(), cc.xy(2, 6));
     getContentPane().add(panel);
 
-    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
-      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
-      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
-
-      Point p = new Point(x, y);
-      setLocation(p);
-    }
+    loadProps();
 
     // we are now using the Dissolver to fade out the frame
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -151,6 +145,16 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     dialog.dispose();
 
     return returnValue;
+  }
+
+  private void loadProps() {
+    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
+      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
+      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
+
+      Point p = new Point(x, y);
+      setLocation(p);
+    }
   }
 
   private void storeProps() {

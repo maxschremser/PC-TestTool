@@ -195,16 +195,6 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     setResizable(false);
   }
 
-  public void loadProps() {
-    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
-      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
-      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
-
-      Point p = new Point(x, y);
-      setLocation(p);
-    }
-  }
-
   private void reset() {
     correctAnswers = 0;
     tfName.setText("");
@@ -219,6 +209,16 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     if (sex.length() <= 0) return;
     if (sex.equals(MASCULIN)) rbM.setSelected(true);
     else rbW.setSelected(true);
+  }
+
+  public void loadProps() {
+    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
+      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
+      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
+
+      Point p = new Point(x, y);
+      setLocation(p);
+    }
   }
 
   private void storeProps() {

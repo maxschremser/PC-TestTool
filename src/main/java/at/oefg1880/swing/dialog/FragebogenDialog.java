@@ -94,16 +94,6 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     getAntwortList().requestFocus();
   }
 
-  public void loadProps() {
-    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
-      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
-      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
-
-      Point p = new Point(x, y);
-      setLocation(p);
-    }
-  }
-
   private void setup() {
     GradientPanel gradientPanel = new GradientPanel();
     CellConstraints cc = new CellConstraints();
@@ -178,12 +168,21 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     setResizable(true);
   }
 
-
   private void reset() {
     fragebogen = null;
     textFieldName.setText("");
     spinner.setValue(5);
     answerPanel.reset();
+  }
+
+  public void loadProps() {
+    if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
+      int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
+      int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
+
+      Point p = new Point(x, y);
+      setLocation(p);
+    }
   }
 
   private void storeProps() {

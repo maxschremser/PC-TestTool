@@ -24,6 +24,7 @@ public class WFAFragebogenPanel extends FragebogenPanel {
   @Override
   public JDialog createNewFragebogenDialog() {
     fragebogenDialog = new WFAFragebogenDialog(frame, rh.getString(getClass(), FRAGEBOGEN_NEW));
+    fragebogenDialog.loadProps();
     fragebogenDialog.setVisible(true);
     return fragebogenDialog;
   }
