@@ -41,8 +41,8 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
   protected FragebogenPanel fragebogenPanel;
   protected final Logger log = Logger.getLogger(TestToolFrame.class);
   private PropertyHandler props = PropertyHandler.getInstance();
-  private ImagePanel imagePanel;
   protected ResourceHandler rh = ResourceHandler.getInstance();
+  private ImagePanel imagePanel;
   private int returnValue;
   private JDialog dialog;
 
@@ -156,7 +156,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
   private void storeProps() {
     props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
     props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
-    props.store();
+    props.store(); // we save the properties file only when exiting the application
   }
 
   public String exportData() {

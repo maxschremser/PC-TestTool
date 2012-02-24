@@ -189,7 +189,6 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
   private void storeProps() {
     props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
     props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
-    props.store();
   }
 
   private void saveOrUpdate() {

@@ -83,11 +83,9 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     addKeyListener(new KeyAdapter() {
       public void keyTyped(KeyEvent e) {
         if (e.getKeyChar() == KeyEvent.VK_1) {
-          new OEFGTestToolFrame(rh.getString(OEFGTestToolFrame.class, TITLE));
-          dispose();
+          showOEFGTestToolFrame();
         } else if (e.getKeyChar() == KeyEvent.VK_2) {
-          new WFATestToolFrame(rh.getString(WFATestToolFrame.class, TITLE));
-          dispose();
+          showWFATestToolFrame();
         }
       }
     });
@@ -96,6 +94,21 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     setVisible(true);
   }
 
+  private void showOEFGTestToolFrame() {
+    new OEFGTestToolFrame(rh.getString(OEFGTestToolFrame.class, TITLE));
+    props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
+    props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
+    dispose();
+  }
+
+  private void showWFATestToolFrame() {
+    new WFATestToolFrame(rh.getString(WFATestToolFrame.class, TITLE));
+    props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
+    props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
+    dispose();
+  }
+
+
   public ImagePanel getOEFGImagePane() {
     if (oefgImagePanel == null) {
       oefgImagePanel = new ImagePanel(getClass().getClassLoader().getResource("resources/oefg1880_logo.gif"));
@@ -103,10 +116,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
       oefgImagePanel.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          new OEFGTestToolFrame(rh.getString(OEFGTestToolFrame.class, TITLE));
-          props.setProperty(getClass().getName() + "." + POS_X, getX() + "");
-          props.setProperty(getClass().getName() + "." + POS_Y, getY() + "");
-          dispose();
+          showOEFGTestToolFrame();
         }
 
         @Override
@@ -130,10 +140,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
       wfaImagePanel.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          new WFATestToolFrame(rh.getString(WFATestToolFrame.class, TITLE));
-          props.setProperty(getClass().getName() + "." + POS_X, getX() + "");
-          props.setProperty(getClass().getName() + "." + POS_Y, getY() + "");
-          dispose();
+          showWFATestToolFrame();
         }
 
         @Override

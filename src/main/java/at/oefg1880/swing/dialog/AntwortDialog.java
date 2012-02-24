@@ -224,7 +224,6 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   private void storeProps() {
     props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
     props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
-    props.store();
   }
 
   private void update() {
