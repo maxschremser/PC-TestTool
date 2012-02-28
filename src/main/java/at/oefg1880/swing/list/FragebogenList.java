@@ -21,8 +21,8 @@ import java.awt.event.*;
  * To change this template use File | Settings | File Templates.
  */
 public class FragebogenList extends JList implements ActionListener, IConfig, ITexts {
+  public final String PROPERTY_NAME = "at.oefg1880.swing.list.FragebogenList";
   private ResourceHandler rh = ResourceHandler.getInstance();
-
   private GradientPanel cell;
   private JLabel labelTitle, labelVorhanden, labelGeloest, labelOffen,
       labelTextVorhanden, labelTextGeloest, labelTextOffen;
@@ -50,9 +50,9 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
   private void setup() {
     menu = new JPopupMenu();
     menu.setBorderPainted(true);
-    menu.add(menuEdit = new JMenuItem(rh.getString(getClass(), EDIT)));
+    menu.add(menuEdit = new JMenuItem(rh.getString(PROPERTY_NAME, EDIT)));
     menuEdit.addActionListener(this);
-    menu.add(menuDelete = new JMenuItem(rh.getString(getClass(), DELETE)));
+    menu.add(menuDelete = new JMenuItem(rh.getString(PROPERTY_NAME, DELETE)));
     menuDelete.addActionListener(this);
     addMouseListener(new MouseAdapter() {
       @Override
@@ -88,7 +88,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
           }
         } else if (key == KeyEvent.VK_DELETE) {
           String title = ((Fragebogen) getSelectedValue()).getTitle();
-          int n = frame.showDeleteFragebogenDialog(frame.getFragebogenPanel().getFragebogenList(), rh.getString(getClass(), QUESTION_DELETE, new String[]{title}), rh.getString(getClass(), DELETE));
+          int n = frame.showDeleteFragebogenDialog(frame.getFragebogenPanel().getFragebogenList(), rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
           if (n == JOptionPane.OK_OPTION) // JA
             model.remove(getSelectedIndex());
         } else {
@@ -122,9 +122,9 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
     labelGeloest = new JLabel();
     labelOffen = new JLabel();
 
-    labelTextVorhanden = new JLabel(rh.getString(getClass(), AVAILABLE));
-    labelTextGeloest = new JLabel(rh.getString(getClass(), SOLVED));
-    labelTextOffen = new JLabel(rh.getString(getClass(), OPENED));
+    labelTextVorhanden = new JLabel(rh.getString(PROPERTY_NAME, AVAILABLE));
+    labelTextGeloest = new JLabel(rh.getString(PROPERTY_NAME, SOLVED));
+    labelTextOffen = new JLabel(rh.getString(PROPERTY_NAME, OPENED));
 
     cell.add(labelTitle, cc.xywh(2, 2, 11, 1));
     cell.add(labelTextVorhanden, cc.xy(2, 4));
@@ -157,7 +157,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
       frame.getFragebogenPanel().editFragebogenDialog((Fragebogen) getSelectedValue());
     } else if (e.getSource() == menuDelete) {
       String title = ((Fragebogen) getSelectedValue()).getTitle();
-      int n = frame.showDeleteFragebogenDialog(this, rh.getString(getClass(), QUESTION_DELETE, new String[]{title}), rh.getString(getClass(), DELETE));
+      int n = frame.showDeleteFragebogenDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
       if (n == 0) // JA
         model.remove(getSelectedIndex());
       if (model.getSize() <= 0)

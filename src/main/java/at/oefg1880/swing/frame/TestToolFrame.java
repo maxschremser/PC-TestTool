@@ -45,6 +45,9 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
   private ImagePanel imagePanel;
   private int returnValue;
   private JDialog dialog;
+  private JMenuBar menuBar;
+  private JMenu menu, subMenu;
+  private JMenuItem menuItem;
 
   public abstract String getImageName();
 
@@ -63,10 +66,38 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
   }
 
   private void setup() {
+    menuBar = new JMenuBar();
+    menu = new JMenu(rh.getString(PROPERTY_NAME, FILE));
+    menu.setMnemonic(rh.getString(PROPERTY_NAME, FILE).toCharArray()[0]);
+
+    menuItem = new JMenuItem(rh.getString(PROPERTY_NAME, OPEN));
+    menu.setMnemonic(rh.getString(PROPERTY_NAME, OPEN).toCharArray()[0]);
+    menu.add(menuItem);
+
+    subMenu = new JMenu(rh.getString(PROPERTY_NAME, REOPEN));
+    subMenu.setMnemonic(rh.getString(PROPERTY_NAME, REOPEN).toCharArray()[0]);
+
+    menuItem = new JMenuItem("");
+    subMenu.add(menuItem);
+
+    menu.add(subMenu);
+
+    menu.addSeparator();
+    menuItem = new JMenuItem(rh.getString(PROPERTY_NAME, SAVE));
+    menu.setMnemonic(rh.getString(PROPERTY_NAME, FILE).toCharArray()[0]);
+    menu.add(menuItem);
+
+    menu.addSeparator();
+    menuItem = new JMenuItem(rh.getString(PROPERTY_NAME, EXIT));
+    menu.setMnemonic(rh.getString(PROPERTY_NAME, FILE).toCharArray()[0]);
+    menu.add(menuItem);
+    menuBar.add(menu);
+    setJMenuBar(menuBar);
+
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
         if (fragebogenPanel.getFragebogenList().getModel().getSize() > 0) {
-          int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), QUESTION_SAVE));
+          int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(PROPERTY_NAME, QUESTION_SAVE));
           if (JOptionPane.YES_OPTION == a) {
             getFragebogenPanel().getButtonSave().doClick();
             storeProps();

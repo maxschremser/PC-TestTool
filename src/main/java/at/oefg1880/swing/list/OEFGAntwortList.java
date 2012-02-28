@@ -17,7 +17,7 @@ public class OEFGAntwortList extends AntwortList {
 
   @Override
   protected void createEditAntwortDialog(Antwort antwort) {
-    dialog = new OEFGAntwortDialog(frame, rh.getString(getClass(), ANTWORT_EDIT), fragebogen, antwort);
+    dialog = new OEFGAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_EDIT), fragebogen, antwort);
     dialog.setVisible(true);
   }
 

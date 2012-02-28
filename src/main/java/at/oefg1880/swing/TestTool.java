@@ -20,6 +20,7 @@ import java.util.GregorianCalendar;
  */
 public class TestTool implements ITexts, IConfig {
   private static Logger log = Logger.getLogger(TestTool.class);
+  public final static String PROPERTY_NAME = "at.oefg1880.swing.TestTool";
 
   public static void main(String[] args) {
     Runnable runner = new Runnable() {
@@ -33,7 +34,7 @@ public class TestTool implements ITexts, IConfig {
         GregorianCalendar cal = new GregorianCalendar();
         log.info("Starting StartFrame at " + cal.get(Calendar.YEAR) + cal.get(Calendar.MONTH) + cal.get(Calendar.DAY_OF_MONTH));
 
-        new StartFrame(ResourceHandler.getInstance().getString(getClass(), TITLE));
+        new StartFrame(ResourceHandler.getInstance().getString(PROPERTY_NAME, TITLE));
       }
     };
     EventQueue.invokeLater(runner);

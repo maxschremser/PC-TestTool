@@ -42,15 +42,15 @@ public class ResourceHandler {
     return rb.getString(key);
   }
 
-  public String getString(Class clazz, String INDICATOR) {
-    StringBuffer sb = new StringBuffer(clazz.getName());
+  public String getString(String clazz, String INDICATOR) {
+    StringBuffer sb = new StringBuffer(clazz);
     sb.append(".");
     sb.append(INDICATOR);
     return getString(sb.toString());
   }
 
-  public String getString(Class clazz, String INDICATOR, String[] values) {
-    StringBuffer sb = new StringBuffer(clazz.getName());
+  public String getString(String clazz, String INDICATOR, String[] values) {
+    StringBuffer sb = new StringBuffer(clazz);
     sb.append(".");
     sb.append(INDICATOR);
     String replacedString = getString(sb.toString()).replaceAll("%1", values[0]);

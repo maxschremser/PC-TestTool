@@ -17,7 +17,7 @@ public class WFAAntwortList extends AntwortList {
 
   @Override
   protected void createEditAntwortDialog(Antwort antwort) {
-    dialog = new WFAAntwortDialog(frame, rh.getString(getClass(), ANTWORT_EDIT), fragebogen, antwort);
+    dialog = new WFAAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_EDIT), fragebogen, antwort);
     dialog.setVisible(true);
   }
 

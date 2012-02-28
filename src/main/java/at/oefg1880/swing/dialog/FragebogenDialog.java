@@ -129,7 +129,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
         }
       }
     });
-    button = new JButton(rh.getString(getClass(), BUTTON_SAVE));
+    button = new JButton(rh.getString(PROPERTY_NAME, BUTTON_SAVE));
     button.addActionListener(this);
     button.addKeyListener(new KeyAdapter() {
       @Override
@@ -142,18 +142,18 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     button.setEnabled(false);
     answerPanel = getAntwortPanel();
 
-    builder.addSeparator(rh.getString(getClass(), LABEL_FRAGEBOGEN), cc.xywh(2, 2, 3, 1));
-    builder.addLabel(rh.getString(getClass(), LABEL_NAME), cc.xy(2, 4));
-    builder.addLabel(rh.getString(getClass(), QUESTION_FRAGEBOGEN), cc.xy(2, 6));
+    builder.addSeparator(rh.getString(PROPERTY_NAME, LABEL_FRAGEBOGEN), cc.xywh(2, 2, 3, 1));
+    builder.addLabel(rh.getString(PROPERTY_NAME, LABEL_NAME), cc.xy(2, 4));
+    builder.addLabel(rh.getString(PROPERTY_NAME, QUESTION_FRAGEBOGEN), cc.xy(2, 6));
     builder.add(textFieldName, cc.xy(4, 4));
     builder.add(spinner, cc.xy(4, 6));
-    builder.addSeparator(rh.getString(getClass(), LABEL_SOLUTION), cc.xywh(2, 8, 3, 1));
+    builder.addSeparator(rh.getString(PROPERTY_NAME, LABEL_SOLUTION), cc.xywh(2, 8, 3, 1));
     builder.add(answerPanel, cc.xywh(2, 10, 3, 1));
     builder.add(button, cc.xy(4, 12));
 
     if (fragebogen != null && fragebogen.getSolved() > 0) {
       // add Antworten to Table
-      builder.addSeparator(rh.getString(getClass(), LABEL_ANSWER), cc.xywh(2, 14, 3, 1));
+      builder.addSeparator(rh.getString(PROPERTY_NAME, LABEL_ANSWER), cc.xywh(2, 14, 3, 1));
       JScrollPane scrollPane = new JScrollPane(getAntwortList(),
           JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
           JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

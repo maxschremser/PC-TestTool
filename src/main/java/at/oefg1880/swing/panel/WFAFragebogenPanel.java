@@ -23,7 +23,7 @@ public class WFAFragebogenPanel extends FragebogenPanel {
 
   @Override
   public JDialog createNewFragebogenDialog() {
-    fragebogenDialog = new WFAFragebogenDialog(frame, rh.getString(getClass(), FRAGEBOGEN_NEW));
+    fragebogenDialog = new WFAFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_NEW));
     fragebogenDialog.loadProps();
     fragebogenDialog.setVisible(true);
     return fragebogenDialog;
@@ -32,7 +32,7 @@ public class WFAFragebogenPanel extends FragebogenPanel {
   @Override
   public FragebogenDialog editFragebogenDialog(Fragebogen fragebogen) {
     if (fragebogen == null) return null;
-    fragebogenDialog = new WFAFragebogenDialog(frame, rh.getString(getClass(), FRAGEBOGEN_EDIT), fragebogen);
+    fragebogenDialog = new WFAFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_EDIT), fragebogen);
     fragebogenDialog.setVisible(true);
     fragebogenDialog.getAntwortList().requestFocus();
     return fragebogenDialog;
@@ -40,6 +40,6 @@ public class WFAFragebogenPanel extends FragebogenPanel {
 
   @Override
   public AntwortDialog getAntwortDialog(Fragebogen fragebogen) {
-    return new WFAAntwortDialog(frame, rh.getString(getClass(), ANTWORT_NEW), fragebogen);
+    return new WFAAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen);
   }
 }

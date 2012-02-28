@@ -23,7 +23,7 @@ public class OEFGFragebogenPanel extends FragebogenPanel {
 
   @Override
   public JDialog createNewFragebogenDialog() {
-    fragebogenDialog = new OEFGFragebogenDialog(frame, rh.getString(getClass(), FRAGEBOGEN_NEW));
+    fragebogenDialog = new OEFGFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_NEW));
     fragebogenDialog.loadProps();
     fragebogenDialog.setVisible(true);
     return fragebogenDialog;
@@ -32,7 +32,7 @@ public class OEFGFragebogenPanel extends FragebogenPanel {
   @Override
   public FragebogenDialog editFragebogenDialog(Fragebogen fragebogen) {
     if (fragebogen == null) return null;
-    fragebogenDialog = new OEFGFragebogenDialog(frame, rh.getString(getClass(), FRAGEBOGEN_EDIT), fragebogen);
+    fragebogenDialog = new OEFGFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_EDIT), fragebogen);
     fragebogenDialog.setLocation(Integer.valueOf(props.getProperty(fragebogenDialog.PROPERTY_NAME + "." + POS_X)),
         Integer.valueOf(props.getProperty(fragebogenDialog.PROPERTY_NAME + "." + POS_Y)));
     fragebogenDialog.setVisible(true);
@@ -42,6 +42,6 @@ public class OEFGFragebogenPanel extends FragebogenPanel {
 
   @Override
   public AntwortDialog getAntwortDialog(Fragebogen fragebogen) {
-    return new OEFGAntwortDialog(frame, rh.getString(getClass(), ANTWORT_NEW), fragebogen);
+    return new OEFGAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen);
   }
 }

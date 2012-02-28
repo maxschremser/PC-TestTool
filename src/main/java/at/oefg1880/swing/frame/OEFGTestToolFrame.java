@@ -70,7 +70,7 @@ public class OEFGTestToolFrame extends TestToolFrame {
     // Lösungen
     row = sheet.createRow(2);
     cell = row.createCell(0);
-    cell.setCellValue(rh.getString(getClass(), LABEL_SOLUTION));
+    cell.setCellValue(rh.getString(PROPERTY_NAME, LABEL_SOLUTION));
     cell.setCellStyle(boldStyle);
 
     int c = 4;
@@ -145,7 +145,7 @@ public class OEFGTestToolFrame extends TestToolFrame {
 
     row = sheet.createRow(5);
     cell = row.createCell(0);
-    cell.setCellValue(rh.getString(getClass(), LABEL_ANSWER));
+    cell.setCellValue(rh.getString(PROPERTY_NAME, LABEL_ANSWER));
     cell.setCellStyle(boldStyle);
     // Antworten
     int r = 6;

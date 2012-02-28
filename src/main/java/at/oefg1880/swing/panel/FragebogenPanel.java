@@ -29,6 +29,7 @@ import java.net.URI;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class FragebogenPanel extends GradientPanel implements ITexts, IConfig, ActionListener {
+  public final String PROPERTY_NAME = "at.oefg1880.swing.panel.FragebogenPanel";
   protected TestToolFrame frame;
   protected FragebogenDialog fragebogenDialog;
   protected AntwortDialog antwortDialog;
@@ -55,13 +56,13 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     FormLayout layout = new FormLayout("6dlu,pref:grow,6dlu,pref,6dlu", "6dlu,pref,6dlu,pref,6dlu");
     setLayout(layout);
     CellConstraints cc = new CellConstraints();
-    add(new JLabel(rh.getString(getClass(), LABEL)), cc.xy(2, 2));
-    buttonNew = new JButton(rh.getString(getClass(), BUTTON_NEW));
+    add(new JLabel(rh.getString(PROPERTY_NAME, LABEL)), cc.xy(2, 2));
+    buttonNew = new JButton(rh.getString(PROPERTY_NAME, BUTTON_NEW));
     buttonNew.addActionListener(this);
     buttonNew.setActionCommand(NEW);
     buttonNew.setFocusable(false);
     buttonNew.setMnemonic('N');
-    buttonSave = new JButton(rh.getString(getClass(), BUTTON_SAVE));
+    buttonSave = new JButton(rh.getString(PROPERTY_NAME, BUTTON_SAVE));
     buttonSave.addActionListener(this);
     buttonSave.setActionCommand(SAVE);
     buttonSave.setFocusable(false);
@@ -115,7 +116,7 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     } else if (SAVE.equals(e.getActionCommand())) {
       props.propertyChange(new PropertyChangeEvent(this, JOptionPane.VALUE_PROPERTY, 0, 0));
       String filePath = frame.exportData();
-      int selectedOption = JOptionPane.showConfirmDialog(getParent(), rh.getString(getClass(), DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.YES_NO_OPTION);
+      int selectedOption = JOptionPane.showConfirmDialog(getParent(), rh.getString(PROPERTY_NAME, DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.YES_NO_OPTION);
       if (JOptionPane.OK_OPTION == selectedOption) {
         try {
           URI uri = new URI(filePath);

@@ -49,16 +49,16 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   private JRadioButton rbM, rbW, rb1115, rb1620, rb2130, rb30;
 
   private final String SAVE = "update";
-  private final String CORRECT = rh.getString(getClass(), GRAPH_CORRECT);
-  private final String WRONG = rh.getString(getClass(), GRAPH_WRONG);
+  private final String CORRECT = rh.getString(PROPERTY_NAME, GRAPH_CORRECT);
+  private final String WRONG = rh.getString(PROPERTY_NAME, GRAPH_WRONG);
 
-  private final String sMASCULIN = rh.getString(getClass(), MASCULIN);
-  private final String sFEMININ = rh.getString(getClass(), FEMININ);
+  private final String sMASCULIN = rh.getString(PROPERTY_NAME, MASCULIN);
+  private final String sFEMININ = rh.getString(PROPERTY_NAME, FEMININ);
 
-  private final String _1115 = rh.getString(getClass(), AGE_11_15);
-  private final String _1620 = rh.getString(getClass(), AGE_16_20);
-  private final String _2130 = rh.getString(getClass(), AGE_21_30);
-  private final String _30 = rh.getString(getClass(), AGE_30_PLUS);
+  private final String _1115 = rh.getString(PROPERTY_NAME, AGE_11_15);
+  private final String _1620 = rh.getString(PROPERTY_NAME, AGE_16_20);
+  private final String _2130 = rh.getString(PROPERTY_NAME, AGE_21_30);
+  private final String _30 = rh.getString(PROPERTY_NAME, AGE_30_PLUS);
 
   public abstract AntwortPanel getAntwortPanel();
 
@@ -99,7 +99,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
       }
     });
 
-    saveButton = new JButton(rh.getString(getClass(), BUTTON_SAVE));
+    saveButton = new JButton(rh.getString(PROPERTY_NAME, BUTTON_SAVE));
     saveButton.addActionListener(this);
     saveButton.addKeyListener(new KeyAdapter() {
       @Override
@@ -173,17 +173,17 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     chartPanel.setPreferredSize(new Dimension(200, 200));
 
     builder.add(labelTitle, cc.xywh(2, 2, 5, 1));
-    builder.addSeparator(rh.getString(getClass(), NAME), cc.xywh(2, 4, 3, 1));
+    builder.addSeparator(rh.getString(PROPERTY_NAME, NAME), cc.xywh(2, 4, 3, 1));
     builder.add(tfName, cc.xywh(2, 6, 3, 1));
-    builder.addSeparator(rh.getString(getClass(), SEX), cc.xywh(2, 8, 3, 1));
+    builder.addSeparator(rh.getString(PROPERTY_NAME, SEX), cc.xywh(2, 8, 3, 1));
     builder.add(rbM, cc.xy(2, 10));
     builder.add(rbW, cc.xy(4, 10));
-    builder.addSeparator(rh.getString(getClass(), AGE), cc.xywh(2, 12, 3, 1));
+    builder.addSeparator(rh.getString(PROPERTY_NAME, AGE), cc.xywh(2, 12, 3, 1));
     builder.add(rb1115, cc.xy(2, 14));
     builder.add(rb1620, cc.xy(4, 14));
     builder.add(rb2130, cc.xy(2, 16));
     builder.add(rb30, cc.xy(4, 16));
-    builder.addSeparator(rh.getString(getClass(), ANSWERS), cc.xywh(2, 18, 5, 1));
+    builder.addSeparator(rh.getString(PROPERTY_NAME, ANSWERS), cc.xywh(2, 18, 5, 1));
     builder.add(antwortPanel, cc.xywh(2, 20, 5, 1));
     builder.add(saveButton, cc.xy(6, 22));
     builder.add(chartPanel, cc.xywh(6, 4, 1, 13));

@@ -83,7 +83,7 @@ public class PropertyHandler implements PropertyChangeListener, ITexts, IConfig 
       File f = new File(USER_CONFIG_PATH);
       log.info("store props to : " + f.getAbsoluteFile());
 //      if (!f.getParentFile().exists()) {
-//        JOptionPane directoryCreateDialog = new JOptionPane(rh.getString(getClass(), DIALOG_CREATE_DIR),
+//        JOptionPane directoryCreateDialog = new JOptionPane(rh.getString(PROPERTY_NAME, DIALOG_CREATE_DIR),
 //            JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
 //        directoryCreateDialog.addPropertyChangeListener(this);
 //        JDialog dialog = directoryCreateDialog.createDialog(frame, "TestTool - Create Directory");

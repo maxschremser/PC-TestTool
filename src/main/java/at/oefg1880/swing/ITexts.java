@@ -8,6 +8,12 @@ package at.oefg1880.swing;
  * To change this template use File | Settings | File Templates.
  */
 public interface ITexts {
+  public static final String FILE = "file";
+  public static final String SAVE = "save";
+  public static final String OPEN = "open";
+  public static final String REOPEN = "reopen";
+  public static final String EXIT = "exit";
+
   // global texts
   public static final String TITLE = "title";
   public static final String LABEL = "label";

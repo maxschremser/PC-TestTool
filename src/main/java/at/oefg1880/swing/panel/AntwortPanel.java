@@ -15,6 +15,8 @@ import java.awt.*;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebugPanel {
+  public final String PROPERTY_NAME = "at.oefg1880.swing.panel.AntwortPanel";
+
   private int[] values;
   protected boolean isInCreateMode = false;
 

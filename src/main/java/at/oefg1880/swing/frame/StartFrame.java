@@ -95,14 +95,14 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
   }
 
   private void showOEFGTestToolFrame() {
-    new OEFGTestToolFrame(rh.getString(OEFGTestToolFrame.class, TITLE));
+    new OEFGTestToolFrame(rh.getString(PROPERTY_NAME, TITLE));
     props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
     props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
     dispose();
   }
 
   private void showWFATestToolFrame() {
-    new WFATestToolFrame(rh.getString(WFATestToolFrame.class, TITLE));
+    new WFATestToolFrame(rh.getString(PROPERTY_NAME, TITLE));
     props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
     props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
     dispose();
