@@ -3,6 +3,7 @@ package at.oefg1880.swing.frame;
 import at.oefg1880.swing.list.Antwort;
 import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.panel.FragebogenPanel;
+import at.oefg1880.swing.panel.WFAAntwortPanel;
 import at.oefg1880.swing.panel.WFAFragebogenPanel;
 import at.oefg1880.swing.text.AntwortTextField;
 import org.apache.poi.ss.usermodel.*;
@@ -46,6 +47,12 @@ public class WFATestToolFrame extends TestToolFrame {
   public String getFragebogenName() {
     return "WFATestTool";
   }
+
+  @Override
+  public char[] getAllowedValues() {
+    return new WFAAntwortPanel(false).getAllowedValues();
+  }
+
 
   @Override
   public void exportFragebogen(Workbook wb, Fragebogen fragebogen) {

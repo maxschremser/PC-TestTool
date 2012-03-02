@@ -15,8 +15,8 @@ import java.awt.*;
  * To change this template use File | Settings | File Templates.
  */
 public class OEFGAntwortPanel extends AntwortPanel {
-  private final static int NUM_ANSWERS = 20;
-  private char[] allowedValues;
+  public final static int NUM_ANSWERS = 20;
+  public final static char[] allowedValues = new char[]{' ', 'A', 'B', 'C'};
 
   public OEFGAntwortPanel(boolean isInCreateMode) {
     super(isInCreateMode);
@@ -68,9 +68,6 @@ public class OEFGAntwortPanel extends AntwortPanel {
 
   @Override
   public char[] getAllowedValues() {
-    if (allowedValues == null) {
-      allowedValues = new char[]{' ', 'A', 'B', 'C'};
-    }
     return allowedValues;
   }
 }

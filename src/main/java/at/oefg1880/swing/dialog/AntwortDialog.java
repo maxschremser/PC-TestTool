@@ -33,7 +33,7 @@ import java.beans.PropertyChangeListener;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class AntwortDialog extends JDialog implements ActionListener, PropertyChangeListener, IConfig, ITexts {
-  public final String PROPERTY_NAME = "at.oefg1880.swing.dialog.AntwortDialog";
+  public final static String PROPERTY_NAME = "at.oefg1880.swing.dialog.AntwortDialog";
   private ResourceHandler rh = ResourceHandler.getInstance();
   private PropertyHandler props = PropertyHandler.getInstance();
   private TestToolFrame frame;

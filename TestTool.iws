@@ -20,7 +20,6 @@
     <list default="true" id="0da3a4a3-1c36-4e82-aa3e-6f4c5093c636" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestTool.iws" afterPath="$PROJECT_DIR$/TestTool.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/ITexts.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/ITexts.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/TestTool.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/TestTool.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/FragebogenDialog.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/FragebogenDialog.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/OEFGTestToolFrame.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/OEFGTestToolFrame.java" />
@@ -29,16 +28,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/WFATestToolFrame.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/WFATestToolFrame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/AntwortList.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/AntwortList.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/FragebogenList.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/FragebogenList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/OEFGAntwortList.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/OEFGAntwortList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/WFAAntwortList.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/WFAAntwortList.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/AntwortPanel.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/AntwortPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/FragebogenPanel.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/FragebogenPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/OEFGAntwortPanel.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/OEFGAntwortPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/OEFGFragebogenPanel.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/OEFGFragebogenPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/WFAAntwortPanel.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/WFAAntwortPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/WFAFragebogenPanel.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/WFAFragebogenPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/PropertyHandler.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/PropertyHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/ResourceHandler.java" afterPath="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/ResourceHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/resources/texts.properties" afterPath="$PROJECT_DIR$/src/main/java/resources/texts.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/resources/texts_en.properties" afterPath="$PROJECT_DIR$/src/main/java/resources/texts_en.properties" />
     </list>
@@ -148,59 +141,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java" line="71" class="at.oefg1880.swing.frame.StartFrame" package="at.oefg1880.swing.frame">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
       <breakpoint url="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java" line="86" class="at.oefg1880.swing.dialog.AntwortDialog" package="at.oefg1880.swing.dialog">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/FragebogenDialog.java" line="80" class="at.oefg1880.swing.dialog.FragebogenDialog$1" package="at.oefg1880.swing.dialog">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java" line="218" class="at.oefg1880.swing.dialog.AntwortDialog" package="at.oefg1880.swing.dialog">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/FragebogenDialog.java" line="183" class="at.oefg1880.swing.dialog.FragebogenDialog" package="at.oefg1880.swing.dialog">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -271,10 +212,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TestToolFrame.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="TestToolFrame.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/TestToolFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="162" selection-start="2097" selection-end="2097" vertical-scroll-proportion="0.019721577">
+            <state line="196" column="29" selection-start="6246" selection-end="6246" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PropertyHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/PropertyHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="120" column="14" selection-start="4348" selection-end="4348" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -283,16 +235,28 @@
       <file leaf-file-name="ITexts.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/ITexts.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="41" selection-start="385" selection-end="385" vertical-scroll-proportion="0.0">
+            <state line="15" column="41" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0">
               <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="texts.properties" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/resources/texts.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="91" selection-start="592" selection-end="592" vertical-scroll-proportion="0.22006473">
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="ResourceBundle">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="texts_en.properties" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/resources/texts_en.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="40" selection-start="346" selection-end="346" vertical-scroll-proportion="0.0">
+            <state line="13" column="89" selection-start="453" selection-end="453" vertical-scroll-proportion="-10.045455">
               <folding />
             </state>
           </provider>
@@ -301,22 +265,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="texts.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/resources/texts.properties">
+      <file leaf-file-name="FragebogenPanel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/FragebogenPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="75" selection-start="430" selection-end="430" vertical-scroll-proportion="0.0">
+            <state line="39" column="23" selection-start="1500" selection-end="1500" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="ResourceBundle">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="FragebogenDialog.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/FragebogenDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="193" column="56" selection-start="6869" selection-end="6869" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestTool.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/TestTool.java">
+      <file leaf-file-name="OEFGTestToolFrame.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/OEFGTestToolFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="0" selection-start="1263" selection-end="1263" vertical-scroll-proportion="0.0">
+            <state line="93" column="33" selection-start="2760" selection-end="2760" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WFAAntwortPanel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/WFAAntwortPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="46" selection-start="551" selection-end="551" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -336,21 +315,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
+        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/OEFGAntwortList.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/FragebogenList.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/FragebogenDialog.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/OEFGTestToolFrame.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/WFATestToolFrame.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/PropertyHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/dissolver/Dissolver.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/AntwortList.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/TestTool.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/FragebogenPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/AntwortPanel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/FragebogenList.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/WFAAntwortPanel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/OEFGAntwortPanel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/WFATestToolFrame.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/OEFGTestToolFrame.java" />
+        <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/FragebogenPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/ITexts.java" />
-        <option value="$PROJECT_DIR$/src/main/java/resources/texts_en.properties" />
         <option value="$PROJECT_DIR$/src/main/java/resources/texts.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/resources/texts_en.properties" />
         <option value="$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/TestToolFrame.java" />
       </list>
     </option>
@@ -402,7 +381,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -695,6 +673,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Favorites" />
     </panes>
   </component>
@@ -747,16 +726,16 @@
       <recent name="D:\projects\TestTool\src\main\java\resources" />
       <recent name="J:\projects\TestTool\build" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="J:\projects\TestTool\src\main\java\resources" />
+      <recent name="J:\projects\TestTool\src\main\java" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="at.oefg1880.swing.button" />
       <recent name="com.algorithmics.swing.panel" />
       <recent name="com.algorithmics.swing.dialog" />
       <recent name="com.algorithmics" />
       <recent name="main.java" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="J:\projects\TestTool\src\main\java\resources" />
-      <recent name="J:\projects\TestTool\src\main\java" />
     </key>
   </component>
   <component name="RunManager" selected="Application.TestTool">
@@ -931,8 +910,8 @@
       <method />
     </configuration>
     <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Groovy Script.build" />
-      <item index="1" class="java.lang.String" itemvalue="Application.TestTool" />
+      <item index="0" class="java.lang.String" itemvalue="Application.TestTool" />
+      <item index="1" class="java.lang.String" itemvalue="Groovy Script.build" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -983,33 +962,53 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295838" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24943139" sideWeight="0.6903553" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44612476" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44468784" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22497188" sideWeight="0.50030655" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="IvyIDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32945284" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="IvyIDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32845894" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32733408" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22256285" sideWeight="0.43644544" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30708662" sideWeight="0.49785408" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295838" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20907418" sideWeight="0.25421822" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32927817" sideWeight="0.49243307" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20907418" sideWeight="0.7750281" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22497188" sideWeight="0.4954016" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20907418" sideWeight="0.5129359" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22497188" sideWeight="0.4954016" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295325" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24954017" sideWeight="0.7750281" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31496063" sideWeight="0.74071264" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Sudoku" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30708662" sideWeight="0.49785408" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1048,7 +1047,7 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="store the properties on exit of the application" />
+    <option name="LAST_COMMIT_MESSAGE" value="simplify texts and create menubar" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1074,6 +1073,7 @@
     <MESSAGE value="safe location in a user's properties file for each frame and dialog" />
     <MESSAGE value="started to implement a LicenseManager" />
     <MESSAGE value="store the properties on exit of the application" />
+    <MESSAGE value="simplify texts and create menubar" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="C:\Program Files\Microsoft Visual Studio\VSS\win32\SS.EXE" />
@@ -1139,69 +1139,83 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/WFAFragebogenPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="67" selection-start="1089" selection-end="1089" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/WFAAntwortPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="32" selection-start="1287" selection-end="1287" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/dissolver/Dissolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="23" selection-start="1506" selection-end="1506" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/OEFGAntwortList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="55" selection-start="568" selection-end="568" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/StartFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="2" selection-start="772" selection-end="845" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/WFAAntwortList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="41" selection-start="324" selection-end="324" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/AntwortList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="73" selection-start="829" selection-end="829" vertical-scroll-proportion="0.0" />
+        <state line="26" column="24" selection-start="896" selection-end="896" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/FragebogenPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/OEFGAntwortDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="113" selection-start="1205" selection-end="1246" vertical-scroll-proportion="0.0" />
+        <state line="15" column="45" selection-start="455" selection-end="455" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/WFATestToolFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="44" selection-start="1323" selection-end="1323" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/AntwortDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="245" column="124" selection-start="8857" selection-end="8857" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/text/AntwortTextField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="198" column="0" selection-start="5679" selection-end="5679" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/OEFGAntwortPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="42" selection-start="415" selection-end="415" vertical-scroll-proportion="0.0" />
+        <state line="20" column="22" selection-start="570" selection-end="570" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/AntwortPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/utils/PropertyHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="16" selection-start="380" selection-end="380" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/list/FragebogenList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="61" selection-start="820" selection-end="820" vertical-scroll-proportion="0.0" />
+        <state line="120" column="14" selection-start="4348" selection-end="4348" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/ITexts.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="41" selection-start="385" selection-end="385" vertical-scroll-proportion="0.0" />
+        <state line="15" column="41" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/FragebogenPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="23" selection-start="1500" selection-end="1500" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/dialog/FragebogenDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="193" column="56" selection-start="6869" selection-end="6869" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/OEFGTestToolFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="93" column="33" selection-start="2760" selection-end="2760" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/panel/WFAAntwortPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="46" selection-start="551" selection-end="551" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="jar://D:/Java/jdk1.6.0_31/src.zip!/java/awt/dnd/DropTarget.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="433" column="0" selection-start="13798" selection-end="13798" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/TestToolFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="196" column="29" selection-start="6246" selection-end="6246" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/resources/texts_en.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="40" selection-start="346" selection-end="346" vertical-scroll-proportion="0.0">
+        <state line="13" column="89" selection-start="453" selection-end="453" vertical-scroll-proportion="-10.045455">
           <folding />
         </state>
       </provider>
@@ -1211,24 +1225,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/resources/texts.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="75" selection-start="430" selection-end="430" vertical-scroll-proportion="0.0">
+        <state line="17" column="91" selection-start="592" selection-end="592" vertical-scroll-proportion="0.22006473">
           <folding />
         </state>
       </provider>
       <provider editor-type-id="ResourceBundle">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/TestTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="0" selection-start="1263" selection-end="1263" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/at/oefg1880/swing/frame/TestToolFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="162" selection-start="2097" selection-end="2097" vertical-scroll-proportion="0.019721577">
-          <folding />
-        </state>
       </provider>
     </entry>
   </component>

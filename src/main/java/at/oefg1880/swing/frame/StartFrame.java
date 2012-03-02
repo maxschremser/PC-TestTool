@@ -23,7 +23,7 @@ import java.awt.event.*;
  * To change this template use File | Settings | File Templates.
  */
 public class StartFrame extends SheetableFrame implements ITexts, IConfig {
-  public final String PROPERTY_NAME = "at.oefg1880.swing.frame.StartFrame";
+  public final static String PROPERTY_NAME = "at.oefg1880.swing.frame.StartFrame";
   private ImagePanel oefgImagePanel;
   private ImagePanel wfaImagePanel;
   private PropertyHandler props = PropertyHandler.getInstance();

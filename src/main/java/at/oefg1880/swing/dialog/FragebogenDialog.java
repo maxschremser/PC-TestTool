@@ -28,7 +28,7 @@ import java.awt.event.*;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class FragebogenDialog extends JDialog implements ActionListener, IConfig, ITexts {
-  public final String PROPERTY_NAME = "at.oefg1880.swing.dialog.FragebogenDialog";
+  public final static String PROPERTY_NAME = "at.oefg1880.swing.dialog.FragebogenDialog";
   protected ResourceHandler rh = ResourceHandler.getInstance();
   private PropertyHandler props = PropertyHandler.getInstance();
   protected TestToolFrame frame;

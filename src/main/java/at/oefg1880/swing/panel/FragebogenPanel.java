@@ -29,7 +29,7 @@ import java.net.URI;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class FragebogenPanel extends GradientPanel implements ITexts, IConfig, ActionListener {
-  public final String PROPERTY_NAME = "at.oefg1880.swing.panel.FragebogenPanel";
+  public final static String PROPERTY_NAME = "at.oefg1880.swing.panel.FragebogenPanel";
   protected TestToolFrame frame;
   protected FragebogenDialog fragebogenDialog;
   protected AntwortDialog antwortDialog;
@@ -125,7 +125,6 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
           log.info(exp.getMessage());
         }
       }
-
     }
   }
 }

@@ -15,8 +15,8 @@ import java.awt.*;
  * To change this template use File | Settings | File Templates.
  */
 public class WFAAntwortPanel extends AntwortPanel {
-  private final static int NUM_ANSWERS = 50;
-  private char[] allowedValues;
+  public final static int NUM_ANSWERS = 50;
+  public final static char[] allowedValues = new char[]{' ', 'A', 'B', 'C', 'D'};
 
   public WFAAntwortPanel(boolean isInCreateMode) {
     super(isInCreateMode);
@@ -77,9 +77,6 @@ public class WFAAntwortPanel extends AntwortPanel {
 
   @Override
   public char[] getAllowedValues() {
-    if (allowedValues == null) {
-      allowedValues = new char[]{' ', 'A', 'B', 'C', 'D'};
-    }
     return allowedValues;
   }
 }

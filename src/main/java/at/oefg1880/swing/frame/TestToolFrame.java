@@ -2,10 +2,12 @@ package at.oefg1880.swing.frame;
 
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
+import at.oefg1880.swing.list.Antwort;
 import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.ImagePanel;
+import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
@@ -14,20 +16,26 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.beans.PropertyChangeEvent;
+import java.io.*;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Enumeration;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -36,8 +44,8 @@ import java.util.Enumeration;
  * Time: 10:41:56
  * To change this template use File | Settings | File Templates.
  */
-public abstract class TestToolFrame extends SheetableFrame implements ITexts, IConfig {
-  public final String PROPERTY_NAME = "at.oefg1880.swing.frame.TestToolFrame";
+public abstract class TestToolFrame extends SheetableFrame implements ITexts, IConfig, DropTargetListener, ActionListener {
+  public final static String PROPERTY_NAME = "at.oefg1880.swing.frame.TestToolFrame";
   protected FragebogenPanel fragebogenPanel;
   protected final Logger log = Logger.getLogger(TestToolFrame.class);
   private PropertyHandler props = PropertyHandler.getInstance();
@@ -59,60 +67,77 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
   public abstract String getFragebogenName();
 
+  public abstract char[] getAllowedValues();
+
   public TestToolFrame(String title) throws HeadlessException {
     super(title);
     props.setOwner(this);
     setup();
   }
 
-  private void setup() {
+  private void createJMenuBar() {
     menuBar = new JMenuBar();
     menu = new JMenu(rh.getString(PROPERTY_NAME, FILE));
     menu.setMnemonic(rh.getString(PROPERTY_NAME, FILE).toCharArray()[0]);
 
     menuItem = new JMenuItem(rh.getString(PROPERTY_NAME, OPEN));
-    menu.setMnemonic(rh.getString(PROPERTY_NAME, OPEN).toCharArray()[0]);
+    menuItem.addActionListener(this);
+    menuItem.setMnemonic(rh.getString(PROPERTY_NAME, OPEN).toCharArray()[0]);
+    menuItem.setActionCommand(OPEN);
     menu.add(menuItem);
 
     subMenu = new JMenu(rh.getString(PROPERTY_NAME, REOPEN));
     subMenu.setMnemonic(rh.getString(PROPERTY_NAME, REOPEN).toCharArray()[0]);
 
     menuItem = new JMenuItem("");
+    menuItem.addActionListener(this);
     subMenu.add(menuItem);
 
     menu.add(subMenu);
 
     menu.addSeparator();
     menuItem = new JMenuItem(rh.getString(PROPERTY_NAME, SAVE));
-    menu.setMnemonic(rh.getString(PROPERTY_NAME, FILE).toCharArray()[0]);
+    menuItem.addActionListener(this);
+    menuItem.setMnemonic(rh.getString(PROPERTY_NAME, SAVE).toCharArray()[0]);
+    menuItem.setActionCommand(SAVE);
+    if (getFragebogenPanel().getFragebogenList().getModel().getSize() == 0)
+      menuItem.setEnabled(false);
     menu.add(menuItem);
 
     menu.addSeparator();
     menuItem = new JMenuItem(rh.getString(PROPERTY_NAME, EXIT));
-    menu.setMnemonic(rh.getString(PROPERTY_NAME, FILE).toCharArray()[0]);
+    menuItem.addActionListener(this);
+    menuItem.setMnemonic(rh.getString(PROPERTY_NAME, EXIT).toCharArray()[0]);
+    menuItem.setActionCommand(EXIT);
     menu.add(menuItem);
+
     menuBar.add(menu);
+
+    menu = new JMenu(rh.getString(PROPERTY_NAME, HELP));
+    menuItem = new JMenuItem(rh.getString(PROPERTY_NAME, HELP));
+    menuItem.addActionListener(this);
+    menuItem.setMnemonic(rh.getString(PROPERTY_NAME, HELP).toCharArray()[0]);
+    menuItem.setActionCommand(HELP);
+
+    menuBar.add(Box.createHorizontalGlue());
+
+    menuBar.add(menu);
+
     setJMenuBar(menuBar);
+
+  }
+
+  private void setup() {
+    createJMenuBar();
+
+    new DropTarget(this, this);
 
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
-        if (fragebogenPanel.getFragebogenList().getModel().getSize() > 0) {
-          int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(PROPERTY_NAME, QUESTION_SAVE));
-          if (JOptionPane.YES_OPTION == a) {
-            getFragebogenPanel().getButtonSave().doClick();
-            storeProps();
-            dispose();
-            return;
-          } else if (JOptionPane.NO_OPTION == a) {
-            dispose();
-            return;
-          } else {
-            return;
-          }
-        }
-        dispose();
+        doWindowClosing();
       }
     });
+
     FormLayout layout = new FormLayout(
         "6dlu,pref,6dlu",
         "6dlu,pref,6dlu,pref,6dlu");
@@ -148,6 +173,24 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
   public JDialog getDialog() {
     return dialog;
+  }
+
+  private void doWindowClosing() {
+    if (getFragebogenPanel().getFragebogenList().getModel().getSize() > 0) {
+      int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(PROPERTY_NAME, QUESTION_SAVE));
+      if (JOptionPane.YES_OPTION == a) {
+        getFragebogenPanel().getButtonSave().doClick();
+        storeProps();
+        dispose();
+        return;
+      } else if (JOptionPane.NO_OPTION == a) {
+        dispose();
+        return;
+      } else {
+        return;
+      }
+    }
+    dispose();
   }
 
   public int showDeleteFragebogenDialog(ActionListener list, String message, String title) {
@@ -206,7 +249,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
       file.createNewFile();
       log.info("Saved at: " + file.getAbsolutePath());
       FileOutputStream fos = new FileOutputStream(file);
-      DefaultListModel model = (DefaultListModel) fragebogenPanel.getFragebogenList().getModel();
+      DefaultListModel model = (DefaultListModel) getFragebogenPanel().getFragebogenList().getModel();
       Enumeration<Fragebogen> enums = (Enumeration<Fragebogen>) model.elements();
       while (enums.hasMoreElements()) {
         Fragebogen f = enums.nextElement();
@@ -221,4 +264,128 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     return "";
   }
 
+  public boolean importData(File file) {
+    try {
+      Workbook wb = new HSSFWorkbook(new FileInputStream(file));
+      log.info("Importing from: " + file.getAbsolutePath());
+      int numSheets = wb.getNumberOfSheets();
+      DefaultListModel model = (DefaultListModel) getFragebogenPanel().getFragebogenList().getModel();
+      char[] allowedValues = getAllowedValues();
+
+      for (int s = 0; s < numSheets; s++) {
+        Sheet sheet = wb.getSheetAt(s);
+        int existing = Double.valueOf(sheet.getRow(0).getCell(5).getNumericCellValue()).intValue();
+        Row row = sheet.getRow(3);
+
+        // add Solution
+        int numSolutions = row.getLastCellNum() - 4;
+        int[] solutions = new int[numSolutions];
+        for (int i = 4; i < row.getLastCellNum(); i++) {
+          char cellValue = row.getCell(i).getStringCellValue().toCharArray()[0];
+          solutions[i - 4] = AntwortTextField.translate(allowedValues, cellValue);
+        }
+        Fragebogen fragebogen = new Fragebogen(s, sheet.getSheetName(), existing, solutions);
+
+        int numAnswers = sheet.getLastRowNum() - 5; // the last row is also an answer
+        int[][] answers = new int[numAnswers][numSolutions];
+        // add Answers
+        for (int r = 6; r <= sheet.getLastRowNum(); r++) {
+          row = sheet.getRow(r);
+          String name = row.getCell(0).getStringCellValue();
+          String alter = row.getCell(1).getStringCellValue();
+          String geschlecht = row.getCell(2).getStringCellValue();
+          String sPercentage = row.getCell(3).getStringCellValue();
+          int percentages = Integer.valueOf(sPercentage.substring(0, sPercentage.length() - 1)).intValue();
+
+          for (int i = 4; i < row.getLastCellNum(); i++) {
+            char cellValue = row.getCell(i).getStringCellValue().toCharArray()[0];
+            answers[r - 6][i - 4] = AntwortTextField.translate(allowedValues, cellValue);
+          }
+          fragebogen.addAntwort(new Antwort(r - 6, name, alter, geschlecht, percentages, answers[r - 6]));
+        }
+
+        model.addElement(fragebogen);
+      }
+      if (model.getSize() > 0) {
+        getFragebogenPanel().getButtonSave().setEnabled(true);
+        getJMenuBar().getMenu(0).getItem(3).setEnabled(true);
+      }
+    } catch (FileNotFoundException fnfne) {
+    } catch (IOException ioe) {
+    }
+    return true;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if (OPEN.equals(e.getActionCommand())) {
+      JFileChooser fileChooser = new JFileChooser(".");
+      fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+        @Override
+        public boolean accept(File f) {
+          return f.getName().endsWith(".xls");
+        }
+
+        @Override
+        public String getDescription() {
+          return "Excel Files (*.xls)";
+        }
+      });
+      if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+        importData(fileChooser.getSelectedFile());
+      }
+    } else if (SAVE.equals(e.getActionCommand())) {
+      props.propertyChange(new PropertyChangeEvent(this, JOptionPane.VALUE_PROPERTY, 0, 0));
+      String filePath = exportData();
+      int selectedOption = JOptionPane.showConfirmDialog(getParent(), rh.getString(FragebogenPanel.PROPERTY_NAME, DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.YES_NO_OPTION);
+      if (JOptionPane.OK_OPTION == selectedOption) {
+        try {
+          URI uri = new URI(filePath);
+          Desktop.getDesktop().browse(uri);
+        } catch (Exception exp) {
+          log.info(exp.getMessage());
+        }
+      }
+    } else if (EXIT.equals(e.getActionCommand())) {
+      doWindowClosing();
+    }
+  }
+
+  @Override
+  public void dragEnter(DropTargetDragEvent dtde) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public void dragOver(DropTargetDragEvent dtde) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public void dropActionChanged(DropTargetDragEvent dtde) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public void dragExit(DropTargetEvent dte) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  @Override
+  public void drop(DropTargetDropEvent dtde) {
+    // handle Document dropped
+    log.info(dtde.getSource());
+    dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+    Transferable transferable = dtde.getTransferable();
+    try {
+      if (transferable.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+        List list = (List) transferable.getTransferData(DataFlavor.javaFileListFlavor);
+        File f = (File) list.get(0);
+        log.info(f.getAbsolutePath());
+        importData(f);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 }

@@ -13,6 +13,7 @@ public interface ITexts {
   public static final String OPEN = "open";
   public static final String REOPEN = "reopen";
   public static final String EXIT = "exit";
+  public static final String HELP = "help";
 
   // global texts
   public static final String TITLE = "title";

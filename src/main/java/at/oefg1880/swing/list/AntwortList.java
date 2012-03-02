@@ -22,7 +22,7 @@ import java.awt.event.*;
  */
 public abstract class AntwortList extends JList implements ActionListener, ITexts {
   protected ResourceHandler rh = ResourceHandler.getInstance();
-  public final String PROPERTY_NAME = "at.oefg1880.swing.list.AntwortList";
+  public final static String PROPERTY_NAME = "at.oefg1880.swing.list.AntwortList";
   protected TestToolFrame frame;
   protected AntwortDialog dialog;
   protected Fragebogen fragebogen;

@@ -21,7 +21,7 @@ import java.awt.event.*;
  * To change this template use File | Settings | File Templates.
  */
 public class FragebogenList extends JList implements ActionListener, IConfig, ITexts {
-  public final String PROPERTY_NAME = "at.oefg1880.swing.list.FragebogenList";
+  public final static String PROPERTY_NAME = "at.oefg1880.swing.list.FragebogenList";
   private ResourceHandler rh = ResourceHandler.getInstance();
   private GradientPanel cell;
   private JLabel labelTitle, labelVorhanden, labelGeloest, labelOffen,
