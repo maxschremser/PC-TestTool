@@ -161,7 +161,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
       if (n == 0) // JA
         model.remove(getSelectedIndex());
       if (model.getSize() <= 0)
-        frame.getFragebogenPanel().getButtonSave().setEnabled(false);
+        frame.enableButtonSave(false);
     } else if (OK.equals(e.getActionCommand())) {
       frame.setReturnValue(JOptionPane.OK_OPTION);
       frame.getDialog().dispose();

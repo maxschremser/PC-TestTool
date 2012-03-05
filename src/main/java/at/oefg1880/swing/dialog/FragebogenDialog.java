@@ -85,7 +85,9 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     builder = new PanelBuilder(layout);
     this.fragebogen = fragebogen;
     setup();
-    answerPanel.setValues(fragebogen.getSolutions());
+    if (fragebogen != null) {
+      answerPanel.setValues(fragebogen.getSolutions());
+    }
     textFieldName.setText(fragebogen.getTitle());
     spinner.setValue(fragebogen.getExisting());
 
@@ -210,7 +212,8 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     );
     log.info("Added item '" + textFieldName.getText() + "' to list.");
     if (frame.getFragebogenPanel().getFragebogenList().getModel().getSize() > 0) {
-      frame.getFragebogenPanel().getButtonSave().setEnabled(true);
+      frame.enableButtonSave(true);
+      frame.enableMenuItemSave(true);
     }
     close();
   }

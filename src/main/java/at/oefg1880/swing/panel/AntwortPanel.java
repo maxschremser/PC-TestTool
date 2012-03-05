@@ -17,7 +17,6 @@ import java.awt.*;
 public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebugPanel {
   public final static String PROPERTY_NAME = "at.oefg1880.swing.panel.AntwortPanel";
 
-  private int[] values;
   protected boolean isInCreateMode = false;
 
   protected ResourceHandler rh = ResourceHandler.getInstance();
@@ -45,7 +44,7 @@ public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebu
   }
 
   public int[] getValues() {
-    values = new int[getNumAnswers()];
+    int[] values = new int[getNumAnswers()];
     for (Component c : getComponents()) {
       if (c instanceof AntwortTextField) {
         AntwortTextField atf = (AntwortTextField) c;

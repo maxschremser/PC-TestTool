@@ -89,10 +89,17 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     subMenu = new JMenu(rh.getString(PROPERTY_NAME, REOPEN));
     subMenu.setMnemonic(rh.getString(PROPERTY_NAME, REOPEN).toCharArray()[0]);
 
-    menuItem = new JMenuItem("");
-    menuItem.addActionListener(this);
-    subMenu.add(menuItem);
-
+    String[] files = props.getProperty(PROPERTY_NAME + "." + REOPEN, "").split(",");
+    int i = 1;
+    for (String f : files) {
+      if (new File(f).exists()) {
+        menuItem = new JMenuItem(i + " " + f);
+        menuItem.addActionListener(this);
+        menuItem.setActionCommand(REOPEN + "_" + i);
+        subMenu.add(menuItem);
+        i++;
+      }
+    }
     menu.add(subMenu);
 
     menu.addSeparator();
@@ -113,18 +120,26 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
     menuBar.add(menu);
 
-    menu = new JMenu(rh.getString(PROPERTY_NAME, HELP));
-    menuItem = new JMenuItem(rh.getString(PROPERTY_NAME, HELP));
-    menuItem.addActionListener(this);
-    menuItem.setMnemonic(rh.getString(PROPERTY_NAME, HELP).toCharArray()[0]);
-    menuItem.setActionCommand(HELP);
-
-    menuBar.add(Box.createHorizontalGlue());
-
-    menuBar.add(menu);
+//    menu = new JMenu(rh.getString(PROPERTY_NAME, HELP));
+//    menuItem = new JMenuItem(rh.getString(PROPERTY_NAME, HELP));
+//    menuItem.addActionListener(this);
+//    menuItem.setMnemonic(rh.getString(PROPERTY_NAME, HELP).toCharArray()[0]);
+//    menuItem.setActionCommand(HELP);
+//
+//    menuBar.add(Box.createHorizontalGlue());
+//
+//    menuBar.add(menu);
 
     setJMenuBar(menuBar);
 
+  }
+
+  public void enableMenuItemSave(boolean bEnable) {
+    getJMenuBar().getMenu(0).getItem(3).setEnabled(bEnable);
+  }
+
+  public void enableButtonSave(boolean bEnable) {
+    getFragebogenPanel().getButtonSave().setEnabled(bEnable);
   }
 
   private void setup() {
@@ -201,7 +216,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     );
     PanelBuilder builder = new PanelBuilder(layout);
     CellConstraints cc = new CellConstraints();
-    builder.addLabel(message.toString(), cc.xy(2, 2));
+    builder.addLabel(message, cc.xy(2, 2));
     JButton okButton = new JButton(OK);
     okButton.setMnemonic('O');
     okButton.addActionListener(list);
@@ -307,9 +322,29 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         model.addElement(fragebogen);
       }
       if (model.getSize() > 0) {
-        getFragebogenPanel().getButtonSave().setEnabled(true);
-        getJMenuBar().getMenu(0).getItem(3).setEnabled(true);
+        enableButtonSave(true);
+        enableMenuItemSave(true);
       }
+      String reopenConfigString = props.getProperty(PROPERTY_NAME + "." + REOPEN, "");
+
+      if (reopenConfigString.length() > 0) {
+        if (reopenConfigString.indexOf(file.getAbsolutePath()) < 0) { // if the file is not already in the list
+          reopenConfigString = file.getAbsolutePath() + "," + reopenConfigString;
+          // maximum files to reopen is limited to 10
+          String[] files = reopenConfigString.split(",");
+          reopenConfigString = "";
+          for (int i = 0; i < 10 && i < files.length; i++) {
+            reopenConfigString += files[i];
+            if (i < 10 && ((i + 1) < files.length)) {
+              reopenConfigString += ",";
+            }
+          }
+        }
+      } else {
+        reopenConfigString = file.getAbsolutePath();
+      }
+
+      props.setProperty(PROPERTY_NAME + "." + REOPEN, reopenConfigString);
     } catch (FileNotFoundException fnfne) {
     } catch (IOException ioe) {
     }
@@ -348,6 +383,13 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
       }
     } else if (EXIT.equals(e.getActionCommand())) {
       doWindowClosing();
+    } else if (e.getActionCommand().startsWith(REOPEN)) {
+      int index = Integer.valueOf(e.getActionCommand().substring(REOPEN.length() + 1));
+      String file = props.getProperty(PROPERTY_NAME + "." + REOPEN, "").split(",")[index];
+      File f;
+      if ((f = new File(file)).exists()) {
+        importData(f);
+      }
     }
   }
 
