@@ -33,6 +33,8 @@ public class WFAFragebogenPanel extends FragebogenPanel {
   public FragebogenDialog editFragebogenDialog(Fragebogen fragebogen) {
     if (fragebogen == null) return null;
     fragebogenDialog = new WFAFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_EDIT), fragebogen);
+    fragebogenDialog.setLocation(Integer.valueOf(props.getProperty(fragebogenDialog.PROPERTY_NAME + "." + POS_X)),
+        Integer.valueOf(props.getProperty(fragebogenDialog.PROPERTY_NAME + "." + POS_Y)));
     fragebogenDialog.setVisible(true);
     fragebogenDialog.getAntwortList().requestFocus();
     return fragebogenDialog;
