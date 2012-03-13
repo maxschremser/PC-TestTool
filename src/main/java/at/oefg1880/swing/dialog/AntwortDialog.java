@@ -4,6 +4,7 @@ import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.list.Antwort;
+import at.oefg1880.swing.list.FilteredList;
 import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.panel.AntwortPanel;
 import at.oefg1880.swing.panel.GradientPanel;
@@ -20,10 +21,12 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Vector;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,7 +40,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   private ResourceHandler rh = ResourceHandler.getInstance();
   private PropertyHandler props = PropertyHandler.getInstance();
   private TestToolFrame frame;
-  private JTextField tfName;
+  private FilteredList tfName;
   private AntwortPanel antwortPanel;
   protected Fragebogen fragebogen;
   private Antwort antwort;
@@ -85,7 +88,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   private void setup() {
     FormLayout layout = new FormLayout(
         "6dlu,100dlu,6dlu,pref,6dlu,pref,6dlu",
-        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,12dlu,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
+        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,12dlu,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
     GradientPanel gradientPanel = new GradientPanel();
     PanelBuilder builder = new PanelBuilder(layout);
     CellConstraints cc = new CellConstraints();
@@ -118,8 +121,20 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     Font font = labelTitle.getFont().deriveFont(Font.PLAIN, 21);
     labelTitle.setFont(font);
 
-    tfName = new JTextField();
+    Vector<String> v = new Vector<String>();
+    v.add("Maximilian");
+    v.add("Michael");
+    v.add("Franz");
+    v.add("Fritz");
+    v.add("Fridolin");
+    v.add("Markus");
+    v.add("Werner");
+    v.add("Stefan");
+    v.add("Slawomir");
+    v.add("Soltan");
+    tfName = new FilteredList(v);
     tfName.setSelectionColor(selectedTextForeground);
+    tfName.setBorder(new LineBorder(Color.black));
     tfName.addKeyListener(new KeyAdapter() {
       @Override
       public void keyTyped(KeyEvent e) {
@@ -174,19 +189,20 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
 
     builder.add(labelTitle, cc.xywh(2, 2, 5, 1));
     builder.addSeparator(rh.getString(PROPERTY_NAME, NAME), cc.xywh(2, 4, 3, 1));
-    builder.add(tfName, cc.xywh(2, 6, 3, 1));
-    builder.addSeparator(rh.getString(PROPERTY_NAME, SEX), cc.xywh(2, 8, 3, 1));
-    builder.add(rbM, cc.xy(2, 10));
-    builder.add(rbW, cc.xy(4, 10));
-    builder.addSeparator(rh.getString(PROPERTY_NAME, AGE), cc.xywh(2, 12, 3, 1));
-    builder.add(rb1115, cc.xy(2, 14));
-    builder.add(rb1620, cc.xy(4, 14));
-    builder.add(rb2130, cc.xy(2, 16));
-    builder.add(rb30, cc.xy(4, 16));
-    builder.addSeparator(rh.getString(PROPERTY_NAME, ANSWERS), cc.xywh(2, 18, 5, 1));
-    builder.add(antwortPanel, cc.xywh(2, 20, 5, 1));
-    builder.add(saveButton, cc.xy(6, 22));
-    builder.add(chartPanel, cc.xywh(6, 4, 1, 13));
+    builder.add(tfName.getFilterField(), cc.xywh(2, 6, 3, 1));
+    builder.add(new JScrollPane(tfName, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED), cc.xywh(2, 8, 3, 1));
+    builder.addSeparator(rh.getString(PROPERTY_NAME, SEX), cc.xywh(2, 10, 3, 1));
+    builder.add(rbM, cc.xy(2, 12));
+    builder.add(rbW, cc.xy(4, 12));
+    builder.addSeparator(rh.getString(PROPERTY_NAME, AGE), cc.xywh(2, 14, 3, 1));
+    builder.add(rb1115, cc.xy(2, 16));
+    builder.add(rb1620, cc.xy(4, 16));
+    builder.add(rb2130, cc.xy(2, 18));
+    builder.add(rb30, cc.xy(4, 18));
+    builder.addSeparator(rh.getString(PROPERTY_NAME, ANSWERS), cc.xywh(2, 20, 5, 1));
+    builder.add(antwortPanel, cc.xywh(2, 22, 5, 1));
+    builder.add(saveButton, cc.xy(6, 24));
+    builder.add(chartPanel, cc.xywh(6, 6, 1, 3));
 
     builder.setBorder(BorderFactory.createLineBorder(Color.black));
     gradientPanel.add(builder.getPanel());

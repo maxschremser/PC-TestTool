@@ -82,7 +82,7 @@ public class AntwortTextField extends JTextField implements IConfig {
       if (o instanceof JButton) {
         button = (JButton) o;
       } else {
-        button = (JButton) getParent().getParent().getComponent(13);
+        button = (JButton) getParent().getParent().getComponent(14);
       }
       button.setEnabled(true);
       button.requestFocus();
