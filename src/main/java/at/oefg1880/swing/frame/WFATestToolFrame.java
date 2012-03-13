@@ -2,6 +2,7 @@ package at.oefg1880.swing.frame;
 
 import at.oefg1880.swing.list.Antwort;
 import at.oefg1880.swing.list.Fragebogen;
+import at.oefg1880.swing.list.FragebogenList;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.WFAAntwortPanel;
 import at.oefg1880.swing.panel.WFAFragebogenPanel;
@@ -74,6 +75,28 @@ public class WFATestToolFrame extends TestToolFrame {
     Cell cell = row.createCell(0);
     cell.setCellValue(fragebogen.getTitle());
     cell.setCellStyle(boldStyle);
+
+    // Existing
+    cell = row.createCell(4);
+    cell.setCellStyle(boldStyle);
+    cell.setCellValue(rh.getString(FragebogenList.PROPERTY_NAME, AVAILABLE));
+    cell = row.createCell(5);
+    cell.setCellValue(fragebogen.getExisting());
+
+    // Solved
+    cell = row.createCell(6);
+    cell.setCellStyle(boldStyle);
+    cell.setCellValue(rh.getString(FragebogenList.PROPERTY_NAME, SOLVED));
+    cell = row.createCell(7);
+    cell.setCellValue(fragebogen.getSolved());
+
+    // Opened
+    cell = row.createCell(8);
+    cell.setCellStyle(boldStyle);
+    cell.setCellValue(rh.getString(FragebogenList.PROPERTY_NAME, OPENED));
+    cell = row.createCell(9);
+    cell.setCellValue(fragebogen.getUnsolved());
+
     // Lösungen
     row = sheet.createRow(2);
     cell = row.createCell(0);
