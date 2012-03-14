@@ -8,6 +8,7 @@ import at.oefg1880.swing.list.AntwortList;
 import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.list.FragebogenList;
 import at.oefg1880.swing.panel.AntwortPanel;
+import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
@@ -204,14 +205,14 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
   }
 
   private void save() {
-    FragebogenList list = frame.getFragebogenPanel().getFragebogenList();
+    FragebogenList list = ((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenList();
     list.add(
         textFieldName.getText(),
         Integer.valueOf(spinner.getValue().toString()),
         answerPanel.getValues()
     );
     log.info("Added item '" + textFieldName.getText() + "' to list.");
-    if (frame.getFragebogenPanel().getFragebogenList().getModel().getSize() > 0) {
+    if (((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenList().getModel().getSize() > 0) {
       frame.enableButtonSave(true);
       frame.enableMenuItemSave(true);
     }
@@ -222,7 +223,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     fragebogen.setTitle(textFieldName.getText());
     fragebogen.setExisting(Integer.valueOf(spinner.getValue().toString()));
     fragebogen.setSolutions(answerPanel.getValues());
-    FragebogenList list = frame.getFragebogenPanel().getFragebogenList();
+    FragebogenList list = ((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenList();
     list.update(fragebogen);
     close();
   }

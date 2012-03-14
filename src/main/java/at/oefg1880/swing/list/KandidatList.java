@@ -21,8 +21,8 @@ import java.awt.event.*;
  * Time: 14:32:28
  * To change this template use File | Settings | File Templates.
  */
-public class FragebogenList extends JList implements ActionListener, IConfig, ITexts {
-  public final static String PROPERTY_NAME = "at.oefg1880.swing.list.FragebogenList";
+public class KandidatList extends JList implements ActionListener, IConfig, ITexts {
+  public final static String PROPERTY_NAME = "at.oefg1880.swing.list.KandidatList";
   private ResourceHandler rh = ResourceHandler.getInstance();
   private GradientPanel cell;
   private JLabel labelTitle, labelVorhanden, labelGeloest, labelOffen,
@@ -42,7 +42,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
     listSelectionForeground = new Color(255, 255, 255);
   }
 
-  public FragebogenList(TestToolFrame frame) {
+  public KandidatList(TestToolFrame frame) {
     super();
     this.frame = frame;
     setup();
@@ -104,7 +104,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
     });
 
     setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    setCellRenderer(new FragebogenRenderer());
+    setCellRenderer(new UserRenderer());
     model = new DefaultListModel();
     setModel(model);
     setBorder(BorderFactory.createLineBorder(Color.black));
@@ -140,16 +140,16 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
 
   public void add(String name, int vorhanden, int[] values) {
     int index = model.getSize();
-    add(new Fragebogen(index, name, vorhanden, values));
+    add(new Kandidat(index, name, vorhanden, values));
   }
 
-  public void add(Fragebogen fragebogen) {
-    model.addElement(fragebogen);
+  public void add(Kandidat kandidat) {
+    model.addElement(kandidat);
     // handle auswertButton.setEnabled(true);
   }
 
-  public void update(Fragebogen fragebogen) {
-    model.setElementAt(fragebogen, fragebogen.getIndex());
+  public void update(Kandidat kandidat) {
+    model.setElementAt(kandidat, kandidat.getIndex());
   }
 
   @Override
@@ -175,17 +175,17 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
     }
   }
 
-  private class FragebogenRenderer implements ListCellRenderer {
+  private class UserRenderer implements ListCellRenderer {
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-      if (value instanceof Fragebogen) {
-        Fragebogen fragebogen = (Fragebogen) value;
-        fragebogen.setIndex(index);
-        labelTitle.setText(fragebogen.getTitle());
-        labelVorhanden.setText(fragebogen.getExisting() + "");
-        labelGeloest.setText(fragebogen.getSolved() + "");
-        labelOffen.setText(fragebogen.getUnsolved() + "");
-        if (fragebogen.getSolved() < fragebogen.getExisting()) {
+      if (value instanceof Kandidat) {
+        Kandidat kandidat = (Kandidat) value;
+        kandidat.setIndex(index);
+        labelTitle.setText(kandidat.getTitle());
+        labelVorhanden.setText(kandidat.getExisting() + "");
+        labelGeloest.setText(kandidat.getSolved() + "");
+        labelOffen.setText(kandidat.getUnsolved() + "");
+        if (kandidat.getSolved() < kandidat.getExisting()) {
           log.debug(isSelected ? "Cell selected: " + cell : "Cell: " + cell);
           for (Component c : cell.getComponents()) {
             if (isSelected) {

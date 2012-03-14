@@ -4,6 +4,7 @@ import at.oefg1880.swing.list.Antwort;
 import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.list.FragebogenList;
 import at.oefg1880.swing.panel.FragebogenPanel;
+import at.oefg1880.swing.panel.KandidatPanel;
 import at.oefg1880.swing.panel.OEFGAntwortPanel;
 import at.oefg1880.swing.panel.OEFGFragebogenPanel;
 import at.oefg1880.swing.text.AntwortTextField;
@@ -36,12 +37,21 @@ public class OEFGTestToolFrame extends TestToolFrame {
   }
 
   @Override
-  public FragebogenPanel getFragebogenPanel() {
-    if (fragebogenPanel == null) {
-      fragebogenPanel = new OEFGFragebogenPanel(this);
-      fragebogenPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+  public JComponent getFragebogenPanel() {
+    if (bottomFragebogenPane == null) {
+      bottomFragebogenPane = new OEFGFragebogenPanel(this);
+      bottomFragebogenPane.setBorder(BorderFactory.createLineBorder(Color.black));
     }
-    return fragebogenPanel;
+    return bottomFragebogenPane;
+  }
+
+  @Override
+  public JComponent getKandidatPanel() {
+    if (bottomKandidatPane == null) {
+      bottomKandidatPane = new KandidatPanel(this);
+      bottomKandidatPane.setBorder(BorderFactory.createLineBorder(Color.black));
+    }
+    return bottomKandidatPane;
   }
 
   @Override
@@ -165,7 +175,7 @@ public class OEFGTestToolFrame extends TestToolFrame {
     cell.setCellStyle(boldStyle);
 
     row = sheet.createRow(3);
-    char[] allowedValues = getFragebogenPanel().getAntwortDialog(fragebogen).getAntwortPanel().getAllowedValues();
+    char[] allowedValues = ((FragebogenPanel) getFragebogenPanel()).getAntwortDialog(fragebogen).getAntwortPanel().getAllowedValues();
     int[] solutions = fragebogen.getSolutions();
     int i = 4;
     for (int v : fragebogen.getSolutions()) {

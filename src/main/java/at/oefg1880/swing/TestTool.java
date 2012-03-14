@@ -2,7 +2,7 @@ package at.oefg1880.swing;
 
 import at.oefg1880.swing.frame.StartFrame;
 import at.oefg1880.swing.utils.ResourceHandler;
-import com.jgoodies.looks.plastic.PlasticXPLookAndFeel;
+import com.jgoodies.looks.windows.WindowsLookAndFeel;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -26,7 +26,7 @@ public class TestTool implements ITexts, IConfig {
     Runnable runner = new Runnable() {
       public void run() {
         try {
-          UIManager.setLookAndFeel(new PlasticXPLookAndFeel());
+          UIManager.setLookAndFeel(new WindowsLookAndFeel());
         } catch (UnsupportedLookAndFeelException ulnfe) {
           ulnfe.printStackTrace();
         }

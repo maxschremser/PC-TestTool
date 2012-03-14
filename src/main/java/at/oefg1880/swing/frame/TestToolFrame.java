@@ -7,6 +7,8 @@ import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.ImagePanel;
+import at.oefg1880.swing.panel.KandidatPanel;
+import at.oefg1880.swing.tabs.FadingTabbedPane;
 import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
@@ -46,7 +48,9 @@ import java.util.List;
  */
 public abstract class TestToolFrame extends SheetableFrame implements ITexts, IConfig, DropTargetListener, ActionListener {
   public final static String PROPERTY_NAME = "at.oefg1880.swing.frame.TestToolFrame";
-  protected FragebogenPanel fragebogenPanel;
+  protected JTabbedPane bottomPane;
+  protected JComponent bottomKandidatPane;
+  protected JComponent bottomFragebogenPane;
   protected final Logger log = Logger.getLogger(TestToolFrame.class);
   private PropertyHandler props = PropertyHandler.getInstance();
   protected ResourceHandler rh = ResourceHandler.getInstance();
@@ -61,7 +65,9 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
   public abstract String getFavicon();
 
-  public abstract FragebogenPanel getFragebogenPanel();
+  public abstract JComponent getFragebogenPanel();
+
+  public abstract JComponent getKandidatPanel();
 
   public abstract void exportFragebogen(Workbook wb, Fragebogen f);
 
@@ -107,8 +113,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     menuItem.addActionListener(this);
     menuItem.setMnemonic(rh.getString(PROPERTY_NAME, SAVE).toCharArray()[0]);
     menuItem.setActionCommand(SAVE);
-    if (getFragebogenPanel().getFragebogenList().getModel().getSize() == 0)
-      menuItem.setEnabled(false);
+    menuItem.setEnabled(false);
     menu.add(menuItem);
 
     menu.addSeparator();
@@ -139,7 +144,16 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
   }
 
   public void enableButtonSave(boolean bEnable) {
-    getFragebogenPanel().getButtonSave().setEnabled(bEnable);
+    ((FragebogenPanel) getFragebogenPanel()).getButtonSave().setEnabled(bEnable);
+  }
+
+  public JComponent getBottomComponent() {
+    if (bottomPane == null) {
+      bottomPane = new FadingTabbedPane();
+      bottomPane.addTab(rh.getString(KandidatPanel.PROPERTY_NAME, LABEL), getKandidatPanel());
+      bottomPane.addTab(rh.getString(FragebogenPanel.PROPERTY_NAME, LABEL), getFragebogenPanel());
+    }
+    return bottomPane;
   }
 
   private void setup() {
@@ -160,8 +174,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     GradientPanel panel = new GradientPanel();
     panel.setLayout(layout);
     panel.add(getImagePane(), cc.xy(2, 2));
-    panel.add(getFragebogenPanel(), cc.xy(2, 4));
-//    panel.add(getButtonPane(), cc.xy(2, 6));
+    panel.add(getBottomComponent(), cc.xy(2, 4));
     getContentPane().add(panel);
 
     loadProps();
@@ -191,10 +204,10 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
   }
 
   private void doWindowClosing() {
-    if (getFragebogenPanel().getFragebogenList().getModel().getSize() > 0) {
+    if (((FragebogenPanel) getFragebogenPanel()).getFragebogenList().getModel().getSize() > 0) {
       int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(PROPERTY_NAME, QUESTION_SAVE));
       if (JOptionPane.YES_OPTION == a) {
-        getFragebogenPanel().getButtonSave().doClick();
+        ((FragebogenPanel) getFragebogenPanel()).getButtonSave().doClick();
         storeProps();
         dispose();
         return;
@@ -264,7 +277,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
       file.createNewFile();
       log.info("Saved at: " + file.getAbsolutePath());
       FileOutputStream fos = new FileOutputStream(file);
-      DefaultListModel model = (DefaultListModel) getFragebogenPanel().getFragebogenList().getModel();
+      DefaultListModel model = (DefaultListModel) ((FragebogenPanel) getFragebogenPanel()).getFragebogenList().getModel();
       Enumeration<Fragebogen> enums = (Enumeration<Fragebogen>) model.elements();
       while (enums.hasMoreElements()) {
         Fragebogen f = enums.nextElement();
@@ -284,7 +297,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
       Workbook wb = new HSSFWorkbook(new FileInputStream(file));
       log.info("Importing from: " + file.getAbsolutePath());
       int numSheets = wb.getNumberOfSheets();
-      DefaultListModel model = (DefaultListModel) getFragebogenPanel().getFragebogenList().getModel();
+      DefaultListModel model = (DefaultListModel) ((FragebogenPanel) getFragebogenPanel()).getFragebogenList().getModel();
       char[] allowedValues = getAllowedValues();
 
       for (int s = 0; s < numSheets; s++) {

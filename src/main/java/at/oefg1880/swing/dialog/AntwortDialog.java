@@ -7,6 +7,7 @@ import at.oefg1880.swing.list.Antwort;
 import at.oefg1880.swing.list.FilteredList;
 import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.panel.AntwortPanel;
+import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.PropertyHandler;
@@ -77,7 +78,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   // Edit Answers given by user
 
   public AntwortDialog(TestToolFrame frame, String title, Fragebogen fragebogen, Antwort antwort) {
-    super(frame.getFragebogenPanel().getFragebogenDialog(), title, true);
+    super(((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenDialog(), title, true);
     this.frame = frame;
     this.fragebogen = fragebogen;
     this.antwort = antwort;
@@ -251,7 +252,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     antwort.setPercentages(dataset.getValue(1).intValue());
     antwort.setAnswers(antwortPanel.getValues());
     fragebogen.setAntwort(antwort);
-    ((DefaultListModel) frame.getFragebogenPanel().getFragebogenDialog().
+    ((DefaultListModel) ((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenDialog().
         getAntwortList().getModel()).setElementAt(antwort, antwort.getIndex());
   }
 
