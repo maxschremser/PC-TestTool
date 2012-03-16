@@ -1,5 +1,8 @@
 package at.oefg1880.swing.list;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  * Created by IntelliJ IDEA.
  * User: sensi
@@ -8,18 +11,14 @@ package at.oefg1880.swing.list;
  * To change this template use File | Settings | File Templates.
  */
 public class Antwort {
-  private String name;
-  private String alter;
-  private String geschlecht;
   private int percentages;
+  private Kandidat kandidat;
   private int[] answers;
   private int index;
 
-  public Antwort(int index, String name, String alter, String geschlecht, int percentages, int[] answers) {
+  public Antwort(int index, Kandidat kandidat, int percentages, int[] answers) {
     this.index = index;
-    this.name = name;
-    this.alter = alter;
-    this.geschlecht = geschlecht;
+    this.kandidat = kandidat;
     this.percentages = percentages;
     this.answers = answers;
   }
@@ -29,16 +28,21 @@ public class Antwort {
   }
 
   public String getName() {
-    return name;
+    return kandidat.getName();
   }
 
-  public String getAlter() {
-    return alter;
+  public int getAlter() {
+    Calendar cal = new GregorianCalendar(kandidat.getGeburtstag().getYear(), kandidat.getGeburtstag().getMonth(), kandidat.getGeburtstag().getDay());
+    Calendar now = new GregorianCalendar();
+    int res = now.get(Calendar.YEAR) - cal.get(Calendar.YEAR);
+    if ((cal.get(Calendar.MONTH) > now.get(Calendar.MONTH))
+        || (cal.get(Calendar.MONTH) == now.get(Calendar.MONTH)
+        && cal.get(Calendar.DAY_OF_MONTH) > now.get(Calendar.DAY_OF_MONTH))) {
+      res--;
+    }
+    return res;
   }
 
-  public String getGeschlecht() {
-    return geschlecht;
-  }
 
   public int[] getAnswers() {
     return answers;
@@ -48,20 +52,12 @@ public class Antwort {
     return percentages;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setAlter(String alter) {
-    this.alter = alter;
-  }
-
-  public void setGeschlecht(String geschlecht) {
-    this.geschlecht = geschlecht;
-  }
-
   public void setPercentages(int percentages) {
     this.percentages = percentages;
+  }
+
+  public void setKandidat(Kandidat kandidat) {
+    this.kandidat = kandidat;
   }
 
   public void setAnswers(int[] answers) {

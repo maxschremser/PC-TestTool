@@ -59,6 +59,8 @@ public interface ITexts {
   public static final String AGE = "age";
   public static final String ANSWERS = "answers";
 
+  public static final String ADRESS = "adress";
+
   public static final String YES = "yes";
   public static final String NO = "no";
   public static final String DIALOG_CREATE_DIR = "dialog_create_dir";

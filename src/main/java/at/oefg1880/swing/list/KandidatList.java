@@ -5,6 +5,7 @@ import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
+import at.oefg1880.swing.panel.KandidatPanel;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -13,6 +14,8 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,8 +28,8 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
   public final static String PROPERTY_NAME = "at.oefg1880.swing.list.KandidatList";
   private ResourceHandler rh = ResourceHandler.getInstance();
   private GradientPanel cell;
-  private JLabel labelTitle, labelVorhanden, labelGeloest, labelOffen,
-      labelTextVorhanden, labelTextGeloest, labelTextOffen;
+  private JLabel labelName, labelGeburtsdatum, labelGeburtsort, labelPLZ,
+      labelOrt, labelStrasse;
   private static Color listForeground, listBackground, listSelectionForeground, listSelectionBackground;
   private DefaultListModel model;
   private TestToolFrame frame;
@@ -58,14 +61,10 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
     addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        // open FragebogenDialog
+        // open KandidatDialog
         menu.setVisible(false);
         if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
-          ((FragebogenPanel) frame.getFragebogenPanel()).createNewAntwortDialog((Fragebogen) getSelectedValue());
-        } else if (SwingUtilities.isRightMouseButton(e) && !isSelectionEmpty() &&
-            locationToIndex(e.getPoint()) == getSelectedIndex()) {
-          // right click, open edit menu
-          menu.show((JList) e.getSource(), e.getX(), e.getY());
+          ((KandidatPanel) frame.getKandidatPanel()).updateKandidatDialog((Kandidat) getSelectedValue());
         }
       }
     });
@@ -104,7 +103,7 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
     });
 
     setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    setCellRenderer(new UserRenderer());
+    setCellRenderer(new KandidatRenderer());
     model = new DefaultListModel();
     setModel(model);
     setBorder(BorderFactory.createLineBorder(Color.black));
@@ -114,38 +113,38 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
     CellConstraints cc = new CellConstraints();
     cell = new GradientPanel(IConfig.HORIZONTAL);
     cell.setLayout(layout);
-    labelTitle = new JLabel();
-    Font defaultFont = labelTitle.getFont();
+    labelName = new JLabel();
+    Font defaultFont = labelName.getFont();
     Font titleFont = defaultFont.deriveFont(Font.BOLD, defaultFont.getSize() + 4);
-    labelTitle.setFont(titleFont);
+    labelName.setFont(titleFont);
 
-    labelVorhanden = new JLabel();
-    labelGeloest = new JLabel();
-    labelOffen = new JLabel();
+    labelGeburtsdatum = new JLabel();
+    labelGeburtsort = new JLabel();
+    labelPLZ = new JLabel();
 
-    labelTextVorhanden = new JLabel(rh.getString(PROPERTY_NAME, AVAILABLE));
-    labelTextGeloest = new JLabel(rh.getString(PROPERTY_NAME, SOLVED));
-    labelTextOffen = new JLabel(rh.getString(PROPERTY_NAME, OPENED));
+    labelOrt = new JLabel();
+    labelStrasse = new JLabel();
 
-    cell.add(labelTitle, cc.xywh(2, 2, 11, 1));
-    cell.add(labelTextVorhanden, cc.xy(2, 4));
-    cell.add(labelVorhanden, cc.xy(4, 4));
-    cell.add(labelTextGeloest, cc.xy(6, 4));
-    cell.add(labelGeloest, cc.xy(8, 4));
-    cell.add(labelTextOffen, cc.xy(10, 4));
-    cell.add(labelOffen, cc.xy(12, 4));
+    cell.add(labelName, cc.xywh(2, 2, 11, 1));
+    cell.add(labelOrt, cc.xy(2, 4));
+    cell.add(labelGeburtsdatum, cc.xy(4, 4));
+    cell.add(labelStrasse, cc.xy(6, 4));
+    cell.add(labelGeburtsort, cc.xy(8, 4));
+    cell.add(labelPLZ, cc.xy(12, 4));
 
     cell.setOpaque(true);
   }
 
-  public void add(String name, int vorhanden, int[] values) {
+  public void add(String name, String strasse, int PLZ, String ort, Date geburtstag) {
     int index = model.getSize();
-    add(new Kandidat(index, name, vorhanden, values));
+    Kandidat kandidat = new Kandidat(index, name, geburtstag);
+    Kandidat.Adresse adresse = kandidat.new Adresse(strasse, PLZ, ort);
+    kandidat.setAdresse(adresse);
+    add(kandidat);
   }
 
   public void add(Kandidat kandidat) {
     model.addElement(kandidat);
-    // handle auswertButton.setEnabled(true);
   }
 
   public void update(Kandidat kandidat) {
@@ -175,36 +174,32 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
     }
   }
 
-  private class UserRenderer implements ListCellRenderer {
+  private class KandidatRenderer implements ListCellRenderer {
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
       if (value instanceof Kandidat) {
         Kandidat kandidat = (Kandidat) value;
         kandidat.setIndex(index);
-        labelTitle.setText(kandidat.getTitle());
-        labelVorhanden.setText(kandidat.getExisting() + "");
-        labelGeloest.setText(kandidat.getSolved() + "");
-        labelOffen.setText(kandidat.getUnsolved() + "");
-        if (kandidat.getSolved() < kandidat.getExisting()) {
-          log.debug(isSelected ? "Cell selected: " + cell : "Cell: " + cell);
-          for (Component c : cell.getComponents()) {
-            if (isSelected) {
-              c.setBackground(listSelectionBackground);
-              cell.setBackground(listSelectionBackground);
-              cell.setDirection(PLAIN_2);
-              cell.setColor2(selectedListForeground);
-            } else {
-              c.setBackground(listBackground);
-              c.setForeground(listForeground);
-              cell.setBackground(listBackground);
-              cell.setDirection(HORIZONTAL);
-              cell.setColor2(color_2);
-            }
+        labelName.setText(kandidat.getName());
+        labelGeburtsdatum.setText(new SimpleDateFormat("dd.mm.yyyy").format(kandidat.getGeburtstag()));
+        labelGeburtsort.setText(kandidat.getGeburtsort());
+        labelPLZ.setText(kandidat.getAdresse().getPLZ() + "");
+        labelOrt.setText(kandidat.getAdresse().getOrt());
+        labelStrasse.setText(kandidat.getAdresse().getStrasse());
+        log.debug(isSelected ? "Cell selected: " + cell : "Cell: " + cell);
+        for (Component c : cell.getComponents()) {
+          if (isSelected) {
+            c.setBackground(listSelectionBackground);
+            cell.setBackground(listSelectionBackground);
+            cell.setDirection(PLAIN_2);
+            cell.setColor2(selectedListForeground);
+          } else {
+            c.setBackground(listBackground);
+            c.setForeground(listForeground);
+            cell.setBackground(listBackground);
+            cell.setDirection(HORIZONTAL);
+            cell.setColor2(color_2);
           }
-        } else {
-          cell.setBackground(listBackground);
-          cell.setDirection(HORIZONTAL);
-          cell.setColor2(finishedColor);
         }
         return cell;
       }

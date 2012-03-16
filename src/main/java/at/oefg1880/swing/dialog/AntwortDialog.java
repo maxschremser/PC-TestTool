@@ -6,6 +6,7 @@ import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.list.Antwort;
 import at.oefg1880.swing.list.FilteredList;
 import at.oefg1880.swing.list.Fragebogen;
+import at.oefg1880.swing.list.Kandidat;
 import at.oefg1880.swing.panel.AntwortPanel;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
@@ -27,6 +28,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Date;
 import java.util.Vector;
 
 /**
@@ -45,24 +47,14 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   private AntwortPanel antwortPanel;
   protected Fragebogen fragebogen;
   private Antwort antwort;
-  private ButtonGroup bgGeschlecht, bgAlter;
   private DefaultPieDataset dataset;
   private int correctAnswers = 0;
   private JFreeChart chart;
   private JButton saveButton;
-  private JRadioButton rbM, rbW, rb1115, rb1620, rb2130, rb30;
 
   private final String SAVE = "update";
   private final String CORRECT = rh.getString(PROPERTY_NAME, GRAPH_CORRECT);
   private final String WRONG = rh.getString(PROPERTY_NAME, GRAPH_WRONG);
-
-  private final String sMASCULIN = rh.getString(PROPERTY_NAME, MASCULIN);
-  private final String sFEMININ = rh.getString(PROPERTY_NAME, FEMININ);
-
-  private final String _1115 = rh.getString(PROPERTY_NAME, AGE_11_15);
-  private final String _1620 = rh.getString(PROPERTY_NAME, AGE_16_20);
-  private final String _2130 = rh.getString(PROPERTY_NAME, AGE_21_30);
-  private final String _30 = rh.getString(PROPERTY_NAME, AGE_30_PLUS);
 
   public abstract AntwortPanel getAntwortPanel();
 
@@ -122,17 +114,10 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     Font font = labelTitle.getFont().deriveFont(Font.PLAIN, 21);
     labelTitle.setFont(font);
 
-    Vector<String> v = new Vector<String>();
-    v.add("Maximilian");
-    v.add("Michael");
-    v.add("Franz");
-    v.add("Fritz");
-    v.add("Fridolin");
-    v.add("Markus");
-    v.add("Werner");
-    v.add("Stefan");
-    v.add("Slawomir");
-    v.add("Soltan");
+    Vector<Kandidat> v = new Vector<Kandidat>();
+    v.add(new Kandidat(0, "Maximilian", new Date(1979, 8, 7)));
+    v.add(new Kandidat(0, "Michael", new Date(1975, 2, 12)));
+    v.add(new Kandidat(0, "Markus", new Date(1972, 6, 23)));
     tfName = new FilteredList(v);
     tfName.setSelectionColor(selectedTextForeground);
     tfName.setBorder(new LineBorder(Color.black));
@@ -147,35 +132,6 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
       }
     });
 
-    bgGeschlecht = new ButtonGroup();
-    rbM = new JRadioButton(sMASCULIN);
-    rbM.setActionCommand(MASCULIN);
-    rbM.addActionListener(this);
-    rbM.setSelected(true);
-    rbM.setMnemonic('m');
-    rbW = new JRadioButton(sFEMININ);
-    rbW.setActionCommand(FEMININ);
-    rbW.setMnemonic('w');
-    bgGeschlecht.add(rbM);
-    bgGeschlecht.add(rbW);
-    bgAlter = new ButtonGroup();
-    rb1115 = new JRadioButton(_1115);
-    rb1115.setActionCommand(_1115);
-    rb1115.setSelected(true);
-    rb1115.setMnemonic('1');
-    rb1620 = new JRadioButton(_1620);
-    rb1620.setActionCommand(_1620);
-    rb1620.setMnemonic('2');
-    rb2130 = new JRadioButton(_2130);
-    rb2130.setActionCommand(_2130);
-    rb2130.setMnemonic('3');
-    rb30 = new JRadioButton(_30);
-    rb30.setActionCommand(_30);
-    rb30.setMnemonic('4');
-    bgAlter.add(rb1115);
-    bgAlter.add(rb1620);
-    bgAlter.add(rb2130);
-    bgAlter.add(rb30);
     dataset = new DefaultPieDataset();
     dataset.setValue(WRONG, 100);
     dataset.setValue(CORRECT, 0);
@@ -192,17 +148,9 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     builder.addSeparator(rh.getString(PROPERTY_NAME, NAME), cc.xywh(2, 4, 3, 1));
     builder.add(tfName.getFilterField(), cc.xywh(2, 6, 3, 1));
     builder.add(new JScrollPane(tfName, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED), cc.xywh(2, 8, 3, 1));
-    builder.addSeparator(rh.getString(PROPERTY_NAME, SEX), cc.xywh(2, 10, 3, 1));
-    builder.add(rbM, cc.xy(2, 12));
-    builder.add(rbW, cc.xy(4, 12));
-    builder.addSeparator(rh.getString(PROPERTY_NAME, AGE), cc.xywh(2, 14, 3, 1));
-    builder.add(rb1115, cc.xy(2, 16));
-    builder.add(rb1620, cc.xy(4, 16));
-    builder.add(rb2130, cc.xy(2, 18));
-    builder.add(rb30, cc.xy(4, 18));
-    builder.addSeparator(rh.getString(PROPERTY_NAME, ANSWERS), cc.xywh(2, 20, 5, 1));
-    builder.add(antwortPanel, cc.xywh(2, 22, 5, 1));
-    builder.add(saveButton, cc.xy(6, 24));
+    builder.addSeparator(rh.getString(PROPERTY_NAME, ANSWERS), cc.xywh(2, 10, 5, 1));
+    builder.add(antwortPanel, cc.xywh(2, 12, 5, 1));
+    builder.add(saveButton, cc.xy(6, 14));
     builder.add(chartPanel, cc.xywh(6, 6, 1, 3));
 
     builder.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -215,17 +163,9 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   private void reset() {
     correctAnswers = 0;
     tfName.setText("");
-    rbM.setSelected(true);
-    rb1115.setSelected(true);
     dataset.setValue(CORRECT, 0);
     dataset.setValue(WRONG, 100);
     antwortPanel.reset();
-  }
-
-  private void setGeschlechtSelected(String sex) {
-    if (sex.length() <= 0) return;
-    if (sex.equals(MASCULIN)) rbM.setSelected(true);
-    else rbW.setSelected(true);
   }
 
   public void loadProps() {
@@ -244,11 +184,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   }
 
   private void update() {
-    String sGeschlecht = bgGeschlecht.getSelection().getActionCommand();
-    String sAlter = bgAlter.getSelection().getActionCommand();
-    antwort.setName(tfName.getText());
-    antwort.setAlter(sAlter);
-    antwort.setGeschlecht(sGeschlecht);
+    antwort.setKandidat((Kandidat) tfName.getSelectedValue());
     antwort.setPercentages(dataset.getValue(1).intValue());
     antwort.setAnswers(antwortPanel.getValues());
     fragebogen.setAntwort(antwort);
@@ -257,10 +193,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   }
 
   private void save() {
-    String sGeschlecht = bgGeschlecht.getSelection().getActionCommand();
-    String sAlter = bgAlter.getSelection().getActionCommand();
-    Antwort antwort = new Antwort(fragebogen.getSolved(), tfName.getText(), sAlter,
-        sGeschlecht, dataset.getValue(1).intValue(), antwortPanel.getValues());
+    Antwort antwort = new Antwort(fragebogen.getAntworten().size(), (Kandidat) tfName.getSelectedValue(), dataset.getValue(1).intValue(), antwortPanel.getValues());
     fragebogen.addAntwort(antwort);
   }
 
@@ -297,14 +230,6 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   private void fillValues() {
     // set Name
     tfName.setText(antwort.getName());
-    // setSex
-    if (antwort.getGeschlecht().equals(MASCULIN)) setGeschlechtSelected(MASCULIN);
-    else setGeschlechtSelected(FEMININ);
-    // setAge
-    if (antwort.getAlter().equals(_1115)) rb1115.setSelected(true);
-    else if (antwort.getAlter().equals(_1620)) rb1620.setSelected(true);
-    else if (antwort.getAlter().equals(_2130)) rb2130.setSelected(true);
-    else if (antwort.getAlter().equals(_30)) rb30.setSelected(true);
     antwortPanel.setValues(antwort.getAnswers());
   }
 

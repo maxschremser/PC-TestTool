@@ -2,11 +2,10 @@ package at.oefg1880.swing.panel;
 
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
-import at.oefg1880.swing.dialog.AntwortDialog;
-import at.oefg1880.swing.dialog.FragebogenDialog;
+import at.oefg1880.swing.dialog.KandidatDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
-import at.oefg1880.swing.list.Fragebogen;
-import at.oefg1880.swing.list.FragebogenList;
+import at.oefg1880.swing.list.Kandidat;
+import at.oefg1880.swing.list.KandidatList;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.factories.ButtonBarFactory;
@@ -31,25 +30,26 @@ import java.net.URI;
 public class KandidatPanel extends GradientPanel implements ITexts, IConfig, ActionListener {
   public final static String PROPERTY_NAME = "at.oefg1880.swing.panel.KandidatPanel";
   protected TestToolFrame frame;
-  protected FragebogenDialog fragebogenDialog;
-  protected AntwortDialog antwortDialog;
+  protected KandidatDialog kandidatDialog;
   protected PropertyHandler props = PropertyHandler.getInstance();
   protected ResourceHandler rh = ResourceHandler.getInstance();
   protected final Logger log = Logger.getLogger(getClass());
-  private FragebogenList list;
+  private KandidatList list;
   private final String NEW = "new", SAVE = "save";
   private JButton buttonSave, buttonNew;
 
-  public JDialog createNewFragebogenDialog() {
-    return null;
+  public KandidatDialog getKandidatDialog(Kandidat kandidat) {
+    kandidatDialog = new KandidatDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_NEW));
+    kandidatDialog.loadProps();
+    kandidatDialog.setVisible(true);
+    return kandidatDialog;
   }
 
-  public FragebogenDialog editFragebogenDialog(Fragebogen fragebogen) {
-    return null;
-  }
-
-  public AntwortDialog getAntwortDialog(Fragebogen fragebogen) {
-    return null;
+  public JDialog createNewKandidatDialog() {
+    kandidatDialog = new KandidatDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_NEW));
+    kandidatDialog.loadProps();
+    kandidatDialog.setVisible(true);
+    return kandidatDialog;
   }
 
   public KandidatPanel(TestToolFrame frame) {
@@ -77,16 +77,16 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
     JPanel buttonBarPanel = ButtonBarFactory.buildAddRemoveRightBar(buttonSave, buttonNew);
     buttonBarPanel.setOpaque(true);
     add(buttonBarPanel, cc.xy(4, 2));
-    JScrollPane scrollPaneList = new JScrollPane(getFragebogenList(),
+    JScrollPane scrollPaneList = new JScrollPane(getKandidatList(),
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
         JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     scrollPaneList.setPreferredSize(new Dimension((int) getWidth(), 170));
     add(scrollPaneList, cc.xywh(2, 4, 3, 1));
   }
 
-  public FragebogenList getFragebogenList() {
+  public KandidatList getKandidatList() {
     if (list == null) {
-      list = new FragebogenList(frame);
+      list = new KandidatList(frame);
       list.requestFocus();
     }
     return list;
@@ -100,25 +100,18 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
     return buttonNew;
   }
 
-  public FragebogenDialog getFragebogenDialog() {
-    return fragebogenDialog;
-  }
-
-  public AntwortDialog createNewAntwortDialog(Fragebogen fragebogen) {
-    if (fragebogen == null) return null;
-    if (fragebogen.getSolved() == fragebogen.getExisting()) {
-      return null;
-    }
-    antwortDialog = getAntwortDialog(fragebogen);
-    antwortDialog.loadProps();
-    antwortDialog.setVisible(true);
-    return antwortDialog;
+  public KandidatDialog updateKandidatDialog(Kandidat kandidat) {
+    if (kandidat == null) return null;
+    kandidatDialog = getKandidatDialog(kandidat);
+    kandidatDialog.loadProps();
+    kandidatDialog.setVisible(true);
+    return kandidatDialog;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     if (NEW.equals(e.getActionCommand())) {
-      createNewFragebogenDialog();
+      createNewKandidatDialog();
     } else if (SAVE.equals(e.getActionCommand())) {
       props.propertyChange(new PropertyChangeEvent(this, JOptionPane.VALUE_PROPERTY, 0, 0));
       String filePath = frame.exportData();

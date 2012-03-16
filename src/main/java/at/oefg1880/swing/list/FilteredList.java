@@ -20,12 +20,12 @@ public class FilteredList extends JList {
   private int DEFAULT_FIELD_WIDTH = 20;
 
   public FilteredList() {
-    this(new Vector<String>());
+    this(new Vector<Kandidat>());
   }
 
-  public FilteredList(Vector<String> items) {
+  public FilteredList(Vector<Kandidat> items) {
     super(items);
-    Iterator<String> iter = items.iterator();
+    Iterator<Kandidat> iter = items.iterator();
     setModel(new FilterModel());
     filterField = new FilterField(DEFAULT_FIELD_WIDTH);
     while (iter.hasNext()) {
@@ -39,7 +39,7 @@ public class FilteredList extends JList {
     super.setModel(model);
   }
 
-  public void addItem(String item) {
+  public void addItem(Kandidat item) {
     ((FilterModel) getModel()).addElement(item);
   }
 
@@ -60,12 +60,12 @@ public class FilteredList extends JList {
   }
 
   private class FilterModel extends AbstractListModel {
-    ArrayList<String> items, filterItems;
+    ArrayList<Kandidat> items, filterItems;
 
     public FilterModel() {
       super();
-      items = new ArrayList<String>();
-      filterItems = new ArrayList<String>();
+      items = new ArrayList<Kandidat>();
+      filterItems = new ArrayList<Kandidat>();
     }
 
     @Override
@@ -82,7 +82,7 @@ public class FilteredList extends JList {
       }
     }
 
-    public void addElement(String item) {
+    public void addElement(Kandidat item) {
       items.add(item);
       refilter();
     }

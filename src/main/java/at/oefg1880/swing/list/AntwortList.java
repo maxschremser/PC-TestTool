@@ -131,6 +131,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
   }
 
   private void init() {
+    if (fragebogen == null) return;
     for (Antwort antwort : fragebogen.getAntworten()) {
       model.addElement(antwort);
     }
@@ -158,8 +159,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
       if (value instanceof Antwort) {
         Antwort antwort = (Antwort) value;
         labelName.setText(antwort.getName());
-        labelAlter.setText(antwort.getAlter());
-        labelGeschlecht.setText(antwort.getGeschlecht());
+        labelAlter.setText(antwort.getAlter() + "");
         labelPercentages.setText(antwort.getPercentages() + "%");
         for (Component c : cell.getComponents()) {
           if (isSelected) {

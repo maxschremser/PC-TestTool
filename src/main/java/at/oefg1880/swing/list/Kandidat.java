@@ -1,6 +1,6 @@
 package at.oefg1880.swing.list;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,74 +10,130 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class Kandidat {
-  private String title;
-  private int existing;
-  private int[] solutions;
-  private ArrayList<Antwort> antworten;
   private int index;
+  private String name;
+  private Adresse adresse;
+  private String telephon;
+  private String email;
 
-  public Kandidat(int index, String title, int existing, int[] solutions) {
+  private Date geburtstag;
+  private String geburtsort;
+  private boolean passPhoto;
+  private boolean kursunterlagen;
+  private boolean pruefungsgebuehr;
+
+  public Kandidat() {
+    super();
+  }
+
+  public Kandidat(int index, String name, Date geburtstag) {
+    this();
     this.index = index;
-    this.title = title;
-    this.existing = existing;
-    this.solutions = solutions;
-    this.antworten = new ArrayList<Antwort>();
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public int getExisting() {
-    return existing;
-  }
-
-  public int getSolved() {
-    return antworten.size();
-  }
-
-  public int getUnsolved() {
-    int offen = existing - antworten.size();
-    return offen > 0 ? offen : 0;
-  }
-
-  public int[] getSolutions() {
-    return this.solutions;
-  }
-
-  public void addAntwort(Antwort antwort) {
-    this.antworten.add(antwort);
-  }
-
-  public void setAntwort(Antwort antwort) {
-    this.antworten.set(antwort.getIndex(), antwort);
-  }
-
-  public void removeAntwort(Antwort antwort) {
-    this.antworten.remove(antwort);
-  }
-
-  public ArrayList<Antwort> getAntworten() {
-    return this.antworten;
-  }
-
-  public void setExisting(int existing) {
-    this.existing = existing;
+    this.name = name;
+    this.geburtstag = geburtstag;
   }
 
   public int getIndex() {
-    return this.index;
+    return index;
   }
 
   public void setIndex(int index) {
     this.index = index;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public String getName() {
+    return name;
   }
 
-  public void setSolutions(int[] solutions) {
-    this.solutions = solutions;
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Adresse getAdresse() {
+    return adresse;
+  }
+
+  public void setAdresse(Adresse adresse) {
+    this.adresse = adresse;
+  }
+
+  public String getTelephon() {
+    return telephon;
+  }
+
+  public void setTelephon(String telephon) {
+    this.telephon = telephon;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public Date getGeburtstag() {
+    return geburtstag;
+  }
+
+  public void setBirthDate(Date geburtstag) {
+    this.geburtstag = geburtstag;
+  }
+
+  public String getGeburtsort() {
+    return geburtsort;
+  }
+
+  public void setGeburtsort(String geburtsort) {
+    this.geburtsort = geburtsort;
+  }
+
+  public boolean isPassPhoto() {
+    return passPhoto;
+  }
+
+  public void setPassPhoto(boolean passPhoto) {
+    this.passPhoto = passPhoto;
+  }
+
+  public boolean isKursunterlagen() {
+    return kursunterlagen;
+  }
+
+  public void setKursunterlagen(boolean kursunterlagen) {
+    this.kursunterlagen = kursunterlagen;
+  }
+
+  public boolean isPruefungsgebuehr() {
+    return pruefungsgebuehr;
+  }
+
+  public void setPruefungsgebuehr(boolean pruefungsgebuehr) {
+    this.pruefungsgebuehr = pruefungsgebuehr;
+  }
+
+  protected class Adresse {
+    private String strasse;
+    private int PLZ;
+    private String ort;
+
+    public Adresse(String strasse, int PLZ, String ort) {
+      this.strasse = strasse;
+      this.PLZ = PLZ;
+      this.ort = ort;
+    }
+
+    public String getStrasse() {
+      return strasse;
+    }
+
+    public int getPLZ() {
+      return PLZ;
+    }
+
+    public String getOrt() {
+      return ort;
+    }
   }
 }

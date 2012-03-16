@@ -7,6 +7,7 @@ import at.oefg1880.swing.dialog.FragebogenDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.list.FragebogenList;
+import at.oefg1880.swing.list.KandidatList;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.factories.ButtonBarFactory;
@@ -36,7 +37,8 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
   protected PropertyHandler props = PropertyHandler.getInstance();
   protected ResourceHandler rh = ResourceHandler.getInstance();
   protected final Logger log = Logger.getLogger(getClass());
-  private FragebogenList list;
+  private FragebogenList fragebogenList;
+  private KandidatList kandidatList;
   private final String NEW = "new", SAVE = "save";
   private JButton buttonSave, buttonNew;
 
@@ -79,11 +81,19 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
   }
 
   public FragebogenList getFragebogenList() {
-    if (list == null) {
-      list = new FragebogenList(frame);
-      list.requestFocus();
+    if (fragebogenList == null) {
+      fragebogenList = new FragebogenList(frame);
+      fragebogenList.requestFocus();
     }
-    return list;
+    return fragebogenList;
+  }
+
+  public KandidatList getKandidatList() {
+    if (kandidatList == null) {
+      kandidatList = new KandidatList(frame);
+      kandidatList.requestFocus();
+    }
+    return kandidatList;
   }
 
   public JButton getButtonSave() {

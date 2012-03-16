@@ -50,14 +50,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
   public abstract AntwortList getAntwortList();
 
   public FragebogenDialog(TestToolFrame frame, String title) {
-    super(frame, title, true);
-    this.frame = frame;
-    FormLayout layout = new FormLayout(
-        "6dlu,pref,6dlu,64dlu,6dlu",
-        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
-
-    builder = new PanelBuilder(layout);
-    setup();
+    this(frame, title, null);
   }
 
   public FragebogenDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
@@ -84,16 +77,18 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     });
 
     builder = new PanelBuilder(layout);
-    this.fragebogen = fragebogen;
-    setup();
-    if (fragebogen != null) {
-      answerPanel.setValues(fragebogen.getSolutions());
-    }
-    textFieldName.setText(fragebogen.getTitle());
-    spinner.setValue(fragebogen.getExisting());
 
-    button.setActionCommand(UPDATE);
-    button.setEnabled(true);
+    setup();
+
+    if (fragebogen != null) {
+      this.fragebogen = fragebogen;
+      answerPanel.setValues(fragebogen.getSolutions());
+      textFieldName.setText(fragebogen.getTitle());
+      spinner.setValue(fragebogen.getExisting());
+      button.setActionCommand(UPDATE);
+      button.setEnabled(true);
+    }
+
     getAntwortList().requestFocus();
   }
 
@@ -133,6 +128,8 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
       }
     });
     button = new JButton(rh.getString(PROPERTY_NAME, BUTTON_SAVE));
+    button.setActionCommand(SAVE);
+    button.setEnabled(false);
     button.addActionListener(this);
     button.addKeyListener(new KeyAdapter() {
       @Override
@@ -141,8 +138,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
 //        else if (e.getKeyChar() == KeyEvent.VK_SPACE) saveOrUpdate();
       }
     });
-    button.setActionCommand(SAVE);
-    button.setEnabled(false);
+
     answerPanel = getAntwortPanel();
 
     builder.addSeparator(rh.getString(PROPERTY_NAME, LABEL_FRAGEBOGEN), cc.xywh(2, 2, 3, 1));
@@ -194,14 +190,12 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
   }
 
   private void saveOrUpdate() {
-    if (SAVE.equals(button.getActionCommand())) {
+    if (fragebogen == null) {
       save();
-      storeProps();
     } else {
-      if (UPDATE.equals(button.getActionCommand())) {
-        update();
-      }
+      update();
     }
+    storeProps();
   }
 
   private void save() {

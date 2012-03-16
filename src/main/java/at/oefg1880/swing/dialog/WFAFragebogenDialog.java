@@ -32,7 +32,8 @@ public class WFAFragebogenDialog extends FragebogenDialog {
   public AntwortList getAntwortList() {
     if (list == null) {
       list = new WFAAntwortList(frame, fragebogen);
-      list.setVisibleRowCount(fragebogen.getSolved());
+      if (fragebogen != null)
+        list.setVisibleRowCount(fragebogen.getSolved());
       list.requestFocus();
     }
     return list;

@@ -145,7 +145,6 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
 
   public void add(Fragebogen fragebogen) {
     model.addElement(fragebogen);
-    // handle auswertButton.setEnabled(true);
   }
 
   public void update(Fragebogen fragebogen) {

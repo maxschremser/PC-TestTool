@@ -4,6 +4,7 @@ import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.list.Antwort;
 import at.oefg1880.swing.list.Fragebogen;
+import at.oefg1880.swing.list.Kandidat;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.ImagePanel;
@@ -36,6 +37,7 @@ import java.io.*;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -329,7 +331,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
             char cellValue = row.getCell(i).getStringCellValue().toCharArray()[0];
             answers[r - 6][i - 4] = AntwortTextField.translate(allowedValues, cellValue);
           }
-          fragebogen.addAntwort(new Antwort(r - 6, name, alter, geschlecht, percentages, answers[r - 6]));
+          fragebogen.addAntwort(new Antwort(r - 6, new Kandidat(0, "tester", new Date(1979, 8, 7)), percentages, answers[r - 6]));
         }
 
         model.addElement(fragebogen);
@@ -408,22 +410,18 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
   @Override
   public void dragEnter(DropTargetDragEvent dtde) {
-    //To change body of implemented methods use File | Settings | File Templates.
   }
 
   @Override
   public void dragOver(DropTargetDragEvent dtde) {
-    //To change body of implemented methods use File | Settings | File Templates.
   }
 
   @Override
   public void dropActionChanged(DropTargetDragEvent dtde) {
-    //To change body of implemented methods use File | Settings | File Templates.
   }
 
   @Override
   public void dragExit(DropTargetEvent dte) {
-    //To change body of implemented methods use File | Settings | File Templates.
   }
 
   @Override
