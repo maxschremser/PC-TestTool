@@ -59,7 +59,15 @@ public interface ITexts {
   public static final String AGE = "age";
   public static final String ANSWERS = "answers";
 
-  public static final String ADRESS = "adress";
+  public static final String FIRST_LAST_NAME = "first_last_name";
+  public static final String STREET = "street";
+  public static final String PLZ_ORT = "plz_ort";
+  public static final String PLZ = "plz";
+  public static final String CITY = "city";
+  public static final String BIRTHDAY = "birthday";
+  public static final String BIRTHPLACE = "birthplace";
+  public static final String PERSONAL_DATA = "personal_data";
+  public static final String MONTHS = "months";
 
   public static final String YES = "yes";
   public static final String NO = "no";

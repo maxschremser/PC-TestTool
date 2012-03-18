@@ -38,7 +38,6 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
   protected ResourceHandler rh = ResourceHandler.getInstance();
   protected final Logger log = Logger.getLogger(getClass());
   private FragebogenList fragebogenList;
-  private KandidatList kandidatList;
   private final String NEW = "new", SAVE = "save";
   private JButton buttonSave, buttonNew;
 
@@ -88,14 +87,6 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     return fragebogenList;
   }
 
-  public KandidatList getKandidatList() {
-    if (kandidatList == null) {
-      kandidatList = new KandidatList(frame);
-      kandidatList.requestFocus();
-    }
-    return kandidatList;
-  }
-
   public JButton getButtonSave() {
     return buttonSave;
   }
@@ -126,6 +117,7 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     } else if (SAVE.equals(e.getActionCommand())) {
       props.propertyChange(new PropertyChangeEvent(this, JOptionPane.VALUE_PROPERTY, 0, 0));
       String filePath = frame.exportData();
+      // save the file in the properties
       int selectedOption = JOptionPane.showConfirmDialog(getParent(), rh.getString(PROPERTY_NAME, DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.YES_NO_OPTION);
       if (JOptionPane.OK_OPTION == selectedOption) {
         try {

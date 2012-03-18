@@ -1,5 +1,7 @@
 package at.oefg1880.swing.list;
 
+import com.sun.xml.internal.ws.wsdl.writer.document.http.Address;
+
 import java.util.Date;
 
 /**
@@ -49,12 +51,24 @@ public class Kandidat {
     this.name = name;
   }
 
-  public Adresse getAdresse() {
-    return adresse;
+  public String getAdresse() {
+    return adresse.getStrasse() + " " + adresse.getPLZ() + " " + adresse.getOrt();
   }
 
   public void setAdresse(Adresse adresse) {
     this.adresse = adresse;
+  }
+
+  public int getPLZ() {
+    return adresse.getPLZ();
+  }
+
+  public String getStrasse() {
+    return adresse.getStrasse();
+  }
+
+  public String getOrt() {
+    return adresse.getOrt();
   }
 
   public String getTelephon() {
@@ -77,7 +91,7 @@ public class Kandidat {
     return geburtstag;
   }
 
-  public void setBirthDate(Date geburtstag) {
+  public void setGeburtstag(Date geburtstag) {
     this.geburtstag = geburtstag;
   }
 

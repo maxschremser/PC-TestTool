@@ -183,9 +183,9 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
         labelName.setText(kandidat.getName());
         labelGeburtsdatum.setText(new SimpleDateFormat("dd.mm.yyyy").format(kandidat.getGeburtstag()));
         labelGeburtsort.setText(kandidat.getGeburtsort());
-        labelPLZ.setText(kandidat.getAdresse().getPLZ() + "");
-        labelOrt.setText(kandidat.getAdresse().getOrt());
-        labelStrasse.setText(kandidat.getAdresse().getStrasse());
+        labelPLZ.setText(kandidat.getPLZ() + "");
+        labelOrt.setText(kandidat.getOrt());
+        labelStrasse.setText(kandidat.getStrasse());
         log.debug(isSelected ? "Cell selected: " + cell : "Cell: " + cell);
         for (Component c : cell.getComponents()) {
           if (isSelected) {
