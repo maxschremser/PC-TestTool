@@ -9,6 +9,8 @@ import at.oefg1880.swing.panel.KandidatPanel;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.debug.FormDebugPanel;
+import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -34,8 +36,9 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
   private TestToolFrame frame;
   private Kandidat kandidat;
   private JLabel labelTitle;
-  private JTextField tfName, tfStrasse, tfPLZ, tfOrt, tfGeburtstag, tfGeburtsort;
-  private JComboBox cbGeburtstagTag, cbGeburtstagMonat, cbGeburtstagJahr;
+  private JTextField tfName, tfStrasse, tfPLZ, tfOrt, tfGeburtsort, tfTelefon, tfEmail;
+  private JComboBox comboGeburtstagTag, comboGeburtstagMonat, comboGeburtstagJahr;
+  private JCheckBox cbKursunterlagen, cbPassfoto, cbAnwesend;
   private JButton saveButton;
   private final String SAVE = "update";
 
@@ -54,23 +57,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
       fillValues();
   }
 
-  private void setup() {
-    FormLayout layout = new FormLayout(
-        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu",
-        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
-    GradientPanel gradientPanel = new GradientPanel();
-    PanelBuilder builder = new PanelBuilder(layout);
-    CellConstraints cc = new CellConstraints();
-
-    loadProps();
-
-    addWindowListener(new WindowAdapter() {
-      @Override
-      public void windowClosing(WindowEvent e) {
-        storeProps();
-      }
-    });
-
+  private void initComponents() {
     saveButton = new JButton(rh.getString(PROPERTY_NAME, BUTTON_SAVE));
     saveButton.addActionListener(this);
     saveButton.addKeyListener(new KeyAdapter() {
@@ -94,52 +81,111 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
           reset();
           storeProps();
           dispose();
-        } else {
-          labelTitle.setText(tfName.getText());
         }
+      }
+    });
+    tfName.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyReleased(KeyEvent e) {
+        labelTitle.setText(tfName.getText());
       }
     });
     tfStrasse = new JTextField(rh.getString(PROPERTY_NAME, STREET), 20);
     tfPLZ = new JFormattedTextField(new DecimalFormat("####"));
     tfPLZ.setText(rh.getString(PROPERTY_NAME, PLZ));
+    tfPLZ.setHorizontalAlignment(JTextField.RIGHT);
     tfOrt = new JTextField(rh.getString(PROPERTY_NAME, CITY), 20);
+    tfGeburtsort = new JTextField(rh.getString(PROPERTY_NAME, BIRTHPLACE), 20);
+    tfTelefon = new JTextField(rh.getString(PROPERTY_NAME, TELEPHONE), 20);
+    tfEmail = new JTextField(rh.getString(PROPERTY_NAME, EMAIl), 20);
 
     Vector<String> vDays = new Vector<String>();
-    for (int i = 0; i <= 31; i++) {
+    for (int i = 1; i <= 31; i++) {
       vDays.add(i + "");
     }
-    cbGeburtstagTag = new JComboBox(vDays);
-    cbGeburtstagMonat = new JComboBox(rh.getString(PROPERTY_NAME, MONTHS).split(","));
+    comboGeburtstagTag = new JComboBox(vDays);
+    comboGeburtstagMonat = new JComboBox(rh.getString(PROPERTY_NAME, MONTHS).split(","));
     Vector<String> vYears= new Vector<String>();
     int thisYear = new GregorianCalendar().get(GregorianCalendar.YEAR);
     for (int i = 1900; i <= thisYear-10; i++) {
-      vDays.add(i + "");
+      vYears.add(i + "");
     }
-    cbGeburtstagJahr = new JComboBox(vYears);
+    comboGeburtstagJahr = new JComboBox(vYears);
+    
+    cbKursunterlagen = new JCheckBox();
+    cbPassfoto = new JCheckBox();
+    cbAnwesend = new JCheckBox();
+
+  }
+
+  private void setup() {
+    loadProps();
+    initComponents();
+
+    FormLayout layout = new FormLayout(
+        "6dlu,right:pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu",
+        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
+//    GradientPanel gradientPanel = new GradientPanel();
+    FormDebugPanel gradientPanel = new FormDebugPanel(layout);
+    PanelBuilder builder = new PanelBuilder(layout, gradientPanel);
+    CellConstraints cc = new CellConstraints();
+
+    addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        storeProps();
+      }
+    });
 
     // Title
     builder.add(labelTitle, cc.xywh(2, 2, 5, 1));
     // Name
-    builder.addSeparator(rh.getString(PROPERTY_NAME, NAME), cc.xywh(2, 4, 5, 1));
+    builder.addSeparator(rh.getString(PROPERTY_NAME, NAME), cc.xywh(2, 4, 7, 1));
     builder.add(new JLabel(rh.getString(PROPERTY_NAME, FIRST_LAST_NAME)), cc.xy(2, 6));
-    builder.add(tfName, cc.xywh(4, 6, 3, 1));
+    builder.add(tfName, cc.xywh(4, 6, 5, 1));
     // Strasse
     builder.add(new JLabel(rh.getString(PROPERTY_NAME, STREET)), cc.xy(2, 8));
-    builder.add(tfStrasse, cc.xywh(4, 8, 3, 1));
+    builder.add(tfStrasse, cc.xywh(4, 8, 5, 1));
     // PLZ / Ort
     builder.add(new JLabel(rh.getString(PROPERTY_NAME, PLZ_ORT)), cc.xy(2, 10));
     builder.add(tfPLZ, cc.xy(4, 10));
-    builder.add(tfOrt, cc.xy(6, 10));
+    builder.add(tfOrt, cc.xywh(6, 10, 3, 1));
 
     // Personal Data
-    builder.addSeparator(rh.getString(PROPERTY_NAME, PERSONAL_DATA), cc.xywh(2, 12, 5, 1));
+    builder.addSeparator(rh.getString(PROPERTY_NAME, PERSONAL_DATA), cc.xywh(2, 12, 7, 1));
+    // Birthday
     builder.add(new JLabel(rh.getString(PROPERTY_NAME, BIRTHDAY)), cc.xy(2,14));
-    builder.add(new JLabel(rh.getString(PROPERTY_NAME, BIRTHPLACE)), cc.xywh(4, 14, 3, 1));
+    builder.add(comboGeburtstagTag, cc.xy(4, 14));
+    builder.add(comboGeburtstagMonat, cc.xy(6, 14));
+    builder.add(comboGeburtstagJahr, cc.xy(8, 14));
+    // Birthplace
+    builder.add(new JLabel(rh.getString(PROPERTY_NAME, BIRTHPLACE)), cc.xy(2, 16));
+    builder.add(tfGeburtsort, cc.xywh(4, 16, 5, 1));
+    // Telephone
+    builder.add(new JLabel(rh.getString(PROPERTY_NAME, TELEPHONE)), cc.xy(2, 18));
+    builder.add(tfTelefon, cc.xywh(4, 18, 5, 1));
+    // E-Mail
+    builder.add(new JLabel(rh.getString(PROPERTY_NAME, EMAIl)), cc.xy(2, 20));
+    builder.add(tfEmail, cc.xywh(4, 20, 5, 1));
 
-    builder.add(saveButton, cc.xy(4, 22));
+    // Test Data
+    builder.addSeparator(rh.getString(PROPERTY_NAME, TEST_DATA), cc.xywh(2, 22, 7, 1));
+    // Kursunterlagen bezahlt
+    builder.addLabel("Kursunterlagen bezahlt", cc.xywh(2, 24, 5, 1));
+//    builder.add(cbKursunterlagen, cc.xywh(4, 24, 7, 1));
+    // Passfoto
+    builder.addLabel("Passfoto vorhanden", cc.xywh(2, 26, 5, 1));
+//    builder.add(cbPassfoto, cc.xywh(2, 26, 3, 1));
+    // anwesend
+    builder.addLabel("anwesend", cc.xywh(2, 28, 5, 1));
+//    builder.add(cbAnwesend, cc.xywh(2, 28, 3, 1));
+
+    JPanel buttonOKBar = ButtonBarFactory.buildOKBar(saveButton);
+    buttonOKBar.setOpaque(false);
+    builder.add(buttonOKBar, cc.xywh(2, 30, 7, 1));
     builder.setBorder(BorderFactory.createLineBorder(Color.black));
-    gradientPanel.add(builder.getPanel());
-    getContentPane().add(gradientPanel);
+//    gradientPanel.add(builder.getPanel());
+    getContentPane().add(new JPanel().add(gradientPanel));
     pack();
     setResizable(false);
   }
@@ -208,7 +254,6 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     tfStrasse.setText(kandidat.getStrasse());
     tfPLZ.setText(kandidat.getPLZ() + "");
     tfOrt.setText(kandidat.getOrt());
-    tfGeburtstag.setText(new SimpleDateFormat("dd.mm.yyyy").format(kandidat.getGeburtstag()));
     tfGeburtsort.setText(kandidat.getGeburtsort());
   }
 }

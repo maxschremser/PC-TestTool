@@ -70,7 +70,7 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     buttonSave.setMnemonic('S');
     buttonSave.setEnabled(false);
     JPanel buttonBarPanel = ButtonBarFactory.buildAddRemoveRightBar(buttonSave, buttonNew);
-    buttonBarPanel.setOpaque(true);
+    buttonBarPanel.setOpaque(false);
     add(buttonBarPanel, cc.xy(4, 2));
     JScrollPane scrollPaneList = new JScrollPane(getFragebogenList(),
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,

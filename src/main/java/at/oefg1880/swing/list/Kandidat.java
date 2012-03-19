@@ -1,7 +1,5 @@
 package at.oefg1880.swing.list;
 
-import com.sun.xml.internal.ws.wsdl.writer.document.http.Address;
-
 import java.util.Date;
 
 /**

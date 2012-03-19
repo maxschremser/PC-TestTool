@@ -75,7 +75,7 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
     buttonSave.setMnemonic('S');
     buttonSave.setEnabled(false);
     JPanel buttonBarPanel = ButtonBarFactory.buildAddRemoveRightBar(buttonSave, buttonNew);
-    buttonBarPanel.setOpaque(true);
+    buttonBarPanel.setOpaque(false);
     add(buttonBarPanel, cc.xy(4, 2));
     JScrollPane scrollPaneList = new JScrollPane(getKandidatList(),
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,

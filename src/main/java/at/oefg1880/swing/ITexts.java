@@ -66,7 +66,10 @@ public interface ITexts {
   public static final String CITY = "city";
   public static final String BIRTHDAY = "birthday";
   public static final String BIRTHPLACE = "birthplace";
+  public static final String TELEPHONE = "telephone";
+  public static final String EMAIl = "email";
   public static final String PERSONAL_DATA = "personal_data";
+  public static final String TEST_DATA = "test_data";
   public static final String MONTHS = "months";
 
   public static final String YES = "yes";
