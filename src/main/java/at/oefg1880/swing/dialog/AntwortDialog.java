@@ -233,6 +233,10 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     antwortPanel.setValues(antwort.getAnswers());
   }
 
+  public JButton getSaveButton() {
+    return saveButton;
+  }
+
   @Override
   /*
  handles the answers inserted into the answertextfield on the answerpanel

@@ -25,7 +25,9 @@ public class WFAFragebogenDialog extends FragebogenDialog {
 
   @Override
   public AntwortPanel getAntwortPanel() {
-    return new WFAAntwortPanel(true);
+    AntwortPanel panel = new WFAAntwortPanel(true);
+    panel.setSaveButton(getSaveButton());
+    return panel;
   }
 
   @Override
@@ -33,7 +35,7 @@ public class WFAFragebogenDialog extends FragebogenDialog {
     if (list == null) {
       list = new WFAAntwortList(frame, fragebogen);
       if (fragebogen != null)
-        list.setVisibleRowCount(fragebogen.getSolved());
+        list.setVisibleRowCount(5);
       list.requestFocus();
     }
     return list;

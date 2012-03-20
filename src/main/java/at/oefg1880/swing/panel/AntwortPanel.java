@@ -3,6 +3,7 @@ package at.oefg1880.swing.panel;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.ResourceHandler;
+import com.jgoodies.forms.debug.FormDebugPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,10 +17,9 @@ import java.awt.*;
  */
 public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebugPanel {
   public final static String PROPERTY_NAME = "at.oefg1880.swing.panel.AntwortPanel";
-
   protected boolean isInCreateMode = false;
-
   protected ResourceHandler rh = ResourceHandler.getInstance();
+  protected JButton saveButton;
 
   public abstract int getNumAnswers();
 
@@ -33,6 +33,7 @@ public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebu
     super();
     this.isInCreateMode = isInCreateMode;
     setup();
+    setOpaque(false);
   }
 
   public void reset() {
@@ -81,5 +82,12 @@ public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebu
         return false;
     }
     return true;
+  }
+
+  public void setSaveButton(JButton button) {
+    this.saveButton = button;
+  }
+  public JButton getSaveButton() {
+    return saveButton;
   }
 }

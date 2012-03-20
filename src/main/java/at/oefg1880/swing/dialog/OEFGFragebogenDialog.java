@@ -25,14 +25,16 @@ public class OEFGFragebogenDialog extends FragebogenDialog {
 
   @Override
   public AntwortPanel getAntwortPanel() {
-    return new OEFGAntwortPanel(true);
+    AntwortPanel panel = new OEFGAntwortPanel(true);
+    panel.setSaveButton(getSaveButton());
+    return panel;
   }
 
   @Override
   public AntwortList getAntwortList() {
     if (list == null) {
       list = new OEFGAntwortList(frame, fragebogen);
-      list.setVisibleRowCount(fragebogen.getSolved());
+      list.setVisibleRowCount(5);
       list.requestFocus();
     }
     return list;

@@ -13,6 +13,7 @@ import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.apache.log4j.Logger;
@@ -39,7 +40,6 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
   private JTextField spinnerEditorField;
   private JSpinner spinner;
   private AntwortPanel answerPanel;
-  private PanelBuilder builder;
   private JButton button;
   private final String SAVE = "save";
   private final String UPDATE = "update";
@@ -49,53 +49,24 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
 
   public abstract AntwortList getAntwortList();
 
+  // New Fragebogen
   public FragebogenDialog(TestToolFrame frame, String title) {
     this(frame, title, null);
   }
 
+  // Update Fragebogen
   public FragebogenDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
     super(frame, title, true);
     this.frame = frame;
-    FormLayout layout;
-    if (fragebogen != null && fragebogen.getSolved() > 0) {
-      layout = new FormLayout(
-          "6dlu,pref,6dlu,64dlu,6dlu",
-          "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
-    } else {
-      layout = new FormLayout(
-          "6dlu,pref,6dlu,64dlu,6dlu",
-          "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
-    }
-
-    loadProps();
-
-    addWindowListener(new WindowAdapter() {
-      @Override
-      public void windowClosing(WindowEvent e) {
-        storeProps();
-      }
-    });
-
-    builder = new PanelBuilder(layout);
-
+    this.fragebogen = fragebogen;
+    
     setup();
-
-    if (fragebogen != null) {
-      this.fragebogen = fragebogen;
-      answerPanel.setValues(fragebogen.getSolutions());
-      textFieldName.setText(fragebogen.getTitle());
-      spinner.setValue(fragebogen.getExisting());
-      button.setActionCommand(UPDATE);
-      button.setEnabled(true);
-    }
-
-    getAntwortList().requestFocus();
+    
+    if (fragebogen != null) 
+      fillValues();
   }
-
-  private void setup() {
-    GradientPanel gradientPanel = new GradientPanel();
-    CellConstraints cc = new CellConstraints();
-
+  
+  private void initComponents() {
     textFieldName = new JTextField();
     textFieldName.setSelectionColor(selectedTextForeground);
     textFieldName.addKeyListener(new KeyAdapter() {
@@ -140,6 +111,37 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     });
 
     answerPanel = getAntwortPanel();
+  }
+  
+  private JPanel buildPanel() {
+    loadProps();
+
+    initComponents();
+
+    addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        storeProps();
+      }
+    });
+
+    getAntwortList().requestFocus();
+
+    FormLayout layout;
+    if (fragebogen != null && fragebogen.getSolved() > 0) {
+      layout = new FormLayout(
+          "6dlu,pref,6dlu,64dlu",
+          "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref");
+    } else {
+      layout = new FormLayout(
+          "6dlu,pref,6dlu,64dlu",
+          "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref");
+    }
+
+    JPanel panel = new GradientPanel();
+//    FormDebugPanel panel = new FormDebugPanel(layout);
+    PanelBuilder builder = new PanelBuilder(layout, panel);
+    CellConstraints cc = new CellConstraints();
 
     builder.addSeparator(rh.getString(PROPERTY_NAME, LABEL_FRAGEBOGEN), cc.xywh(2, 2, 3, 1));
     builder.addLabel(rh.getString(PROPERTY_NAME, LABEL_NAME), cc.xy(2, 4));
@@ -161,10 +163,14 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     }
 
     builder.setBorder(BorderFactory.createLineBorder(Color.black));
-    gradientPanel.add(builder.getPanel());
-    getContentPane().add(gradientPanel);
+
+    return builder.getPanel();
+  }
+  
+  private void setup() {
+    getContentPane().add(buildPanel());
     pack();
-    setResizable(true);
+    setResizable(false);
   }
 
   private void reset() {
@@ -234,5 +240,17 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     } else if (UPDATE.equals(e.getActionCommand())) {
       update();
     }
+  }
+  
+  private void fillValues() {
+    answerPanel.setValues(fragebogen.getSolutions());
+    textFieldName.setText(fragebogen.getTitle());
+    spinner.setValue(fragebogen.getExisting());
+    button.setActionCommand(UPDATE);
+    button.setEnabled(true);
+  }
+  
+  public JButton getSaveButton() {
+    return button;
   }
 }

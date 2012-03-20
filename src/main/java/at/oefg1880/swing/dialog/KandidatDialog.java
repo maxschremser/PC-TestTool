@@ -52,7 +52,9 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     super(frame, title, true);
     this.frame = frame;
     this.kandidat = kandidat;
+    
     setup();
+    
     if (kandidat != null)
       fillValues();
   }
@@ -115,20 +117,12 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     cbKursunterlagen = new JCheckBox();
     cbPassfoto = new JCheckBox();
     cbAnwesend = new JCheckBox();
-
   }
-
-  private void setup() {
+  
+  private JPanel buildPanel() {
     loadProps();
-    initComponents();
 
-    FormLayout layout = new FormLayout(
-        "6dlu,right:pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu",
-        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
-//    GradientPanel gradientPanel = new GradientPanel();
-    FormDebugPanel gradientPanel = new FormDebugPanel(layout);
-    PanelBuilder builder = new PanelBuilder(layout, gradientPanel);
-    CellConstraints cc = new CellConstraints();
+    initComponents();
 
     addWindowListener(new WindowAdapter() {
       @Override
@@ -136,6 +130,14 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
         storeProps();
       }
     });
+
+    FormLayout layout = new FormLayout(
+        "6dlu,right:pref,6dlu,pref,6dlu,pref,6dlu,pref",
+        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref");
+    JPanel panel = new GradientPanel();
+//    JPanel panel = new FormDebugPanel(layout);
+    PanelBuilder builder = new PanelBuilder(layout, panel);
+    CellConstraints cc = new CellConstraints();
 
     // Title
     builder.add(labelTitle, cc.xywh(2, 2, 5, 1));
@@ -171,21 +173,25 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     // Test Data
     builder.addSeparator(rh.getString(PROPERTY_NAME, TEST_DATA), cc.xywh(2, 22, 7, 1));
     // Kursunterlagen bezahlt
-    builder.addLabel("Kursunterlagen bezahlt", cc.xywh(2, 24, 5, 1));
-//    builder.add(cbKursunterlagen, cc.xywh(4, 24, 7, 1));
+//    builder.addLabel("Kursunterlagen bezahlt", cc.xywh(2, 24, 5, 1));
+    builder.add(cbKursunterlagen, cc.xywh(2, 24, 7, 1));
     // Passfoto
-    builder.addLabel("Passfoto vorhanden", cc.xywh(2, 26, 5, 1));
-//    builder.add(cbPassfoto, cc.xywh(2, 26, 3, 1));
+//    builder.addLabel("Passfoto vorhanden", cc.xywh(2, 26, 5, 1));
+    builder.add(cbPassfoto, cc.xywh(2, 26, 3, 1));
     // anwesend
-    builder.addLabel("anwesend", cc.xywh(2, 28, 5, 1));
-//    builder.add(cbAnwesend, cc.xywh(2, 28, 3, 1));
+//    builder.addLabel("anwesend", cc.xywh(2, 28, 5, 1));
+    builder.add(cbAnwesend, cc.xywh(2, 28, 3, 1));
 
     JPanel buttonOKBar = ButtonBarFactory.buildOKBar(saveButton);
     buttonOKBar.setOpaque(false);
     builder.add(buttonOKBar, cc.xywh(2, 30, 7, 1));
     builder.setBorder(BorderFactory.createLineBorder(Color.black));
-//    gradientPanel.add(builder.getPanel());
-    getContentPane().add(new JPanel().add(gradientPanel));
+
+    return builder.getPanel();
+  }
+
+  private void setup() {
+    getContentPane().add(buildPanel());
     pack();
     setResizable(false);
   }
@@ -209,8 +215,12 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
   }
 
-  private void update() {
-    ((DefaultListModel) ((KandidatPanel) frame.getKandidatPanel()).getKandidatList().getModel()).setElementAt(kandidat, kandidat.getIndex());
+  private void saveOrUpdate() {
+    if (kandidat == null)
+      save();
+    else
+      update();
+    storeProps();
   }
 
   private void save() {
@@ -218,12 +228,8 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     ((KandidatPanel) frame.getKandidatPanel()).getKandidatList().add(kandidat);
   }
 
-  private void saveOrUpdate() {
-    if (kandidat == null)
-      save();
-    else
-      update();
-    storeProps();
+  private void update() {
+    ((DefaultListModel) ((KandidatPanel) frame.getKandidatPanel()).getKandidatList().getModel()).setElementAt(kandidat, kandidat.getIndex());
   }
 
   private void close() {

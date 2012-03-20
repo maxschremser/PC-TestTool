@@ -30,27 +30,28 @@ public class OEFGAntwortPanel extends AntwortPanel {
   @Override
   protected void setup() {
     FormLayout layout = new FormLayout(
-        "6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu",
-        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu"
+        "center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow",
+        "pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref"
     );
     setLayout(layout);
     CellConstraints cc = new CellConstraints();
     // categories
-    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_A)), cc.xy(2, 4));
-    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_B)), cc.xy(2, 6));
-    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_C)), cc.xy(2, 8));
-    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_D)), cc.xy(2, 10));
+    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_A)), cc.xy(1, 3));
+    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_B)), cc.xy(1, 5));
+    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_C)), cc.xy(1, 7));
+    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_D)), cc.xy(1, 9));
+
     // answer labels
-    add(new JLabel("1"), cc.xy(4, 2));
-    add(new JLabel("2"), cc.xy(6, 2));
-    add(new JLabel("3"), cc.xy(8, 2));
-    add(new JLabel("4"), cc.xy(10, 2));
-    add(new JLabel("5"), cc.xy(12, 2));
+    add(new JLabel("1"), cc.xy(3, 1));
+    add(new JLabel("2"), cc.xy(5, 1));
+    add(new JLabel("3"), cc.xy(7, 1));
+    add(new JLabel("4"), cc.xy(9, 1));
+    add(new JLabel("5"), cc.xy(11, 1));
 
     // answer fields
     int k = 0;
-    for (int j = 4; j <= 10; j += 2) {
-      for (int i = 4; i <= 12; i += 2) {
+    for (int j = 3; j <= 9; j += 2) {
+      for (int i = 3; i <= 11; i += 2) {
         add(new AntwortTextField("", k++, getAllowedValues(), isInCreateMode), cc.xy(i, j));
       }
     }

@@ -1,6 +1,7 @@
 package at.oefg1880.swing.text;
 
 import at.oefg1880.swing.IConfig;
+import at.oefg1880.swing.dialog.FragebogenDialog;
 import at.oefg1880.swing.panel.AntwortPanel;
 
 import javax.swing.*;
@@ -25,7 +26,6 @@ public class AntwortTextField extends JTextField implements IConfig {
   public final static String VALUE_CHANGED = "valueChanged";
   private Color oldColor;
   private boolean isInCreateMode = false;
-  JButton button = null;
 
   public AntwortTextField(String s, int index, char[] allowedValues, boolean isInCreateMode) {
     super(s);
@@ -44,7 +44,6 @@ public class AntwortTextField extends JTextField implements IConfig {
           oldColor = getBackground();
         }
         setBackground(Color.yellow);
-
       }
 
       @Override
@@ -78,12 +77,7 @@ public class AntwortTextField extends JTextField implements IConfig {
   public void enableButton() {
     if (((AntwortPanel) getParent()).isFullyFilled(isInCreateMode)) {
       // enable saveButton and focus it
-      Object o = getParent().getParent().getComponent(7);
-      if (o instanceof JButton) {
-        button = (JButton) o;
-      } else {
-        button = (JButton) getParent().getParent().getComponent(14);
-      }
+      JButton button = ((AntwortPanel) getParent()).getSaveButton();
       button.setEnabled(true);
       button.requestFocus();
     }
@@ -111,7 +105,7 @@ public class AntwortTextField extends JTextField implements IConfig {
           // no number was entered, check for A,B,C,D,' '
           boolean bFound = false;
           for (int i = 0; i < allowedValues.length; i++) {
-            if ((answer = newString.toCharArray()[0]) == allowedValues[i]) {
+            if ((answer = Character.toUpperCase(newString.toCharArray()[0])) == allowedValues[i]) {
               value = i;
               bFound = true;
               break;
@@ -133,7 +127,6 @@ public class AntwortTextField extends JTextField implements IConfig {
 
           String sAnswer = new String(new char[]{answer});
           super.insertString(0, sAnswer, a);
-//          super.remove(0,getContent().length());
           int componentCount = getParent().getComponentCount();
           Component c;
           for (int i = 9; i < componentCount; i++) {
