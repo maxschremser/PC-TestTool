@@ -7,6 +7,7 @@ import at.oefg1880.swing.io.Adresse;
 import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.panel.FragebogenPanel;
+import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.KandidatPanel;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.debug.FormDebugPanel;
@@ -121,8 +122,8 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
     FormLayout layout = new FormLayout("6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu",
         "6dlu,pref,3dlu,pref,6dlu");
     CellConstraints cc = new CellConstraints();
-//    cell = new GradientPanel(IConfig.HORIZONTAL);
-    cell = new FormDebugPanel(layout);
+    cell = new GradientPanel(IConfig.HORIZONTAL);
+//    cell = new FormDebugPanel(layout);
     cell.setLayout(layout);
     labelName = new JLabel();
     Font defaultFont = labelName.getFont();
