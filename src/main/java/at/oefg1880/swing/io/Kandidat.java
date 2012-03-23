@@ -1,4 +1,4 @@
-package at.oefg1880.swing.list;
+package at.oefg1880.swing.io;
 
 import java.util.Date;
 
@@ -20,17 +20,21 @@ public class Kandidat {
   private String geburtsort;
   private boolean passPhoto;
   private boolean kursunterlagen;
-  private boolean pruefungsgebuehr;
+  private boolean anwesend;
 
   public Kandidat() {
     super();
   }
 
-  public Kandidat(int index, String name, Date geburtstag) {
+  public Kandidat(int index, String name, Adresse adress, String telephone, String email, Date geburtstag, String geburtsort) {
     this();
     this.index = index;
     this.name = name;
+    this.adresse = adress;
+    this.telephon = telephone;
+    this.email = email;
     this.geburtstag = geburtstag;
+    this.geburtsort = geburtsort;
   }
 
   public int getIndex() {
@@ -117,35 +121,11 @@ public class Kandidat {
     this.kursunterlagen = kursunterlagen;
   }
 
-  public boolean isPruefungsgebuehr() {
-    return pruefungsgebuehr;
+  public boolean isAnwesend() {
+    return anwesend;
   }
 
-  public void setPruefungsgebuehr(boolean pruefungsgebuehr) {
-    this.pruefungsgebuehr = pruefungsgebuehr;
-  }
-
-  protected class Adresse {
-    private String strasse;
-    private int PLZ;
-    private String ort;
-
-    public Adresse(String strasse, int PLZ, String ort) {
-      this.strasse = strasse;
-      this.PLZ = PLZ;
-      this.ort = ort;
-    }
-
-    public String getStrasse() {
-      return strasse;
-    }
-
-    public int getPLZ() {
-      return PLZ;
-    }
-
-    public String getOrt() {
-      return ort;
-    }
+  public void setAnwesend(boolean anwesend) {
+    this.anwesend = anwesend;
   }
 }

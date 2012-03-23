@@ -3,10 +3,13 @@ package at.oefg1880.swing.list;
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
+import at.oefg1880.swing.io.Adresse;
+import at.oefg1880.swing.io.Fragebogen;
+import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.panel.FragebogenPanel;
-import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.KandidatPanel;
 import at.oefg1880.swing.utils.ResourceHandler;
+import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.apache.log4j.Logger;
@@ -16,6 +19,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,7 +31,7 @@ import java.util.Date;
 public class KandidatList extends JList implements ActionListener, IConfig, ITexts {
   public final static String PROPERTY_NAME = "at.oefg1880.swing.list.KandidatList";
   private ResourceHandler rh = ResourceHandler.getInstance();
-  private GradientPanel cell;
+  private JPanel cell;
   private JLabel labelName, labelGeburtsdatum, labelGeburtsort, labelPLZ,
       labelOrt, labelStrasse;
   private static Color listForeground, listBackground, listSelectionForeground, listSelectionBackground;
@@ -47,6 +51,12 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
 
   public KandidatList(TestToolFrame frame) {
     super();
+    this.frame = frame;
+    setup();
+  }
+
+  public KandidatList(TestToolFrame frame, Vector<Kandidat> items) {
+    super(items);
     this.frame = frame;
     setup();
   }
@@ -77,18 +87,18 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
         // 49=1, 50=2,...57=9   on keyboard
         // 97=1, 98=2,...105=9  on numpad
         if (key == KeyEvent.VK_ENTER) {            // handle enter key pressed
-          // open FragebogenDialog
+          // open KandidatDialog
           if (getSelectedIndex() >= 0)
-            ((FragebogenPanel) frame.getFragebogenPanel()).createNewAntwortDialog((Fragebogen) getSelectedValue());
+            ((KandidatPanel) frame.getKandidatPanel()).editKandidatDialog((Kandidat) getSelectedValue());
         } else if (key == KeyEvent.VK_N) {
-          ((FragebogenPanel) frame.getFragebogenPanel()).getButtonNew().doClick();
+          ((KandidatPanel) frame.getKandidatPanel()).getButtonNew().doClick();
         } else if (key == KeyEvent.VK_S) {
-          if (((FragebogenPanel) frame.getFragebogenPanel()).getButtonSave().isEnabled()) {
-            ((FragebogenPanel) frame.getFragebogenPanel()).getButtonSave().doClick();
+          if (((KandidatPanel) frame.getKandidatPanel()).getButtonSave().isEnabled()) {
+            ((KandidatPanel) frame.getKandidatPanel()).getButtonSave().doClick();
           }
         } else if (key == KeyEvent.VK_DELETE) {
           String title = ((Fragebogen) getSelectedValue()).getTitle();
-          int n = frame.showDeleteFragebogenDialog(((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenList(), rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
+          int n = frame.showDeleteDialog(((KandidatPanel) frame.getKandidatPanel()).getKandidatList(), rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
           if (n == JOptionPane.OK_OPTION) // JA
             model.remove(getSelectedIndex());
         } else {
@@ -111,7 +121,8 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
     FormLayout layout = new FormLayout("6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu",
         "6dlu,pref,3dlu,pref,6dlu");
     CellConstraints cc = new CellConstraints();
-    cell = new GradientPanel(IConfig.HORIZONTAL);
+//    cell = new GradientPanel(IConfig.HORIZONTAL);
+    cell = new FormDebugPanel(layout);
     cell.setLayout(layout);
     labelName = new JLabel();
     Font defaultFont = labelName.getFont();
@@ -135,11 +146,9 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
     cell.setOpaque(true);
   }
 
-  public void add(String name, String strasse, int PLZ, String ort, Date geburtstag) {
+  public void add(String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort) {
     int index = model.getSize();
-    Kandidat kandidat = new Kandidat(index, name, geburtstag);
-    Kandidat.Adresse adresse = kandidat.new Adresse(strasse, PLZ, ort);
-    kandidat.setAdresse(adresse);
+    Kandidat kandidat = new Kandidat(index, name, new Adresse(strasse, PLZ, ort), telephone, email, geburtstag, geburtsort);
     add(kandidat);
   }
 
@@ -157,7 +166,7 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
       ((FragebogenPanel) frame.getFragebogenPanel()).editFragebogenDialog((Fragebogen) getSelectedValue());
     } else if (e.getSource() == menuDelete) {
       String title = ((Fragebogen) getSelectedValue()).getTitle();
-      int n = frame.showDeleteFragebogenDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
+      int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
       if (n == 0) // JA
         model.remove(getSelectedIndex());
       if (model.getSize() <= 0)
@@ -191,14 +200,14 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
           if (isSelected) {
             c.setBackground(listSelectionBackground);
             cell.setBackground(listSelectionBackground);
-            cell.setDirection(PLAIN_2);
-            cell.setColor2(selectedListForeground);
+//            cell.setDirection(PLAIN_2);
+//            cell.setColor2(selectedListForeground);
           } else {
             c.setBackground(listBackground);
             c.setForeground(listForeground);
             cell.setBackground(listBackground);
-            cell.setDirection(HORIZONTAL);
-            cell.setColor2(color_2);
+//            cell.setDirection(HORIZONTAL);
+//            cell.setColor2(color_2);
           }
         }
         return cell;

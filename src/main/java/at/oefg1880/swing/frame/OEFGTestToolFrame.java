@@ -1,7 +1,7 @@
 package at.oefg1880.swing.frame;
 
-import at.oefg1880.swing.list.Antwort;
-import at.oefg1880.swing.list.Fragebogen;
+import at.oefg1880.swing.io.Antwort;
+import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.list.FragebogenList;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.KandidatPanel;

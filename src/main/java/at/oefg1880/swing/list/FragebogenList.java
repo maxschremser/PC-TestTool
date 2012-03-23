@@ -3,6 +3,7 @@ package at.oefg1880.swing.list;
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
+import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.utils.ResourceHandler;
@@ -89,7 +90,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
           }
         } else if (key == KeyEvent.VK_DELETE) {
           String title = ((Fragebogen) getSelectedValue()).getTitle();
-          int n = frame.showDeleteFragebogenDialog(((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenList(), rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
+          int n = frame.showDeleteDialog(((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenList(), rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
           if (n == JOptionPane.OK_OPTION) // JA
             model.remove(getSelectedIndex());
         } else {
@@ -157,7 +158,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
       ((FragebogenPanel) frame.getFragebogenPanel()).editFragebogenDialog((Fragebogen) getSelectedValue());
     } else if (e.getSource() == menuDelete) {
       String title = ((Fragebogen) getSelectedValue()).getTitle();
-      int n = frame.showDeleteFragebogenDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
+      int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
       if (n == 0) // JA
         model.remove(getSelectedIndex());
       if (model.getSize() <= 0)

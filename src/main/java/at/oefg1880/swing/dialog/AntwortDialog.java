@@ -3,10 +3,11 @@ package at.oefg1880.swing.dialog;
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
-import at.oefg1880.swing.list.Antwort;
+import at.oefg1880.swing.io.Adresse;
+import at.oefg1880.swing.io.Antwort;
 import at.oefg1880.swing.list.FilteredList;
-import at.oefg1880.swing.list.Fragebogen;
-import at.oefg1880.swing.list.Kandidat;
+import at.oefg1880.swing.io.Fragebogen;
+import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.panel.AntwortPanel;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
@@ -115,10 +116,11 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     labelTitle.setFont(font);
 
     Vector<Kandidat> v = new Vector<Kandidat>();
-    v.add(new Kandidat(0, "Maximilian", new Date(1979, 8, 7)));
-    v.add(new Kandidat(0, "Michael", new Date(1975, 2, 12)));
-    v.add(new Kandidat(0, "Markus", new Date(1972, 6, 23)));
-    tfName = new FilteredList(v);
+    v.add(new Kandidat(0, "Maximilian Schremser", new Adresse("Breitegasse 18/4", 2540, "Gainfarn"), "+43 (699) 18 10 87 06", "maxi@schremser.com", new Date(1979,6,9), "Mödling"));
+    v.add(new Kandidat(1, "Markus Stoff", new Adresse("Am Weg nach Hause 23", 1230, "Wien"), "+43 (664) 10203040", "markus@stoff.at", new Date(1975,2,18), "Wien"));
+    v.add(new Kandidat(2, "Martin Schaller", new Adresse("Schonweg 77", 1140, "Wien"), "+43 (676) 1002003", "martin@schaller.at", new Date(1970,11,14), "Salzburg"));
+
+    tfName = new FilteredList(frame, v);
     tfName.setSelectionColor(selectedTextForeground);
     tfName.setBorder(new LineBorder(Color.black));
     tfName.addKeyListener(new KeyAdapter() {

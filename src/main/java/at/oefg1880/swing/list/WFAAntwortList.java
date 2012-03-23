@@ -2,6 +2,8 @@ package at.oefg1880.swing.list;
 
 import at.oefg1880.swing.dialog.WFAAntwortDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
+import at.oefg1880.swing.io.Antwort;
+import at.oefg1880.swing.io.Fragebogen;
 
 /**
  * Created by IntelliJ IDEA.

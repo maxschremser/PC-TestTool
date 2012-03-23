@@ -1,5 +1,8 @@
 package at.oefg1880.swing.list;
 
+import at.oefg1880.swing.frame.TestToolFrame;
+import at.oefg1880.swing.io.Kandidat;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -15,16 +18,16 @@ import java.util.Vector;
  * Time: 11:55
  * To change this template use File | Settings | File Templates.
  */
-public class FilteredList extends JList {
+public class FilteredList extends KandidatList {
   private FilterField filterField;
   private int DEFAULT_FIELD_WIDTH = 20;
 
-  public FilteredList() {
-    this(new Vector<Kandidat>());
+  public FilteredList(TestToolFrame frame) {
+    this(frame, new Vector<Kandidat>());
   }
 
-  public FilteredList(Vector<Kandidat> items) {
-    super(items);
+  public FilteredList(TestToolFrame frame, Vector<Kandidat> items) {
+    super(frame, items);
     Iterator<Kandidat> iter = items.iterator();
     setModel(new FilterModel());
     filterField = new FilterField(DEFAULT_FIELD_WIDTH);
@@ -35,7 +38,7 @@ public class FilteredList extends JList {
 
   @Override
   public void setModel(ListModel model) {
-    if (!(model instanceof FilterModel)) throw new IllegalArgumentException();
+//    if (!(model instanceof FilterModel)) throw new IllegalArgumentException();
     super.setModel(model);
   }
 

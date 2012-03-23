@@ -1,8 +1,8 @@
 package at.oefg1880.swing.dialog;
 
 import at.oefg1880.swing.frame.TestToolFrame;
+import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.list.AntwortList;
-import at.oefg1880.swing.list.Fragebogen;
 import at.oefg1880.swing.list.OEFGAntwortList;
 import at.oefg1880.swing.panel.AntwortPanel;
 import at.oefg1880.swing.panel.OEFGAntwortPanel;

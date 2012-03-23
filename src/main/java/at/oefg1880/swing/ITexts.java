@@ -71,6 +71,10 @@ public interface ITexts {
   public static final String PERSONAL_DATA = "personal_data";
   public static final String TEST_DATA = "test_data";
   public static final String MONTHS = "months";
+  public static final String COURSE_PAID = "course_paid";
+  public static final String EXAM_PAID = "exam_paid";
+  public static final String PASSPHOTO = "passphoto";
+  public static final String PRESENT = "present";
 
   public static final String YES = "yes";
   public static final String NO = "no";

@@ -84,8 +84,8 @@ public class AntwortTextField extends JTextField implements IConfig {
   }
 
   class InputTextDocument extends PlainDocument {
-    private char answer; // A,B,C
-    private int value;     // 1,2,3
+    private char answer; // A,B,C,D
+    private int value;     // 1,2,3,4
 
     public void insertString(int offs, String str, AttributeSet a)
         throws BadLocationException {

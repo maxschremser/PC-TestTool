@@ -4,7 +4,7 @@ import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.dialog.KandidatDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
-import at.oefg1880.swing.list.Kandidat;
+import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.list.KandidatList;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;

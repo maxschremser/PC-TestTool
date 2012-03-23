@@ -4,6 +4,8 @@ import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.dialog.AntwortDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
+import at.oefg1880.swing.io.Antwort;
+import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.utils.ResourceHandler;
@@ -89,7 +91,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
             createEditAntwortDialog((Antwort) getSelectedValue());
         } else if (key == KeyEvent.VK_DELETE) {
           String title = ((Antwort) getSelectedValue()).getName();
-          int n = frame.showDeleteFragebogenDialog(((FragebogenPanel) frame.getFragebogenPanel()).getAntwortDialog(fragebogen), rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
+          int n = frame.showDeleteDialog(((FragebogenPanel) frame.getFragebogenPanel()).getAntwortDialog(fragebogen), rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
           if (n == JOptionPane.OK_OPTION) // JA
             model.remove(getSelectedIndex());
         } else {

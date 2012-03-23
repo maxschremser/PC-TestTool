@@ -2,9 +2,9 @@ package at.oefg1880.swing.frame;
 
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
-import at.oefg1880.swing.list.Antwort;
-import at.oefg1880.swing.list.Fragebogen;
-import at.oefg1880.swing.list.Kandidat;
+import at.oefg1880.swing.io.Antwort;
+import at.oefg1880.swing.io.Fragebogen;
+import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.ImagePanel;
@@ -223,7 +223,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     dispose();
   }
 
-  public int showDeleteFragebogenDialog(ActionListener list, String message, String title) {
+  public int showDeleteDialog(ActionListener list, String message, String title) {
     // Ja, Nein, Abbrechen Dialog mit einer Frage und einem Icon
     dialog = new JDialog(this, title, true);
     FormLayout layout = new FormLayout(
@@ -294,7 +294,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     return "";
   }
 
-  public boolean importData(File file) {
+  public boolean importData(File file) throws Exception {
     try {
       Workbook wb = new HSSFWorkbook(new FileInputStream(file));
       log.info("Importing from: " + file.getAbsolutePath());
@@ -318,23 +318,26 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
         int numAnswers = sheet.getLastRowNum() - 5; // the last row is also an answer
         int[][] answers = new int[numAnswers][numSolutions];
+
+        throw new Exception("Method needs to be implemented.");
+
         // add Answers
-        for (int r = 6; r <= sheet.getLastRowNum(); r++) {
-          row = sheet.getRow(r);
-          String name = row.getCell(0).getStringCellValue();
-          String alter = row.getCell(1).getStringCellValue();
-          String geschlecht = row.getCell(2).getStringCellValue();
-          String sPercentage = row.getCell(3).getStringCellValue();
-          int percentages = Integer.valueOf(sPercentage.substring(0, sPercentage.length() - 1)).intValue();
+//        for (int r = 6; r <= sheet.getLastRowNum(); r++) {
+//          row = sheet.getRow(r);
+//          String name = row.getCell(0).getStringCellValue();
+//          String alter = row.getCell(1).getStringCellValue();
+//          String geschlecht = row.getCell(2).getStringCellValue();
+//          String sPercentage = row.getCell(3).getStringCellValue();
+//          int percentages = Integer.valueOf(sPercentage.substring(0, sPercentage.length() - 1)).intValue();
+//
+//          for (int i = 4; i < row.getLastCellNum(); i++) {
+//            char cellValue = row.getCell(i).getStringCellValue().toCharArray()[0];
+//            answers[r - 6][i - 4] = AntwortTextField.translate(allowedValues, cellValue);
+//          }
+//          fragebogen.addAntwort(new Antwort(r - 6, new Kandidat(0, "tester", new Date(1979, 8, 7)), percentages, answers[r - 6]));
+//        }
 
-          for (int i = 4; i < row.getLastCellNum(); i++) {
-            char cellValue = row.getCell(i).getStringCellValue().toCharArray()[0];
-            answers[r - 6][i - 4] = AntwortTextField.translate(allowedValues, cellValue);
-          }
-          fragebogen.addAntwort(new Antwort(r - 6, new Kandidat(0, "tester", new Date(1979, 8, 7)), percentages, answers[r - 6]));
-        }
-
-        model.addElement(fragebogen);
+//        model.addElement(fragebogen);
       }
       if (model.getSize() > 0) {
         enableButtonSave(true);
@@ -382,7 +385,9 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         }
       });
       if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+        try {
         importData(fileChooser.getSelectedFile());
+        } catch (Exception ex) {ex.printStackTrace();}
       }
     } else if (SAVE.equals(e.getActionCommand())) {
       props.propertyChange(new PropertyChangeEvent(this, JOptionPane.VALUE_PROPERTY, 0, 0));
@@ -403,7 +408,9 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
       String file = props.getProperty(PROPERTY_NAME + "." + REOPEN, "").split(",")[index];
       File f;
       if ((f = new File(file)).exists()) {
-        importData(f);
+        try {
+          importData(f);
+        } catch (Exception ex) {ex.printStackTrace();}
       }
     }
   }

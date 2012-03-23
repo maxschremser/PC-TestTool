@@ -3,16 +3,17 @@ package at.oefg1880.swing.dialog;
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
-import at.oefg1880.swing.list.Kandidat;
+import at.oefg1880.swing.io.Adresse;
+import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.KandidatPanel;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.sun.corba.se.impl.transport.SelectorImpl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,7 +70,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
       }
     });
     saveButton.setActionCommand(SAVE);
-    saveButton.setEnabled(false);
+//    saveButton.setEnabled(false);
 
     labelTitle = new JLabel(" ");
     Font font = labelTitle.getFont().deriveFont(Font.PLAIN, 21);
@@ -114,9 +115,12 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     }
     comboGeburtstagJahr = new JComboBox(vYears);
     
-    cbKursunterlagen = new JCheckBox();
-    cbPassfoto = new JCheckBox();
-    cbAnwesend = new JCheckBox();
+    cbKursunterlagen = new JCheckBox(rh.getString(PROPERTY_NAME, COURSE_PAID));
+    cbKursunterlagen.setOpaque(false);
+    cbPassfoto = new JCheckBox(rh.getString(PROPERTY_NAME, PASSPHOTO));
+    cbPassfoto.setOpaque(false);
+    cbAnwesend = new JCheckBox(rh.getString(PROPERTY_NAME, PRESENT));
+    cbAnwesend.setOpaque(false);
   }
   
   private JPanel buildPanel() {
@@ -173,14 +177,11 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     // Test Data
     builder.addSeparator(rh.getString(PROPERTY_NAME, TEST_DATA), cc.xywh(2, 22, 7, 1));
     // Kursunterlagen bezahlt
-//    builder.addLabel("Kursunterlagen bezahlt", cc.xywh(2, 24, 5, 1));
     builder.add(cbKursunterlagen, cc.xywh(2, 24, 7, 1));
     // Passfoto
-//    builder.addLabel("Passfoto vorhanden", cc.xywh(2, 26, 5, 1));
-    builder.add(cbPassfoto, cc.xywh(2, 26, 3, 1));
+    builder.add(cbPassfoto, cc.xywh(2, 26, 7, 1));
     // anwesend
-//    builder.addLabel("anwesend", cc.xywh(2, 28, 5, 1));
-    builder.add(cbAnwesend, cc.xywh(2, 28, 3, 1));
+    builder.add(cbAnwesend, cc.xywh(2, 28, 7, 1));
 
     JPanel buttonOKBar = ButtonBarFactory.buildOKBar(saveButton);
     buttonOKBar.setOpaque(false);
@@ -224,7 +225,16 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
   }
 
   private void save() {
-    Kandidat kandidat = new Kandidat(((KandidatPanel) frame.getKandidatPanel()).getKandidatList().getModel().getSize(), tfName.getText(), new Date(1979, 8, 7));
+    int idx = ((KandidatPanel) frame.getKandidatPanel()).getKandidatList().getModel().getSize();
+    SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
+    Date dt = new Date();
+    try {
+      dt = sdf.parse(comboGeburtstagTag.getSelectedItem() + "/" + (comboGeburtstagMonat.getSelectedIndex()+1) + "/" + comboGeburtstagJahr.getSelectedItem());
+    } catch (ParseException pe) {
+      pe.printStackTrace();
+    }
+
+    Kandidat kandidat = new Kandidat(idx, tfName.getText(), new Adresse(tfStrasse.getText(), Integer.valueOf(tfPLZ.getText()), tfOrt.getText()), tfTelefon.getText(), tfEmail.getText(), dt, tfGeburtsort.getText());
     ((KandidatPanel) frame.getKandidatPanel()).getKandidatList().add(kandidat);
   }
 

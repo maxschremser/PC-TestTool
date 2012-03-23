@@ -5,7 +5,7 @@ import at.oefg1880.swing.dialog.FragebogenDialog;
 import at.oefg1880.swing.dialog.WFAAntwortDialog;
 import at.oefg1880.swing.dialog.WFAFragebogenDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
-import at.oefg1880.swing.list.Fragebogen;
+import at.oefg1880.swing.io.Fragebogen;
 
 import javax.swing.*;
 
