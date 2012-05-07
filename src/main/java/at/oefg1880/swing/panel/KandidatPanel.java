@@ -100,14 +100,6 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
     return buttonNew;
   }
 
-  public KandidatDialog updateKandidatDialog(Kandidat kandidat) {
-    if (kandidat == null) return null;
-    kandidatDialog = editKandidatDialog(kandidat);
-    kandidatDialog.loadProps();
-    kandidatDialog.setVisible(true);
-    return kandidatDialog;
-  }
-
   @Override
   public void actionPerformed(ActionEvent e) {
     if (NEW.equals(e.getActionCommand())) {

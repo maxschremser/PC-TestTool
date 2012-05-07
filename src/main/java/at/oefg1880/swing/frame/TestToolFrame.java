@@ -51,8 +51,8 @@ import java.util.List;
 public abstract class TestToolFrame extends SheetableFrame implements ITexts, IConfig, DropTargetListener, ActionListener {
   public final static String PROPERTY_NAME = "at.oefg1880.swing.frame.TestToolFrame";
   protected JTabbedPane bottomPane;
-  protected JComponent bottomKandidatPane;
-  protected JComponent bottomFragebogenPane;
+  protected KandidatPanel bottomKandidatPane;
+  protected FragebogenPanel bottomFragebogenPane;
   protected final Logger log = Logger.getLogger(TestToolFrame.class);
   private PropertyHandler props = PropertyHandler.getInstance();
   protected ResourceHandler rh = ResourceHandler.getInstance();
@@ -67,9 +67,9 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
   public abstract String getFavicon();
 
-  public abstract JComponent getFragebogenPanel();
+  public abstract FragebogenPanel getFragebogenPanel();
 
-  public abstract JComponent getKandidatPanel();
+  public abstract KandidatPanel getKandidatPanel();
 
   public abstract void exportFragebogen(Workbook wb, Fragebogen f);
 

@@ -37,7 +37,7 @@ public class WFATestToolFrame extends TestToolFrame {
   }
 
   @Override
-  public JComponent getFragebogenPanel() {
+  public FragebogenPanel getFragebogenPanel() {
     if (bottomFragebogenPane == null) {
       bottomFragebogenPane = new WFAFragebogenPanel(this);
       bottomFragebogenPane.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -46,7 +46,7 @@ public class WFATestToolFrame extends TestToolFrame {
   }
 
   @Override
-  public JComponent getKandidatPanel() {
+  public KandidatPanel getKandidatPanel() {
     if (bottomKandidatPane == null) {
       bottomKandidatPane = new KandidatPanel(this);
       bottomKandidatPane.setBorder(BorderFactory.createLineBorder(Color.black));

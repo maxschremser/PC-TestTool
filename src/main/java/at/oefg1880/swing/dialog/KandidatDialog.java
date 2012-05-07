@@ -132,6 +132,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
       @Override
       public void windowClosing(WindowEvent e) {
         storeProps();
+        dispose();
       }
     });
 

@@ -13,7 +13,7 @@ public class Kandidat {
   private int index;
   private String name;
   private Adresse adresse;
-  private String telephon;
+  private String telephone;
   private String email;
 
   private Date geburtstag;
@@ -26,12 +26,16 @@ public class Kandidat {
     super();
   }
 
-  public Kandidat(int index, String name, Adresse adress, String telephone, String email, Date geburtstag, String geburtsort) {
+  public Kandidat(int index, String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort) {
+      this(index, name, new Adresse(strasse, PLZ, ort), telephone, email, geburtstag, geburtsort);
+  }
+    
+  public Kandidat(int index, String name, Adresse adresse, String telephone, String email, Date geburtstag, String geburtsort) {
     this();
     this.index = index;
     this.name = name;
-    this.adresse = adress;
-    this.telephon = telephone;
+    this.adresse = adresse;
+    this.telephone = telephone;
     this.email = email;
     this.geburtstag = geburtstag;
     this.geburtsort = geburtsort;
@@ -73,12 +77,12 @@ public class Kandidat {
     return adresse.getOrt();
   }
 
-  public String getTelephon() {
-    return telephon;
+  public String getTelephone() {
+    return telephone;
   }
 
-  public void setTelephon(String telephon) {
-    this.telephon = telephon;
+  public void setTelephone(String telephone) {
+    this.telephone = telephone;
   }
 
   public String getEmail() {

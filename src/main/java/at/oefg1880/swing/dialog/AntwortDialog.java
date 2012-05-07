@@ -15,6 +15,7 @@ import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.jfree.chart.ChartFactory;
@@ -30,6 +31,7 @@ import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Vector;
 
 /**
@@ -82,7 +84,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
   private void setup() {
     FormLayout layout = new FormLayout(
         "6dlu,100dlu,6dlu,pref,6dlu,pref,6dlu",
-        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,12dlu,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
+        "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,86dlu,6dlu,pref,6dlu,pref,6dlu,12dlu,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
     GradientPanel gradientPanel = new GradientPanel();
     PanelBuilder builder = new PanelBuilder(layout);
     CellConstraints cc = new CellConstraints();
@@ -115,12 +117,14 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     Font font = labelTitle.getFont().deriveFont(Font.PLAIN, 21);
     labelTitle.setFont(font);
 
-    Vector<Kandidat> v = new Vector<Kandidat>();
-    v.add(new Kandidat(0, "Maximilian Schremser", new Adresse("Breitegasse 18/4", 2540, "Gainfarn"), "+43 (699) 18 10 87 06", "maxi@schremser.com", new Date(1979,6,9), "Mödling"));
-    v.add(new Kandidat(1, "Markus Stoff", new Adresse("Am Weg nach Hause 23", 1230, "Wien"), "+43 (664) 10203040", "markus@stoff.at", new Date(1975,2,18), "Wien"));
-    v.add(new Kandidat(2, "Martin Schaller", new Adresse("Schonweg 77", 1140, "Wien"), "+43 (676) 1002003", "martin@schaller.at", new Date(1970,11,14), "Salzburg"));
-
-    tfName = new FilteredList(frame, v);
+    Vector<Kandidat> objects = new Vector<Kandidat>();
+    Enumeration e = ((DefaultListModel) frame.getKandidatPanel().getKandidatList().getModel()).elements();
+    while (e.hasMoreElements()){
+        Kandidat k = (Kandidat) e.nextElement();
+        objects.add(k);
+    }
+      
+    tfName = new FilteredList(frame, objects);
     tfName.setSelectionColor(selectedTextForeground);
     tfName.setBorder(new LineBorder(Color.black));
     tfName.addKeyListener(new KeyAdapter() {
@@ -164,7 +168,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
 
   private void reset() {
     correctAnswers = 0;
-    tfName.setText("");
+    tfName.getFilterField().setText("");
     dataset.setValue(CORRECT, 0);
     dataset.setValue(WRONG, 100);
     antwortPanel.reset();

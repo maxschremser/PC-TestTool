@@ -13,14 +13,14 @@ import at.oefg1880.swing.io.Fragebogen;
  * To change this template use File | Settings | File Templates.
  */
 public class WFAAntwortList extends AntwortList {
-  public WFAAntwortList(TestToolFrame frame, Fragebogen fragebogen) {
-    super(frame, fragebogen);
-  }
+    public WFAAntwortList(TestToolFrame frame, Fragebogen fragebogen) {
+        super(frame, fragebogen);
+    }
 
-  @Override
-  protected void createEditAntwortDialog(Antwort antwort) {
-    dialog = new WFAAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_EDIT), fragebogen, antwort);
-    dialog.setVisible(true);
-  }
+    @Override
+    protected void createEditAntwortDialog(Antwort antwort) {
+        dialog = new WFAAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_EDIT), fragebogen, antwort);
+        dialog.setVisible(true);
+    }
 
 }
