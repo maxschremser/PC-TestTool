@@ -1,6 +1,7 @@
 package at.oefg1880.swing.panel;
 
 import at.oefg1880.swing.ITexts;
+import at.oefg1880.swing.dialog.AntwortDialog;
 import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.debug.FormDebugPanel;
@@ -89,5 +90,11 @@ public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebu
   }
   public JButton getSaveButton() {
     return saveButton;
+  }
+
+  public boolean checkEnableSaveButton(boolean isInCreateMode) {
+      if (isFullyFilled(isInCreateMode) && ((AntwortDialog)getParent()).hasKandidat())
+        return true;
+      return false;
   }
 }

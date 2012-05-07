@@ -282,7 +282,7 @@ public class WFATestToolFrame extends TestToolFrame {
     for (Antwort a : fragebogen.getAntworten()) {
       row = sheet.createRow(r++);
       row.createCell(0).setCellValue(a.getName());
-      row.createCell(1).setCellValue(a.getAlter());
+//      row.createCell(1).setCellValue(a.getAlter());
       row.createCell(2).setCellValue(a.getPercentages() + "%");
       i = 4;
       int j = 0;

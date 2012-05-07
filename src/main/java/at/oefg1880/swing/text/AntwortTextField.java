@@ -75,7 +75,7 @@ public class AntwortTextField extends JTextField implements IConfig {
   }
 
   public void enableButton() {
-    if (((AntwortPanel) getParent()).isFullyFilled(isInCreateMode)) {
+    if (((AntwortPanel) getParent()).checkEnableSaveButton(isInCreateMode)) {
       // enable saveButton and focus it
       JButton button = ((AntwortPanel) getParent()).getSaveButton();
       button.setEnabled(true);

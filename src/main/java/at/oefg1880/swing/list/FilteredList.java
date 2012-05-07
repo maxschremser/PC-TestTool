@@ -42,6 +42,7 @@ public class FilteredList extends KandidatList {
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     setText(((Kandidat)getSelectedValue()).getName());
+                    setSelectedIndex(0);
                 }
             }
         });
@@ -106,8 +107,7 @@ public class FilteredList extends KandidatList {
             filterItems.clear();
             String term = getFilterField().getText();
             for (int i = 0; i < items.size(); i++) {
-//                if (items.get(i).getName().indexOf(term, 0) != -1) {
-                if (items.get(i).getName().startsWith(term)) {
+                if (items.get(i).getName().indexOf(term, 0) != -1) {
                     filterItems.add(items.get(i));
                 }
             }

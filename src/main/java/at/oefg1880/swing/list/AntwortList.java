@@ -31,7 +31,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
     protected Fragebogen fragebogen;
     private GradientPanel cell;
     private static Color listForeground, listBackground, listSelectionForeground, listSelectionBackground;
-    private JLabel labelName, labelAlter, labelGeschlecht, labelPercentages;
+    private JLabel labelName, labelPercentages;
     private DefaultListModel model;
     private JPopupMenu menu;
     private JMenuItem menuEdit, menuDelete;
@@ -111,8 +111,8 @@ public abstract class AntwortList extends JList implements ActionListener, IText
         setModel(model);
         setBorder(BorderFactory.createLineBorder(Color.black));
 
-        FormLayout layout = new FormLayout("6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu",
-                "6dlu,pref,3dlu,pref,6dlu");
+        FormLayout layout = new FormLayout("6dlu,pref:grow,3dlu, right:20dlu, 6dlu",
+                "6dlu, pref, 6dlu");
         CellConstraints cc = new CellConstraints();
         cell = new GradientPanel(IConfig.HORIZONTAL);
         cell.setLayout(layout);
@@ -120,14 +120,10 @@ public abstract class AntwortList extends JList implements ActionListener, IText
         Font defaultFont = labelName.getFont();
         Font nameFont = defaultFont.deriveFont(Font.BOLD, defaultFont.getSize() + 4);
         labelName.setFont(nameFont);
-        labelGeschlecht = new JLabel();
-        labelAlter = new JLabel();
         labelPercentages = new JLabel();
 
-        cell.add(labelName, cc.xywh(2, 2, 11, 1));
-        cell.add(labelGeschlecht, cc.xy(2, 4));
-        cell.add(labelAlter, cc.xy(4, 4));
-        cell.add(labelPercentages, cc.xy(6, 4));
+        cell.add(labelName, cc.xy(2, 2));
+        cell.add(labelPercentages, cc.xy(4, 2));
 
         cell.setOpaque(true);
     }
@@ -161,7 +157,6 @@ public abstract class AntwortList extends JList implements ActionListener, IText
             if (value instanceof Antwort) {
                 Antwort antwort = (Antwort) value;
                 labelName.setText(antwort.getName());
-                labelAlter.setText(antwort.getAlter() + "");
                 labelPercentages.setText(antwort.getPercentages() + "%");
                 for (Component c : cell.getComponents()) {
                     if (isSelected) {
