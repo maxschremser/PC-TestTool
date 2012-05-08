@@ -11,44 +11,48 @@ import java.util.GregorianCalendar;
  * To change this template use File | Settings | File Templates.
  */
 public class Antwort {
-  private int percentages;
-  private Kandidat kandidat;
-  private int[] answers;
-  private int index;
+    private int percentages;
+    private Kandidat kandidat;
+    private int[] answers;
+    private int index;
 
-  public Antwort(int index, Kandidat kandidat, int percentages, int[] answers) {
-    this.index = index;
-    this.kandidat = kandidat;
-    this.percentages = percentages;
-    this.answers = answers;
-  }
+    public Antwort(int index, Kandidat kandidat, int percentages, int[] answers) {
+        this.index = index;
+        this.kandidat = kandidat;
+        this.percentages = percentages;
+        this.answers = answers;
+    }
 
-  public int getIndex() {
-    return index;
-  }
+    public int getIndex() {
+        return index;
+    }
 
-  public String getName() {
-    return kandidat.getName();
-  }
+    public String getName() {
+        return kandidat.getName();
+    }
 
-  public int[] getAnswers() {
-    return answers;
-  }
+    public int[] getAnswers() {
+        return answers;
+    }
 
-  public int getPercentages() {
-    return percentages;
-  }
+    public int getPercentages() {
+        return percentages;
+    }
 
-  public void setPercentages(int percentages) {
-    this.percentages = percentages;
-  }
+    public Kandidat getKandidat() {
+        return kandidat;
+    }
 
-  public void setKandidat(Kandidat kandidat) {
-    this.kandidat = kandidat;
-  }
+    public void setPercentages(int percentages) {
+        this.percentages = percentages;
+    }
 
-  public void setAnswers(int[] answers) {
-    this.answers = answers;
-  }
+    public void setKandidat(Kandidat kandidat) {
+        this.kandidat = kandidat;
+    }
+
+    public void setAnswers(int[] answers) {
+        this.answers = answers;
+    }
 }
 

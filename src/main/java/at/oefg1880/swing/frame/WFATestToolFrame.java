@@ -61,7 +61,7 @@ public class WFATestToolFrame extends TestToolFrame {
 
   @Override
   public char[] getAllowedValues() {
-    return new WFAAntwortPanel(false).getAllowedValues();
+    return new WFAAntwortPanel(false, null).getAllowedValues();
   }
 
 
@@ -266,7 +266,7 @@ public class WFATestToolFrame extends TestToolFrame {
     cell.setCellStyle(boldStyle);
 
     row = sheet.createRow(3);
-    char[] allowedValues = ((FragebogenPanel) getFragebogenPanel()).getAntwortDialog(fragebogen).getAntwortPanel().getAllowedValues();
+    char[] allowedValues = ((FragebogenPanel) getFragebogenPanel()).getAntwortDialog(fragebogen).getAntwortPanel(null).getAllowedValues();
     int[] solutions = fragebogen.getSolutions();
     int i = 4;
     for (int v : fragebogen.getSolutions()) {

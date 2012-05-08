@@ -1,5 +1,6 @@
 package at.oefg1880.swing.panel;
 
+import at.oefg1880.swing.dialog.AntwortDialog;
 import at.oefg1880.swing.text.AntwortTextField;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -18,8 +19,8 @@ public class WFAAntwortPanel extends AntwortPanel {
   public final static int NUM_ANSWERS = 50;
   public final static char[] allowedValues = new char[]{' ', 'A', 'B', 'C', 'D'};
 
-  public WFAAntwortPanel(boolean isInCreateMode) {
-    super(isInCreateMode);
+  public WFAAntwortPanel(boolean isInCreateMode, AntwortDialog dialog) {
+    super(isInCreateMode, dialog);
   }
 
   @Override

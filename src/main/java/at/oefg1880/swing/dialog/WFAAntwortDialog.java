@@ -23,8 +23,8 @@ public class WFAAntwortDialog extends AntwortDialog {
   }
 
   @Override
-  public AntwortPanel getAntwortPanel() {
-    AntwortPanel panel = new WFAAntwortPanel(fragebogen == null);
+  public AntwortPanel getAntwortPanel(AntwortDialog dialog) {
+    AntwortPanel panel = new WFAAntwortPanel(fragebogen == null, dialog);
     panel.setSaveButton(getSaveButton());
     return panel;
 

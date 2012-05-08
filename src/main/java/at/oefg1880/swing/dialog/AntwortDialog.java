@@ -60,7 +60,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     private final String CORRECT = rh.getString(PROPERTY_NAME, GRAPH_CORRECT);
     private final String WRONG = rh.getString(PROPERTY_NAME, GRAPH_WRONG);
 
-    public abstract AntwortPanel getAntwortPanel();
+    public abstract AntwortPanel getAntwortPanel(AntwortDialog dialog);
 
     // New Answers given by user
 
@@ -111,7 +111,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         saveButton.setActionCommand(SAVE);
         saveButton.setEnabled(false);
 
-        antwortPanel = getAntwortPanel();
+        antwortPanel = getAntwortPanel(this);
         antwortPanel.addPropertyChangeListener(this);
 
         JLabel labelTitle = new JLabel(fragebogen.getTitle());
@@ -208,7 +208,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     }
 
     private void update() {
-        antwort.setKandidat((Kandidat) tfName.getSelectedValue());
+//        antwort.setKandidat((Kandidat) tfName.getSelectedValue());
         antwort.setPercentages(dataset.getValue(1).intValue());
         antwort.setAnswers(antwortPanel.getValues());
         fragebogen.setAntwort(antwort);
@@ -263,7 +263,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     }
 
     public boolean hasKandidat() {
-        return tfName.getSelectedValue() != null;
+        return tfName.getSelectedValue() != null || antwort.getKandidat() != null;
     }
 
     @Override

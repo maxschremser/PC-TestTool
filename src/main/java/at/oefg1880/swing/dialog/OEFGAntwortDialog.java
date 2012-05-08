@@ -6,6 +6,8 @@ import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.panel.AntwortPanel;
 import at.oefg1880.swing.panel.OEFGAntwortPanel;
 
+import javax.swing.*;
+
 /**
  * Created by IntelliJ IDEA.
  * User: schremse
@@ -23,8 +25,8 @@ public class OEFGAntwortDialog extends AntwortDialog {
   }
 
   @Override
-  public AntwortPanel getAntwortPanel() {
-    AntwortPanel panel = new OEFGAntwortPanel(fragebogen == null);
+  public AntwortPanel getAntwortPanel(AntwortDialog dialog) {
+    AntwortPanel panel = new OEFGAntwortPanel(fragebogen == null, dialog);
     panel.setSaveButton(getSaveButton());
     return panel;
   }

@@ -61,7 +61,7 @@ public class OEFGTestToolFrame extends TestToolFrame {
 
   @Override
   public char[] getAllowedValues() {
-    return new OEFGAntwortPanel(false).getAllowedValues();
+    return new OEFGAntwortPanel(false, null).getAllowedValues();
   }
 
   @Override
@@ -175,7 +175,7 @@ public class OEFGTestToolFrame extends TestToolFrame {
     cell.setCellStyle(boldStyle);
 
     row = sheet.createRow(3);
-    char[] allowedValues = ((FragebogenPanel) getFragebogenPanel()).getAntwortDialog(fragebogen).getAntwortPanel().getAllowedValues();
+    char[] allowedValues = ((FragebogenPanel) getFragebogenPanel()).getAntwortDialog(fragebogen).getAntwortPanel(null).getAllowedValues();
     int[] solutions = fragebogen.getSolutions();
     int i = 4;
     for (int v : fragebogen.getSolutions()) {

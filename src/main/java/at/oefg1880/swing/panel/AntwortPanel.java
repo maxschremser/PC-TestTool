@@ -21,6 +21,7 @@ public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebu
   protected boolean isInCreateMode = false;
   protected ResourceHandler rh = ResourceHandler.getInstance();
   protected JButton saveButton;
+  private AntwortDialog dialog;
 
   public abstract int getNumAnswers();
 
@@ -30,9 +31,10 @@ public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebu
 
   public abstract char[] getAllowedValues();
 
-  public AntwortPanel(boolean isInCreateMode) {
+  public AntwortPanel(boolean isInCreateMode, AntwortDialog dialog) {
     super();
     this.isInCreateMode = isInCreateMode;
+    this.dialog = dialog;
     setup();
     setOpaque(false);
   }
@@ -93,8 +95,12 @@ public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebu
   }
 
   public boolean checkEnableSaveButton(boolean isInCreateMode) {
-      if (isFullyFilled(isInCreateMode) && ((AntwortDialog)getParent()).hasKandidat())
-        return true;
-      return false;
+      if (dialog != null && !dialog.hasKandidat())
+          return false;
+      if (dialog != null && !isFullyFilled(isInCreateMode))
+        return false;
+      if (!isFullyFilled(isInCreateMode))
+          return false;
+      return true;
   }
 }

@@ -25,7 +25,7 @@ public class OEFGFragebogenDialog extends FragebogenDialog {
 
   @Override
   public AntwortPanel getAntwortPanel() {
-    AntwortPanel panel = new OEFGAntwortPanel(true);
+    AntwortPanel panel = new OEFGAntwortPanel(true, null);
     panel.setSaveButton(getSaveButton());
     return panel;
   }
