@@ -1,8 +1,5 @@
 package at.oefg1880.swing.io;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 /**
  * Created by IntelliJ IDEA.
  * User: sensi

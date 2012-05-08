@@ -14,19 +14,19 @@ import at.oefg1880.swing.panel.WFAAntwortPanel;
  * To change this template use File | Settings | File Templates.
  */
 public class WFAAntwortDialog extends AntwortDialog {
-  public WFAAntwortDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
-    super(frame, title, fragebogen);
-  }
+    public WFAAntwortDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
+        super(frame, title, fragebogen);
+    }
 
-  public WFAAntwortDialog(TestToolFrame frame, String title, Fragebogen fragebogen, Antwort antwort) {
-    super(frame, title, fragebogen, antwort);
-  }
+    public WFAAntwortDialog(TestToolFrame frame, String title, Fragebogen fragebogen, Antwort antwort) {
+        super(frame, title, fragebogen, antwort);
+    }
 
-  @Override
-  public AntwortPanel getAntwortPanel(AntwortDialog dialog) {
-    AntwortPanel panel = new WFAAntwortPanel(fragebogen == null, dialog);
-    panel.setSaveButton(getSaveButton());
-    return panel;
+    @Override
+    public AntwortPanel getAntwortPanel(AntwortDialog dialog) {
+        AntwortPanel panel = new WFAAntwortPanel(fragebogen == null, dialog);
+        panel.setSaveButton(getSaveButton());
+        return panel;
 
-  }
+    }
 }

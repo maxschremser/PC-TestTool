@@ -3,14 +3,11 @@ package at.oefg1880.swing.list;
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
-import at.oefg1880.swing.io.Adresse;
 import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.io.Kandidat;
-import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.KandidatPanel;
 import at.oefg1880.swing.utils.ResourceHandler;
-import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.apache.log4j.Logger;
@@ -58,15 +55,15 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
         setup();
 
         Calendar cal = new GregorianCalendar();
-        cal.set(1979,8,7);
+        cal.set(1979, 8, 7);
         add(new Kandidat(0, "Maxi Schremser", "Breite gasse", 2540, "Gainfarn", "123456789", "maxi@schremser.com", cal.getTime(), "Mödling"));
-        cal.set(1986,9,9);
+        cal.set(1986, 9, 9);
         add(new Kandidat(1, "Luiza Schremser", "Breite gasse", 2540, "Gainfarn", "987654321", "luiza@schremser.com", cal.getTime(), "Suceava"));
-        cal.set(1975,10,26);
+        cal.set(1975, 10, 26);
         add(new Kandidat(2, "Klaus Schremser", "Reisenbauerring 10", 2580, "Wiener Neudorf", "6301524", "klaus@schremser.com", cal.getTime(), "Wien"));
-        cal.set(1950,4,16);
+        cal.set(1950, 4, 16);
         add(new Kandidat(3, "Gustav Gans", "Ganslplatz 2", 2522, "Gansldorf", "555 444 32", "gustav@gans.at", cal.getTime(), "Entenplatz"));
-        cal.set(1933,2,2);
+        cal.set(1933, 2, 2);
         add(new Kandidat(4, "Günther Gans", "Gerardiplatz 3", 2511, "Gerardilili", "555 444 333", "guenther@gans.at", cal.getTime(), "Entenplatz"));
     }
 

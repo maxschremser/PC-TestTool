@@ -10,74 +10,74 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class Fragebogen {
-  private String title;
-  private int existing;
-  private int[] solutions;
-  private ArrayList<Antwort> antworten;
-  private int index;
+    private String title;
+    private int existing;
+    private int[] solutions;
+    private ArrayList<Antwort> antworten;
+    private int index;
 
-  public Fragebogen(int index, String title, int existing, int[] solutions) {
-    this.index = index;
-    this.title = title;
-    this.existing = existing;
-    this.solutions = solutions;
-    this.antworten = new ArrayList<Antwort>();
-  }
+    public Fragebogen(int index, String title, int existing, int[] solutions) {
+        this.index = index;
+        this.title = title;
+        this.existing = existing;
+        this.solutions = solutions;
+        this.antworten = new ArrayList<Antwort>();
+    }
 
-  public String getTitle() {
-    return title;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-  public int getExisting() {
-    return existing;
-  }
+    public int getExisting() {
+        return existing;
+    }
 
-  public int getSolved() {
-    return antworten.size();
-  }
+    public int getSolved() {
+        return antworten.size();
+    }
 
-  public int getUnsolved() {
-    int offen = existing - antworten.size();
-    return offen > 0 ? offen : 0;
-  }
+    public int getUnsolved() {
+        int offen = existing - antworten.size();
+        return offen > 0 ? offen : 0;
+    }
 
-  public int[] getSolutions() {
-    return this.solutions;
-  }
+    public int[] getSolutions() {
+        return this.solutions;
+    }
 
-  public void addAntwort(Antwort antwort) {
-    this.antworten.add(antwort);
-  }
+    public void addAntwort(Antwort antwort) {
+        this.antworten.add(antwort);
+    }
 
-  public void setAntwort(Antwort antwort) {
-    this.antworten.set(antwort.getIndex(), antwort);
-  }
+    public void setAntwort(Antwort antwort) {
+        this.antworten.set(antwort.getIndex(), antwort);
+    }
 
-  public void removeAntwort(Antwort antwort) {
-    this.antworten.remove(antwort);
-  }
+    public void removeAntwort(Antwort antwort) {
+        this.antworten.remove(antwort);
+    }
 
-  public ArrayList<Antwort> getAntworten() {
-    return this.antworten;
-  }
+    public ArrayList<Antwort> getAntworten() {
+        return this.antworten;
+    }
 
-  public void setExisting(int existing) {
-    this.existing = existing;
-  }
+    public void setExisting(int existing) {
+        this.existing = existing;
+    }
 
-  public int getIndex() {
-    return this.index;
-  }
+    public int getIndex() {
+        return this.index;
+    }
 
-  public void setIndex(int index) {
-    this.index = index;
-  }
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public void setSolutions(int[] solutions) {
-    this.solutions = solutions;
-  }
+    public void setSolutions(int[] solutions) {
+        this.solutions = solutions;
+    }
 }

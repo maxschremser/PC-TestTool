@@ -8,28 +8,29 @@ package at.oefg1880.swing.io;
  * To change this template use File | Settings | File Templates.
  */
 public class Adresse {
-  private String strasse;
-  private int PLZ;
-  private String ort;
+    private String strasse;
+    private int PLZ;
+    private String ort;
 
-  public Adresse() {
-    super();
-  }
-  public Adresse(String strasse, int PLZ, String ort) {
-    this.strasse = strasse;
-    this.PLZ = PLZ;
-    this.ort = ort;
-  }
+    public Adresse() {
+        super();
+    }
 
-  public String getStrasse() {
-    return strasse;
-  }
+    public Adresse(String strasse, int PLZ, String ort) {
+        this.strasse = strasse;
+        this.PLZ = PLZ;
+        this.ort = ort;
+    }
 
-  public int getPLZ() {
-    return PLZ;
-  }
+    public String getStrasse() {
+        return strasse;
+    }
 
-  public String getOrt() {
-    return ort;
-  }
+    public int getPLZ() {
+        return PLZ;
+    }
+
+    public String getOrt() {
+        return ort;
+    }
 }

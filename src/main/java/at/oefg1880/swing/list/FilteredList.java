@@ -41,7 +41,7 @@ public class FilteredList extends KandidatList {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    setText(((Kandidat)getSelectedValue()).getName());
+                    setText(((Kandidat) getSelectedValue()).getName());
                     setSelectedIndex(0);
                 }
             }

@@ -15,29 +15,29 @@ import at.oefg1880.swing.panel.OEFGAntwortPanel;
  * To change this template use File | Settings | File Templates.
  */
 public class OEFGFragebogenDialog extends FragebogenDialog {
-  public OEFGFragebogenDialog(TestToolFrame frame, String title) {
-    super(frame, title);
-  }
-
-  public OEFGFragebogenDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
-    super(frame, title, fragebogen);
-  }
-
-  @Override
-  public AntwortPanel getAntwortPanel() {
-    AntwortPanel panel = new OEFGAntwortPanel(true, null);
-    panel.setSaveButton(getSaveButton());
-    return panel;
-  }
-
-  @Override
-  public AntwortList getAntwortList() {
-    if (list == null) {
-      list = new OEFGAntwortList(frame, fragebogen);
-      list.setVisibleRowCount(5);
-      list.requestFocus();
+    public OEFGFragebogenDialog(TestToolFrame frame, String title) {
+        super(frame, title);
     }
-    return list;
-  }
+
+    public OEFGFragebogenDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
+        super(frame, title, fragebogen);
+    }
+
+    @Override
+    public AntwortPanel getAntwortPanel() {
+        AntwortPanel panel = new OEFGAntwortPanel(true, null);
+        panel.setSaveButton(getSaveButton());
+        return panel;
+    }
+
+    @Override
+    public AntwortList getAntwortList() {
+        if (list == null) {
+            list = new OEFGAntwortList(frame, fragebogen);
+            list.setVisibleRowCount(5);
+            list.requestFocus();
+        }
+        return list;
+    }
 
 }

@@ -16,68 +16,68 @@ import java.awt.*;
  * To change this template use File | Settings | File Templates.
  */
 public class WFAAntwortPanel extends AntwortPanel {
-  public final static int NUM_ANSWERS = 50;
-  public final static char[] allowedValues = new char[]{' ', 'A', 'B', 'C', 'D'};
+    public final static int NUM_ANSWERS = 50;
+    public final static char[] allowedValues = new char[]{' ', 'A', 'B', 'C', 'D'};
 
-  public WFAAntwortPanel(boolean isInCreateMode, AntwortDialog dialog) {
-    super(isInCreateMode, dialog);
-  }
-
-  @Override
-  public int getNumAnswers() {
-    return NUM_ANSWERS;
-  }
-
-  @Override
-  protected void setup() {
-    FormLayout layout = new FormLayout(
-        "center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow," +
-            "6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow",
-        "pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref"
-    );
-    setLayout(layout);
-    CellConstraints cc = new CellConstraints();
-
-    // categories
-    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_A)), cc.xy(1, 3));
-    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_B)), cc.xy(1, 5));
-    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_C)), cc.xy(1, 7));
-    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_D)), cc.xy(1, 9));
-    add(new JLabel(rh.getString(PROPERTY_NAME, KAT_E)), cc.xy(1, 11));
-
-    // answer labels
-    add(new JLabel("1"), cc.xy(3, 1));
-    add(new JLabel("2"), cc.xy(5, 1));
-    add(new JLabel("3"), cc.xy(7, 1));
-    add(new JLabel("4"), cc.xy(9, 1));
-    add(new JLabel("5"), cc.xy(11, 1));
-    add(new JLabel("6"), cc.xy(13, 1));
-    add(new JLabel("7"), cc.xy(15, 1));
-    add(new JLabel("8"), cc.xy(17, 1));
-    add(new JLabel("9"), cc.xy(19, 1));
-    add(new JLabel("10"), cc.xy(21, 1));
-
-    // answer fields
-    int k = 0;
-    for (int j = 3; j <= 11; j += 2) {
-      for (int i = 3; i <= 21; i += 2) {
-        add(new AntwortTextField("", k++, getAllowedValues(), isInCreateMode), cc.xy(i, j));
-      }
+    public WFAAntwortPanel(boolean isInCreateMode, AntwortDialog dialog) {
+        super(isInCreateMode, dialog);
     }
-  }
 
-  @Override
-  public AntwortTextField getAntwortTextField(int index) {
-    if (index >= 0 && index < getNumAnswers()) {
-      Component c = getComponent(index + 15);
-      if (c instanceof AntwortTextField)
-        return (AntwortTextField) c;
+    @Override
+    public int getNumAnswers() {
+        return NUM_ANSWERS;
     }
-    return null;
-  }
 
-  @Override
-  public char[] getAllowedValues() {
-    return allowedValues;
-  }
+    @Override
+    protected void setup() {
+        FormLayout layout = new FormLayout(
+                "center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow," +
+                        "6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow",
+                "pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref"
+        );
+        setLayout(layout);
+        CellConstraints cc = new CellConstraints();
+
+        // categories
+        add(new JLabel(rh.getString(PROPERTY_NAME, KAT_A)), cc.xy(1, 3));
+        add(new JLabel(rh.getString(PROPERTY_NAME, KAT_B)), cc.xy(1, 5));
+        add(new JLabel(rh.getString(PROPERTY_NAME, KAT_C)), cc.xy(1, 7));
+        add(new JLabel(rh.getString(PROPERTY_NAME, KAT_D)), cc.xy(1, 9));
+        add(new JLabel(rh.getString(PROPERTY_NAME, KAT_E)), cc.xy(1, 11));
+
+        // answer labels
+        add(new JLabel("1"), cc.xy(3, 1));
+        add(new JLabel("2"), cc.xy(5, 1));
+        add(new JLabel("3"), cc.xy(7, 1));
+        add(new JLabel("4"), cc.xy(9, 1));
+        add(new JLabel("5"), cc.xy(11, 1));
+        add(new JLabel("6"), cc.xy(13, 1));
+        add(new JLabel("7"), cc.xy(15, 1));
+        add(new JLabel("8"), cc.xy(17, 1));
+        add(new JLabel("9"), cc.xy(19, 1));
+        add(new JLabel("10"), cc.xy(21, 1));
+
+        // answer fields
+        int k = 0;
+        for (int j = 3; j <= 11; j += 2) {
+            for (int i = 3; i <= 21; i += 2) {
+                add(new AntwortTextField("", k++, getAllowedValues(), isInCreateMode), cc.xy(i, j));
+            }
+        }
+    }
+
+    @Override
+    public AntwortTextField getAntwortTextField(int index) {
+        if (index >= 0 && index < getNumAnswers()) {
+            Component c = getComponent(index + 15);
+            if (c instanceof AntwortTextField)
+                return (AntwortTextField) c;
+        }
+        return null;
+    }
+
+    @Override
+    public char[] getAllowedValues() {
+        return allowedValues;
+    }
 }

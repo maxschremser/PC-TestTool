@@ -17,31 +17,31 @@ import javax.swing.*;
  * To change this template use File | Settings | File Templates.
  */
 public class WFAFragebogenPanel extends FragebogenPanel {
-  public WFAFragebogenPanel(TestToolFrame frame) {
-    super(frame);
-  }
+    public WFAFragebogenPanel(TestToolFrame frame) {
+        super(frame);
+    }
 
-  @Override
-  public JDialog createNewFragebogenDialog() {
-    fragebogenDialog = new WFAFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_NEW));
-    fragebogenDialog.loadProps();
-    fragebogenDialog.setVisible(true);
-    return fragebogenDialog;
-  }
+    @Override
+    public JDialog createNewFragebogenDialog() {
+        fragebogenDialog = new WFAFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_NEW));
+        fragebogenDialog.loadProps();
+        fragebogenDialog.setVisible(true);
+        return fragebogenDialog;
+    }
 
-  @Override
-  public FragebogenDialog editFragebogenDialog(Fragebogen fragebogen) {
-    if (fragebogen == null) return null;
-    fragebogenDialog = new WFAFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_EDIT), fragebogen);
-    fragebogenDialog.setLocation(Integer.valueOf(props.getProperty(fragebogenDialog.PROPERTY_NAME + "." + POS_X)),
-        Integer.valueOf(props.getProperty(fragebogenDialog.PROPERTY_NAME + "." + POS_Y)));
-    fragebogenDialog.setVisible(true);
-    fragebogenDialog.getAntwortList().requestFocus();
-    return fragebogenDialog;
-  }
+    @Override
+    public FragebogenDialog editFragebogenDialog(Fragebogen fragebogen) {
+        if (fragebogen == null) return null;
+        fragebogenDialog = new WFAFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_EDIT), fragebogen);
+        fragebogenDialog.setLocation(Integer.valueOf(props.getProperty(fragebogenDialog.PROPERTY_NAME + "." + POS_X)),
+                Integer.valueOf(props.getProperty(fragebogenDialog.PROPERTY_NAME + "." + POS_Y)));
+        fragebogenDialog.setVisible(true);
+        fragebogenDialog.getAntwortList().requestFocus();
+        return fragebogenDialog;
+    }
 
-  @Override
-  public AntwortDialog getAntwortDialog(Fragebogen fragebogen) {
-    return new WFAAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen);
-  }
+    @Override
+    public AntwortDialog getAntwortDialog(Fragebogen fragebogen) {
+        return new WFAAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen);
+    }
 }

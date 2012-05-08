@@ -19,24 +19,24 @@ import java.util.GregorianCalendar;
  * To change this template use File | Settings | File Templates.
  */
 public class TestTool implements ITexts, IConfig {
-  private static Logger log = Logger.getLogger(TestTool.class);
-  public final static String PROPERTY_NAME = "at.oefg1880.swing.TestTool";
+    private static Logger log = Logger.getLogger(TestTool.class);
+    public final static String PROPERTY_NAME = "at.oefg1880.swing.TestTool";
 
-  public static void main(String[] args) {
-    Runnable runner = new Runnable() {
-      public void run() {
-        try {
-          UIManager.setLookAndFeel(new WindowsLookAndFeel());
-        } catch (UnsupportedLookAndFeelException ulnfe) {
-          ulnfe.printStackTrace();
-        }
-        PropertyConfigurator.configureAndWatch("log4j.properties", 60 * 1000);
-        GregorianCalendar cal = new GregorianCalendar();
-        log.info("Starting StartFrame at " + cal.get(Calendar.YEAR) + cal.get(Calendar.MONTH) + cal.get(Calendar.DAY_OF_MONTH));
+    public static void main(String[] args) {
+        Runnable runner = new Runnable() {
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(new WindowsLookAndFeel());
+                } catch (UnsupportedLookAndFeelException ulnfe) {
+                    ulnfe.printStackTrace();
+                }
+                PropertyConfigurator.configureAndWatch("log4j.properties", 60 * 1000);
+                GregorianCalendar cal = new GregorianCalendar();
+                log.info("Starting StartFrame at " + cal.get(Calendar.YEAR) + cal.get(Calendar.MONTH) + cal.get(Calendar.DAY_OF_MONTH));
 
-        new StartFrame(ResourceHandler.getInstance().getString(PROPERTY_NAME, TITLE));
-      }
-    };
-    EventQueue.invokeLater(runner);
-  }
+                new StartFrame(ResourceHandler.getInstance().getString(PROPERTY_NAME, TITLE));
+            }
+        };
+        EventQueue.invokeLater(runner);
+    }
 }

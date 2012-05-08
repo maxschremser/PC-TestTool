@@ -10,126 +10,126 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class Kandidat {
-  private int index;
-  private String name;
-  private Adresse adresse;
-  private String telephone;
-  private String email;
+    private int index;
+    private String name;
+    private Adresse adresse;
+    private String telephone;
+    private String email;
 
-  private Date geburtstag;
-  private String geburtsort;
-  private boolean passPhoto;
-  private boolean kursunterlagen;
-  private boolean anwesend;
+    private Date geburtstag;
+    private String geburtsort;
+    private boolean passPhoto;
+    private boolean kursunterlagen;
+    private boolean anwesend;
 
-  public Kandidat() {
-    super();
-  }
+    public Kandidat() {
+        super();
+    }
 
-  public Kandidat(int index, String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort) {
-      this(index, name, new Adresse(strasse, PLZ, ort), telephone, email, geburtstag, geburtsort);
-  }
-    
-  public Kandidat(int index, String name, Adresse adresse, String telephone, String email, Date geburtstag, String geburtsort) {
-    this();
-    this.index = index;
-    this.name = name;
-    this.adresse = adresse;
-    this.telephone = telephone;
-    this.email = email;
-    this.geburtstag = geburtstag;
-    this.geburtsort = geburtsort;
-  }
+    public Kandidat(int index, String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort) {
+        this(index, name, new Adresse(strasse, PLZ, ort), telephone, email, geburtstag, geburtsort);
+    }
 
-  public int getIndex() {
-    return index;
-  }
+    public Kandidat(int index, String name, Adresse adresse, String telephone, String email, Date geburtstag, String geburtsort) {
+        this();
+        this.index = index;
+        this.name = name;
+        this.adresse = adresse;
+        this.telephone = telephone;
+        this.email = email;
+        this.geburtstag = geburtstag;
+        this.geburtsort = geburtsort;
+    }
 
-  public void setIndex(int index) {
-    this.index = index;
-  }
+    public int getIndex() {
+        return index;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public String getAdresse() {
-    return adresse.getStrasse() + " " + adresse.getPLZ() + " " + adresse.getOrt();
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public void setAdresse(Adresse adresse) {
-    this.adresse = adresse;
-  }
+    public String getAdresse() {
+        return adresse.getStrasse() + " " + adresse.getPLZ() + " " + adresse.getOrt();
+    }
 
-  public int getPLZ() {
-    return adresse.getPLZ();
-  }
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
+    }
 
-  public String getStrasse() {
-    return adresse.getStrasse();
-  }
+    public int getPLZ() {
+        return adresse.getPLZ();
+    }
 
-  public String getOrt() {
-    return adresse.getOrt();
-  }
+    public String getStrasse() {
+        return adresse.getStrasse();
+    }
 
-  public String getTelephone() {
-    return telephone;
-  }
+    public String getOrt() {
+        return adresse.getOrt();
+    }
 
-  public void setTelephone(String telephone) {
-    this.telephone = telephone;
-  }
+    public String getTelephone() {
+        return telephone;
+    }
 
-  public String getEmail() {
-    return email;
-  }
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public Date getGeburtstag() {
-    return geburtstag;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public void setGeburtstag(Date geburtstag) {
-    this.geburtstag = geburtstag;
-  }
+    public Date getGeburtstag() {
+        return geburtstag;
+    }
 
-  public String getGeburtsort() {
-    return geburtsort;
-  }
+    public void setGeburtstag(Date geburtstag) {
+        this.geburtstag = geburtstag;
+    }
 
-  public void setGeburtsort(String geburtsort) {
-    this.geburtsort = geburtsort;
-  }
+    public String getGeburtsort() {
+        return geburtsort;
+    }
 
-  public boolean isPassPhoto() {
-    return passPhoto;
-  }
+    public void setGeburtsort(String geburtsort) {
+        this.geburtsort = geburtsort;
+    }
 
-  public void setPassPhoto(boolean passPhoto) {
-    this.passPhoto = passPhoto;
-  }
+    public boolean isPassPhoto() {
+        return passPhoto;
+    }
 
-  public boolean isKursunterlagen() {
-    return kursunterlagen;
-  }
+    public void setPassPhoto(boolean passPhoto) {
+        this.passPhoto = passPhoto;
+    }
 
-  public void setKursunterlagen(boolean kursunterlagen) {
-    this.kursunterlagen = kursunterlagen;
-  }
+    public boolean isKursunterlagen() {
+        return kursunterlagen;
+    }
 
-  public boolean isAnwesend() {
-    return anwesend;
-  }
+    public void setKursunterlagen(boolean kursunterlagen) {
+        this.kursunterlagen = kursunterlagen;
+    }
 
-  public void setAnwesend(boolean anwesend) {
-    this.anwesend = anwesend;
-  }
+    public boolean isAnwesend() {
+        return anwesend;
+    }
+
+    public void setAnwesend(boolean anwesend) {
+        this.anwesend = anwesend;
+    }
 }

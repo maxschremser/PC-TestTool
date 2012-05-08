@@ -15,30 +15,30 @@ import at.oefg1880.swing.panel.WFAAntwortPanel;
  * To change this template use File | Settings | File Templates.
  */
 public class WFAFragebogenDialog extends FragebogenDialog {
-  public WFAFragebogenDialog(TestToolFrame frame, String title) {
-    super(frame, title);
-  }
-
-  public WFAFragebogenDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
-    super(frame, title, fragebogen);
-  }
-
-  @Override
-  public AntwortPanel getAntwortPanel() {
-    AntwortPanel panel = new WFAAntwortPanel(true, null);
-    panel.setSaveButton(getSaveButton());
-    return panel;
-  }
-
-  @Override
-  public AntwortList getAntwortList() {
-    if (list == null) {
-      list = new WFAAntwortList(frame, fragebogen);
-      if (fragebogen != null)
-        list.setVisibleRowCount(5);
-      list.requestFocus();
+    public WFAFragebogenDialog(TestToolFrame frame, String title) {
+        super(frame, title);
     }
-    return list;
-  }
+
+    public WFAFragebogenDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
+        super(frame, title, fragebogen);
+    }
+
+    @Override
+    public AntwortPanel getAntwortPanel() {
+        AntwortPanel panel = new WFAAntwortPanel(true, null);
+        panel.setSaveButton(getSaveButton());
+        return panel;
+    }
+
+    @Override
+    public AntwortList getAntwortList() {
+        if (list == null) {
+            list = new WFAAntwortList(frame, fragebogen);
+            if (fragebogen != null)
+                list.setVisibleRowCount(5);
+            list.requestFocus();
+        }
+        return list;
+    }
 
 }

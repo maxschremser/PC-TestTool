@@ -8,7 +8,7 @@ package at.oefg1880.license.exception;
  * To change this template use File | Settings | File Templates.
  */
 public class LicenseException extends Exception {
-  public LicenseException(String message) {
-    super(message);
-  }
+    public LicenseException(String message) {
+        super(message);
+    }
 }
