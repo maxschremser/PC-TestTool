@@ -53,18 +53,6 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
         super();
         this.frame = frame;
         setup();
-
-        Calendar cal = new GregorianCalendar();
-        cal.set(1979, 8, 7);
-        add(new Kandidat(0, "Maxi Schremser", "Breite gasse", 2540, "Gainfarn", "123456789", "maxi@schremser.com", cal.getTime(), "Mödling"));
-        cal.set(1986, 9, 9);
-        add(new Kandidat(1, "Luiza Schremser", "Breite gasse", 2540, "Gainfarn", "987654321", "luiza@schremser.com", cal.getTime(), "Suceava"));
-        cal.set(1975, 10, 26);
-        add(new Kandidat(2, "Klaus Schremser", "Reisenbauerring 10", 2580, "Wiener Neudorf", "6301524", "klaus@schremser.com", cal.getTime(), "Wien"));
-        cal.set(1950, 4, 16);
-        add(new Kandidat(3, "Gustav Gans", "Ganslplatz 2", 2522, "Gansldorf", "555 444 32", "gustav@gans.at", cal.getTime(), "Entenplatz"));
-        cal.set(1933, 2, 2);
-        add(new Kandidat(4, "Günther Gans", "Gerardiplatz 3", 2511, "Gerardilili", "555 444 333", "guenther@gans.at", cal.getTime(), "Entenplatz"));
     }
 
     public KandidatList(TestToolFrame frame, Vector<Kandidat> items) {

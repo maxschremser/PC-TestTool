@@ -47,9 +47,6 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
         super();
         this.frame = frame;
         setup();
-
-        add(new Fragebogen(0, "LFV I", 3, new int[]{1, 1, 1, 2, 2, 2, 3, 3, 3, 2, 2, 2, 1, 1, 1, 2, 2, 2, 3, 3}));
-        add(new Fragebogen(1, "LFV II", 2, new int[]{1, 1, 1, 2, 2, 2, 3, 3, 3, 2, 2, 2, 1, 1, 1, 2, 2, 2, 3, 3}));
     }
 
     private void setup() {
