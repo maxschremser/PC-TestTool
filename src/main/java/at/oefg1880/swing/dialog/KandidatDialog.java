@@ -38,7 +38,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     private TestToolFrame frame;
     private Kandidat kandidat;
     private JLabel labelTitle;
-    private JTextField tfName, tfStrasse, tfPLZ, tfOrt, tfGeburtsort, tfTelefon, tfEmail;
+    private JTextField tfTitle, tfName, tfStrasse, tfPLZ, tfOrt, tfGeburtsort, tfTelefon, tfEmail;
     private JComboBox comboGeburtstagTag, comboGeburtstagMonat, comboGeburtstagJahr;
     private JCheckBox cbKursunterlagen, cbPassfoto, cbAnwesend;
     private JButton saveButton;
@@ -77,6 +77,8 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
         Font font = labelTitle.getFont().deriveFont(Font.PLAIN, 21);
         labelTitle.setFont(font);
 
+        tfTitle = new JTextField(20);
+
         tfName = new JTextField(rh.getString(PROPERTY_NAME, FIRST_LAST_NAME), 20);
         tfName.addKeyListener(new KeyAdapter() {
             @Override
@@ -87,13 +89,12 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
                     dispose();
                 }
             }
-        });
-        tfName.addKeyListener(new KeyAdapter() {
-            @Override
+
             public void keyReleased(KeyEvent e) {
                 labelTitle.setText(tfName.getText());
             }
         });
+
         tfStrasse = new JTextField(rh.getString(PROPERTY_NAME, STREET), 20);
         tfPLZ = new JFormattedTextField(new DecimalFormat("####"));
         tfPLZ.setText(rh.getString(PROPERTY_NAME, PLZ));
@@ -139,7 +140,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
 
         FormLayout layout = new FormLayout(
                 "6dlu,right:pref,6dlu,pref,6dlu,pref,6dlu,pref",
-                "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref");
+                "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref");
         JPanel panel = new GradientPanel();
 //    JPanel panel = new FormDebugPanel(layout);
         PanelBuilder builder = new PanelBuilder(layout, panel);
@@ -147,47 +148,52 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
 
         // Title
         builder.add(labelTitle, cc.xywh(2, 2, 5, 1));
-        // Name
         builder.addSeparator(rh.getString(PROPERTY_NAME, NAME), cc.xywh(2, 4, 7, 1));
-        builder.add(new JLabel(rh.getString(PROPERTY_NAME, FIRST_LAST_NAME)), cc.xy(2, 6));
-        builder.add(tfName, cc.xywh(4, 6, 5, 1));
+
+        // Titel
+        builder.add(new JLabel(rh.getString(PROPERTY_NAME, TITLE)), cc.xy(2, 6));
+        builder.add(tfTitle, cc.xywh(4, 6, 5, 1));
+
+        // Name
+        builder.add(new JLabel(rh.getString(PROPERTY_NAME, FIRST_LAST_NAME)), cc.xy(2, 8));
+        builder.add(tfName, cc.xywh(4, 8, 5, 1));
         // Strasse
-        builder.add(new JLabel(rh.getString(PROPERTY_NAME, STREET)), cc.xy(2, 8));
-        builder.add(tfStrasse, cc.xywh(4, 8, 5, 1));
+        builder.add(new JLabel(rh.getString(PROPERTY_NAME, STREET)), cc.xy(2, 10));
+        builder.add(tfStrasse, cc.xywh(4, 10, 5, 1));
         // PLZ / Ort
-        builder.add(new JLabel(rh.getString(PROPERTY_NAME, PLZ_ORT)), cc.xy(2, 10));
-        builder.add(tfPLZ, cc.xy(4, 10));
-        builder.add(tfOrt, cc.xywh(6, 10, 3, 1));
+        builder.add(new JLabel(rh.getString(PROPERTY_NAME, PLZ_ORT)), cc.xy(2, 12));
+        builder.add(tfPLZ, cc.xy(4, 12));
+        builder.add(tfOrt, cc.xywh(6, 12, 3, 1));
 
         // Personal Data
-        builder.addSeparator(rh.getString(PROPERTY_NAME, PERSONAL_DATA), cc.xywh(2, 12, 7, 1));
+        builder.addSeparator(rh.getString(PROPERTY_NAME, PERSONAL_DATA), cc.xywh(2, 14, 7, 1));
         // Birthday
-        builder.add(new JLabel(rh.getString(PROPERTY_NAME, BIRTHDAY)), cc.xy(2, 14));
-        builder.add(comboGeburtstagTag, cc.xy(4, 14));
-        builder.add(comboGeburtstagMonat, cc.xy(6, 14));
-        builder.add(comboGeburtstagJahr, cc.xy(8, 14));
+        builder.add(new JLabel(rh.getString(PROPERTY_NAME, BIRTHDAY)), cc.xy(2, 16));
+        builder.add(comboGeburtstagTag, cc.xy(4, 16));
+        builder.add(comboGeburtstagMonat, cc.xy(6, 16));
+        builder.add(comboGeburtstagJahr, cc.xy(8, 16));
         // Birthplace
-        builder.add(new JLabel(rh.getString(PROPERTY_NAME, BIRTHPLACE)), cc.xy(2, 16));
-        builder.add(tfGeburtsort, cc.xywh(4, 16, 5, 1));
+        builder.add(new JLabel(rh.getString(PROPERTY_NAME, BIRTHPLACE)), cc.xy(2, 18));
+        builder.add(tfGeburtsort, cc.xywh(4, 18, 5, 1));
         // Telephone
-        builder.add(new JLabel(rh.getString(PROPERTY_NAME, TELEPHONE)), cc.xy(2, 18));
-        builder.add(tfTelefon, cc.xywh(4, 18, 5, 1));
+        builder.add(new JLabel(rh.getString(PROPERTY_NAME, TELEPHONE)), cc.xy(2, 20));
+        builder.add(tfTelefon, cc.xywh(4, 20, 5, 1));
         // E-Mail
-        builder.add(new JLabel(rh.getString(PROPERTY_NAME, EMAIl)), cc.xy(2, 20));
-        builder.add(tfEmail, cc.xywh(4, 20, 5, 1));
+        builder.add(new JLabel(rh.getString(PROPERTY_NAME, EMAIl)), cc.xy(2, 22));
+        builder.add(tfEmail, cc.xywh(4, 22, 5, 1));
 
         // Test Data
-        builder.addSeparator(rh.getString(PROPERTY_NAME, TEST_DATA), cc.xywh(2, 22, 7, 1));
+        builder.addSeparator(rh.getString(PROPERTY_NAME, TEST_DATA), cc.xywh(2, 24, 7, 1));
         // Kursunterlagen bezahlt
-        builder.add(cbKursunterlagen, cc.xywh(2, 24, 7, 1));
+        builder.add(cbKursunterlagen, cc.xywh(2, 26, 7, 1));
         // Passfoto
-        builder.add(cbPassfoto, cc.xywh(2, 26, 7, 1));
+        builder.add(cbPassfoto, cc.xywh(2, 28, 7, 1));
         // anwesend
-        builder.add(cbAnwesend, cc.xywh(2, 28, 7, 1));
+        builder.add(cbAnwesend, cc.xywh(2, 30, 7, 1));
 
         JPanel buttonOKBar = ButtonBarFactory.buildOKBar(saveButton);
         buttonOKBar.setOpaque(false);
-        builder.add(buttonOKBar, cc.xywh(2, 30, 7, 1));
+        builder.add(buttonOKBar, cc.xywh(2, 32, 7, 1));
         builder.setBorder(BorderFactory.createLineBorder(Color.black));
 
         return builder.getPanel();
@@ -227,7 +233,6 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     }
 
     private void save() {
-        int idx = ((KandidatPanel) frame.getKandidatPanel()).getKandidatList().getModel().getSize();
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
         Date dt = new Date();
         try {
@@ -236,7 +241,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
             pe.printStackTrace();
         }
 
-        Kandidat kandidat = new Kandidat(idx, tfName.getText(), new Adresse(tfStrasse.getText(), Integer.valueOf(tfPLZ.getText()), tfOrt.getText()), tfTelefon.getText(), tfEmail.getText(), dt, tfGeburtsort.getText());
+        Kandidat kandidat = new Kandidat(tfTitle.getText(), tfName.getText(), new Adresse(tfStrasse.getText(), Integer.valueOf(tfPLZ.getText()), tfOrt.getText()), tfTelefon.getText(), tfEmail.getText(), dt, tfGeburtsort.getText());
         ((KandidatPanel) frame.getKandidatPanel()).getKandidatList().add(kandidat);
     }
 

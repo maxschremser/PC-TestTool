@@ -32,8 +32,9 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
     public final static String PROPERTY_NAME = "at.oefg1880.swing.list.KandidatList";
     private ResourceHandler rh = ResourceHandler.getInstance();
     private GradientPanel cell;
-    private JLabel labelName, labelGeburtsdatum, labelGeburtsort, labelPLZ,
-            labelOrt, labelStrasse;
+    private JLabel labelName, labelGeburtsdatumOrt, labelStrasse, labelPLZOrt;
+    private JLabel labelAnwesend, labelKursgebuehr, labelPassfoto, labelFischerkarte;
+    private JCheckBox checkBoxAnwesend, checkBoxKursgebuehr, checkBoxPassfoto, checkBoxFischerkarte;
     private static Color listForeground, listBackground, listSelectionForeground, listSelectionBackground;
     private DefaultListModel model;
     private TestToolFrame frame;
@@ -81,6 +82,15 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
                     menu.show((JList) e.getSource(), e.getX(), e.getY());
                 }
             }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+//                int index = locationToIndex(e.getPoint());
+//                getComponentAt(e.getPoint())
+//                if (index > -1) {
+//                    Kandidat kandidat = (Kandidat) getModel().getElementAt(index);
+//                }
+            }
         });
 
         addKeyListener(new KeyAdapter() {
@@ -122,8 +132,8 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
         setModel(model);
         setBorder(BorderFactory.createLineBorder(Color.black));
 
-        FormLayout layout = new FormLayout("6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu",
-                "6dlu,pref,3dlu,pref,6dlu");
+        FormLayout layout = new FormLayout("6dlu,pref,6dlu,pref,3dlu,pref,6dlu",
+                "6dlu,pref,3dlu,pref,3dlu,pref,3dlu,pref,3dlu,pref,6dlu");
         CellConstraints cc = new CellConstraints();
         cell = new GradientPanel(IConfig.HORIZONTAL);
 //    cell = new FormDebugPanel(layout);
@@ -133,26 +143,38 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
         Font titleFont = defaultFont.deriveFont(Font.BOLD, defaultFont.getSize() + 4);
         labelName.setFont(titleFont);
 
-        labelGeburtsdatum = new JLabel();
-        labelGeburtsort = new JLabel();
-        labelPLZ = new JLabel();
-
-        labelOrt = new JLabel();
+        labelGeburtsdatumOrt = new JLabel();
+        labelPLZOrt = new JLabel();
         labelStrasse = new JLabel();
 
-        cell.add(labelName, cc.xywh(2, 2, 11, 1));
-        cell.add(labelOrt, cc.xy(2, 4));
-        cell.add(labelGeburtsdatum, cc.xy(4, 4));
-        cell.add(labelStrasse, cc.xy(6, 4));
-        cell.add(labelGeburtsort, cc.xy(8, 4));
-        cell.add(labelPLZ, cc.xy(12, 4));
+        labelAnwesend = new JLabel("Anwesend");
+        labelKursgebuehr = new JLabel("Kursgebühr");
+        labelPassfoto = new JLabel("Passfoto");
+        labelFischerkarte = new JLabel("Fischerkarte");
+
+        checkBoxAnwesend = new JCheckBox();
+        checkBoxKursgebuehr = new JCheckBox();
+        checkBoxPassfoto = new JCheckBox();
+        checkBoxFischerkarte = new JCheckBox();
+
+        cell.add(labelName, cc.xywh(2, 2, 6, 1));
+        cell.add(labelStrasse, cc.xy(2, 4));
+        cell.add(labelPLZOrt, cc.xy(2, 6));
+        cell.add(labelGeburtsdatumOrt, cc.xy(2, 8));
+        cell.add(labelAnwesend, cc.xy(4, 4));
+        cell.add(checkBoxAnwesend, cc.xy(6, 4));
+        cell.add(labelKursgebuehr, cc.xy(4, 6));
+        cell.add(checkBoxKursgebuehr, cc.xy(6, 6));
+        cell.add(labelPassfoto, cc.xy(4, 8));
+        cell.add(checkBoxPassfoto, cc.xy(6, 8));
+        cell.add(labelFischerkarte, cc.xy(4, 10));
+        cell.add(checkBoxFischerkarte, cc.xy(6, 10));
 
         cell.setOpaque(true);
     }
 
-    public void add(String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort) {
-        int index = model.getSize();
-        Kandidat kandidat = new Kandidat(index, name, strasse, PLZ, ort, telephone, email, geburtstag, geburtsort);
+    public void add(String title, String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort) {
+        Kandidat kandidat = new Kandidat(title, name, strasse, PLZ, ort, telephone, email, geburtstag, geburtsort);
         add(kandidat);
     }
 
@@ -192,13 +214,11 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             if (value instanceof Kandidat) {
                 Kandidat kandidat = (Kandidat) value;
-                kandidat.setIndex(index);
                 labelName.setText(kandidat.getName());
-                labelGeburtsdatum.setText(new SimpleDateFormat("dd.MM.yyyy").format(kandidat.getGeburtstag()));
-                labelGeburtsort.setText(kandidat.getGeburtsort());
-                labelPLZ.setText(kandidat.getPLZ() + "");
-                labelOrt.setText(kandidat.getOrt());
                 labelStrasse.setText(kandidat.getStrasse());
+                labelPLZOrt.setText(kandidat.getPLZ() + " " + kandidat.getOrt());
+                labelGeburtsdatumOrt.setText(new SimpleDateFormat("dd.MM.yyyy").format(kandidat.getGeburtstag()) + " in " + kandidat.getGeburtsort());
+
                 log.debug(isSelected ? "Cell selected: " + cell : "Cell: " + cell);
                 for (Component c : cell.getComponents()) {
                     if (isSelected) {

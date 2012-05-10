@@ -14,10 +14,10 @@ public class Fragebogen {
     private int existing;
     private int[] solutions;
     private ArrayList<Antwort> antworten;
-    private int index;
+    private static int index;
 
-    public Fragebogen(int index, String title, int existing, int[] solutions) {
-        this.index = index;
+    public Fragebogen(String title, int existing, int[] solutions) {
+        this.index++;
         this.title = title;
         this.existing = existing;
         this.solutions = solutions;
@@ -67,10 +67,6 @@ public class Fragebogen {
 
     public int getIndex() {
         return this.index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 
     public void setTitle(String title) {

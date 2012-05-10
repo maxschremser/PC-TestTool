@@ -140,8 +140,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
     }
 
     public void add(String name, int vorhanden, int[] values) {
-        int index = model.getSize();
-        add(new Fragebogen(index, name, vorhanden, values));
+        add(new Fragebogen(name, vorhanden, values));
     }
 
     public void add(Fragebogen fragebogen) {
@@ -180,7 +179,6 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             if (value instanceof Fragebogen) {
                 Fragebogen fragebogen = (Fragebogen) value;
-                fragebogen.setIndex(index);
                 labelTitle.setText(fragebogen.getTitle());
                 labelVorhanden.setText(fragebogen.getExisting() + "");
                 labelGeloest.setText(fragebogen.getSolved() + "");

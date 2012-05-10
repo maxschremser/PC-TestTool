@@ -301,7 +301,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
             for (int s = 0; s < numSheets; s++) {
                 Sheet sheet = wb.getSheetAt(s);
-                int existing = Double.valueOf(sheet.getRow(0).getCell(5).getNumericCellValue()).intValue();
+//                int existing = Double.valueOf(sheet.getRow(0).getCell(5).getNumericCellValue()).intValue();
                 Row row = sheet.getRow(3);
 
                 // add Solution
@@ -311,10 +311,10 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
                     char cellValue = row.getCell(i).getStringCellValue().toCharArray()[0];
                     solutions[i - 4] = AntwortTextField.translate(allowedValues, cellValue);
                 }
-                Fragebogen fragebogen = new Fragebogen(s, sheet.getSheetName(), existing, solutions);
+//                Fragebogen fragebogen = new Fragebogen(sheet.getSheetName(), existing, solutions);
 
                 int numAnswers = sheet.getLastRowNum() - 5; // the last row is also an answer
-                int[][] answers = new int[numAnswers][numSolutions];
+//                int[][] answers = new int[numAnswers][numSolutions];
 
                 throw new Exception("Method needs to be implemented.");
 
