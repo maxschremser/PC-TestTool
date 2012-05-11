@@ -13,15 +13,19 @@ import com.jgoodies.forms.layout.FormLayout;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Vector;
 
 /**
+ * !!! MAKE IT TO JTABLE !!!
+ * http://pekalicious.com/blog/custom-jpanel-cell-with-jbuttons-in-jtable/
+ *
+ *
  * Created by IntelliJ IDEA.
  * User: schremse
  * Date: 12.10.2010
@@ -80,16 +84,14 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
                         locationToIndex(e.getPoint()) == getSelectedIndex()) {
                     // right click, open edit menu
                     menu.show((JList) e.getSource(), e.getX(), e.getY());
+                } else if (SwingUtilities.isLeftMouseButton(e)) {
+//                    int index = locationToIndex(e.getPoint());
+                    if (e.getPoint().x > checkBoxAnwesend.getLocation().x && 
+                            e.getPoint().x < (checkBoxAnwesend.getLocation().x + checkBoxAnwesend.getPreferredSize().width) &&
+                        e.getPoint().y > checkBoxAnwesend.getLocation().y &&
+                            e.getPoint().y < (checkBoxAnwesend.getLocation().y + checkBoxAnwesend.getPreferredSize().height))
+                    checkBoxAnwesend.setSelected(!checkBoxAnwesend.isSelected());
                 }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-//                int index = locationToIndex(e.getPoint());
-//                getComponentAt(e.getPoint())
-//                if (index > -1) {
-//                    Kandidat kandidat = (Kandidat) getModel().getElementAt(index);
-//                }
             }
         });
 
@@ -153,6 +155,8 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
         labelFischerkarte = new JLabel("Fischerkarte");
 
         checkBoxAnwesend = new JCheckBox();
+        checkBoxAnwesend.setActionCommand("ANWESEND");
+        checkBoxAnwesend.addActionListener(this);
         checkBoxKursgebuehr = new JCheckBox();
         checkBoxPassfoto = new JCheckBox();
         checkBoxFischerkarte = new JCheckBox();
@@ -210,14 +214,17 @@ public class KandidatList extends JList implements ActionListener, IConfig, ITex
     }
 
     private class KandidatRenderer implements ListCellRenderer {
+
         @Override
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             if (value instanceof Kandidat) {
                 Kandidat kandidat = (Kandidat) value;
+
                 labelName.setText(kandidat.getName());
                 labelStrasse.setText(kandidat.getStrasse());
                 labelPLZOrt.setText(kandidat.getPLZ() + " " + kandidat.getOrt());
                 labelGeburtsdatumOrt.setText(new SimpleDateFormat("dd.MM.yyyy").format(kandidat.getGeburtstag()) + " in " + kandidat.getGeburtsort());
+
 
                 log.debug(isSelected ? "Cell selected: " + cell : "Cell: " + cell);
                 for (Component c : cell.getComponents()) {
