@@ -33,4 +33,9 @@ public class Adresse {
     public String getOrt() {
         return ort;
     }
+
+    @Override
+    public String toString() {
+        return PLZ + " " + ort;
+    }
 }

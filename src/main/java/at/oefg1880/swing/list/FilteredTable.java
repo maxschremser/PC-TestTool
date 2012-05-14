@@ -6,12 +6,12 @@ import at.oefg1880.swing.io.Kandidat;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Vector;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,15 +20,15 @@ import java.util.Vector;
  * Time: 11:55
  * To change this template use File | Settings | File Templates.
  */
-public class FilteredList extends KandidatList {
+public class FilteredTable extends KandidatTable {
     private FilterField filterField;
     private int DEFAULT_FIELD_WIDTH = 20;
 
-    public FilteredList(TestToolFrame frame) {
-        this(frame, new Vector<Kandidat>());
+    public FilteredTable(TestToolFrame frame) {
+        this(frame, new ArrayList<Kandidat>());
     }
 
-    public FilteredList(TestToolFrame frame, Vector<Kandidat> items) {
+    public FilteredTable(TestToolFrame frame, ArrayList<Kandidat> items) {
         super(frame, items);
         Iterator<Kandidat> iter = items.iterator();
         setModel(new FilterModel());
@@ -41,19 +41,19 @@ public class FilteredList extends KandidatList {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    setText(((Kandidat) getSelectedValue()).getName());
-                    setSelectedIndex(0);
+//                    setText(((Kandidat) getSelectedValue()).getName());
+//                    setSelectedIndex(0);
                 }
             }
         });
 
     }
 
-    @Override
-    public void setModel(ListModel model) {
+//    @Override
+//    public void setModel(ListModel model) {
 //    if (!(model instanceof FilterModel)) throw new IllegalArgumentException();
-        super.setModel(model);
-    }
+//        super.setModel(model);
+//    }
 
     public void addItem(Kandidat item) {
         ((FilterModel) getModel()).addElement(item);
@@ -75,7 +75,7 @@ public class FilteredList extends KandidatList {
         return filterField;
     }
 
-    private class FilterModel extends AbstractListModel {
+    private class FilterModel extends AbstractTableModel {
         ArrayList<Kandidat> items, filterItems;
 
         public FilterModel() {
@@ -85,17 +85,23 @@ public class FilteredList extends KandidatList {
         }
 
         @Override
-        public int getSize() {
+        public int getRowCount() {
             return filterItems.size();
         }
 
         @Override
-        public Object getElementAt(int index) {
-            if (index < filterItems.size()) {
-                return filterItems.get(index);
+        public int getColumnCount() {
+            return 1;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            if (rowIndex < filterItems.size()) {
+                return filterItems.get(rowIndex);
             } else {
                 return null;
             }
+
         }
 
         public void addElement(Kandidat item) {
@@ -111,7 +117,7 @@ public class FilteredList extends KandidatList {
                     filterItems.add(items.get(i));
                 }
             }
-            fireContentsChanged(this, 0, getSize());
+            fireTableDataChanged();
         }
     }
 

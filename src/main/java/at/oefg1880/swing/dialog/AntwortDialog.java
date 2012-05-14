@@ -6,7 +6,7 @@ import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.io.Antwort;
 import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.io.Kandidat;
-import at.oefg1880.swing.list.FilteredList;
+import at.oefg1880.swing.list.FilteredTable;
 import at.oefg1880.swing.panel.AntwortPanel;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
@@ -28,9 +28,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
-import java.util.Vector;
 
 /**
  * Created by IntelliJ IDEA.
@@ -44,7 +44,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     private ResourceHandler rh = ResourceHandler.getInstance();
     private PropertyHandler props = PropertyHandler.getInstance();
     private TestToolFrame frame;
-    private FilteredList tfName;
+    private FilteredTable tfName;
     private AntwortPanel antwortPanel;
     protected Fragebogen fragebogen;
     private Antwort antwort;
@@ -116,8 +116,8 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         labelTitle.setFont(font);
 
         // if Kandidat has given answer, don't add him to the list of objects
-        Vector<Kandidat> objects = new Vector<Kandidat>();
-        Enumeration enumKandidat = ((DefaultListModel) frame.getKandidatPanel().getKandidatList().getModel()).elements();
+        ArrayList<Kandidat> objects = new ArrayList<Kandidat>();
+        Enumeration enumKandidat = ((DefaultListModel) frame.getKandidatPanel().getKandidatTable().getModel()).elements();
         Kandidat kandidat = null;
         while (enumKandidat.hasMoreElements()) {
             boolean bFound = false;
@@ -139,7 +139,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         }
 
 
-        tfName = new FilteredList(frame, objects);
+        tfName = new FilteredTable(frame, objects);
         tfName.setSelectionColor(selectedTextForeground);
         tfName.setBorder(new LineBorder(Color.black));
         tfName.addKeyListener(new KeyAdapter() {
@@ -214,7 +214,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     }
 
     private void save() {
-        Antwort antwort = new Antwort(fragebogen.getAntworten().size(), (Kandidat) tfName.getSelectedValue(), dataset.getValue(1).intValue(), antwortPanel.getValues());
+        Antwort antwort = new Antwort((Kandidat) tfName.getModel().getValueAt(0, 0), dataset.getValue(1).intValue(), antwortPanel.getValues());
         fragebogen.addAntwort(antwort);
     }
 
@@ -251,7 +251,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     private void fillValues() {
         // set Name
         tfName.setText(antwort.getName());
-        tfName.setSelectedIndex(0);
+        tfName.getValueAt(0, 0);
         antwortPanel.setValues(antwort.getAnswers());
     }
 
@@ -260,7 +260,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     }
 
     public boolean hasKandidat() {
-        return tfName.getSelectedValue() != null || antwort.getKandidat() != null;
+        return tfName.getValueAt(0, 0) != null || antwort.getKandidat() != null;
     }
 
     @Override

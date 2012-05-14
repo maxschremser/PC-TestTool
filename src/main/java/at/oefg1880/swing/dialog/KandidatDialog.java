@@ -242,11 +242,11 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
         }
 
         Kandidat kandidat = new Kandidat(tfTitle.getText(), tfName.getText(), new Adresse(tfStrasse.getText(), Integer.valueOf(tfPLZ.getText()), tfOrt.getText()), tfTelefon.getText(), tfEmail.getText(), dt, tfGeburtsort.getText());
-        ((KandidatPanel) frame.getKandidatPanel()).getKandidatList().add(kandidat);
+        ((KandidatPanel) frame.getKandidatPanel()).getKandidatTable().add(kandidat);
     }
 
     private void update() {
-        ((DefaultListModel) ((KandidatPanel) frame.getKandidatPanel()).getKandidatList().getModel()).setElementAt(kandidat, kandidat.getIndex());
+        ((DefaultListModel) ((KandidatPanel) frame.getKandidatPanel()).getKandidatTable().getModel()).setElementAt(kandidat, kandidat.getIndex());
     }
 
     private void close() {

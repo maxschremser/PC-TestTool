@@ -13,8 +13,8 @@ public class Antwort {
     private int[] answers;
     private int index;
 
-    public Antwort(int index, Kandidat kandidat, int percentages, int[] answers) {
-        this.index = index;
+    public Antwort(Kandidat kandidat, int percentages, int[] answers) {
+        this.index++;
         this.kandidat = kandidat;
         this.percentages = percentages;
         this.answers = answers;

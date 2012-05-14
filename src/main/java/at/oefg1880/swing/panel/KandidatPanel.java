@@ -5,7 +5,7 @@ import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.dialog.KandidatDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.io.Kandidat;
-import at.oefg1880.swing.list.KandidatList;
+import at.oefg1880.swing.list.KandidatTable;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.factories.ButtonBarFactory;
@@ -34,7 +34,7 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
     protected PropertyHandler props = PropertyHandler.getInstance();
     protected ResourceHandler rh = ResourceHandler.getInstance();
     protected final Logger log = Logger.getLogger(getClass());
-    private KandidatList list;
+    private KandidatTable list;
     private final String NEW = "new", SAVE = "save";
     private JButton buttonSave, buttonNew;
 
@@ -77,16 +77,16 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
         JPanel buttonBarPanel = ButtonBarFactory.buildAddRemoveRightBar(buttonSave, buttonNew);
         buttonBarPanel.setOpaque(false);
         add(buttonBarPanel, cc.xy(4, 2));
-        JScrollPane scrollPaneList = new JScrollPane(getKandidatList(),
+        JScrollPane scrollPaneList = new JScrollPane(getKandidatTable(),
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPaneList.setPreferredSize(new Dimension((int) getWidth(), 170));
         add(scrollPaneList, cc.xywh(2, 4, 3, 1));
     }
 
-    public KandidatList getKandidatList() {
+    public KandidatTable getKandidatTable() {
         if (list == null) {
-            list = new KandidatList(frame);
+            list = new KandidatTable(frame);
             list.requestFocus();
         }
         return list;
