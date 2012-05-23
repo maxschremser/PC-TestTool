@@ -5,6 +5,7 @@ import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.io.Kandidat;
+import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.KandidatPanel;
 import at.oefg1880.swing.utils.ResourceHandler;
@@ -36,12 +37,14 @@ import java.util.Vector;
  * Time: 14:32:28
  * To change this template use File | Settings | File Templates.
  */
-public class KandidatTable extends JTable implements IConfig, ITexts {
+public class KandidatTable extends JTable implements ActionListener, IConfig, ITexts {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.list.KandidatTable";
     private ResourceHandler rh = ResourceHandler.getInstance();
 
     private static Color listForeground, listBackground, listSelectionForeground, listSelectionBackground;
-//    private AbstractTableModel model;
+    private AbstractTableModel model;
+    private JPopupMenu menu;
+    private JMenuItem menuEdit, menuDelete;
     private TestToolFrame frame;
     private ArrayList<Kandidat> items;
     private static Logger log = Logger.getLogger(FragebogenList.class);
@@ -66,73 +69,61 @@ public class KandidatTable extends JTable implements IConfig, ITexts {
     }
 
     private void setup() {
-        setModel(new KandidatTableModel(items));
+        model = new KandidatTableModel(items);
+        setModel(model);
 //        setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setDefaultRenderer(Kandidat.class, new KandidatCell());
         setDefaultEditor(Kandidat.class, new KandidatCell());
         setRowHeight(120);
 
-//        addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                // open KandidatDialog
-//                menu.setVisible(false);
-//                if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
-//                    ((KandidatPanel) frame.getKandidatPanel()).editKandidatDialog((Kandidat) getSelectedValue());
-//                } else if (SwingUtilities.isRightMouseButton(e) && !isSelectionEmpty() &&
-//                        locationToIndex(e.getPoint()) == getSelectedIndex()) {
-//                    // right click, open edit menu
-//                    menu.show((JList) e.getSource(), e.getX(), e.getY());
-//                } else if (SwingUtilities.isLeftMouseButton(e)) {
-////                    int index = locationToIndex(e.getPoint());
-//                    if (e.getPoint().x > checkBoxAnwesend.getLocation().x &&
-//                            e.getPoint().x < (checkBoxAnwesend.getLocation().x + checkBoxAnwesend.getPreferredSize().width) &&
-//                        e.getPoint().y > checkBoxAnwesend.getLocation().y &&
-//                            e.getPoint().y < (checkBoxAnwesend.getLocation().y + checkBoxAnwesend.getPreferredSize().height))
-//                    checkBoxAnwesend.setSelected(!checkBoxAnwesend.isSelected());
-//                }
-//            }
-//        });
+        menu = new JPopupMenu();
+        menu.setBorderPainted(true);
+        menu.add(menuEdit = new JMenuItem(rh.getString(PROPERTY_NAME, EDIT)));
+        menuEdit.addActionListener(this);
+        menu.add(menuDelete = new JMenuItem(rh.getString(PROPERTY_NAME, DELETE)));
+        menuDelete.addActionListener(this);
 
-//        addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                super.keyPressed(e);
-//                int key = e.getKeyCode();
-//                // 49=1, 50=2,...57=9   on keyboard
-//                // 97=1, 98=2,...105=9  on numpad
-//                if (key == KeyEvent.VK_ENTER) {            // handle enter key pressed
-//                    // open KandidatDialog
-//                    if (getSelectedIndex() >= 0)
-//                        ((KandidatPanel) frame.getKandidatPanel()).editKandidatDialog((Kandidat) getSelectedValue());
-//                } else if (key == KeyEvent.VK_N) {
-//                    ((KandidatPanel) frame.getKandidatPanel()).getButtonNew().doClick();
-//                } else if (key == KeyEvent.VK_S) {
-//                    if (((KandidatPanel) frame.getKandidatPanel()).getButtonSave().isEnabled()) {
-//                        ((KandidatPanel) frame.getKandidatPanel()).getButtonSave().doClick();
-//                    }
-//                } else if (key == KeyEvent.VK_DELETE) {
-//                    String title = ((Fragebogen) getSelectedValue()).getTitle();
-//                    int n = frame.showDeleteDialog(((KandidatPanel) frame.getKandidatPanel()).getKandidatTable(), rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
-//                    if (n == JOptionPane.OK_OPTION) // JA
-//                        model.remove(getSelectedIndex());
-//                } else {
-//                    int index = (key >= 49 && key <= 57) ? key - 49 :
-//                            (key >= 97 && key <= 105) ? key - 97 : -1;
-//                    if (index >= 0 && index <= 9) {
-//                        setSelectedIndex(index);
-//                        ensureIndexIsVisible(index);
-//                    }
-//                }
-//            }
-//        });
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // open KandidatDialog
+                menu.setVisible(false);
+                if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
+                    ((KandidatPanel) frame.getKandidatPanel()).editKandidatDialog((Kandidat) items.get(getSelectedRow()));
+                } else if (SwingUtilities.isRightMouseButton(e) && getSelectedRow() > -1) {
+                    // right click, open edit menu
+                    menu.show((JList) e.getSource(), e.getX(), e.getY());
+                }
+            }
+        });
 
-//        setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        setModel(model);
-//        setCellRenderer(new KandidatRenderer());
+
 
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == menuEdit) {
+            ((KandidatPanel) frame.getKandidatPanel()).editKandidatDialog(items.get(getSelectedRow()));
+        } else if (e.getSource() == menuDelete) {
+            String title = ((Kandidat) items.get(getSelectedRow())).getName();
+            int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
+            if (n == 0) // JA
+                model.fireTableRowsDeleted(getSelectedRow(), getSelectedRow());
+            if (model.getRowCount() <= 0)
+                frame.enableButtonSave(false);
+        } else if (OK.equals(e.getActionCommand())) {
+            frame.setReturnValue(JOptionPane.OK_OPTION);
+            frame.getDialog().dispose();
+        } else if (CANCEL.equals(e.getActionCommand())) {
+            frame.setReturnValue(JOptionPane.CANCEL_OPTION);
+            frame.getDialog().dispose();
+        } else if (NO.equals(e.getActionCommand())) {
+            frame.setReturnValue(JOptionPane.NO_OPTION);
+            frame.getDialog().dispose();
+        }
+    }
+    
     public void add(String title, String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort) {
         Kandidat kandidat = new Kandidat(title, name, strasse, PLZ, ort, telephone, email, geburtstag, geburtsort);
         add(kandidat);
@@ -206,6 +197,11 @@ public class KandidatTable extends JTable implements IConfig, ITexts {
         public Class<?> getColumnClass(int columnIndex) {
             return Kandidat.class;
         }
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return true;
+        }
     }
 
     private class KandidatCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
@@ -214,8 +210,8 @@ public class KandidatTable extends JTable implements IConfig, ITexts {
         private JMenuItem menuEdit, menuDelete;
         private GradientPanel cell;
         private JLabel labelName, labelGeburtsdatumOrt, labelStrasse, labelPLZOrt;
-        private JLabel labelAnwesend, labelKursgebuehr, labelPassfoto, labelFischerkarte;
-        private JCheckBox checkBoxAnwesend, checkBoxKursgebuehr, checkBoxPassfoto, checkBoxFischerkarte;
+        private JLabel labelAnwesend, labelKursgebuehr, labelPassfoto;
+        private JCheckBox checkBoxAnwesend, checkBoxKursgebuehr, checkBoxPassfoto;
 
         public KandidatCell() {
             menu = new JPopupMenu();
@@ -229,7 +225,7 @@ public class KandidatTable extends JTable implements IConfig, ITexts {
             setBorder(BorderFactory.createLineBorder(Color.black));
 
             FormLayout layout = new FormLayout("6dlu,pref,6dlu,pref,3dlu,pref,6dlu",
-                    "6dlu,pref,3dlu,pref,3dlu,pref,3dlu,pref,3dlu,pref,6dlu");
+                    "6dlu,pref,3dlu,pref,3dlu,pref,3dlu,pref,6dlu");
             CellConstraints cc = new CellConstraints();
             cell = new GradientPanel(IConfig.HORIZONTAL);
 //    cell = new FormDebugPanel(layout);
@@ -246,14 +242,29 @@ public class KandidatTable extends JTable implements IConfig, ITexts {
             labelAnwesend = new JLabel("Anwesend");
             labelKursgebuehr = new JLabel("Kursgebühr");
             labelPassfoto = new JLabel("Passfoto");
-            labelFischerkarte = new JLabel("Fischerkarte");
 
             checkBoxAnwesend = new JCheckBox();
             checkBoxAnwesend.setActionCommand("ANWESEND");
-//            checkBoxAnwesend.addActionListener(this);
+            checkBoxAnwesend.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    kandidat.setAnwesend(checkBoxAnwesend.isSelected());
+                }
+            });
             checkBoxKursgebuehr = new JCheckBox();
+            checkBoxKursgebuehr.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    kandidat.setbKursgebuehrBezahlt(checkBoxKursgebuehr.isSelected());
+                }
+            });
             checkBoxPassfoto = new JCheckBox();
-            checkBoxFischerkarte = new JCheckBox();
+            checkBoxPassfoto.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    kandidat.setPassPhoto(checkBoxPassfoto.isSelected());
+                }
+            });
 
             cell.add(labelName, cc.xywh(2, 2, 6, 1));
             cell.add(labelStrasse, cc.xy(2, 4));
@@ -265,9 +276,6 @@ public class KandidatTable extends JTable implements IConfig, ITexts {
             cell.add(checkBoxKursgebuehr, cc.xy(6, 6));
             cell.add(labelPassfoto, cc.xy(4, 8));
             cell.add(checkBoxPassfoto, cc.xy(6, 8));
-            cell.add(labelFischerkarte, cc.xy(4, 10));
-            cell.add(checkBoxFischerkarte, cc.xy(6, 10));
-
             cell.setOpaque(true);
         }
 
@@ -278,6 +286,9 @@ public class KandidatTable extends JTable implements IConfig, ITexts {
             labelStrasse.setText(kandidat.getStrasse());
             labelPLZOrt.setText(kandidat.getPLZ() + " " + kandidat.getOrt());
             labelGeburtsdatumOrt.setText(new SimpleDateFormat("dd.MM.yyyy").format(kandidat.getGeburtstag()) + " in " + kandidat.getGeburtsort());
+            checkBoxAnwesend.setSelected(kandidat.isAnwesend());
+            checkBoxPassfoto.setSelected(kandidat.hasPassPhoto());
+            checkBoxKursgebuehr.setSelected(kandidat.hasKursgebuehrBezahlt());
 
             for (Component c : cell.getComponents()) {
                 if (isSelected) {

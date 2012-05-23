@@ -20,7 +20,7 @@ public class Kandidat {
     private Date geburtstag;
     private String geburtsort;
     private boolean bPassPhoto;
-    private boolean bKursunterlagen;
+    private boolean bKursgebuehr;
     private boolean bAnwesend;
 
     public Kandidat() {
@@ -79,12 +79,12 @@ public class Kandidat {
         this.bPassPhoto = bPassPhoto;
     }
 
-    public boolean hasKursunterlagen() {
-        return bKursunterlagen;
+    public boolean hasKursgebuehrBezahlt() {
+        return bKursgebuehr;
     }
 
-    public void setbKursunterlagen(boolean bKursunterlagen) {
-        this.bKursunterlagen = bKursunterlagen;
+    public void setbKursgebuehrBezahlt(boolean bKursgebuehrBezahlt) {
+        this.bKursgebuehr = bKursgebuehrBezahlt;
     }
 
     public boolean isAnwesend() {
