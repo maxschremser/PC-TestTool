@@ -5,6 +5,7 @@ import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.io.Adresse;
 import at.oefg1880.swing.io.Kandidat;
+import at.oefg1880.swing.list.KandidatTable;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.KandidatPanel;
 import at.oefg1880.swing.utils.PropertyHandler;
@@ -15,6 +16,8 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
@@ -241,17 +244,34 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
             pe.printStackTrace();
         }
 
-        Kandidat kandidat = new Kandidat(tfTitle.getText(), tfName.getText(), new Adresse(tfStrasse.getText(), Integer.valueOf(tfPLZ.getText()), tfOrt.getText()), tfTelefon.getText(), tfEmail.getText(), dt, tfGeburtsort.getText());
+        kandidat = new Kandidat(tfTitle.getText(), tfName.getText(), new Adresse(tfStrasse.getText(), Integer.valueOf(tfPLZ.getText()), tfOrt.getText()), tfTelefon.getText(), tfEmail.getText(), dt, tfGeburtsort.getText(), cbPassfoto.isSelected(), cbKursunterlagen.isSelected(), cbAnwesend.isSelected());
         ((KandidatPanel) frame.getKandidatPanel()).getKandidatTable().add(kandidat);
     }
 
     private void update() {
-        ((DefaultListModel) ((KandidatPanel) frame.getKandidatPanel()).getKandidatTable().getModel()).setElementAt(kandidat, kandidat.getIndex());
+        kandidat.setTelephone(tfTitle.getText());
+        kandidat.setName(tfName.getText());
+        kandidat.setAdresse(new Adresse(tfStrasse.getText(), Integer.valueOf(tfPLZ.getText()), tfOrt.getText()));
+        kandidat.setGeburtsort(tfGeburtsort.getText());
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
+        Date dt = new Date();
+        try {
+            dt = sdf.parse(comboGeburtstagTag.getSelectedItem() + "/" + (comboGeburtstagMonat.getSelectedIndex() + 1) + "/" + comboGeburtstagJahr.getSelectedItem());
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+        kandidat.setGeburtstag(dt);
+        kandidat.setAnwesend(cbAnwesend.isSelected());
+        kandidat.setPassPhoto(cbPassfoto.isSelected());
+        kandidat.setKursgebuehrBezahlt(cbKursunterlagen.isSelected());
+
+        ((DefaultTableModel) ((KandidatPanel) frame.getKandidatPanel()).getKandidatTable().getModel()).setValueAt(kandidat, kandidat.getIndex()-1, 0);
     }
 
     private void close() {
         saveOrUpdate();
         reset();
+        ((DefaultTableModel) ((KandidatPanel) frame.getKandidatPanel()).getKandidatTable().getModel()).fireTableRowsUpdated(kandidat.getIndex()-1,kandidat.getIndex()-1);
         dispose();
     }
 
@@ -273,10 +293,18 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
 
     private void fillValues() {
         // set Name
+        labelTitle.setText(kandidat.getName());
+        tfTitle.setText(kandidat.getTitle());
         tfName.setText(kandidat.getName());
         tfStrasse.setText(kandidat.getStrasse());
         tfPLZ.setText(kandidat.getPLZ() + "");
         tfOrt.setText(kandidat.getOrt());
+        comboGeburtstagTag.setSelectedItem(new SimpleDateFormat("d").format(kandidat.getGeburtstag()));
+        comboGeburtstagMonat.setSelectedItem(rh.getString(PROPERTY_NAME, MONTHS).split(",")[Integer.valueOf(new SimpleDateFormat("M").format(kandidat.getGeburtstag()))-1]);
+        comboGeburtstagJahr.setSelectedItem(new SimpleDateFormat("yyyy").format(kandidat.getGeburtstag()));
         tfGeburtsort.setText(kandidat.getGeburtsort());
+        cbAnwesend.setSelected(kandidat.isAnwesend());
+        cbPassfoto.setSelected(kandidat.hasPassPhoto());
+        cbKursunterlagen.setSelected(kandidat.hasKursgebuehrBezahlt());
     }
 }

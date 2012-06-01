@@ -5,6 +5,7 @@ import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.io.Kandidat;
+import at.oefg1880.swing.model.KandidatTableModel;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.KandidatPanel;
@@ -17,6 +18,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
@@ -124,8 +126,8 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         }
     }
     
-    public void add(String title, String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort) {
-        Kandidat kandidat = new Kandidat(title, name, strasse, PLZ, ort, telephone, email, geburtstag, geburtsort);
+    public void add(String title, String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort, boolean bPassPhoto, boolean bKursgebuehr, boolean bAnwesend) {
+        Kandidat kandidat = new Kandidat(title, name, strasse, PLZ, ort, telephone, email, geburtstag, geburtsort, bPassPhoto, bKursgebuehr, bAnwesend);
         add(kandidat);
     }
 
@@ -165,44 +167,6 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
 //            frame.getDialog().dispose();
 //        }
 //    }
-
-    private class KandidatTableModel extends AbstractTableModel {
-        ArrayList<Kandidat> items;
-
-        public KandidatTableModel(ArrayList<Kandidat> items) {
-            this.items = items;
-        }
-
-        @Override
-        public int getRowCount() {
-            return (items == null) ? 0 : items.size();
-        }
-
-        @Override
-        public int getColumnCount() {
-            return 1;
-        }
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            return (items == null) ? null : items.get(rowIndex);
-        }
-
-        @Override
-        public String getColumnName(int column) {
-            return "Kandidaten";
-        }
-
-        @Override
-        public Class<?> getColumnClass(int columnIndex) {
-            return Kandidat.class;
-        }
-
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return true;
-        }
-    }
 
     private class KandidatCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
         private Kandidat kandidat;
@@ -255,7 +219,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
             checkBoxKursgebuehr.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    kandidat.setbKursgebuehrBezahlt(checkBoxKursgebuehr.isSelected());
+                    kandidat.setKursgebuehrBezahlt(checkBoxKursgebuehr.isSelected());
                 }
             });
             checkBoxPassfoto = new JCheckBox();

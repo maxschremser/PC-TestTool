@@ -27,11 +27,11 @@ public class Kandidat {
         super();
     }
 
-    public Kandidat(String title, String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort) {
-        this(title, name, new Adresse(strasse, PLZ, ort), telephone, email, geburtstag, geburtsort);
+    public Kandidat(String title, String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort, boolean bPassPhoto, boolean bKursgebuehr, boolean bAnwesend) {
+        this(title, name, new Adresse(strasse, PLZ, ort), telephone, email, geburtstag, geburtsort, bPassPhoto, bKursgebuehr, bAnwesend);
     }
 
-    public Kandidat(String title, String name, Adresse adresse, String telephone, String email, Date geburtstag, String geburtsort) {
+    public Kandidat(String title, String name, Adresse adresse, String telephone, String email, Date geburtstag, String geburtsort, boolean bPassPhoto, boolean bKursgebuehr, boolean bAnwesend) {
         this();
         this.index++;
         this.title = title;
@@ -41,10 +41,17 @@ public class Kandidat {
         this.email = email;
         this.geburtstag = geburtstag;
         this.geburtsort = geburtsort;
+        this.bPassPhoto = bPassPhoto;
+        this.bKursgebuehr = bKursgebuehr;
+        this.bAnwesend = bAnwesend;
     }
 
     public int getIndex() {
         return index;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public String getName() {
@@ -83,7 +90,7 @@ public class Kandidat {
         return bKursgebuehr;
     }
 
-    public void setbKursgebuehrBezahlt(boolean bKursgebuehrBezahlt) {
+    public void setKursgebuehrBezahlt(boolean bKursgebuehrBezahlt) {
         this.bKursgebuehr = bKursgebuehrBezahlt;
     }
 
@@ -94,4 +101,33 @@ public class Kandidat {
     public void setAnwesend(boolean bAnwesend) {
         this.bAnwesend = bAnwesend;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setGeburtstag(Date geburtstag) {
+        this.geburtstag = geburtstag;
+    }
+
+    public void setGeburtsort(String geburtsort) {
+        this.geburtsort = geburtsort;
+    }
+
 }

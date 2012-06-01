@@ -7,6 +7,8 @@ import at.oefg1880.swing.io.Antwort;
 import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.list.FilteredTable;
+import at.oefg1880.swing.list.KandidatTable;
+import at.oefg1880.swing.model.KandidatTableModel;
 import at.oefg1880.swing.panel.AntwortPanel;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
@@ -24,6 +26,8 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
@@ -31,6 +35,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.Vector;
 
 /**
  * Created by IntelliJ IDEA.
@@ -117,11 +122,12 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
 
         // if Kandidat has given answer, don't add him to the list of objects
         ArrayList<Kandidat> objects = new ArrayList<Kandidat>();
-        Enumeration enumKandidat = ((DefaultListModel) frame.getKandidatPanel().getKandidatTable().getModel()).elements();
+        Vector<Kandidat> vKandidat = ((KandidatTableModel) frame.getKandidatPanel().getKandidatTable().getModel()).getDataVector();
         Kandidat kandidat = null;
-        while (enumKandidat.hasMoreElements()) {
+        Iterator<Kandidat> iterKandidat = vKandidat.iterator();
+        while (iterKandidat.hasNext()) {
             boolean bFound = false;
-            kandidat = (Kandidat) enumKandidat.nextElement();
+            kandidat = iterKandidat.next();
             Enumeration enumFragebogen = ((DefaultListModel) frame.getFragebogenPanel().getFragebogenList().getModel()).elements();
             while (enumFragebogen.hasMoreElements()) {
                 Fragebogen fb = (Fragebogen) enumFragebogen.nextElement();
