@@ -122,7 +122,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
 
         // if Kandidat has given answer, don't add him to the list of objects
         ArrayList<Kandidat> objects = new ArrayList<Kandidat>();
-        Vector<Kandidat> vKandidat = ((KandidatTableModel) frame.getKandidatPanel().getKandidatTable().getModel()).getDataVector();
+        ArrayList<Kandidat> vKandidat = ((KandidatTableModel) frame.getKandidatPanel().getKandidatTable().getModel()).getItems();
         Kandidat kandidat = null;
         Iterator<Kandidat> iterKandidat = vKandidat.iterator();
         while (iterKandidat.hasNext()) {

@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class KandidatTableModel extends DefaultTableModel {
-    ArrayList<Kandidat> items;
+    protected ArrayList<Kandidat> items;
 
     public KandidatTableModel(ArrayList<Kandidat> items) {
         this.items = items;
@@ -53,5 +53,9 @@ public class KandidatTableModel extends DefaultTableModel {
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return true;
+    }
+
+    public ArrayList<Kandidat> getItems() {
+        return items;
     }
 }

@@ -2,11 +2,13 @@ package at.oefg1880.swing.list;
 
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.io.Kandidat;
+import at.oefg1880.swing.model.KandidatTableModel;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -41,7 +43,7 @@ public class FilteredTable extends KandidatTable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
-//                    setText(((Kandidat) getSelectedValue()).getName());
+                    setText(((Kandidat) getItems().get(getSelectedRow())).getName());
 //                    setSelectedIndex(0);
                 }
             }
@@ -75,26 +77,22 @@ public class FilteredTable extends KandidatTable {
         return filterField;
     }
 
-    private class FilterModel extends AbstractTableModel {
-        ArrayList<Kandidat> items, filterItems;
+    private class FilterModel extends KandidatTableModel {
+        ArrayList<Kandidat> filterItems;
 
         public FilterModel() {
-            super();
-            items = new ArrayList<Kandidat>();
-            filterItems = new ArrayList<Kandidat>();
+            super(new ArrayList<Kandidat>());
+            this.filterItems = new ArrayList<Kandidat>();
         }
 
-        @Override
         public int getRowCount() {
-            return filterItems.size();
+            return filterItems != null ? filterItems.size() : 0;
         }
 
-        @Override
         public int getColumnCount() {
-            return 1;  //To change body of implemented methods use File | Settings | File Templates.
+            return 1;
         }
 
-        @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             if (rowIndex < filterItems.size()) {
                 return filterItems.get(rowIndex);

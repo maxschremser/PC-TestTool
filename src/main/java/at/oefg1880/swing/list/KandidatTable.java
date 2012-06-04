@@ -70,6 +70,10 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         setup();
     }
 
+    public ArrayList<Kandidat> getItems() {
+        return items;
+    }
+
     private void setup() {
         model = new KandidatTableModel(items);
         setModel(model);
@@ -94,7 +98,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
                     ((KandidatPanel) frame.getKandidatPanel()).editKandidatDialog((Kandidat) items.get(getSelectedRow()));
                 } else if (SwingUtilities.isRightMouseButton(e) && getSelectedRow() > -1) {
                     // right click, open edit menu
-                    menu.show((JList) e.getSource(), e.getX(), e.getY());
+                    menu.show((JTable) e.getSource(), e.getX(), e.getY());
                 }
             }
         });
@@ -171,7 +175,6 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
     private class KandidatCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
         private Kandidat kandidat;
         private JPopupMenu menu;
-        private JMenuItem menuEdit, menuDelete;
         private GradientPanel cell;
         private JLabel labelName, labelGeburtsdatumOrt, labelStrasse, labelPLZOrt;
         private JLabel labelAnwesend, labelKursgebuehr, labelPassfoto;
