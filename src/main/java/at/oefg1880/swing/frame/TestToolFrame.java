@@ -56,9 +56,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     private ImagePanel imagePanel;
     private int returnValue;
     private JDialog dialog;
-    private JMenuBar menuBar;
-    private JMenu menu, subMenu;
-    private JMenuItem menuItem;
 
     public abstract String getImageName();
 
@@ -81,17 +78,17 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     private void createJMenuBar() {
-        menuBar = new JMenuBar();
-        menu = new JMenu(rh.getString(PROPERTY_NAME, FILE));
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu(rh.getString(PROPERTY_NAME, FILE));
         menu.setMnemonic(rh.getString(PROPERTY_NAME, FILE).toCharArray()[0]);
 
-        menuItem = new JMenuItem(rh.getString(PROPERTY_NAME, OPEN));
+        JMenuItem menuItem = new JMenuItem(rh.getString(PROPERTY_NAME, OPEN));
         menuItem.addActionListener(this);
         menuItem.setMnemonic(rh.getString(PROPERTY_NAME, OPEN).toCharArray()[0]);
         menuItem.setActionCommand(OPEN);
         menu.add(menuItem);
 
-        subMenu = new JMenu(rh.getString(PROPERTY_NAME, REOPEN));
+        JMenu subMenu = new JMenu(rh.getString(PROPERTY_NAME, REOPEN));
         subMenu.setMnemonic(rh.getString(PROPERTY_NAME, REOPEN).toCharArray()[0]);
 
         String[] files = props.getProperty(PROPERTY_NAME + "." + REOPEN, "").split(",");
@@ -266,7 +263,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
             file.createNewFile();
             log.info("Saved at: " + file.getAbsolutePath());
             FileOutputStream fos = new FileOutputStream(file);
-            DefaultListModel model = (DefaultListModel) ((FragebogenPanel) getFragebogenPanel()).getFragebogenList().getModel();
+            DefaultListModel model = (DefaultListModel) getFragebogenPanel().getFragebogenList().getModel();
             Enumeration<Fragebogen> enums = (Enumeration<Fragebogen>) model.elements();
             while (enums.hasMoreElements()) {
                 Fragebogen f = enums.nextElement();
@@ -309,7 +306,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
             String reopenConfigString = props.getProperty(PROPERTY_NAME + "." + REOPEN, "");
 
             if (reopenConfigString.length() > 0) {
-                if (reopenConfigString.indexOf(file.getAbsolutePath()) < 0) { // if the file is not already in the list
+                if (reopenConfigString.contains(file.getAbsolutePath())) { // if the file is not already in the list
                     reopenConfigString = file.getAbsolutePath() + "," + reopenConfigString;
                     // maximum files to reopen is limited to 10
                     String[] files = reopenConfigString.split(",");
