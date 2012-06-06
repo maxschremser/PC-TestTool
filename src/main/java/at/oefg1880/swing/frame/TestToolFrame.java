@@ -124,16 +124,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
         menuBar.add(menu);
 
-//    menu = new JMenu(rh.getString(PROPERTY_NAME, HELP));
-//    menuItem = new JMenuItem(rh.getString(PROPERTY_NAME, HELP));
-//    menuItem.addActionListener(this);
-//    menuItem.setMnemonic(rh.getString(PROPERTY_NAME, HELP).toCharArray()[0]);
-//    menuItem.setActionCommand(HELP);
-//
-//    menuBar.add(Box.createHorizontalGlue());
-//
-//    menuBar.add(menu);
-
         setJMenuBar(menuBar);
 
     }
@@ -143,7 +133,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public void enableButtonSave(boolean bEnable) {
-        ((FragebogenPanel) getFragebogenPanel()).getButtonSave().setEnabled(bEnable);
+        getFragebogenPanel().getButtonSave().setEnabled(bEnable);
     }
 
     public JComponent getBottomComponent() {
@@ -203,10 +193,10 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     private void doWindowClosing() {
-        if (((FragebogenPanel) getFragebogenPanel()).getFragebogenList().getModel().getSize() > 0) {
+        if (getFragebogenPanel().getFragebogenList().getModel().getSize() > 0) {
             int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(PROPERTY_NAME, QUESTION_SAVE));
             if (JOptionPane.YES_OPTION == a) {
-                ((FragebogenPanel) getFragebogenPanel()).getButtonSave().doClick();
+                getFragebogenPanel().getButtonSave().doClick();
                 storeProps();
                 dispose();
                 return;
@@ -296,12 +286,11 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
             Workbook wb = new HSSFWorkbook(new FileInputStream(file));
             log.info("Importing from: " + file.getAbsolutePath());
             int numSheets = wb.getNumberOfSheets();
-            DefaultListModel model = (DefaultListModel) ((FragebogenPanel) getFragebogenPanel()).getFragebogenList().getModel();
+            DefaultListModel model = (DefaultListModel) getFragebogenPanel().getFragebogenList().getModel();
             char[] allowedValues = getAllowedValues();
 
             for (int s = 0; s < numSheets; s++) {
                 Sheet sheet = wb.getSheetAt(s);
-//                int existing = Double.valueOf(sheet.getRow(0).getCell(5).getNumericCellValue()).intValue();
                 Row row = sheet.getRow(3);
 
                 // add Solution
@@ -311,30 +300,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
                     char cellValue = row.getCell(i).getStringCellValue().toCharArray()[0];
                     solutions[i - 4] = AntwortTextField.translate(allowedValues, cellValue);
                 }
-//                Fragebogen fragebogen = new Fragebogen(sheet.getSheetName(), existing, solutions);
-
-                int numAnswers = sheet.getLastRowNum() - 5; // the last row is also an answer
-//                int[][] answers = new int[numAnswers][numSolutions];
-
                 throw new Exception("Method needs to be implemented.");
-
-                // add Answers
-//        for (int r = 6; r <= sheet.getLastRowNum(); r++) {
-//          row = sheet.getRow(r);
-//          String name = row.getCell(0).getStringCellValue();
-//          String alter = row.getCell(1).getStringCellValue();
-//          String geschlecht = row.getCell(2).getStringCellValue();
-//          String sPercentage = row.getCell(3).getStringCellValue();
-//          int percentages = Integer.valueOf(sPercentage.substring(0, sPercentage.length() - 1)).intValue();
-//
-//          for (int i = 4; i < row.getLastCellNum(); i++) {
-//            char cellValue = row.getCell(i).getStringCellValue().toCharArray()[0];
-//            answers[r - 6][i - 4] = AntwortTextField.translate(allowedValues, cellValue);
-//          }
-//          fragebogen.addAntwort(new Antwort(r - 6, new Kandidat(0, "tester", new Date(1979, 8, 7)), percentages, answers[r - 6]));
-//        }
-
-//        model.addElement(fragebogen);
             }
             if (model.getSize() > 0) {
                 enableButtonSave(true);
@@ -358,7 +324,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
             } else {
                 reopenConfigString = file.getAbsolutePath();
             }
-
             props.setProperty(PROPERTY_NAME + "." + REOPEN, reopenConfigString);
         } catch (FileNotFoundException fnfne) {
         } catch (IOException ioe) {

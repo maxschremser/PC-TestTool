@@ -77,7 +77,6 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
     private void setup() {
         model = new KandidatTableModel(items);
         setModel(model);
-//        setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setDefaultRenderer(Kandidat.class, new KandidatCell());
         setDefaultEditor(Kandidat.class, new KandidatCell());
         setRowHeight(120);
@@ -95,24 +94,21 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
                 // open KandidatDialog
                 menu.setVisible(false);
                 if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
-                    ((KandidatPanel) frame.getKandidatPanel()).editKandidatDialog((Kandidat) items.get(getSelectedRow()));
+                    frame.getKandidatPanel().editKandidatDialog(items.get(getSelectedRow()));
                 } else if (SwingUtilities.isRightMouseButton(e) && getSelectedRow() > -1) {
                     // right click, open edit menu
                     menu.show((JTable) e.getSource(), e.getX(), e.getY());
                 }
             }
         });
-
-
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menuEdit) {
-            ((KandidatPanel) frame.getKandidatPanel()).editKandidatDialog(items.get(getSelectedRow()));
+            frame.getKandidatPanel().editKandidatDialog(items.get(getSelectedRow()));
         } else if (e.getSource() == menuDelete) {
-            String title = ((Kandidat) items.get(getSelectedRow())).getName();
+            String title = items.get(getSelectedRow()).getName();
             int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
             if (n == 0) // JA
                 model.fireTableRowsDeleted(getSelectedRow(), getSelectedRow());
@@ -149,29 +145,6 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         }
     }
 
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        if (e.getSource() == menuEdit) {
-//            ((KandidatPanel) frame.getKandidatPanel()).editKandidatDialog((Kandidat) getSelectedValue());
-//        } else if (e.getSource() == menuDelete) {
-//            String title = ((Kandidat) getSelectedValue()).getName();
-//            int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
-//            if (n == 0) // JA
-//                model.remove(getSelectedIndex());
-//            if (model.getSize() <= 0)
-//                frame.enableButtonSave(false);
-//        } else if (OK.equals(e.getActionCommand())) {
-//            frame.setReturnValue(JOptionPane.OK_OPTION);
-//            frame.getDialog().dispose();
-//        } else if (CANCEL.equals(e.getActionCommand())) {
-//            frame.setReturnValue(JOptionPane.CANCEL_OPTION);
-//            frame.getDialog().dispose();
-//        } else if (NO.equals(e.getActionCommand())) {
-//            frame.setReturnValue(JOptionPane.NO_OPTION);
-//            frame.getDialog().dispose();
-//        }
-//    }
-
     private class KandidatCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
         private Kandidat kandidat;
         private JPopupMenu menu;
@@ -184,18 +157,13 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
             menu = new JPopupMenu();
             menu.setBorderPainted(true);
             menu.add(menuEdit = new JMenuItem(rh.getString(PROPERTY_NAME, EDIT)));
-//            menuEdit.addActionListener(this);
             menu.add(menuDelete = new JMenuItem(rh.getString(PROPERTY_NAME, DELETE)));
-//            menuDelete.addActionListener(this);
-
-//            setModel(model);
             setBorder(BorderFactory.createLineBorder(Color.black));
 
             FormLayout layout = new FormLayout("6dlu,pref,6dlu,pref,3dlu,pref,6dlu",
                     "6dlu,pref,3dlu,pref,3dlu,pref,3dlu,pref,6dlu");
             CellConstraints cc = new CellConstraints();
             cell = new GradientPanel(IConfig.HORIZONTAL);
-//    cell = new FormDebugPanel(layout);
             cell.setLayout(layout);
             labelName = new JLabel();
             Font defaultFont = labelName.getFont();
