@@ -43,7 +43,7 @@ public class FilteredTable extends KandidatTable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    setText(((Kandidat) getItems().get(getSelectedRow())).getName());
+                    setText(getItems().get(getSelectedRow()).getName());
 //                    setSelectedIndex(0);
                 }
             }
