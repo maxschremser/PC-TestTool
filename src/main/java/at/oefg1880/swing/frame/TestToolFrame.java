@@ -260,7 +260,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
             SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
             String date = sdf.format(cal.getTime());
             file = new File(getFragebogenName() + "-" + date + ".xls");
-            file.createNewFile();
             log.info("Saved at: " + file.getAbsolutePath());
             FileOutputStream fos = new FileOutputStream(file);
             DefaultListModel model = (DefaultListModel) getFragebogenPanel().getFragebogenList().getModel();

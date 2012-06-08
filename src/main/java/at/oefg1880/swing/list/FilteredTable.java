@@ -44,18 +44,11 @@ public class FilteredTable extends KandidatTable {
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     setText(getItems().get(getSelectedRow()).getName());
-//                    setSelectedIndex(0);
                 }
             }
         });
 
     }
-
-//    @Override
-//    public void setModel(ListModel model) {
-//    if (!(model instanceof FilterModel)) throw new IllegalArgumentException();
-//        super.setModel(model);
-//    }
 
     public void addItem(Kandidat item) {
         ((FilterModel) getModel()).addElement(item);

@@ -76,7 +76,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     // Edit Answers given by user
 
     public AntwortDialog(TestToolFrame frame, String title, Fragebogen fragebogen, Antwort antwort) {
-        super(((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenDialog(), title, true);
+        super(frame.getFragebogenPanel().getFragebogenDialog(), title, true);
         this.frame = frame;
         this.fragebogen = fragebogen;
         this.antwort = antwort;
