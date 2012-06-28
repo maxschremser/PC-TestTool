@@ -7,8 +7,6 @@ import at.oefg1880.swing.model.KandidatTableModel;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -43,7 +41,7 @@ public class FilteredTable extends KandidatTable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    setText(getItems().get(getSelectedRow()).getName());
+                    setText(((FilterModel) getModel()).getFilterItems().get(rowAtPoint(e.getPoint())).getName());
                 }
             }
         });
@@ -71,11 +69,15 @@ public class FilteredTable extends KandidatTable {
     }
 
     private class FilterModel extends KandidatTableModel {
-        ArrayList<Kandidat> filterItems;
+        private ArrayList<Kandidat> filterItems;
 
         public FilterModel() {
             super(new ArrayList<Kandidat>());
             this.filterItems = new ArrayList<Kandidat>();
+        }
+
+        public ArrayList<Kandidat> getFilterItems() {
+          return filterItems;
         }
 
         public int getRowCount() {
@@ -92,7 +94,6 @@ public class FilteredTable extends KandidatTable {
             } else {
                 return null;
             }
-
         }
 
         public void addElement(Kandidat item) {
@@ -110,6 +111,7 @@ public class FilteredTable extends KandidatTable {
             }
             fireTableDataChanged();
         }
+
     }
 
     private class FilterField extends JTextField implements DocumentListener {
