@@ -9,14 +9,14 @@ package at.oefg1880.swing.io;
  */
 public class Adresse {
     private String strasse;
-    private int PLZ;
+    private String PLZ;
     private String ort;
 
     public Adresse() {
         super();
     }
 
-    public Adresse(String strasse, int PLZ, String ort) {
+    public Adresse(String strasse, String PLZ, String ort) {
         this.strasse = strasse;
         this.PLZ = PLZ;
         this.ort = ort;
@@ -26,7 +26,7 @@ public class Adresse {
         return strasse;
     }
 
-    public int getPLZ() {
+    public String getPLZ() {
         return PLZ;
     }
 

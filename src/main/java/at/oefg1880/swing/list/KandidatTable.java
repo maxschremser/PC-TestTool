@@ -3,6 +3,8 @@ package at.oefg1880.swing.list;
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
+import at.oefg1880.swing.io.Antwort;
+import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.model.KandidatTableModel;
 import at.oefg1880.swing.panel.GradientPanel;
@@ -122,7 +124,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
     }
   }
 
-  public void add(String title, String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort, boolean bPassPhoto, boolean bKursgebuehr, boolean bAnwesend) {
+  public void add(String title, String name, String strasse, String PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort, boolean bPassPhoto, boolean bKursgebuehr, boolean bAnwesend) {
     Kandidat kandidat = new Kandidat(title, name, strasse, PLZ, ort, telephone, email, geburtstag, geburtsort, bPassPhoto, bKursgebuehr, bAnwesend);
     add(kandidat);
   }
@@ -148,6 +150,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
     private JLabel labelName, labelGeburtsdatumOrt, labelStrasse, labelPLZOrt;
     private JLabel labelAnwesend, labelKursgebuehr, labelPassfoto;
     private JCheckBox checkBoxAnwesend, checkBoxKursgebuehr, checkBoxPassfoto;
+    private JButton openAnswerPanelButton;
 
     public KandidatCell() {
       setup();
@@ -196,15 +199,24 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
           kandidat.setPassPhoto(checkBoxPassfoto.isSelected());
         }
       });
+        
+      openAnswerPanelButton = new JButton("Zeige Test...");
+      openAnswerPanelButton.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              System.out.println("Button: openAnswerPanelButton has been clicked. Fragebogen: " + kandidat.getFragebogen().getTitle() + " - " + kandidat.getAntwort().getPercentages() + "%");
+          }
+      });
+      openAnswerPanelButton.setEnabled(false);
     }
 
     private void buildPanel() {
-      FormLayout layout = new FormLayout("6dlu,pref,6dlu,pref,3dlu,pref,6dlu",
+      FormLayout layout = new FormLayout("6dlu,pref,6dlu,pref,3dlu,pref,6dlu,pref,6dlu",
               "6dlu,pref,3dlu,pref,3dlu,pref,3dlu,pref,6dlu");
       CellConstraints cc = new CellConstraints();
       cell = new GradientPanel(IConfig.HORIZONTAL);
       cell.setLayout(layout);
-      cell.add(labelName, cc.xywh(2, 2, 6, 1));
+      cell.add(labelName, cc.xywh(2, 2, 8, 1));
       cell.add(labelStrasse, cc.xy(2, 4));
       cell.add(labelPLZOrt, cc.xy(2, 6));
       cell.add(labelGeburtsdatumOrt, cc.xy(2, 8));
@@ -214,6 +226,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
       cell.add(checkBoxKursgebuehr, cc.xy(6, 6));
       cell.add(labelPassfoto, cc.xy(4, 8));
       cell.add(checkBoxPassfoto, cc.xy(6, 8));
+      cell.add(openAnswerPanelButton, cc.xy(8, 8));
       cell.setOpaque(true);
     }
 
@@ -227,6 +240,9 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
       checkBoxAnwesend.setSelected(kandidat.isAnwesend());
       checkBoxPassfoto.setSelected(kandidat.hasPassPhoto());
       checkBoxKursgebuehr.setSelected(kandidat.hasKursgebuehrBezahlt());
+
+      if (kandidat.getAntwort() != null && kandidat.getFragebogen() != null)
+          openAnswerPanelButton.setEnabled(true);
 
       for (Component c : cell.getComponents()) {
         if (isSelected) {

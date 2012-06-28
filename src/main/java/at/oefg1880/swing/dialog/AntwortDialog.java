@@ -214,14 +214,16 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
 //        antwort.setKandidat((Kandidat) tfName.getSelectedValue());
         antwort.setPercentages(dataset.getValue(1).intValue());
         antwort.setAnswers(antwortPanel.getValues());
-        fragebogen.setAntwort(antwort);
-        ((DefaultListModel) ((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenDialog().
-                getAntwortList().getModel()).setElementAt(antwort, antwort.getIndex());
+//        fragebogen.setAntwort(antwort);
+//        ((DefaultListModel)frame.getFragebogenPanel().getFragebogenDialog().
+//                getAntwortList().getModel()).setElementAt(antwort, antwort.getIndex());
     }
 
     private void save() {
         Antwort antwort = new Antwort((Kandidat) tfName.getModel().getValueAt(0, 0), dataset.getValue(1).intValue(), antwortPanel.getValues());
         fragebogen.addAntwort(antwort);
+
+        ((Kandidat) tfName.getModel().getValueAt(0, 0)).setAntwort(fragebogen, antwort);
     }
 
     private void saveOrUpdate() {

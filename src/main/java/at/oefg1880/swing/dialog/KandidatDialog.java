@@ -244,14 +244,14 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
             pe.printStackTrace();
         }
 
-        kandidat = new Kandidat(tfTitle.getText(), tfName.getText(), new Adresse(tfStrasse.getText(), Integer.valueOf(tfPLZ.getText()), tfOrt.getText()), tfTelefon.getText(), tfEmail.getText(), dt, tfGeburtsort.getText(), cbPassfoto.isSelected(), cbKursunterlagen.isSelected(), cbAnwesend.isSelected());
+        kandidat = new Kandidat(tfTitle.getText(), tfName.getText(), new Adresse(tfStrasse.getText(), tfPLZ.getText(), tfOrt.getText()), tfTelefon.getText(), tfEmail.getText(), dt, tfGeburtsort.getText(), cbPassfoto.isSelected(), cbKursunterlagen.isSelected(), cbAnwesend.isSelected());
         ((KandidatPanel) frame.getKandidatPanel()).getKandidatTable().add(kandidat);
     }
 
     private void update() {
         kandidat.setTelephone(tfTitle.getText());
         kandidat.setName(tfName.getText());
-        kandidat.setAdresse(new Adresse(tfStrasse.getText(), Integer.valueOf(tfPLZ.getText()), tfOrt.getText()));
+        kandidat.setAdresse(new Adresse(tfStrasse.getText(), tfPLZ.getText(), tfOrt.getText()));
         kandidat.setGeburtsort(tfGeburtsort.getText());
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
         Date dt = new Date();

@@ -154,7 +154,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menuEdit) {
-            ((FragebogenPanel) frame.getFragebogenPanel()).editFragebogenDialog((Fragebogen) getSelectedValue());
+            frame.getFragebogenPanel().editFragebogenDialog((Fragebogen) getSelectedValue());
         } else if (e.getSource() == menuDelete) {
             String title = ((Fragebogen) getSelectedValue()).getTitle();
             int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));

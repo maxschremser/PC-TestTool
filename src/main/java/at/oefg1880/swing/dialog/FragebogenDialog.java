@@ -222,8 +222,8 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
         fragebogen.setTitle(textFieldName.getText());
         fragebogen.setExisting(Integer.valueOf(spinner.getValue().toString()));
         fragebogen.setSolutions(answerPanel.getValues());
-        FragebogenList list = ((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenList();
-        list.update(fragebogen);
+//        FragebogenList list = ((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenList();
+//        list.update(fragebogen);
         close();
     }
 

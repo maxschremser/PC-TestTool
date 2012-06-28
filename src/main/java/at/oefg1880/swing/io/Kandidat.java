@@ -22,12 +22,15 @@ public class Kandidat {
     private boolean bPassPhoto;
     private boolean bKursgebuehr;
     private boolean bAnwesend;
+    
+    private Antwort antwort;
+    private Fragebogen fragebogen;
 
     public Kandidat() {
         super();
     }
 
-    public Kandidat(String title, String name, String strasse, int PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort, boolean bPassPhoto, boolean bKursgebuehr, boolean bAnwesend) {
+    public Kandidat(String title, String name, String strasse, String PLZ, String ort, String telephone, String email, Date geburtstag, String geburtsort, boolean bPassPhoto, boolean bKursgebuehr, boolean bAnwesend) {
         this(title, name, new Adresse(strasse, PLZ, ort), telephone, email, geburtstag, geburtsort, bPassPhoto, bKursgebuehr, bAnwesend);
     }
 
@@ -46,6 +49,19 @@ public class Kandidat {
         this.bAnwesend = bAnwesend;
     }
 
+    public void setAntwort(Fragebogen fragebogen, Antwort antwort) {
+        this.fragebogen = fragebogen;
+        this.antwort = antwort;
+    }
+
+    public Fragebogen getFragebogen() {
+        return fragebogen;
+    }
+
+    public Antwort getAntwort() {
+        return antwort;
+    }
+
     public int getIndex() {
         return index;
     }
@@ -58,7 +74,7 @@ public class Kandidat {
         return (title + " " + name).trim();
     }
 
-    public int getPLZ() {
+    public String getPLZ() {
         return adresse.getPLZ();
     }
 
