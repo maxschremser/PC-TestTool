@@ -74,6 +74,10 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
     return items;
   }
 
+  public void setItems(ArrayList<Kandidat> items) {
+    this.items = items;
+  }
+
   private void setup() {
     model = new KandidatTableModel(items);
     setModel(model);
@@ -94,7 +98,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         // open KandidatDialog
         menu.setVisible(false);
         if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
-          frame.getKandidatPanel().editKandidatDialog(items.get(getSelectedRow()));
+          frame.getKandidatPanel().editKandidatDialog(items.get(rowAtPoint(e.getPoint())));
         } else if (SwingUtilities.isRightMouseButton(e) && getSelectedRow() > -1) {
           // right click, open edit menu
           menu.show((JTable) e.getSource(), e.getX(), e.getY());
@@ -175,9 +179,9 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
       labelPLZOrt = new JLabel();
       labelStrasse = new JLabel();
 
-      labelAnwesend = new JLabel("Anwesend");
-      labelKursgebuehr = new JLabel("Kursgebühr");
-      labelPassfoto = new JLabel("Passfoto");
+      labelAnwesend = new JLabel(rh.getString(PROPERTY_NAME, PRESENT));
+      labelKursgebuehr = new JLabel(rh.getString(PROPERTY_NAME, COURSE_PAID));
+      labelPassfoto = new JLabel(rh.getString(PROPERTY_NAME, PASSPHOTO));
 
       checkBoxAnwesend = new JCheckBox();
       checkBoxAnwesend.setActionCommand("ANWESEND");
