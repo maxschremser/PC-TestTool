@@ -3,6 +3,8 @@ package at.oefg1880.swing.frame;
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.io.Fragebogen;
+import at.oefg1880.swing.io.Kandidat;
+import at.oefg1880.swing.model.KandidatTableModel;
 import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.ImagePanel;
@@ -17,11 +19,13 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -34,8 +38,7 @@ import java.beans.PropertyChangeEvent;
 import java.io.*;
 import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Enumeration;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -292,11 +295,33 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
                 // add Solution
                 int numSolutions = row.getLastCellNum() - 4;
                 int[] solutions = new int[numSolutions];
-                for (int i = 4; i < row.getLastCellNum(); i++) {
-                    char cellValue = row.getCell(i).getStringCellValue().toCharArray()[0];
-                    solutions[i - 4] = AntwortTextField.translate(allowedValues, cellValue);
+
+                if (!sheet.getSheetName().equals("Kandidaten")) {
+                    for (int i = 4; i < row.getLastCellNum(); i++) {
+                        char cellValue = row.getCell(i).getStringCellValue().toCharArray()[0];
+                        solutions[i - 4] = AntwortTextField.translate(allowedValues, cellValue);
+                    }
+                    Fragebogen fragebogen = new Fragebogen(sheet.getSheetName(), Double.valueOf(sheet.getRow(0).getCell(5).toString()).intValue(), solutions);
+                    model.addElement(fragebogen);
+                } else {
+                    // import Kandidaten into KandidatTable
+                    ArrayList<Kandidat> list = new ArrayList<Kandidat>();
+                    for (int i = 3; i < sheet.getLastRowNum(); i++) {
+                        Row kandidatRow = sheet.getRow(i);
+                        Cell cell = kandidatRow.getCell(0);
+                        String title = cell == null ? "" : cell.getStringCellValue();
+                        cell = kandidatRow.getCell(1);
+                        String name = cell == null ? "" : cell.getStringCellValue();
+                        cell = kandidatRow.getCell(2);
+                        String strasse = cell == null ? "" : cell.getStringCellValue();
+                        cell = kandidatRow.getCell(3);
+                        String PLZ = cell == null ? "" : Double.valueOf(cell.getNumericCellValue()).intValue() + "";
+                        cell = kandidatRow.getCell(4);
+                        String ort = cell == null ? "" : cell.getStringCellValue();
+                        list.add(new Kandidat(title, name, strasse, PLZ, ort, "", "", new Date(), "", false, false, false));
+                    }
+                    getKandidatPanel().getKandidatTable().setModel(new KandidatTableModel(list));
                 }
-                throw new Exception("Method needs to be implemented.");
             }
             if (model.getSize() > 0) {
                 enableButtonSave(true);
