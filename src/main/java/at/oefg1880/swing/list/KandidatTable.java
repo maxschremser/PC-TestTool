@@ -2,6 +2,8 @@ package at.oefg1880.swing.list;
 
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
+import at.oefg1880.swing.dialog.AntwortDialog;
+import at.oefg1880.swing.dialog.OEFGAntwortDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.io.Antwort;
 import at.oefg1880.swing.io.Fragebogen;
@@ -205,6 +207,9 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
           @Override
           public void actionPerformed(ActionEvent e) {
               System.out.println("Button: openAnswerPanelButton has been clicked. Fragebogen: " + kandidat.getFragebogen().getTitle() + " - " + kandidat.getAntwort().getPercentages() + "%");
+            // TODO: how to switch between OEFG and WFA ???
+            JDialog dialog = new OEFGAntwortDialog(frame, "", kandidat.getFragebogen(), kandidat.getAntwort());
+            dialog.setVisible(true);
           }
       });
       openAnswerPanelButton.setEnabled(false);
@@ -243,6 +248,8 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
 
       if (kandidat.getAntwort() != null && kandidat.getFragebogen() != null)
           openAnswerPanelButton.setEnabled(true);
+      else
+          openAnswerPanelButton.setEnabled(false);
 
       for (Component c : cell.getComponents()) {
         if (isSelected) {
