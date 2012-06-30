@@ -304,7 +304,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
                     Fragebogen fragebogen = new Fragebogen(sheet.getSheetName(), Double.valueOf(sheet.getRow(0).getCell(5).toString()).intValue(), solutions);
                     model.addElement(fragebogen);
                 } else {
-                    // import Kandidaten into KandidatTable from Excel
+                    // import Kandidaten into KandidatTable
                     ArrayList<Kandidat> list = new ArrayList<Kandidat>();
                     for (int i = 3; i <= sheet.getLastRowNum(); i++) {
                         Row kandidatRow = sheet.getRow(i);
