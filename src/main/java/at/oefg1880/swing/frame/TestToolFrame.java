@@ -306,7 +306,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
                 } else {
                     // import Kandidaten into KandidatTable
                     ArrayList<Kandidat> list = new ArrayList<Kandidat>();
-                    for (int i = 3; i < sheet.getLastRowNum(); i++) {
+                    for (int i = 3; i <= sheet.getLastRowNum(); i++) {
                         Row kandidatRow = sheet.getRow(i);
                         Cell cell = kandidatRow.getCell(0);
                         String title = cell == null ? "" : cell.getStringCellValue();
