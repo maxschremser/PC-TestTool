@@ -45,7 +45,6 @@ public class FilteredTable extends KandidatTable {
                 }
             }
         });
-
     }
 
     public void addItem(Kandidat item) {
