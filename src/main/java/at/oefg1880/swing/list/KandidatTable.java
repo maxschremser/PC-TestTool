@@ -19,6 +19,7 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,11 +45,10 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
   private ResourceHandler rh = ResourceHandler.getInstance();
 
   private static Color listForeground, listBackground, listSelectionForeground, listSelectionBackground;
-  private AbstractTableModel model;
+  private KandidatTableModel model;
   private JPopupMenu menu;
   private JMenuItem menuEdit, menuDelete;
   private TestToolFrame frame;
-  private ArrayList<Kandidat> items;
   private static Logger log = Logger.getLogger(FragebogenList.class);
 
   static {
@@ -66,20 +66,20 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
   public KandidatTable(TestToolFrame frame, ArrayList<Kandidat> items) {
     super();
     this.frame = frame;
-    this.items = items;
+    model = new KandidatTableModel(items);
     setup();
   }
 
   public ArrayList<Kandidat> getItems() {
-    return items;
+    return getModel().getItems();
   }
 
-  public void setItems(ArrayList<Kandidat> items) {
-    this.items = items;
+  @Override
+  public KandidatTableModel getModel() {
+    return model;
   }
 
   private void setup() {
-    model = new KandidatTableModel(items);
     setModel(model);
     setDefaultRenderer(Kandidat.class, new KandidatCell());
     setDefaultEditor(Kandidat.class, new KandidatCell());
@@ -98,7 +98,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         // open KandidatDialog
         menu.setVisible(false);
         if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
-          frame.getKandidatPanel().editKandidatDialog(items.get(rowAtPoint(e.getPoint())));
+          frame.getKandidatPanel().editKandidatDialog(getItems().get(rowAtPoint(e.getPoint())));
         } else if (SwingUtilities.isRightMouseButton(e) && getSelectedRow() > -1) {
           // right click, open edit menu
           menu.show((JTable) e.getSource(), e.getX(), e.getY());
@@ -110,9 +110,9 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == menuEdit) {
-      frame.getKandidatPanel().editKandidatDialog(items.get(getSelectedRow()));
+      frame.getKandidatPanel().editKandidatDialog(getItems().get(getSelectedRow()));
     } else if (e.getSource() == menuDelete) {
-      String title = items.get(getSelectedRow()).getName();
+      String title = getItems().get(getSelectedRow()).getName();
       int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
       if (n == 0) // JA
         model.fireTableRowsDeleted(getSelectedRow(), getSelectedRow());
@@ -136,15 +136,15 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
   }
 
   public void add(Kandidat kandidat) {
-    items.add(kandidat);
-    ((AbstractTableModel) getModel()).fireTableDataChanged();
+    getItems().add(kandidat);
+    getModel().fireTableDataChanged();
     repaint();
   }
 
   public void update(Kandidat kandidat) {
-    for (Kandidat item : items) {
+    for (Kandidat item : getItems()) {
       if (kandidat.getIndex() == item.getIndex()) {
-        items.set(kandidat.getIndex(), kandidat);
+        getItems().set(kandidat.getIndex(), kandidat);
       }
     }
   }
@@ -210,7 +210,6 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
       openAnswerPanelButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-              System.out.println("Button: openAnswerPanelButton has been clicked. Fragebogen: " + kandidat.getFragebogen().getTitle() + " - " + kandidat.getAntwort().getPercentages() + "%");
             // TODO: how to switch between OEFG and WFA ???
             JDialog dialog = new OEFGAntwortDialog(frame, "", kandidat.getFragebogen(), kandidat.getAntwort());
             dialog.setVisible(true);

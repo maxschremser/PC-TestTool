@@ -58,4 +58,8 @@ public class KandidatTableModel extends DefaultTableModel {
     public ArrayList<Kandidat> getItems() {
         return items;
     }
+
+    public void setItems(ArrayList<Kandidat> items) {
+      this.items = items;
+    }
 }
