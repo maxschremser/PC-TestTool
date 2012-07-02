@@ -187,6 +187,10 @@
 
   <!--<target name="war" description="generate war" depends="launch4j">-->
   <target name="war" description="generate war" depends="webstart">
+      <tstamp>
+          <format property="dt" pattern="yyyy-MM-dd HH:mm:ss"/>
+      </tstamp>
+
     <!--
     create an index.html file displaying the links for download and webstart
     -->
