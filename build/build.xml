@@ -173,7 +173,7 @@
       &lt;all-permissions/&gt;
       &lt;/security&gt;
       &lt;resources&gt;
-      &lt;j2se version="1.6"/&gt;
+      &lt;j2se version="1.6+"/&gt;
       ${webstart.classpath}
       &lt;/resources&gt;
       &lt;application-desc main-class="at.oefg1880.swing.TestTool"/&gt;
@@ -212,6 +212,7 @@
       &lt;span style="width:627px;text-align:center;border:1px solid black;vertical-align:bottom;"&gt;
       &lt;a href="${JNLP_FILE}"&gt;&lt;h3&gt; Start ${APP_NAME}&lt;/h3&gt;&lt;/a&gt;
       &lt;a href="${ZIP_FILE}"&gt;&lt;h3&gt; Download ${ZIP_FILE}&lt;/h3&gt;&lt;/a&gt;
+      &lt;a href="${TEMPLATE_FILE}"&gt;&lt;h3&gt; Download ${TEMPLATE_FILE}&lt;/h3&gt;&lt;/a&gt;
       &lt;/span&gt;
       &lt;/p&gt;
       &lt;/div&gt;
