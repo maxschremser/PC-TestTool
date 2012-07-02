@@ -14,6 +14,7 @@ import at.oefg1880.swing.panel.OEFGAntwortPanel;
  * To change this template use File | Settings | File Templates.
  */
 public class OEFGAntwortDialog extends AntwortDialog {
+    private AntwortPanel panel;
     public OEFGAntwortDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
         super(frame, title, fragebogen);
     }
@@ -24,7 +25,9 @@ public class OEFGAntwortDialog extends AntwortDialog {
 
     @Override
     public AntwortPanel getAntwortPanel(AntwortDialog dialog) {
-        AntwortPanel panel = new OEFGAntwortPanel(fragebogen == null, dialog);
+        if (panel == null) {
+            panel = new OEFGAntwortPanel(fragebogen == null, dialog);
+        }
         panel.setSaveButton(getSaveButton());
         return panel;
     }

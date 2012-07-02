@@ -5,6 +5,7 @@ import at.oefg1880.swing.dialog.FragebogenDialog;
 import at.oefg1880.swing.dialog.WFAAntwortDialog;
 import at.oefg1880.swing.dialog.WFAFragebogenDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
+import at.oefg1880.swing.io.Antwort;
 import at.oefg1880.swing.io.Fragebogen;
 
 import javax.swing.*;
@@ -43,5 +44,10 @@ public class WFAFragebogenPanel extends FragebogenPanel {
     @Override
     public AntwortDialog getAntwortDialog(Fragebogen fragebogen) {
         return new WFAAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen);
+    }
+
+    @Override
+    public AntwortDialog getAntwortDialog(Fragebogen fragebogen, Antwort antwort) {
+        return new WFAAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen, antwort);
     }
 }

@@ -5,6 +5,7 @@ import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.dialog.AntwortDialog;
 import at.oefg1880.swing.dialog.FragebogenDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
+import at.oefg1880.swing.io.Antwort;
 import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.list.FragebogenList;
 import at.oefg1880.swing.utils.PropertyHandler;
@@ -45,6 +46,8 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     public abstract FragebogenDialog editFragebogenDialog(Fragebogen fragebogen);
 
     public abstract AntwortDialog getAntwortDialog(Fragebogen fragebogen);
+
+    public abstract AntwortDialog getAntwortDialog(Fragebogen fragebogen, Antwort antwort);
 
     public FragebogenPanel(TestToolFrame frame) {
         super(DIAGONAL);
@@ -96,6 +99,10 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
 
     public FragebogenDialog getFragebogenDialog() {
         return fragebogenDialog;
+    }
+
+    public AntwortDialog getAntwortDialog() {
+        return antwortDialog;
     }
 
     public AntwortDialog createNewAntwortDialog(Fragebogen fragebogen) {

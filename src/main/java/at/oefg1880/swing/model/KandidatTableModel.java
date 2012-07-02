@@ -15,7 +15,11 @@ import java.util.ArrayList;
 public class KandidatTableModel extends DefaultTableModel {
     protected ArrayList<Kandidat> items;
 
+    public KandidatTableModel() {
+        super();
+    }
     public KandidatTableModel(ArrayList<Kandidat> items) {
+        super();
         this.items = items;
     }
 

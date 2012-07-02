@@ -87,6 +87,7 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
     public KandidatTable getKandidatTable() {
         if (list == null) {
             list = new KandidatTable(frame);
+            list.setup();
             list.requestFocus();
         }
         return list;

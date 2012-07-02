@@ -5,6 +5,7 @@ import at.oefg1880.swing.dialog.FragebogenDialog;
 import at.oefg1880.swing.dialog.OEFGAntwortDialog;
 import at.oefg1880.swing.dialog.OEFGFragebogenDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
+import at.oefg1880.swing.io.Antwort;
 import at.oefg1880.swing.io.Fragebogen;
 
 import javax.swing.*;
@@ -42,6 +43,13 @@ public class OEFGFragebogenPanel extends FragebogenPanel {
 
     @Override
     public AntwortDialog getAntwortDialog(Fragebogen fragebogen) {
-        return new OEFGAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen);
+        antwortDialog = new OEFGAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen);
+        return antwortDialog;
+    }
+
+    @Override
+    public AntwortDialog getAntwortDialog(Fragebogen fragebogen, Antwort antwort) {
+        antwortDialog = new OEFGAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen, antwort);
+        return antwortDialog;
     }
 }

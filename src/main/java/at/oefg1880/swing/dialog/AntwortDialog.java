@@ -6,11 +6,8 @@ import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.io.Antwort;
 import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.io.Kandidat;
-import at.oefg1880.swing.list.FilteredTable;
-import at.oefg1880.swing.list.KandidatTable;
-import at.oefg1880.swing.model.KandidatTableModel;
+import at.oefg1880.swing.list.FilterKandidatTable;
 import at.oefg1880.swing.panel.AntwortPanel;
-import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.PropertyHandler;
@@ -26,8 +23,6 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
@@ -35,7 +30,6 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
-import java.util.Vector;
 
 /**
  * Created by IntelliJ IDEA.
@@ -49,7 +43,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     private ResourceHandler rh = ResourceHandler.getInstance();
     private PropertyHandler props = PropertyHandler.getInstance();
     private TestToolFrame frame;
-    private FilteredTable tfName;
+    private FilterKandidatTable tfName;
     private AntwortPanel antwortPanel;
     protected Fragebogen fragebogen;
     private Antwort antwort;
@@ -57,6 +51,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     private int correctAnswers = 0;
     private JFreeChart chart;
     private JButton saveButton;
+    protected AntwortPanel panel;
 
     private final String SAVE = "update";
     private final String CORRECT = rh.getString(PROPERTY_NAME, GRAPH_CORRECT);
@@ -122,7 +117,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
 
         // if Kandidat has given answer, don't add him to the list of objects
         ArrayList<Kandidat> objects = new ArrayList<Kandidat>();
-        ArrayList<Kandidat> vKandidat = ((KandidatTableModel) frame.getKandidatPanel().getKandidatTable().getModel()).getItems();
+        ArrayList<Kandidat> vKandidat = frame.getKandidatPanel().getKandidatTable().getModel().getItems();
         Kandidat kandidat = null;
         Iterator<Kandidat> iterKandidat = vKandidat.iterator();
         while (iterKandidat.hasNext()) {
@@ -145,7 +140,8 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         }
 
 
-        tfName = new FilteredTable(frame, objects);
+        tfName = new FilterKandidatTable(frame, objects);
+//        tfName.revalidate();
         tfName.setSelectionColor(selectedTextForeground);
         tfName.setBorder(new LineBorder(Color.black));
         tfName.addKeyListener(new KeyAdapter() {
