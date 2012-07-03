@@ -7,8 +7,11 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -32,7 +35,7 @@ public class TestTool implements ITexts, IConfig {
                 }
                 PropertyConfigurator.configureAndWatch("log4j.properties", 60 * 1000);
                 GregorianCalendar cal = new GregorianCalendar();
-                log.info("Starting StartFrame at " + cal.get(Calendar.YEAR) + cal.get(Calendar.MONTH) + cal.get(Calendar.DAY_OF_MONTH));
+                log.info("Starting StartFrame at " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
                 new StartFrame(ResourceHandler.getInstance().getString(PROPERTY_NAME, TITLE));
             }
