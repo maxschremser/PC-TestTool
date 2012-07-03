@@ -197,12 +197,18 @@
     <echo file="${WEB_DIR}/${HTML_FILE}">
       &lt;html&gt;
       &lt;head&gt;
-      &lt;title&gt;TestTool&lt;/title&gt;
+      &lt;title&gt;PC-TestTool&lt;/title&gt;
       &lt;style type="text/css"&gt;
       body {
       font-family:serif;
       }
       &lt;/style&gt;
+      &lt;script type="text/javascript"&gt;
+        onload = function() {
+        var pwd = prompt("Please give the correct password to continue ...", "Password");
+        if (pwd != "oefg1880") document.location.href = "error.html";
+        }
+      &lt;/script&gt;
       &lt;/head&gt;
       &lt;body&gt;
       &lt;div align="left"&gt;
@@ -212,13 +218,33 @@
       &lt;span style="width:627px;text-align:center;border:1px solid black;vertical-align:bottom;"&gt;
       &lt;a href="${JNLP_FILE}"&gt;&lt;h3&gt; Start ${APP_NAME}&lt;/h3&gt;&lt;/a&gt;
       &lt;a href="${ZIP_FILE}"&gt;&lt;h3&gt; Download ${ZIP_FILE}&lt;/h3&gt;&lt;/a&gt;
-      &lt;a href="${TEMPLATE_FILE}"&gt;&lt;h3&gt; Download ${TEMPLATE_FILE}&lt;/h3&gt;&lt;/a&gt;
+      &lt;a href="${OEFG_TEMPLATE_FILE}"&gt;&lt;h3&gt; Download ${OEFG_TEMPLATE_FILE}&lt;/h3&gt;&lt;/a&gt;
+      &lt;a href="${WFA_TEMPLATE_FILE}"&gt;&lt;h3&gt; Download ${WFA_TEMPLATE_FILE}&lt;/h3&gt;&lt;/a&gt;
       &lt;/span&gt;
       &lt;/p&gt;
       &lt;/div&gt;
       &lt;/body&gt;
       &lt;/html&gt;
     </echo>
+    <echo file="${WEB_DIR}/${ERROR_FILE}">
+      &lt;html&gt;
+      &lt;head&gt;
+      &lt;title&gt;PC-TestTool&lt;/title&gt;
+      &lt;style type="text/css"&gt;
+      body {
+      font-family:serif;
+      }
+      &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+      &lt;div align="left"&gt;
+      &lt;h1&gt;Sorry, you are not allowed ...&lt;/h1&gt;
+      &lt;/div&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+    </echo>
+    <copy file="${OEFG_TEMPLATE_FILE}" todir="${WEB_DIR}"/>
+    <copy file="${WFA_TEMPLATE_FILE}" todir="${WEB_DIR}"/>
 
     <!--
     // create a war file with the html page, jnlp file, TestTool.jar + depending jars
