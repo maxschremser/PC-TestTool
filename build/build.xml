@@ -29,11 +29,10 @@
     <delete dir="${APP_LIB_DIR}"/>
     <delete dir="${APP_DIR}"/>
     <delete dir="${BIN_DIR}"/>
-    <delete dir="${WEB_DIR}"/>
+    <!--<delete dir="${WEB_DIR}"/>-->
     <delete dir="${LIB_DIR}"/>
     <delete dir="${META_DIR}"/>
     <delete dir="${WAR_DIR}"/>
-    <delete dir="${WEBPROJ_DIR}"/>
     <delete dir="${TARGET_DIR}"/>
   </target>
 

@@ -62,8 +62,8 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
             }
         });
         FormLayout layout = new FormLayout(
-                "6dlu,pref,6dlu",
-                "6dlu,pref,6dlu,pref,6dlu");
+                "6dlu,pref",
+                "6dlu,pref,6dlu,pref");
         CellConstraints cc = new CellConstraints();
         GradientPanel panel = new GradientPanel();
         panel.setLayout(layout);
