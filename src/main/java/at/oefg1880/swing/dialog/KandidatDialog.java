@@ -11,6 +11,7 @@ import at.oefg1880.swing.panel.KandidatPanel;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -144,9 +145,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
         FormLayout layout = new FormLayout(
                 "6dlu,right:pref,6dlu,pref,6dlu,pref,6dlu,pref",
                 "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref");
-        JPanel panel = new GradientPanel();
-//    JPanel panel = new FormDebugPanel(layout);
-        PanelBuilder builder = new PanelBuilder(layout, panel);
+        PanelBuilder builder = new PanelBuilder(layout, new GradientPanel());
         CellConstraints cc = new CellConstraints();
 
         // Title

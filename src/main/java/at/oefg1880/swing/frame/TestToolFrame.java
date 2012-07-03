@@ -157,8 +157,8 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         });
 
         FormLayout layout = new FormLayout(
-                "6dlu,pref,6dlu",
-                "6dlu,pref,6dlu,pref,6dlu");
+                "6dlu,pref",
+                "6dlu,pref,6dlu,pref");
         CellConstraints cc = new CellConstraints();
         GradientPanel panel = new GradientPanel();
         panel.setLayout(layout);
@@ -214,7 +214,8 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         // Ja, Nein, Abbrechen Dialog mit einer Frage und einem Icon
         dialog = new JDialog(this, title, true);
         FormLayout layout = new FormLayout(
-                "6dlu,center:pref,6dlu", "6dlu,pref,6dlu,pref,6dlu"
+                "6dlu,center:pref",
+                "6dlu,pref,6dlu,pref"
         );
         PanelBuilder builder = new PanelBuilder(layout);
         CellConstraints cc = new CellConstraints();

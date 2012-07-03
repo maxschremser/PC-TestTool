@@ -111,8 +111,9 @@ public abstract class AntwortList extends JList implements ActionListener, IText
         setModel(model);
         setBorder(BorderFactory.createLineBorder(Color.black));
 
-        FormLayout layout = new FormLayout("6dlu,pref:grow,3dlu, right:20dlu, 6dlu",
-                "6dlu, pref, 6dlu");
+        FormLayout layout = new FormLayout(
+                "6dlu,pref:grow,3dlu, right:20dlu",
+                "6dlu, pref");
         CellConstraints cc = new CellConstraints();
         cell = new GradientPanel(IConfig.HORIZONTAL);
         cell.setLayout(layout);

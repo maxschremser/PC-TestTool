@@ -13,6 +13,7 @@ import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.jfree.chart.ChartFactory;
@@ -52,10 +53,12 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     private JFreeChart chart;
     private JButton saveButton;
     protected AntwortPanel panel;
+    private JLabel labelTitle;
 
     private final String SAVE = "update";
     private final String CORRECT = rh.getString(PROPERTY_NAME, GRAPH_CORRECT);
     private final String WRONG = rh.getString(PROPERTY_NAME, GRAPH_WRONG);
+    private ChartPanel chartPanel;
 
     public abstract AntwortPanel getAntwortPanel(AntwortDialog dialog);
 
@@ -79,23 +82,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         fillValues();
     }
 
-    private void setup() {
-        FormLayout layout = new FormLayout(
-                "6dlu,100dlu,6dlu,pref,6dlu,pref,6dlu",
-                "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,86dlu,6dlu,pref,6dlu,pref,6dlu,12dlu,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu");
-        GradientPanel gradientPanel = new GradientPanel();
-        PanelBuilder builder = new PanelBuilder(layout);
-        CellConstraints cc = new CellConstraints();
-
-        loadProps();
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                storeProps();
-            }
-        });
-
+    private void initComponents() {
         saveButton = new JButton(rh.getString(PROPERTY_NAME, BUTTON_SAVE));
         saveButton.addActionListener(this);
         saveButton.addKeyListener(new KeyAdapter() {
@@ -111,7 +98,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         antwortPanel = getAntwortPanel(this);
         antwortPanel.addPropertyChangeListener(this);
 
-        JLabel labelTitle = new JLabel(fragebogen.getTitle());
+        labelTitle = new JLabel(fragebogen.getTitle());
         Font font = labelTitle.getFont().deriveFont(Font.PLAIN, 21);
         labelTitle.setFont(font);
 
@@ -141,7 +128,6 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
 
 
         tfName = new FilterKandidatTable(frame, objects);
-//        tfName.revalidate();
         tfName.setSelectionColor(selectedTextForeground);
         tfName.setBorder(new LineBorder(Color.black));
         tfName.addKeyListener(new KeyAdapter() {
@@ -162,10 +148,35 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         chart.setTitle("0%");
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setForegroundAlpha(0.7f);
-        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel = new ChartPanel(chart);
         chartPanel.setOpaque(true);
         chartPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         chartPanel.setPreferredSize(new Dimension(200, 200));
+    }
+
+    private void setup() {
+        getContentPane().add(buildPanel());
+        pack();
+        setResizable(false);
+    }
+    
+    private JPanel buildPanel() {
+        loadProps();
+
+        initComponents();
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                storeProps();
+            }
+        });
+
+        FormLayout layout = new FormLayout(
+                "6dlu,100dlu,6dlu,pref,6dlu,pref",
+                "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,86dlu,6dlu,pref,6dlu,pref,6dlu,12dlu");
+        PanelBuilder builder = new PanelBuilder(layout, new GradientPanel());
+        CellConstraints cc = new CellConstraints();
 
         builder.add(labelTitle, cc.xywh(2, 2, 5, 1));
         builder.addSeparator(rh.getString(PROPERTY_NAME, NAME), cc.xywh(2, 4, 3, 1));
@@ -177,10 +188,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         builder.add(chartPanel, cc.xywh(6, 6, 1, 3));
 
         builder.setBorder(BorderFactory.createLineBorder(Color.black));
-        gradientPanel.add(builder.getPanel());
-        getContentPane().add(gradientPanel);
-        pack();
-        setResizable(false);
+        return builder.getPanel();
     }
 
     private void reset() {

@@ -110,7 +110,8 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
         setModel(model);
         setBorder(BorderFactory.createLineBorder(Color.black));
 
-        FormLayout layout = new FormLayout("6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu",
+        FormLayout layout = new FormLayout(
+                "6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref,6dlu,pref,3dlu,pref",
                 "6dlu,pref,3dlu,pref,6dlu");
         CellConstraints cc = new CellConstraints();
         cell = new GradientPanel(IConfig.HORIZONTAL);

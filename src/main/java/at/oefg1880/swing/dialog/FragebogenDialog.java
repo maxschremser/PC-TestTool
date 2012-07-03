@@ -137,9 +137,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
                     "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref");
         }
 
-        JPanel panel = new GradientPanel();
-//    FormDebugPanel panel = new FormDebugPanel(layout);
-        PanelBuilder builder = new PanelBuilder(layout, panel);
+        PanelBuilder builder = new PanelBuilder(layout, new GradientPanel());
         CellConstraints cc = new CellConstraints();
 
         builder.addSeparator(rh.getString(PROPERTY_NAME, LABEL_FRAGEBOGEN), cc.xywh(2, 2, 3, 1));

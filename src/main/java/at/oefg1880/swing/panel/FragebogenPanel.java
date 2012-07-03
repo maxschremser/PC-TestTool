@@ -56,7 +56,9 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     }
 
     private void setup() {
-        FormLayout layout = new FormLayout("6dlu,pref:grow,6dlu,pref,6dlu", "6dlu,pref,6dlu,pref,6dlu");
+        FormLayout layout = new FormLayout(
+                "6dlu,pref:grow,6dlu,pref,6dlu",
+                "6dlu,pref,6dlu,pref,6dlu");
         setLayout(layout);
         CellConstraints cc = new CellConstraints();
         add(new JLabel(rh.getString(PROPERTY_NAME, LABEL)), cc.xy(2, 2));
