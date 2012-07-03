@@ -1,6 +1,5 @@
 package at.oefg1880.swing.frame;
 
-import at.oefg1880.license.exception.LicenseException;
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.panel.GradientPanel;
@@ -36,23 +35,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
         setup();
     }
 
-    private void checkLicense() throws LicenseException {
-//    if (props.getLicense().length() > 0) {
-//
-//    } else {
-//      throw new LicenseException("No License was found, please download a valid license.");
-//    }
-    }
-
-
     private void setup() {
-        try {
-            checkLicense();
-        } catch (LicenseException le) {
-            le.printStackTrace();
-            String msg = le.getMessage();
-            JOptionPane.showConfirmDialog(this, msg);
-        }
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");

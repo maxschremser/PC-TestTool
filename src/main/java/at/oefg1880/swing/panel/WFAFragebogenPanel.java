@@ -48,6 +48,6 @@ public class WFAFragebogenPanel extends FragebogenPanel {
 
     @Override
     public AntwortDialog getAntwortDialog(Fragebogen fragebogen, Antwort antwort) {
-        return new WFAAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen, antwort);
+        return new WFAAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_EDIT), fragebogen, antwort);
     }
 }

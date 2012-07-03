@@ -49,7 +49,7 @@ public class OEFGFragebogenPanel extends FragebogenPanel {
 
     @Override
     public AntwortDialog getAntwortDialog(Fragebogen fragebogen, Antwort antwort) {
-        antwortDialog = new OEFGAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen, antwort);
+        antwortDialog = new OEFGAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_EDIT), fragebogen, antwort);
         return antwortDialog;
     }
 }
