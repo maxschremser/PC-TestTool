@@ -31,7 +31,7 @@ public class OEFGAntwortPanel extends AntwortPanel {
     @Override
     protected void setup() {
         FormLayout layout = new FormLayout(
-                "center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow",
+                "left:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow",
                 "pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref"
         );
         setLayout(layout);

@@ -81,16 +81,16 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
                 if (key == KeyEvent.VK_ENTER) {            // handle enter key pressed
                     // open FragebogenDialog
                     if (getSelectedIndex() >= 0)
-                        ((FragebogenPanel) frame.getFragebogenPanel()).createNewAntwortDialog((Fragebogen) getSelectedValue());
+                        frame.getFragebogenPanel().createNewAntwortDialog((Fragebogen) getSelectedValue());
                 } else if (key == KeyEvent.VK_N) {
-                    ((FragebogenPanel) frame.getFragebogenPanel()).getButtonNew().doClick();
+                    frame.getFragebogenPanel().getButtonNew().doClick();
                 } else if (key == KeyEvent.VK_S) {
-                    if (((FragebogenPanel) frame.getFragebogenPanel()).getButtonSave().isEnabled()) {
-                        ((FragebogenPanel) frame.getFragebogenPanel()).getButtonSave().doClick();
+                    if (frame.getFragebogenPanel().getButtonSave().isEnabled()) {
+                        frame.getFragebogenPanel().getButtonSave().doClick();
                     }
                 } else if (key == KeyEvent.VK_DELETE) {
                     String title = ((Fragebogen) getSelectedValue()).getTitle();
-                    int n = frame.showDeleteDialog(((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenList(), rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
+                    int n = frame.showDeleteDialog(frame.getFragebogenPanel().getFragebogenList(), rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
                     if (n == JOptionPane.OK_OPTION) // JA
                         model.remove(getSelectedIndex());
                 } else {
@@ -146,10 +146,6 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
 
     public void add(Fragebogen fragebogen) {
         model.addElement(fragebogen);
-    }
-
-    public void update(Fragebogen fragebogen) {
-        model.setElementAt(fragebogen, fragebogen.getIndex());
     }
 
     @Override

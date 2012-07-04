@@ -115,8 +115,11 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         } else if (e.getSource() == menuDelete) {
             String title = getItems().get(getSelectedRow()).getName();
             int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
-            if (n == 0) // JA
+            if (n == 0) { // JA
+                getItems().remove(getSelectedRow());
                 model.fireTableRowsDeleted(getSelectedRow(), getSelectedRow());
+                revalidate();
+            }
             if (model.getRowCount() <= 0)
                 frame.enableButtonSave(false);
         } else if (OK.equals(e.getActionCommand())) {
@@ -139,15 +142,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
     public void add(Kandidat kandidat) {
         getItems().add(kandidat);
         getModel().fireTableDataChanged();
-        repaint();
-    }
-
-    public void update(Kandidat kandidat) {
-        for (Kandidat item : getItems()) {
-            if (kandidat.getIndex() == item.getIndex()) {
-                getItems().set(kandidat.getIndex(), kandidat);
-            }
-        }
+        revalidate();
     }
 
     private class KandidatCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
@@ -254,19 +249,14 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
             else
                 openAnswerPanelButton.setEnabled(false);
 
-            for (Component c : cell.getComponents()) {
-                if (isSelected) {
-                    c.setBackground(listSelectionBackground);
-                    cell.setBackground(listSelectionBackground);
-                    cell.setDirection(PLAIN_2);
-                    cell.setColor2(selectedListForeground);
-                } else {
-                    c.setBackground(listBackground);
-                    c.setForeground(listForeground);
-                    cell.setBackground(listBackground);
-                    cell.setDirection(HORIZONTAL);
-                    cell.setColor2(color_2);
-                }
+            if (isSelected) {
+                cell.setDirection(PLAIN_2);
+                cell.setColor1(selectedListForeground);
+                cell.setColor2(selectedListForeground);
+            } else {
+                cell.setDirection(HORIZONTAL);
+                cell.setColor1(color_1);
+                cell.setColor2(color_2);
             }
         }
 
