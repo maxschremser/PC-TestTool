@@ -67,11 +67,17 @@
 
   <target name="compile" description="compile sources" depends="compile.prepare">
     <javac srcdir="${SRC_DIR}" classpathref="compile.classpath" destdir="${CLASSES_DIR}"/>
+
+    <propertyfile file="${SRC_RESOURCE_DIR}/version.properties">
+      <entry key="VERSION" value="${VERSION}"/>
+      <entry key="MAJOR" value="${MAJOR}"/>
+      <entry key="MINOR" value="${MINOR}"/>
+    </propertyfile>
+
     <copy todir="${CLASSES_RESOURCE_DIR}">
       <fileset dir="${SRC_RESOURCE_DIR}">
         <include name="**/*.properties"/>
         <include name="**/*.gif"/>
-        <include name="**/*.gpg"/>
       </fileset>
     </copy>
     <copy todir="${CLASSES_DIR}">

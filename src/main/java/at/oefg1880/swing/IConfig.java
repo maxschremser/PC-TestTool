@@ -10,6 +10,10 @@ import java.awt.*;
  * To change this template use File | Settings | File Templates.
  */
 public interface IConfig {
+    public final static String VERSION = "VERSION";
+    public final static String MAJOR = "MAJOR";
+    public final static String MINOR = "MINOR";
+
     public final static String POS_X = "x";
     public final static String POS_Y = "y";
 

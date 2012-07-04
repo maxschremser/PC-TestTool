@@ -32,8 +32,12 @@ public class ResourceHandler {
     }
 
     public void load() {
+        load(PATH);
+    }
+
+    public void load(String path) {
         try {
-            rb = ResourceBundle.getBundle(PATH, Locale.getDefault());
+            rb = ResourceBundle.getBundle(path);
         } catch (Exception e) {
         }
     }

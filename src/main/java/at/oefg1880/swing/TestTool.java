@@ -7,12 +7,14 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Properties;
 
 /**
  * Created by IntelliJ IDEA.
@@ -34,9 +36,16 @@ public class TestTool implements ITexts, IConfig {
                     ulnfe.printStackTrace();
                 }
                 PropertyConfigurator.configureAndWatch("log4j.properties", 60 * 1000);
-                GregorianCalendar cal = new GregorianCalendar();
                 log.info("Starting StartFrame at " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-
+                Properties props = new Properties();
+                try {
+                    props.load(getClass().getClassLoader().getResourceAsStream("resources/version.properties"));
+                    log.info("Version: " + props.get(VERSION) + "." + props.get(MAJOR) + "_" + props.get(MINOR));
+                } catch (FileNotFoundException fnfe) {
+                    fnfe.printStackTrace();
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
                 new StartFrame(ResourceHandler.getInstance().getString(PROPERTY_NAME, TITLE));
             }
         };
