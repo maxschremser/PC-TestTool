@@ -2,9 +2,7 @@ package at.oefg1880.swing.model;
 
 import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.list.FilterKandidatTable;
-import at.oefg1880.swing.list.FilterTextField;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class FilterKandidatTableModel extends KandidatTableModel {

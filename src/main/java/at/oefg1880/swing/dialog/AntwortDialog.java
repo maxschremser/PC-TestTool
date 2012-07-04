@@ -13,7 +13,6 @@ import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.jfree.chart.ChartFactory;
@@ -159,7 +158,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         pack();
         setResizable(false);
     }
-    
+
     private JPanel buildPanel() {
         loadProps();
 

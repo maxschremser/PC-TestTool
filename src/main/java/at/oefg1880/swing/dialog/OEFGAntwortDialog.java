@@ -15,6 +15,7 @@ import at.oefg1880.swing.panel.OEFGAntwortPanel;
  */
 public class OEFGAntwortDialog extends AntwortDialog {
     private AntwortPanel panel;
+
     public OEFGAntwortDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
         super(frame, title, fragebogen);
     }

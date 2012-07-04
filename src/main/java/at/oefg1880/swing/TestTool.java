@@ -8,12 +8,10 @@ import org.apache.log4j.PropertyConfigurator;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Properties;
 
 /**

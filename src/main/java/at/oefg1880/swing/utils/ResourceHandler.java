@@ -1,6 +1,5 @@
 package at.oefg1880.swing.utils;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**

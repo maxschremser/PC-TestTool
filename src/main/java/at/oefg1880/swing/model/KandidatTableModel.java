@@ -18,6 +18,7 @@ public class KandidatTableModel extends DefaultTableModel {
     public KandidatTableModel() {
         super();
     }
+
     public KandidatTableModel(ArrayList<Kandidat> items) {
         super();
         this.items = items;
@@ -64,6 +65,6 @@ public class KandidatTableModel extends DefaultTableModel {
     }
 
     public void setItems(ArrayList<Kandidat> items) {
-      this.items = items;
+        this.items = items;
     }
 }

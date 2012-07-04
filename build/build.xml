@@ -1,263 +1,264 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="TestTool" basedir="." default="war" xmlns:ivy="antlib:org.apache.ivy.ant">
-  <!--
-  // Author: DI (FH) Maximilian Schremser
-  // Date: 03.02.2010
-  // Description: Build Script for creating the TestTool
-  -->
-  <!--
-    TARGET: init
-  -->
-  <target name="init" description="init">
-    <property file="build.properties"/>
-    <property name="ivy.dir" value="${BASE_DIR}/target"/>
-    <property name="ivy.lib.dir" value="${ivy.dir}/[conf]"/>
-    <property name="ivy.dep.file" value="${BUILD_DIR}/ivy.xml"/>
-    <property name="launch4j.dir" location="C:\Program Files (x86)\Launch4j"/>
-    <property name="launch4j.workdir" location="../launch4j"/>
-
-    <!--<taskdef name="launch4j"-->
-             <!--classname="net.sf.launch4j.ant.Launch4jTask"-->
-             <!--classpath="${launch4j.dir}/launch4j.jar:${launch4j.dir}/xstream.jar"/>-->
-  </target>
-
-
-  <target name="clean" description="clean up" depends="init">
-    <echo>Clean Environment</echo>
-    <delete dir="${CLASSES_RESOURCE_DIR}"/>
-    <delete dir="${CLASSES_DIR}"/>
-    <delete dir="${APP_LIB_DIR}"/>
-    <delete dir="${APP_DIR}"/>
-    <delete dir="${BIN_DIR}"/>
-    <!--<delete dir="${WEB_DIR}"/>-->
-    <delete dir="${LIB_DIR}"/>
-    <delete dir="${META_DIR}"/>
-    <delete dir="${WAR_DIR}"/>
-    <delete dir="${TARGET_DIR}"/>
-  </target>
-
-  <target name="zip" unless="compile.prepare" depends="clean">
-    <zip destfile='../../${APP_NAME}-all-${VERSION}.${MAJOR}.${MINOR}.zip'>
-      <zipfileset dir='../../${APP_NAME}' includes="**/**"/>
-    </zip>
-  </target>
-
-  <target name="compile.prepare" unless="compile.prepare" depends="zip">
-    <mkdir dir="${CLASSES_DIR}"/>
-    <mkdir dir="${CLASSES_RESOURCE_DIR}"/>
-    <mkdir dir="${APP_DIR}"/>
-    <mkdir dir="${APP_LIB_DIR}"/>
-    <mkdir dir="${LIB_DIR}"/>
-    <mkdir dir="${WEB_LIB_DIR}"/>
-    <mkdir dir="${META_DIR}"/>
-    <mkdir dir="${WAR_DIR}"/>
-    <mkdir dir="${TARGET_DIR}"/>
-
-    <path id="compile.classpath">
-      <fileset dir="${COMPILE_DIR}">
-        <include name="**/*.jar"/>
-      </fileset>
-    </path>
-
-    <echo>resolve with ivy</echo>
-
-    <ivy:settings file="${BUILD_DIR}/ivysettings.xml"/>
-    <ivy:retrieve sync="true" pattern="${ivy.lib.dir}/[artifact]-[revision].[ext]" type="jar"/>
-  </target>
-
-  <target name="compile" description="compile sources" depends="compile.prepare">
-    <javac srcdir="${SRC_DIR}" classpathref="compile.classpath" destdir="${CLASSES_DIR}"/>
-
-    <propertyfile file="${SRC_RESOURCE_DIR}/version.properties">
-      <entry key="VERSION" value="${VERSION}"/>
-      <entry key="MAJOR" value="${MAJOR}"/>
-      <entry key="MINOR" value="${MINOR}"/>
-    </propertyfile>
-
-    <copy todir="${CLASSES_RESOURCE_DIR}">
-      <fileset dir="${SRC_RESOURCE_DIR}">
-        <include name="**/*.properties"/>
-        <include name="**/*.gif"/>
-      </fileset>
-    </copy>
-    <copy todir="${CLASSES_DIR}">
-      <fileset dir="${SRC_DIR}">
-        <include name="**/*.properties"/>
-      </fileset>
-    </copy>
-  </target>
-
-  <target name="jar" description="generate jar" depends="compile">
-    <pathconvert property="manifest.classpath" pathsep=" ">
-      <mapper>
-        <chainedmapper>
-          <!-- remove absolute path -->
-          <flattenmapper/>
-          <!-- add lib/ prefix -->
-          <!--<globmapper from="*" to="lib/*" />-->
-        </chainedmapper>
-      </mapper>
-      <path>
-        <!-- lib.home contains all jar files, in several subdirectories -->
-        <fileset dir="${COMPILE_DIR}">
-          <include name="**/*.jar"/>
-        </fileset>
-        <fileset dir="${LIB_DIR}">
-          <include name="**/*.jar"/>
-        </fileset>
-      </path>
-    </pathconvert>
-
-    <jar jarfile="${LIB_DIR}/${JAR_FILE}" basedir="${CLASSES_DIR}" includes="**/**">
-      <manifest>
-        <attribute name="Built-By" value="${user.name}"/>
-        <attribute name="Main-Class" value="at.oefg1880.swing.TestTool"/>
-        <attribute name="Class-Path" value="${manifest.classpath}"/>
-      </manifest>
-    </jar>
-
     <!--
-    // create run.bat
+    // Author: DI (FH) Maximilian Schremser
+    // Date: 03.02.2010
+    // Description: Build Script for creating the TestTool
     -->
-    <echo file="${APP_DIR}/${APP_FILE}">
-      @echo off
-      java -jar lib/${JAR_FILE}
-    </echo>
-
-    <copy todir="${APP_LIB_DIR}">
-      <fileset dir="${COMPILE_DIR}"/>
-      <fileset dir="${LIB_DIR}"/>
-    </copy>
-
     <!--
-    // create zip file with all jars (unsigned ones)
+      TARGET: init
     -->
-    <zip destfile="${WEB_DIR}/${ZIP_FILE}">
-      <zipfileset dir="${APP_DIR}" includes="**/**"/>
-    </zip>
-  </target>
+    <target name="init" description="init">
+        <property file="build.properties"/>
+        <property name="ivy.dir" value="${BASE_DIR}/target"/>
+        <property name="ivy.lib.dir" value="${ivy.dir}/[conf]"/>
+        <property name="ivy.dep.file" value="${BUILD_DIR}/ivy.xml"/>
+        <property name="launch4j.dir" location="C:\Program Files (x86)\Launch4j"/>
+        <property name="launch4j.workdir" location="../launch4j"/>
+
+        <!--<taskdef name="launch4j"-->
+        <!--classname="net.sf.launch4j.ant.Launch4jTask"-->
+        <!--classpath="${launch4j.dir}/launch4j.jar:${launch4j.dir}/xstream.jar"/>-->
+    </target>
 
 
-  <target name="webstart" description="Java webstárt" depends="jar">
-    <!--
-    // sign the jars to web/lib for JavaWebStart permissions
-    // keystore must exist in current directory
-    // create a keystore using:$> keytool -genkey -keystore keystore -alias PC-TestTool
-    -->
-    <signjar alias="${APP_NAME}" keystore="keystore" storepass="changeit" keypass="changeit" destdir="${WEB_LIB_DIR}">
-      <fileset dir="${LIB_DIR}" includes="*.jar"/>
-      <fileset dir="${COMPILE_DIR}" includes="*.jar"/>
-    </signjar>
+    <target name="clean" description="clean up" depends="init">
+        <echo>Clean Environment</echo>
+        <delete dir="${CLASSES_RESOURCE_DIR}"/>
+        <delete dir="${CLASSES_DIR}"/>
+        <delete dir="${APP_LIB_DIR}"/>
+        <delete dir="${APP_DIR}"/>
+        <delete dir="${BIN_DIR}"/>
+        <!--<delete dir="${WEB_DIR}"/>-->
+        <delete dir="${LIB_DIR}"/>
+        <delete dir="${META_DIR}"/>
+        <delete dir="${WAR_DIR}"/>
+        <delete dir="${TARGET_DIR}"/>
+    </target>
 
-    <pathconvert property="webstart.classpath" pathsep=" ">
-      <mapper>
-        <chainedmapper>
-          <!-- remove absolute path -->
-          <flattenmapper/>
-          <!-- add lib/ prefix -->
-          <globmapper from="*" to="&lt;jar href='lib/*'/&gt; "/>
-        </chainedmapper>
-      </mapper>
-      <path>
-        <!-- lib.home contains all jar files, in several subdirectories -->
-        <fileset dir="${WEB_LIB_DIR}" includes="**/*.jar"/>
-      </path>
-    </pathconvert>
+    <target name="zip" unless="compile.prepare" depends="clean">
+        <zip destfile='../../${APP_NAME}-all-${VERSION}.${MAJOR}.${MINOR}.zip'>
+            <zipfileset dir='../../${APP_NAME}' includes="**/**"/>
+        </zip>
+    </target>
 
-    <echo file="${WEB_DIR}/${JNLP_FILE}">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-      &lt;jnlp spec="1.0+"
-      codebase="${HOST}/${APP_NAME}" href="${JNLP_FILE}"&gt;
-      &lt;information&gt;
-      &lt;title&gt;${APP_NAME} v${VERSION}.${MAJOR}_${MINOR}&lt;/title&gt;
-      &lt;vendor&gt;DI(FH) Maximilian Schremser&lt;/vendor&gt;
-      &lt;homepage href="http://maxi.schremser.com"/&gt;
-      &lt;description&gt;&amp;Ouml;FG1880 - TestTool&lt;/description&gt;
-      &lt;offline-allowed/&gt;
-      &lt;/information&gt;
-      &lt;security&gt;
-      &lt;all-permissions/&gt;
-      &lt;/security&gt;
-      &lt;resources&gt;
-      &lt;j2se version="1.6+"/&gt;
-      ${webstart.classpath}
-      &lt;/resources&gt;
-      &lt;application-desc main-class="at.oefg1880.swing.TestTool"/&gt;
-      &lt;/jnlp&gt;
-    </echo>
-  </target>
+    <target name="compile.prepare" unless="compile.prepare" depends="zip">
+        <mkdir dir="${CLASSES_DIR}"/>
+        <mkdir dir="${CLASSES_RESOURCE_DIR}"/>
+        <mkdir dir="${APP_DIR}"/>
+        <mkdir dir="${APP_LIB_DIR}"/>
+        <mkdir dir="${LIB_DIR}"/>
+        <mkdir dir="${WEB_LIB_DIR}"/>
+        <mkdir dir="${META_DIR}"/>
+        <mkdir dir="${WAR_DIR}"/>
+        <mkdir dir="${TARGET_DIR}"/>
 
-  <!--<target name="launch4j" description="generate EXE" depends="webstart">-->
-  <!--<launch4j configFile="${launch4j.workdir}/PC-TestTool.cfg.xml" />-->
-  <!--</target>-->
+        <path id="compile.classpath">
+            <fileset dir="${COMPILE_DIR}">
+                <include name="**/*.jar"/>
+            </fileset>
+        </path>
 
-  <!--<target name="war" description="generate war" depends="launch4j">-->
-  <target name="war" description="generate war" depends="webstart">
-      <tstamp>
-          <format property="dt" pattern="yyyy-MM-dd HH:mm:ss"/>
-      </tstamp>
+        <echo>resolve with ivy</echo>
 
-    <!--
-    create an index.html file displaying the links for download and webstart
-    -->
-    <echo file="${WEB_DIR}/${HTML_FILE}">
-      &lt;html&gt;
-      &lt;head&gt;
-      &lt;title&gt;PC-TestTool&lt;/title&gt;
-      &lt;style type="text/css"&gt;
-      body {
-      font-family:serif;
-      }
-      &lt;/style&gt;
-      &lt;script type="text/javascript"&gt;
-        onload = function() {
-        var pwd = prompt("Please give the correct password to continue ...", "Password");
-        if (pwd != "oefg1880") document.location.href = "error.html";
-        }
-      &lt;/script&gt;
-      &lt;/head&gt;
-      &lt;body&gt;
-      &lt;div align="left"&gt;
-      &lt;h1&gt;${APP_NAME} ${VERSION}.${MAJOR}_${MINOR}&lt;/h1&gt;
-      &lt;h3&gt;Build Date: ${dt}&lt;/h3&gt;
-      &lt;p&gt;
-      &lt;span style="width:627px;text-align:center;border:1px solid black;vertical-align:bottom;"&gt;
-      &lt;a href="${JNLP_FILE}"&gt;&lt;h3&gt; Start ${APP_NAME}&lt;/h3&gt;&lt;/a&gt;
-      &lt;a href="${ZIP_FILE}"&gt;&lt;h3&gt; Download ${ZIP_FILE}&lt;/h3&gt;&lt;/a&gt;
-      &lt;a href="${OEFG_TEMPLATE_FILE}"&gt;&lt;h3&gt; Download ${OEFG_TEMPLATE_FILE}&lt;/h3&gt;&lt;/a&gt;
-      &lt;a href="${WFA_TEMPLATE_FILE}"&gt;&lt;h3&gt; Download ${WFA_TEMPLATE_FILE}&lt;/h3&gt;&lt;/a&gt;
-      &lt;/span&gt;
-      &lt;/p&gt;
-      &lt;/div&gt;
-      &lt;/body&gt;
-      &lt;/html&gt;
-    </echo>
-    <echo file="${WEB_DIR}/${ERROR_FILE}">
-      &lt;html&gt;
-      &lt;head&gt;
-      &lt;title&gt;PC-TestTool&lt;/title&gt;
-      &lt;style type="text/css"&gt;
-      body {
-      font-family:serif;
-      }
-      &lt;/style&gt;
-      &lt;/head&gt;
-      &lt;body&gt;
-      &lt;div align="left"&gt;
-      &lt;h1&gt;Sorry, you are not allowed ...&lt;/h1&gt;
-      &lt;/div&gt;
-      &lt;/body&gt;
-      &lt;/html&gt;
-    </echo>
-    <copy file="${OEFG_TEMPLATE_FILE}" todir="${WEB_DIR}"/>
-    <copy file="${WFA_TEMPLATE_FILE}" todir="${WEB_DIR}"/>
+        <ivy:settings file="${BUILD_DIR}/ivysettings.xml"/>
+        <ivy:retrieve sync="true" pattern="${ivy.lib.dir}/[artifact]-[revision].[ext]" type="jar"/>
+    </target>
 
-    <!--
-    // create a war file with the html page, jnlp file, TestTool.jar + depending jars
-    -->
-    <war warfile="${WAR_DIR}/${APP_NAME}.war" needxmlfile='false'>
-      <fileset dir="${WEB_DIR}"/>
-    </war>
+    <target name="compile" description="compile sources" depends="compile.prepare">
+        <javac srcdir="${SRC_DIR}" classpathref="compile.classpath" destdir="${CLASSES_DIR}"/>
 
-  </target>
+        <propertyfile file="${SRC_RESOURCE_DIR}/version.properties">
+            <entry key="VERSION" value="${VERSION}"/>
+            <entry key="MAJOR" value="${MAJOR}"/>
+            <entry key="MINOR" value="${MINOR}"/>
+        </propertyfile>
+
+        <copy todir="${CLASSES_RESOURCE_DIR}">
+            <fileset dir="${SRC_RESOURCE_DIR}">
+                <include name="**/*.properties"/>
+                <include name="**/*.gif"/>
+            </fileset>
+        </copy>
+        <copy todir="${CLASSES_DIR}">
+            <fileset dir="${SRC_DIR}">
+                <include name="**/*.properties"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="jar" description="generate jar" depends="compile">
+        <pathconvert property="manifest.classpath" pathsep=" ">
+            <mapper>
+                <chainedmapper>
+                    <!-- remove absolute path -->
+                    <flattenmapper/>
+                    <!-- add lib/ prefix -->
+                    <!--<globmapper from="*" to="lib/*" />-->
+                </chainedmapper>
+            </mapper>
+            <path>
+                <!-- lib.home contains all jar files, in several subdirectories -->
+                <fileset dir="${COMPILE_DIR}">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset dir="${LIB_DIR}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </path>
+        </pathconvert>
+
+        <jar jarfile="${LIB_DIR}/${JAR_FILE}" basedir="${CLASSES_DIR}" includes="**/**">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Main-Class" value="at.oefg1880.swing.TestTool"/>
+                <attribute name="Class-Path" value="${manifest.classpath}"/>
+            </manifest>
+        </jar>
+
+        <!--
+        // create run.bat
+        -->
+        <echo file="${APP_DIR}/${APP_FILE}">
+            @echo off
+            java -jar lib/${JAR_FILE}
+        </echo>
+
+        <copy todir="${APP_LIB_DIR}">
+            <fileset dir="${COMPILE_DIR}"/>
+            <fileset dir="${LIB_DIR}"/>
+        </copy>
+
+        <!--
+        // create zip file with all jars (unsigned ones)
+        -->
+        <zip destfile="${WEB_DIR}/${ZIP_FILE}">
+            <zipfileset dir="${APP_DIR}" includes="**/**"/>
+        </zip>
+    </target>
+
+
+    <target name="webstart" description="Java webstárt" depends="jar">
+        <!--
+        // sign the jars to web/lib for JavaWebStart permissions
+        // keystore must exist in current directory
+        // create a keystore using:$> keytool -genkey -keystore keystore -alias PC-TestTool
+        -->
+        <signjar alias="${APP_NAME}" keystore="keystore" storepass="changeit" keypass="changeit"
+                 destdir="${WEB_LIB_DIR}">
+            <fileset dir="${LIB_DIR}" includes="*.jar"/>
+            <fileset dir="${COMPILE_DIR}" includes="*.jar"/>
+        </signjar>
+
+        <pathconvert property="webstart.classpath" pathsep=" ">
+            <mapper>
+                <chainedmapper>
+                    <!-- remove absolute path -->
+                    <flattenmapper/>
+                    <!-- add lib/ prefix -->
+                    <globmapper from="*" to="&lt;jar href='lib/*'/&gt; "/>
+                </chainedmapper>
+            </mapper>
+            <path>
+                <!-- lib.home contains all jar files, in several subdirectories -->
+                <fileset dir="${WEB_LIB_DIR}" includes="**/*.jar"/>
+            </path>
+        </pathconvert>
+
+        <echo file="${WEB_DIR}/${JNLP_FILE}">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+            &lt;jnlp spec="1.0+"
+            codebase="${HOST}/${APP_NAME}" href="${JNLP_FILE}"&gt;
+            &lt;information&gt;
+            &lt;title&gt;${APP_NAME} v${VERSION}.${MAJOR}_${MINOR}&lt;/title&gt;
+            &lt;vendor&gt;DI(FH) Maximilian Schremser&lt;/vendor&gt;
+            &lt;homepage href="http://maxi.schremser.com"/&gt;
+            &lt;description&gt;&amp;Ouml;FG1880 - TestTool&lt;/description&gt;
+            &lt;offline-allowed/&gt;
+            &lt;/information&gt;
+            &lt;security&gt;
+            &lt;all-permissions/&gt;
+            &lt;/security&gt;
+            &lt;resources&gt;
+            &lt;j2se version="1.6+"/&gt;
+            ${webstart.classpath}
+            &lt;/resources&gt;
+            &lt;application-desc main-class="at.oefg1880.swing.TestTool"/&gt;
+            &lt;/jnlp&gt;
+        </echo>
+    </target>
+
+    <!--<target name="launch4j" description="generate EXE" depends="webstart">-->
+    <!--<launch4j configFile="${launch4j.workdir}/PC-TestTool.cfg.xml" />-->
+    <!--</target>-->
+
+    <!--<target name="war" description="generate war" depends="launch4j">-->
+    <target name="war" description="generate war" depends="webstart">
+        <tstamp>
+            <format property="dt" pattern="yyyy-MM-dd HH:mm:ss"/>
+        </tstamp>
+
+        <!--
+        create an index.html file displaying the links for download and webstart
+        -->
+        <echo file="${WEB_DIR}/${HTML_FILE}">
+            &lt;html&gt;
+            &lt;head&gt;
+            &lt;title&gt;PC-TestTool&lt;/title&gt;
+            &lt;style type="text/css"&gt;
+            body {
+            font-family:serif;
+            }
+            &lt;/style&gt;
+            &lt;script type="text/javascript"&gt;
+            onload = function() {
+            var pwd = prompt("Please give the correct password to continue ...", "Password");
+            if (pwd != "oefg1880") document.location.href = "error.html";
+            }
+            &lt;/script&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+            &lt;div align="left"&gt;
+            &lt;h1&gt;${APP_NAME} ${VERSION}.${MAJOR}_${MINOR}&lt;/h1&gt;
+            &lt;h3&gt;Build Date: ${dt}&lt;/h3&gt;
+            &lt;p&gt;
+            &lt;span style="width:627px;text-align:center;border:1px solid black;vertical-align:bottom;"&gt;
+            &lt;a href="${JNLP_FILE}"&gt;&lt;h3&gt; Start ${APP_NAME}&lt;/h3&gt;&lt;/a&gt;
+            &lt;a href="${ZIP_FILE}"&gt;&lt;h3&gt; Download ${ZIP_FILE}&lt;/h3&gt;&lt;/a&gt;
+            &lt;a href="${OEFG_TEMPLATE_FILE}"&gt;&lt;h3&gt; Download ${OEFG_TEMPLATE_FILE}&lt;/h3&gt;&lt;/a&gt;
+            &lt;a href="${WFA_TEMPLATE_FILE}"&gt;&lt;h3&gt; Download ${WFA_TEMPLATE_FILE}&lt;/h3&gt;&lt;/a&gt;
+            &lt;/span&gt;
+            &lt;/p&gt;
+            &lt;/div&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;
+        </echo>
+        <echo file="${WEB_DIR}/${ERROR_FILE}">
+            &lt;html&gt;
+            &lt;head&gt;
+            &lt;title&gt;PC-TestTool&lt;/title&gt;
+            &lt;style type="text/css"&gt;
+            body {
+            font-family:serif;
+            }
+            &lt;/style&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+            &lt;div align="left"&gt;
+            &lt;h1&gt;Sorry, you are not allowed ...&lt;/h1&gt;
+            &lt;/div&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;
+        </echo>
+        <copy file="${OEFG_TEMPLATE_FILE}" todir="${WEB_DIR}"/>
+        <copy file="${WFA_TEMPLATE_FILE}" todir="${WEB_DIR}"/>
+
+        <!--
+        // create a war file with the html page, jnlp file, TestTool.jar + depending jars
+        -->
+        <war warfile="${WAR_DIR}/${APP_NAME}.war" needxmlfile='false'>
+            <fileset dir="${WEB_DIR}"/>
+        </war>
+
+    </target>
 
 </project>

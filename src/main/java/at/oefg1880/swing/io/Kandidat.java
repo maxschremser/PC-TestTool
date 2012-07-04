@@ -22,7 +22,7 @@ public class Kandidat {
     private boolean bPassPhoto;
     private boolean bKursgebuehr;
     private boolean bAnwesend;
-    
+
     private Antwort antwort;
     private Fragebogen fragebogen;
 

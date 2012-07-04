@@ -54,118 +54,118 @@ import java.text.DateFormat;
 public final class ExampleComponentFactory extends BasicComponentFactory {
 
 
-  private ExampleComponentFactory() {
-    // Suppresses default constructor, ensuring non-instantiability.
-  }
+    private ExampleComponentFactory() {
+        // Suppresses default constructor, ensuring non-instantiability.
+    }
 
-  /**
-   * Creates and returns a formatted text field that is bound
-   * to the Date value of the given <code>ValueModel</code>.<p>
-   * <p/>
-   * The JFormattedTextField is configured with an AbstractFormatter
-   * that uses two different DateFormats to edit and display the Date.
-   * A <code>SHORT</code> DateFormat with strict checking is used to edit
-   * (parse) a date; the DateFormatter's default DateFormat is used to
-   * display (format) a date. In both cases <code>null</code> Dates are
-   * mapped to the empty String.<p>
-   * <p/>
-   * In addition to formatted Dates, the parser accepts positive and
-   * negative integers and interprets them as Dates relative to today.
-   * For example -1 is yesterday, 1 is tomorrow, and 7 is "in a week".<p>
-   * <p/>
-   * Yesterday, today, and tomorrow are displayed as these Strings,
-   * not as formatted Dates.
-   *
-   * @param valueModel the model that holds the value to be edited
-   * @return a formatted text field for Date instances that is bound
-   * @throws NullPointerException if the model is <code>null</code>
-   */
-  public static JFormattedTextField createDateField(
-      ValueModel valueModel) {
-    return createDateField(valueModel, true);
-  }
-
-
-  /**
-   * Creates and returns a formatted text field that is bound
-   * to the Date value of the given <code>ValueModel</code>.<p>
-   * <p/>
-   * The JFormattedTextField is configured with an AbstractFormatter
-   * that uses two different DateFormats to edit and display the Date.
-   * A <code>SHORT</code> DateFormat with strict checking is used to edit
-   * (parse) a date; the DateFormatter's default DateFormat is used to
-   * display (format) a date. In both cases <code>null</code> Dates are
-   * mapped to the empty String.<p>
-   * <p/>
-   * In addition to formatted Dates, the parser accepts positive and
-   * negative integers and interprets them as Dates relative to today.
-   * For example -1 is yesterday, 1 is tomorrow, and 7 is "in a week".<p>
-   * <p/>
-   * If <code>enableShortcuts</code> is set to <code>true</code>,
-   * yesterday, today, and tomorrow are displayed as these Strings,
-   * not as formatted Dates.
-   *
-   * @param valueModel      the model that holds the value to be edited
-   * @param enableShortcuts true to display yesterday, today, and tomorrow
-   *                        with natural language strings
-   * @return a formatted text field for Date instances that is bound
-   * @throws NullPointerException if the model is <code>null</code>
-   */
-  public static JFormattedTextField createDateField(
-      ValueModel valueModel,
-      boolean enableShortcuts) {
-    return createDateField(valueModel, enableShortcuts, false);
-  }
+    /**
+     * Creates and returns a formatted text field that is bound
+     * to the Date value of the given <code>ValueModel</code>.<p>
+     * <p/>
+     * The JFormattedTextField is configured with an AbstractFormatter
+     * that uses two different DateFormats to edit and display the Date.
+     * A <code>SHORT</code> DateFormat with strict checking is used to edit
+     * (parse) a date; the DateFormatter's default DateFormat is used to
+     * display (format) a date. In both cases <code>null</code> Dates are
+     * mapped to the empty String.<p>
+     * <p/>
+     * In addition to formatted Dates, the parser accepts positive and
+     * negative integers and interprets them as Dates relative to today.
+     * For example -1 is yesterday, 1 is tomorrow, and 7 is "in a week".<p>
+     * <p/>
+     * Yesterday, today, and tomorrow are displayed as these Strings,
+     * not as formatted Dates.
+     *
+     * @param valueModel the model that holds the value to be edited
+     * @return a formatted text field for Date instances that is bound
+     * @throws NullPointerException if the model is <code>null</code>
+     */
+    public static JFormattedTextField createDateField(
+            ValueModel valueModel) {
+        return createDateField(valueModel, true);
+    }
 
 
-  /**
-   * Creates and returns a formatted text field that is bound
-   * to the Date value of the given <code>ValueModel</code>.<p>
-   * <p/>
-   * The JFormattedTextField is configured with an AbstractFormatter
-   * that uses two different DateFormats to edit and display the Date.
-   * A <code>SHORT</code> DateFormat with strict checking is used to edit
-   * (parse) a date; the DateFormatter's default DateFormat is used to
-   * display (format) a date. In both cases <code>null</code> Dates are
-   * mapped to the empty String.<p>
-   * <p/>
-   * In addition to formatted Dates, the parser accepts positive and
-   * negative integers and interprets them as Dates relative to today.
-   * For example -1 is yesterday, 1 is tomorrow, and 7 is "in a week".<p>
-   * <p/>
-   * If <code>enableShortcuts</code> is set to <code>true</code>,
-   * yesterday, today, and tomorrow are displayed as these Strings,
-   * not as formatted Dates.
-   *
-   * @param valueModel         the model that holds the value to be edited
-   * @param enableShortcuts    true to display yesterday, today, and tomorrow
-   *                           with natural language strings
-   * @param commitsOnValidEdit true to commit on valid edit,
-   *                           false to commit on focus lost
-   * @return a formatted text field for Date instances that is bound
-   * @throws NullPointerException if the model is <code>null</code>
-   */
-  public static JFormattedTextField createDateField(
-      ValueModel valueModel,
-      boolean enableShortcuts,
-      boolean commitsOnValidEdit) {
-    DateFormat shortFormat = DateFormat.getDateInstance(DateFormat.SHORT);
-    shortFormat.setLenient(false);
+    /**
+     * Creates and returns a formatted text field that is bound
+     * to the Date value of the given <code>ValueModel</code>.<p>
+     * <p/>
+     * The JFormattedTextField is configured with an AbstractFormatter
+     * that uses two different DateFormats to edit and display the Date.
+     * A <code>SHORT</code> DateFormat with strict checking is used to edit
+     * (parse) a date; the DateFormatter's default DateFormat is used to
+     * display (format) a date. In both cases <code>null</code> Dates are
+     * mapped to the empty String.<p>
+     * <p/>
+     * In addition to formatted Dates, the parser accepts positive and
+     * negative integers and interprets them as Dates relative to today.
+     * For example -1 is yesterday, 1 is tomorrow, and 7 is "in a week".<p>
+     * <p/>
+     * If <code>enableShortcuts</code> is set to <code>true</code>,
+     * yesterday, today, and tomorrow are displayed as these Strings,
+     * not as formatted Dates.
+     *
+     * @param valueModel      the model that holds the value to be edited
+     * @param enableShortcuts true to display yesterday, today, and tomorrow
+     *                        with natural language strings
+     * @return a formatted text field for Date instances that is bound
+     * @throws NullPointerException if the model is <code>null</code>
+     */
+    public static JFormattedTextField createDateField(
+            ValueModel valueModel,
+            boolean enableShortcuts) {
+        return createDateField(valueModel, enableShortcuts, false);
+    }
 
-    DefaultFormatter defaultFormatter =
-        new RelativeDateFormatter(shortFormat, false, true);
-    defaultFormatter.setCommitsOnValidEdit(commitsOnValidEdit);
 
-    JFormattedTextField.AbstractFormatter displayFormatter =
-        new RelativeDateFormatter(enableShortcuts, true);
+    /**
+     * Creates and returns a formatted text field that is bound
+     * to the Date value of the given <code>ValueModel</code>.<p>
+     * <p/>
+     * The JFormattedTextField is configured with an AbstractFormatter
+     * that uses two different DateFormats to edit and display the Date.
+     * A <code>SHORT</code> DateFormat with strict checking is used to edit
+     * (parse) a date; the DateFormatter's default DateFormat is used to
+     * display (format) a date. In both cases <code>null</code> Dates are
+     * mapped to the empty String.<p>
+     * <p/>
+     * In addition to formatted Dates, the parser accepts positive and
+     * negative integers and interprets them as Dates relative to today.
+     * For example -1 is yesterday, 1 is tomorrow, and 7 is "in a week".<p>
+     * <p/>
+     * If <code>enableShortcuts</code> is set to <code>true</code>,
+     * yesterday, today, and tomorrow are displayed as these Strings,
+     * not as formatted Dates.
+     *
+     * @param valueModel         the model that holds the value to be edited
+     * @param enableShortcuts    true to display yesterday, today, and tomorrow
+     *                           with natural language strings
+     * @param commitsOnValidEdit true to commit on valid edit,
+     *                           false to commit on focus lost
+     * @return a formatted text field for Date instances that is bound
+     * @throws NullPointerException if the model is <code>null</code>
+     */
+    public static JFormattedTextField createDateField(
+            ValueModel valueModel,
+            boolean enableShortcuts,
+            boolean commitsOnValidEdit) {
+        DateFormat shortFormat = DateFormat.getDateInstance(DateFormat.SHORT);
+        shortFormat.setLenient(false);
 
-    DefaultFormatterFactory formatterFactory =
-        new DefaultFormatterFactory(defaultFormatter, displayFormatter);
+        DefaultFormatter defaultFormatter =
+                new RelativeDateFormatter(shortFormat, false, true);
+        defaultFormatter.setCommitsOnValidEdit(commitsOnValidEdit);
 
-    JFormattedTextField textField = new JFormattedTextField(formatterFactory);
-    Bindings.bind(textField, valueModel);
-    return textField;
-  }
+        JFormattedTextField.AbstractFormatter displayFormatter =
+                new RelativeDateFormatter(enableShortcuts, true);
+
+        DefaultFormatterFactory formatterFactory =
+                new DefaultFormatterFactory(defaultFormatter, displayFormatter);
+
+        JFormattedTextField textField = new JFormattedTextField(formatterFactory);
+        Bindings.bind(textField, valueModel);
+        return textField;
+    }
 
 
 }

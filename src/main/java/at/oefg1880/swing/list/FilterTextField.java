@@ -5,7 +5,6 @@ import at.oefg1880.swing.dialog.AntwortDialog;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
 
 public class FilterTextField extends JTextField implements DocumentListener {
     private final FilterKandidatTable filterKandidatTable;
