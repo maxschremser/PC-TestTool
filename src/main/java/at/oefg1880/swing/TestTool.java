@@ -2,7 +2,7 @@ package at.oefg1880.swing;
 
 import at.oefg1880.swing.frame.StartFrame;
 import at.oefg1880.swing.utils.ResourceHandler;
-import com.jgoodies.looks.windows.WindowsLookAndFeel;
+import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -30,6 +30,7 @@ public class TestTool implements ITexts, IConfig {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new WindowsLookAndFeel());
+//                    UIManager.setLookAndFeel(new KunststoffLookAndFeel());
                 } catch (UnsupportedLookAndFeelException ulnfe) {
                     ulnfe.printStackTrace();
                 }

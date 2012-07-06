@@ -17,11 +17,8 @@
     <dependencies>
         <dependency org="com.jgoodies" name="forms" rev="1.2.1" transitive="false"/>
         <dependency org="com.jgoodies" name="looks" rev="2.2.0" transitive="false"/>
-        <dependency org="com.jgoodies" name="validation" rev="2.0.0" transitive="false"/>
-        <dependency org="com.jgoodies" name="binding" rev="2.0.0" transitive="false"/>
         <dependency org="jfree" name="jfreechart" rev="1.0.13" transitive="false"/>
         <dependency org="jfree" name="jcommon" rev="1.0.12"/>
         <dependency org="org.apache.poi" name="poi" rev="3.6"/>
-        <!--<dependency org="com.incors.plaf" name="kunststoff" rev="2.0.2" />-->
     </dependencies>
 </ivy-module>
