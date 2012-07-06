@@ -30,7 +30,6 @@ public class TestTool implements ITexts, IConfig {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new WindowsLookAndFeel());
-//                    UIManager.setLookAndFeel(new KunststoffLookAndFeel());
                 } catch (UnsupportedLookAndFeelException ulnfe) {
                     ulnfe.printStackTrace();
                 }
