@@ -12,7 +12,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 public class TestTextsProperties extends TestCase {
-    Properties de_properties;
+    Properties default_properties;
     Properties en_properties;
 
     public TestTextsProperties(String s) {
@@ -21,17 +21,17 @@ public class TestTextsProperties extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        de_properties = new Properties();
-        de_properties.load(getClass().getClassLoader().getResourceAsStream("resources/texts.properties"));
+        default_properties = new Properties();
+        default_properties.load(getClass().getClassLoader().getResourceAsStream("resources/texts.properties"));
         en_properties = new Properties();
         en_properties.load(getClass().getClassLoader().getResourceAsStream("resources/texts_en.properties"));
     }
 
     public void testConsistent() {
-        // each property that exists in de_properties must exist in en_properties
+        // each property that exists in default_properties must exist in en_properties
         String sError = "";
 
-        Set<Object> keys = de_properties.keySet();
+        Set<Object> keys = default_properties.keySet();
         for (Object key : keys) {
             String sKey = key.toString();
 //            assertTrue ("Property does not exist in text_en: " + sKey, en_properties.getProperty(sKey) != null);
