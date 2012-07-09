@@ -26,6 +26,7 @@
         <echo>Clean Environment</echo>
         <delete dir="${CLASSES_RESOURCE_DIR}"/>
         <delete dir="${CLASSES_DIR}"/>
+        <delete dir="${TEST_CLASSES_DIR}"/>
         <delete dir="${APP_LIB_DIR}"/>
         <delete dir="${APP_DIR}"/>
         <delete dir="${BIN_DIR}"/>
@@ -34,6 +35,7 @@
         <delete dir="${META_DIR}"/>
         <delete dir="${WAR_DIR}"/>
         <delete dir="${TARGET_DIR}"/>
+        <delete dir="${RESULT_DIR}"/>
     </target>
 
     <target name="zip" unless="compile.prepare" depends="clean">
@@ -44,6 +46,7 @@
 
     <target name="compile.prepare" unless="compile.prepare" depends="zip">
         <mkdir dir="${CLASSES_DIR}"/>
+        <mkdir dir="${TEST_CLASSES_DIR}"/>
         <mkdir dir="${CLASSES_RESOURCE_DIR}"/>
         <mkdir dir="${APP_DIR}"/>
         <mkdir dir="${APP_LIB_DIR}"/>
@@ -52,11 +55,20 @@
         <mkdir dir="${META_DIR}"/>
         <mkdir dir="${WAR_DIR}"/>
         <mkdir dir="${TARGET_DIR}"/>
+        <mkdir dir="${RESULT_DIR}"/>
 
         <path id="compile.classpath">
-            <fileset dir="${COMPILE_DIR}">
+            <fileset dir="${COMPILE_TARGET}">
                 <include name="**/*.jar"/>
             </fileset>
+        </path>
+
+        <path id="test.classpath">
+            <fileset dir="${TEST_TARGET}">
+                <include name="**/*.jar"/>
+            </fileset>
+            <pathelement location="${TEST_CLASSES_DIR}"/>
+            <pathelement location="${CLASSES_DIR}"/>
         </path>
 
         <echo>resolve with ivy</echo>
@@ -87,7 +99,18 @@
         </copy>
     </target>
 
-    <target name="jar" description="generate jar" depends="compile">
+    <target name="junit" depends="compile">
+        <javac srcdir="${TEST_DIR}" classpathref="test.classpath" destdir="${TEST_CLASSES_DIR}"/>
+        <!--<echopath pathid="test.classpath"/>-->
+        <junit fork="yes" printsummary="yes" haltonfailure="yes" haltonerror="no">
+            <jvmarg value="-Xmx512M"/>
+            <classpath refid="test.classpath"/>
+            <formatter type="xml"/>
+            <test name="at.oefg1880.swing.TestTextsProperties" todir="${RESULT_DIR}"/>
+        </junit>
+    </target>
+
+    <target name="jar" description="generate jar" depends="junit">
         <pathconvert property="manifest.classpath" pathsep=" ">
             <mapper>
                 <chainedmapper>
@@ -99,7 +122,7 @@
             </mapper>
             <path>
                 <!-- lib.home contains all jar files, in several subdirectories -->
-                <fileset dir="${COMPILE_DIR}">
+                <fileset dir="${COMPILE_TARGET}">
                     <include name="**/*.jar"/>
                 </fileset>
                 <fileset dir="${LIB_DIR}">
@@ -125,7 +148,7 @@
         </echo>
 
         <copy todir="${APP_LIB_DIR}">
-            <fileset dir="${COMPILE_DIR}"/>
+            <fileset dir="${COMPILE_TARGET}"/>
             <fileset dir="${LIB_DIR}"/>
         </copy>
 
@@ -147,7 +170,7 @@
         <signjar alias="${APP_NAME}" keystore="keystore" storepass="changeit" keypass="changeit"
                  destdir="${WEB_LIB_DIR}">
             <fileset dir="${LIB_DIR}" includes="*.jar"/>
-            <fileset dir="${COMPILE_DIR}" includes="*.jar"/>
+            <fileset dir="${COMPILE_TARGET}" includes="*.jar"/>
         </signjar>
 
         <pathconvert property="webstart.classpath" pathsep=" ">
@@ -260,5 +283,20 @@
         </war>
 
     </target>
+
+
+    <!-- MACRO DEFINITIONS -->
+    <macrodef name="echopath">
+        <attribute name="pathid"/>
+        <sequential>
+            <property name="line.pathprefix" value="| |-- "/>
+            <pathconvert pathsep="${line.separator}${line.pathprefix}"
+                         property="echo.@{pathid}"
+                         refid="@{pathid}">
+            </pathconvert>
+            <echo>Path @{pathid}
+                ${line.pathprefix}${echo.@{pathid}}</echo>
+        </sequential>
+    </macrodef>
 
 </project>

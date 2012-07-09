@@ -7,6 +7,7 @@
 
     <configurations defaultconfmapping="*->default">
         <conf name="compile" description="Implementation and private API's"/>
+        <conf name="test" extends="compile"/>
         <conf name="default" extends="compile"/>
     </configurations>
 
@@ -20,5 +21,6 @@
         <dependency org="jfree" name="jfreechart" rev="1.0.13" transitive="false"/>
         <dependency org="jfree" name="jcommon" rev="1.0.12"/>
         <dependency org="org.apache.poi" name="poi" rev="3.6"/>
+        <dependency org="junit" name="junit" rev="4.1" conf="test"/>
     </dependencies>
 </ivy-module>
