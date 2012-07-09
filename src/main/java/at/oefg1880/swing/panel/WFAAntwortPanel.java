@@ -17,7 +17,7 @@ import java.awt.*;
  */
 public class WFAAntwortPanel extends AntwortPanel {
     public final static int NUM_ANSWERS = 50;
-    public final static char[] allowedValues = new char[]{' ', 'A', 'B', 'C', 'D'};
+    public final static char[] allowedValues = new char[]{CHAR_BLANK, CHAR_A, CHAR_B, CHAR_C, CHAR_D};
 
     public WFAAntwortPanel(boolean isInCreateMode, AntwortDialog dialog) {
         super(isInCreateMode, dialog);
@@ -46,16 +46,16 @@ public class WFAAntwortPanel extends AntwortPanel {
         add(new JLabel(rh.getString(PROPERTY_NAME, KAT_E)), cc.xy(1, 11));
 
         // answer labels
-        add(new JLabel("1"), cc.xy(3, 1));
-        add(new JLabel("2"), cc.xy(5, 1));
-        add(new JLabel("3"), cc.xy(7, 1));
-        add(new JLabel("4"), cc.xy(9, 1));
-        add(new JLabel("5"), cc.xy(11, 1));
-        add(new JLabel("6"), cc.xy(13, 1));
-        add(new JLabel("7"), cc.xy(15, 1));
-        add(new JLabel("8"), cc.xy(17, 1));
-        add(new JLabel("9"), cc.xy(19, 1));
-        add(new JLabel("10"), cc.xy(21, 1));
+        add(new JLabel(Q_1), cc.xy(3, 1));
+        add(new JLabel(Q_2), cc.xy(5, 1));
+        add(new JLabel(Q_3), cc.xy(7, 1));
+        add(new JLabel(Q_4), cc.xy(9, 1));
+        add(new JLabel(Q_5), cc.xy(11, 1));
+        add(new JLabel(Q_6), cc.xy(13, 1));
+        add(new JLabel(Q_7), cc.xy(15, 1));
+        add(new JLabel(Q_8), cc.xy(17, 1));
+        add(new JLabel(Q_9), cc.xy(19, 1));
+        add(new JLabel(Q_10), cc.xy(21, 1));
 
         // answer fields
         int k = 0;

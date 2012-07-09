@@ -43,7 +43,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     private JComboBox comboGeburtstagTag, comboGeburtstagMonat, comboGeburtstagJahr;
     private JCheckBox cbKursunterlagen, cbPassfoto, cbAnwesend;
     private JButton saveButton;
-    private final String SAVE = "update";
+    private final static String SAVE = "update";
 
     // New Kandidat
     public KandidatDialog(TestToolFrame frame, String title) {
@@ -261,13 +261,13 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
         kandidat.setPassPhoto(cbPassfoto.isSelected());
         kandidat.setKursgebuehrBezahlt(cbKursunterlagen.isSelected());
 
-        ((DefaultTableModel) ((KandidatPanel) frame.getKandidatPanel()).getKandidatTable().getModel()).setValueAt(kandidat, kandidat.getIndex() - 1, 0);
+        frame.getKandidatPanel().getKandidatTable().getModel().setValueAt(kandidat, kandidat.getIndex() - 1, 0);
     }
 
     private void close() {
         saveOrUpdate();
         reset();
-        ((DefaultTableModel) ((KandidatPanel) frame.getKandidatPanel()).getKandidatTable().getModel()).fireTableRowsUpdated(kandidat.getIndex() - 1, kandidat.getIndex() - 1);
+        frame.getKandidatPanel().getKandidatTable().getModel().fireTableRowsUpdated(kandidat.getIndex() - 1, kandidat.getIndex() - 1);
         dispose();
     }
 
@@ -295,9 +295,9 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
         tfStrasse.setText(kandidat.getStrasse());
         tfPLZ.setText(kandidat.getPLZ() + "");
         tfOrt.setText(kandidat.getOrt());
-        comboGeburtstagTag.setSelectedItem(new SimpleDateFormat("d").format(kandidat.getGeburtstag()));
-        comboGeburtstagMonat.setSelectedItem(rh.getString(PROPERTY_NAME, MONTHS).split(",")[Integer.valueOf(new SimpleDateFormat("M").format(kandidat.getGeburtstag())) - 1]);
-        comboGeburtstagJahr.setSelectedItem(new SimpleDateFormat("yyyy").format(kandidat.getGeburtstag()));
+        comboGeburtstagTag.setSelectedItem(new SimpleDateFormat(DATE_DAY).format(kandidat.getGeburtstag()));
+        comboGeburtstagMonat.setSelectedItem(rh.getString(PROPERTY_NAME, MONTHS).split(",")[Integer.valueOf(new SimpleDateFormat(DATE_MONTH).format(kandidat.getGeburtstag())) - 1]);
+        comboGeburtstagJahr.setSelectedItem(new SimpleDateFormat(DATE_YEAR).format(kandidat.getGeburtstag()));
         tfGeburtsort.setText(kandidat.getGeburtsort());
         cbAnwesend.setSelected(kandidat.isAnwesend());
         cbPassfoto.setSelected(kandidat.hasPassPhoto());

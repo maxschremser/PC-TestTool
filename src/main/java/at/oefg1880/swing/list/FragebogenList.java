@@ -62,7 +62,7 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
                 // open FragebogenDialog
                 menu.setVisible(false);
                 if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
-                    ((FragebogenPanel) frame.getFragebogenPanel()).createNewAntwortDialog((Fragebogen) getSelectedValue());
+                    frame.getFragebogenPanel().createNewAntwortDialog((Fragebogen) getSelectedValue());
                 } else if (SwingUtilities.isRightMouseButton(e) && !isSelectionEmpty() &&
                         locationToIndex(e.getPoint()) == getSelectedIndex()) {
                     // right click, open edit menu

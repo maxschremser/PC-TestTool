@@ -1,6 +1,8 @@
 package at.oefg1880.swing.model;
 
+import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.io.Kandidat;
+import at.oefg1880.swing.utils.ResourceHandler;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
@@ -12,8 +14,11 @@ import java.util.ArrayList;
  * Time: 15:18
  * To change this template use File | Settings | File Templates.
  */
-public class KandidatTableModel extends DefaultTableModel {
+public class KandidatTableModel extends DefaultTableModel implements IConfig {
     protected ArrayList<Kandidat> items;
+
+    public final static String PROPERTY_NAME = "at.oefg1880.swing.model.KandidatTableModel";
+    private ResourceHandler rh = ResourceHandler.getInstance();
 
     public KandidatTableModel() {
         super();
@@ -47,7 +52,7 @@ public class KandidatTableModel extends DefaultTableModel {
 
     @Override
     public String getColumnName(int column) {
-        return "Kandidaten";
+        return rh.getString(PROPERTY_NAME, COLUMN);
     }
 
     @Override

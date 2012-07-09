@@ -1,5 +1,6 @@
 package at.oefg1880.swing.panel;
 
+import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.dialog.AntwortDialog;
 import at.oefg1880.swing.text.AntwortTextField;
@@ -15,7 +16,7 @@ import java.awt.*;
  * Time: 12:54:36
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AntwortPanel extends JPanel implements ITexts { //FormDebugPanel {
+public abstract class AntwortPanel extends JPanel implements ITexts, IConfig { //FormDebugPanel {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.panel.AntwortPanel";
     protected boolean isInCreateMode = false;
     protected ResourceHandler rh = ResourceHandler.getInstance();

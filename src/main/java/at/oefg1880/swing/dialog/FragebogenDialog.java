@@ -40,8 +40,8 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     private JSpinner spinner;
     private AntwortPanel answerPanel;
     private JButton button;
-    private final String SAVE = "save";
-    private final String UPDATE = "update";
+    private final static String SAVE = "save";
+    private final static String UPDATE = "update";
     private final Logger log = Logger.getLogger(FragebogenDialog.class);
 
     public abstract AntwortPanel getAntwortPanel();

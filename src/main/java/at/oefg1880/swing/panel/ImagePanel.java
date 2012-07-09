@@ -39,18 +39,8 @@ public class ImagePanel extends GradientPanel {
         Graphics2D _g = buf.createGraphics();
         _g.setComposite(AlphaComposite.Src);
         _g.drawImage(image, 0, 0, null);
-        // the transparent color (white)
-//        int markerRGB = Color.white.getRGB() | 0xFFFFFFFF;
-//        for (int i = 0; i < buf.getWidth(); i++) {
-//            for (int j = 0; j < buf.getHeight(); j++) {
-//                if ((buf.getRGB(i, j) | 0xFFFFFFFF) == markerRGB) {
-//                    buf.setRGB(i, j, buf.getRGB(i, j) & 0x00FFFFFF);
-//                }
-//            }
-//        }
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.drawImage(buf, 7, 7, null);
-//    super.paintComponent(g);
     }
 }

@@ -258,8 +258,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         try {
             Workbook wb = new HSSFWorkbook();
             Calendar cal = Calendar.getInstance();
-            final String DATE_FORMAT = "yyyyMMdd";
-            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+            SimpleDateFormat sdf = new SimpleDateFormat(FILE_DATE_PATTERN);
             String date = sdf.format(cal.getTime());
             file = new File(getFragebogenName() + "-" + date + ".xls");
             log.info("Saved at: " + file.getAbsolutePath());

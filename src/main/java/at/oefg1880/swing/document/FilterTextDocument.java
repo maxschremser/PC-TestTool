@@ -13,9 +13,9 @@ import javax.swing.text.PlainDocument;
  */
 public class FilterTextDocument extends PlainDocument {
     public static final String LOWERCASE =
-            "_ abcdefghijklmnopqrstuvwxyz";
+            " +-_abcdefghijklmnopqrstuvwxyzäöü";
     public static final String UPPERCASE =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ";
     public static final String ALPHA =
             LOWERCASE + UPPERCASE;
     public static final String NUMERIC =

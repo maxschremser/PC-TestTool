@@ -54,7 +54,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     protected AntwortPanel panel;
     private JLabel labelTitle;
 
-    private final String SAVE = "update";
+    private final static String SAVE = "update";
     private final String CORRECT = rh.getString(PROPERTY_NAME, GRAPH_CORRECT);
     private final String WRONG = rh.getString(PROPERTY_NAME, GRAPH_WRONG);
     private ChartPanel chartPanel;

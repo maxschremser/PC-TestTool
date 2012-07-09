@@ -17,7 +17,7 @@ import java.awt.*;
  */
 public class OEFGAntwortPanel extends AntwortPanel {
     public final static int NUM_ANSWERS = 20;
-    public final static char[] allowedValues = new char[]{' ', 'A', 'B', 'C'};
+    public final static char[] allowedValues = new char[]{CHAR_BLANK, CHAR_A, CHAR_B, CHAR_C};
 
     public OEFGAntwortPanel(boolean isInCreateMode, AntwortDialog dialog) {
         super(isInCreateMode, dialog);
@@ -43,11 +43,11 @@ public class OEFGAntwortPanel extends AntwortPanel {
         add(new JLabel(rh.getString(PROPERTY_NAME, KAT_D)), cc.xy(1, 9));
 
         // answer labels
-        add(new JLabel("1"), cc.xy(3, 1));
-        add(new JLabel("2"), cc.xy(5, 1));
-        add(new JLabel("3"), cc.xy(7, 1));
-        add(new JLabel("4"), cc.xy(9, 1));
-        add(new JLabel("5"), cc.xy(11, 1));
+        add(new JLabel(Q_1), cc.xy(3, 1));
+        add(new JLabel(Q_2), cc.xy(5, 1));
+        add(new JLabel(Q_3), cc.xy(7, 1));
+        add(new JLabel(Q_4), cc.xy(9, 1));
+        add(new JLabel(Q_5), cc.xy(11, 1));
 
         // answer fields
         int k = 0;
