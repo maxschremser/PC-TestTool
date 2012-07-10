@@ -3,7 +3,7 @@
             xsi:noNamespaceSchemaLocation=
                     "http://ant.apache.org/ivy/schemas/ivy.xsd">
 
-    <info organisation='oefg.TestTool' module='TestTool'/>
+    <info organisation='oefg.TestTool' module='PC-TestTool'/>
 
     <configurations defaultconfmapping="*->default">
         <conf name="compile" description="Implementation and private API's"/>
@@ -22,5 +22,7 @@
         <dependency org="jfree" name="jcommon" rev="1.0.12"/>
         <dependency org="org.apache.poi" name="poi" rev="3.6"/>
         <dependency org="junit" name="junit" rev="4.1" conf="test"/>
+        <dependency org="axis" name="axis" rev="1.4" transitive="false"/>
+        <dependency org="axis" name="axis-jaxrpc" rev="1.4"/>
     </dependencies>
 </ivy-module>
