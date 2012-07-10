@@ -23,6 +23,11 @@
         <dependency org="org.apache.poi" name="poi" rev="3.6"/>
         <dependency org="junit" name="junit" rev="4.1" conf="test"/>
         <dependency org="axis" name="axis" rev="1.4" transitive="false"/>
+        <dependency org="commons-discovery" name="commons-discovery" rev="0.2" transitive="false"/>
+        <dependency org="commons-logging" name="commons-logging" rev="1.0.4" transitive="false"/>
         <dependency org="axis" name="axis-jaxrpc" rev="1.4"/>
+        <dependency org="axis" name="axis-saaj" rev="1.4"/>
+        <dependency org="axis" name="axis-wsdl4j" rev="1.5.1"/>
+        <dependency org="log4j" name="log4j" rev="1.2.9"/>
     </dependencies>
 </ivy-module>
