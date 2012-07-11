@@ -26,6 +26,7 @@
         <delete dir="${BIN_DIR}"/>
         <delete dir="${LIB_DIR}"/>
         <delete dir="${META_DIR}"/>
+        <delete dir="${WEB_INF_LIB_DIR}"/>
         <delete dir="${WAR_DIR}"/>
         <delete dir="${TARGET_DIR}"/>
         <delete dir="${RESULT_DIR}"/>
@@ -45,6 +46,7 @@
         <mkdir dir="${APP_LIB_DIR}"/>
         <mkdir dir="${LIB_DIR}"/>
         <mkdir dir="${WEB_LIB_DIR}"/>
+        <mkdir dir="${WEB_INF_LIB_DIR}"/>
         <mkdir dir="${META_DIR}"/>
         <mkdir dir="${WAR_DIR}"/>
         <mkdir dir="${TARGET_DIR}"/>
@@ -154,7 +156,7 @@
     </target>
 
 
-    <target name="webstart" description="Java webstárt" depends="jar">
+    <target name="webstart" description="Java webstart" depends="jar">
         <!--
         // sign the jars to web/lib for JavaWebStart permissions
         // keystore must exist in current directory
@@ -267,11 +269,15 @@
         </echo>
         <copy file="${OEFG_TEMPLATE_FILE}" todir="${WEB_DIR}"/>
         <copy file="${WFA_TEMPLATE_FILE}" todir="${WEB_DIR}"/>
-
         <!--
         // create a war file with the html page, jnlp file, TestTool.jar + depending jars
         -->
-        <war warfile="${WAR_DIR}/${APP_NAME}.war" needxmlfile='false'>
+        <copy todir="${WEB_INF_LIB_DIR}">
+            <fileset dir="${LIB_DIR}"/>
+            <fileset dir="${COMPILE_TARGET}" />
+        </copy>
+
+        <war warfile="${WAR_DIR}/${APP_NAME}.war" needxmlfile='false' >
             <fileset dir="${WEB_DIR}"/>
         </war>
 
