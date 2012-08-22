@@ -147,6 +147,8 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         chart.setTitle("0%");
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setForegroundAlpha(0.7f);
+        plot.setSectionPaint(WRONG, Color.red);
+        plot.setSectionPaint(CORRECT, Color.green);
         chartPanel = new ChartPanel(chart);
         chartPanel.setOpaque(true);
         chartPanel.setBorder(BorderFactory.createLineBorder(Color.black));
