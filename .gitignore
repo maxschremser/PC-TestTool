@@ -3,3 +3,14 @@
 *.ipr
 keystore
 *.class
+app/*
+classes/*
+target/*
+web/WEB-INF/*
+web/lib/*
+lib/*
+junit/*
+war/*
+web/testtool.jnlp
+web/TestTool.zip
+/src\main\java\resources/version.properties

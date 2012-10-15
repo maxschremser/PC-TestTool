@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://example" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://example" xmlns:intf="http://example" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://example" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="fragebogen" type="xsd:string"/>
+   <element name="getFragebogenReturn" type="xsd:string"/>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getFragebogenRequest">
+
+      <wsdl:part element="impl:fragebogen" name="fragebogen"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFragebogenResponse">
+
+      <wsdl:part element="impl:getFragebogenReturn" name="getFragebogenReturn"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="TestToolService">
+
+      <wsdl:operation name="getFragebogen" parameterOrder="fragebogen">
+
+         <wsdl:input message="impl:getFragebogenRequest" name="getFragebogenRequest"/>
+
+         <wsdl:output message="impl:getFragebogenResponse" name="getFragebogenResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="TestToolServiceSoapBinding" type="impl:TestToolService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getFragebogen">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getFragebogenRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getFragebogenResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="TestToolServiceService">
+
+      <wsdl:port binding="impl:TestToolServiceSoapBinding" name="TestToolService">
+
+         <wsdlsoap:address location="http://localhost:8080/services/TestToolService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
