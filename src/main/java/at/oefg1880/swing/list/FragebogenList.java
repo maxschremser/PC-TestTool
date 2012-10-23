@@ -181,7 +181,6 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
                 labelGeloest.setText(fragebogen.getSolved() + "");
                 labelOffen.setText(fragebogen.getUnsolved() + "");
                 if (fragebogen.getSolved() < fragebogen.getExisting()) {
-                    log.debug(isSelected ? "Cell selected: " + cell : "Cell: " + cell);
                     for (Component c : cell.getComponents()) {
                         if (isSelected) {
                             c.setBackground(listSelectionBackground);

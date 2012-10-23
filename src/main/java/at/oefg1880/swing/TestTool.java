@@ -34,7 +34,7 @@ public class TestTool implements ITexts, IConfig {
                     ulnfe.printStackTrace();
                 }
                 PropertyConfigurator.configureAndWatch("log4j.properties", 60 * 1000);
-                log.info("Starting StartFrame at " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+                log.debug("Starting StartFrame at " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
                 Properties props = new Properties();
                 try {
                     props.load(getClass().getClassLoader().getResourceAsStream("resources/version.properties"));
