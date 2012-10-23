@@ -78,7 +78,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     }
 
     private void showOEFGTestToolFrame() {
-        log.debug("showOEFGTestToolFrame");
+        log.debug("showOEFGTestToolFrame()");
         new OEFGTestToolFrame(rh.getString(PROPERTY_NAME, TITLE));
         props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
         props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
@@ -86,7 +86,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     }
 
     private void showWFATestToolFrame() {
-        log.debug("showWFATestToolFrame");
+        log.debug("showWFATestToolFrame()");
         new WFATestToolFrame(rh.getString(PROPERTY_NAME, TITLE));
         props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
         props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
