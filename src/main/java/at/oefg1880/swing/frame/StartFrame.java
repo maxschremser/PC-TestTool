@@ -95,6 +95,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
 
 
     public ImagePanel getOEFGImagePane() {
+        log.debug("getOEFGImagePane()");
         if (oefgImagePanel == null) {
             oefgImagePanel = new ImagePanel(getClass().getClassLoader().getResource("resources/oefg1880_logo.gif"));
             oefgImagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -119,6 +120,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     }
 
     public ImagePanel getWFAImagePane() {
+        log.debug("getWFAImagePane()");
         if (wfaImagePanel == null) {
             wfaImagePanel = new ImagePanel(getClass().getClassLoader().getResource("resources/wfa_logo.gif"));
             wfaImagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
