@@ -30,6 +30,7 @@ import java.awt.event.*;
  */
 public abstract class FragebogenDialog extends JDialog implements ActionListener, IConfig, ITexts {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.dialog.FragebogenDialog";
+    protected final Logger log = Logger.getLogger(getClass());
     protected ResourceHandler rh = ResourceHandler.getInstance();
     private PropertyHandler props = PropertyHandler.getInstance();
     protected TestToolFrame frame;
@@ -42,7 +43,6 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     private JButton button;
     private final static String SAVE = "save";
     private final static String UPDATE = "update";
-    private final Logger log = Logger.getLogger(FragebogenDialog.class);
 
     public abstract AntwortPanel getAntwortPanel();
 

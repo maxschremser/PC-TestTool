@@ -3,6 +3,7 @@ package at.oefg1880.swing.model;
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.utils.ResourceHandler;
+import org.apache.log4j.Logger;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
@@ -18,14 +19,18 @@ public class KandidatTableModel extends DefaultTableModel implements IConfig {
     protected ArrayList<Kandidat> items;
 
     public final static String PROPERTY_NAME = "at.oefg1880.swing.model.KandidatTableModel";
+    protected final Logger log = Logger.getLogger(getClass());
+
     private ResourceHandler rh = ResourceHandler.getInstance();
 
     public KandidatTableModel() {
         super();
+        log.debug("");
     }
 
     public KandidatTableModel(ArrayList<Kandidat> items) {
         super();
+        log.debug("");
         this.items = items;
     }
 
@@ -36,6 +41,7 @@ public class KandidatTableModel extends DefaultTableModel implements IConfig {
 
     @Override
     public int getColumnCount() {
+
         return 1;
     }
 

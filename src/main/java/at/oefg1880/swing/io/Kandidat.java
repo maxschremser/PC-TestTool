@@ -146,4 +146,14 @@ public class Kandidat {
         this.geburtsort = geburtsort;
     }
 
+    @Override
+    public String toString() {
+        StringBuffer stringBuffer = new StringBuffer("Kandidat(");
+        stringBuffer.append("title:" + getTitle());
+        stringBuffer.append(",name:" + getName());
+        stringBuffer.append(",plz:" + getPLZ());
+        stringBuffer.append(",ort:" + getOrt());
+        stringBuffer.append(")");
+        return stringBuffer.toString();
+    }
 }

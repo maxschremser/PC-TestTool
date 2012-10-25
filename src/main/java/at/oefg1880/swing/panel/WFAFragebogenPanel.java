@@ -20,10 +20,12 @@ import javax.swing.*;
 public class WFAFragebogenPanel extends FragebogenPanel {
     public WFAFragebogenPanel(TestToolFrame frame) {
         super(frame);
+        log.debug("");
     }
 
     @Override
     public JDialog createNewFragebogenDialog() {
+        log.debug("");
         fragebogenDialog = new WFAFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_NEW));
         fragebogenDialog.loadProps();
         fragebogenDialog.setVisible(true);
@@ -32,6 +34,7 @@ public class WFAFragebogenPanel extends FragebogenPanel {
 
     @Override
     public FragebogenDialog editFragebogenDialog(Fragebogen fragebogen) {
+        log.debug("");
         if (fragebogen == null) return null;
         fragebogenDialog = new WFAFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_EDIT), fragebogen);
         fragebogenDialog.setLocation(Integer.valueOf(props.getProperty(fragebogenDialog.PROPERTY_NAME + "." + POS_X)),
@@ -43,11 +46,13 @@ public class WFAFragebogenPanel extends FragebogenPanel {
 
     @Override
     public AntwortDialog getAntwortDialog(Fragebogen fragebogen) {
+        log.debug("");
         return new WFAAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen);
     }
 
     @Override
     public AntwortDialog getAntwortDialog(Fragebogen fragebogen, Antwort antwort) {
+        log.debug("");
         return new WFAAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_EDIT), fragebogen, antwort);
     }
 }

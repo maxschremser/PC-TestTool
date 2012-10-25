@@ -51,7 +51,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     protected JTabbedPane bottomPane;
     protected KandidatPanel bottomKandidatPane;
     protected FragebogenPanel bottomFragebogenPane;
-    protected final Logger log = Logger.getLogger(TestToolFrame.class);
     private PropertyHandler props = PropertyHandler.getInstance();
     protected ResourceHandler rh = ResourceHandler.getInstance();
     private ImagePanel imagePanel;
@@ -75,10 +74,12 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     public TestToolFrame(String title) throws HeadlessException {
         super(title);
         props.setOwner(this);
+        log.debug("");
         setup();
     }
 
     private void createJMenuBar() {
+        log.debug("");
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu(rh.getString(PROPERTY_NAME, FILE));
         menu.setMnemonic(rh.getString(PROPERTY_NAME, FILE).toCharArray()[0]);
@@ -127,14 +128,17 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public void enableMenuItemSave(boolean bEnable) {
+        log.debug(bEnable);
         getJMenuBar().getMenu(0).getItem(3).setEnabled(bEnable);
     }
 
     public void enableButtonSave(boolean bEnable) {
+        log.debug(bEnable);
         getFragebogenPanel().getButtonSave().setEnabled(bEnable);
     }
 
     public JComponent getBottomComponent() {
+        log.debug("");
         if (bottomPane == null) {
             bottomPane = new FadingTabbedPane();
             bottomPane.addTab(rh.getString(KandidatPanel.PROPERTY_NAME, LABEL), getKandidatPanel());
@@ -144,6 +148,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     private void setup() {
+        log.debug("");
         createJMenuBar();
 
         new DropTarget(this, this);
@@ -175,6 +180,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public ImagePanel getImagePane() {
+        log.debug("");
         if (imagePanel == null) {
             imagePanel = new ImagePanel(getClass().getClassLoader().getResource(getImageName()));
             imagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -183,14 +189,17 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public void setReturnValue(int returnValue) {
+        log.debug("");
         this.returnValue = returnValue;
     }
 
     public JDialog getDialog() {
+        log.debug("");
         return dialog;
     }
 
     private void doWindowClosing() {
+        log.debug("");
         if (getFragebogenPanel().getFragebogenList().getModel().getSize() > 0) {
             int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(PROPERTY_NAME, QUESTION_SAVE));
             if (JOptionPane.YES_OPTION == a) {
@@ -209,6 +218,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public int showDeleteDialog(ActionListener list, String message, String title) {
+        log.debug("");
         // Ja, Nein, Abbrechen Dialog mit einer Frage und einem Icon
         dialog = new JDialog(this, title, true);
         FormLayout layout = new FormLayout(
@@ -238,6 +248,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     private void loadProps() {
+        log.debug("");
         if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
             int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
             int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
@@ -248,12 +259,14 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     private void storeProps() {
+        log.debug("");
         props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
         props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
         props.store(); // we save the properties file only when exiting the application
     }
 
     public String exportData() {
+        log.debug("");
         File file;
         try {
             Workbook wb = new HSSFWorkbook();
@@ -279,6 +292,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public boolean importData(File file) throws Exception {
+        log.debug("");
         try {
             Workbook wb = new HSSFWorkbook(new FileInputStream(file));
             log.info("Importing from: " + file.getAbsolutePath());
@@ -354,6 +368,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     @Override
     public void actionPerformed(ActionEvent e) {
         if (OPEN.equals(e.getActionCommand())) {
+            log.debug("actionPerformed.Command = OPEN");
             JFileChooser fileChooser = new JFileChooser(".");
             fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
                 @Override
@@ -374,6 +389,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
                 }
             }
         } else if (SAVE.equals(e.getActionCommand())) {
+            log.debug("actionPerformed.Command = SAVE");
             props.propertyChange(new PropertyChangeEvent(this, JOptionPane.VALUE_PROPERTY, 0, 0));
             String filePath = exportData();
             int selectedOption = JOptionPane.showConfirmDialog(getParent(), rh.getString(FragebogenPanel.PROPERTY_NAME, DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.YES_NO_OPTION);
@@ -386,8 +402,10 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
                 }
             }
         } else if (EXIT.equals(e.getActionCommand())) {
+            log.debug("actionPerformed.Command = EXIT");
             doWindowClosing();
         } else if (e.getActionCommand().startsWith(REOPEN)) {
+            log.debug("actionPerformed.Command = REOPEN");
             int index = Integer.valueOf(e.getActionCommand().substring(REOPEN.length() + 1));
             String file = props.getProperty(PROPERTY_NAME + "." + REOPEN, "").split(",")[index];
             File f;
@@ -419,6 +437,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
     @Override
     public void drop(DropTargetDropEvent dtde) {
+        log.debug("");
         // handle Document dropped
         log.info(dtde.getSource());
         dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);

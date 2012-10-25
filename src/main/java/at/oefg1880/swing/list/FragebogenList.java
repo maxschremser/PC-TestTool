@@ -24,6 +24,7 @@ import java.awt.event.*;
  */
 public class FragebogenList extends JList implements ActionListener, IConfig, ITexts {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.list.FragebogenList";
+    protected final Logger log = Logger.getLogger(getClass());
     private ResourceHandler rh = ResourceHandler.getInstance();
     private GradientPanel cell;
     private JLabel labelTitle, labelVorhanden, labelGeloest, labelOffen,
@@ -33,7 +34,6 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
     private TestToolFrame frame;
     private JPopupMenu menu;
     private JMenuItem menuEdit, menuDelete;
-    private static Logger log = Logger.getLogger(FragebogenList.class);
 
     static {
         UIDefaults uid = UIManager.getLookAndFeel().getDefaults();

@@ -1,5 +1,7 @@
 package at.oefg1880.swing.frame;
 
+import org.apache.log4j.Logger;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.event.MouseInputListener;
@@ -17,6 +19,7 @@ import java.awt.image.BufferedImage;
  * To change this template use File | Settings | File Templates.
  */
 public class SheetableFrame extends JFrame implements ActionListener, MouseInputListener {
+    protected final Logger log = Logger.getLogger(getClass());
 
     public final static int INCOMING = 1;
     public final static int OUTGOING = -1;

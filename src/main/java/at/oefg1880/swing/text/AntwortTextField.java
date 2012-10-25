@@ -2,6 +2,7 @@ package at.oefg1880.swing.text;
 
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.panel.AntwortPanel;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.text.AttributeSet;
@@ -20,6 +21,7 @@ import java.awt.event.FocusListener;
  * To change this template use File | Settings | File Templates.
  */
 public class AntwortTextField extends JTextField implements IConfig {
+    protected Logger log = Logger.getLogger(getClass());
     private int index;        // to identify the focused component
     protected char[] allowedValues;
     public final static String VALUE_CHANGED = "valueChanged";
@@ -28,6 +30,7 @@ public class AntwortTextField extends JTextField implements IConfig {
 
     public AntwortTextField(String s, int index, char[] allowedValues, boolean isInCreateMode) {
         super(s);
+        log.debug(s);
         this.index = index;
         this.allowedValues = allowedValues;
         this.isInCreateMode = isInCreateMode;
@@ -55,14 +58,17 @@ public class AntwortTextField extends JTextField implements IConfig {
     }
 
     public int getIndex() {
+        log.debug("");
         return index;
     }
 
     protected Document createDefaultModel() {
+        log.debug("");
         return new InputTextDocument();
     }
 
     public boolean isValid() {
+        log.debug("");
         try {
             Integer.parseInt(getText());
             return true;
@@ -74,6 +80,7 @@ public class AntwortTextField extends JTextField implements IConfig {
     }
 
     public void enableButton() {
+        log.debug("");
         if (((AntwortPanel) getParent()).checkEnableSaveButton(isInCreateMode)) {
             // enable saveButton and focus it
             JButton button = ((AntwortPanel) getParent()).getSaveButton();

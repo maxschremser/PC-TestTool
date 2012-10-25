@@ -13,6 +13,7 @@ import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +35,7 @@ import java.util.Vector;
  */
 public class KandidatDialog extends JDialog implements ActionListener, IConfig, ITexts {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.dialog.KandidatDialog";
+    protected final Logger log = Logger.getLogger(getClass());
     private ResourceHandler rh = ResourceHandler.getInstance();
     private PropertyHandler props = PropertyHandler.getInstance();
     private TestToolFrame frame;

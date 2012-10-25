@@ -24,20 +24,24 @@ import java.awt.*;
 public class OEFGTestToolFrame extends TestToolFrame {
     public OEFGTestToolFrame(String title) {
         super(title);
+        log.debug("");
     }
 
     @Override
     public String getImageName() {
+        log.debug("");
         return "resources/oefg1880_logo.gif";
     }
 
     @Override
     public String getFavicon() {
+        log.debug("");
         return "resources/oefg_favicon.gif";
     }
 
     @Override
     public FragebogenPanel getFragebogenPanel() {
+        log.debug("");
         if (bottomFragebogenPane == null) {
             bottomFragebogenPane = new OEFGFragebogenPanel(this);
             bottomFragebogenPane.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -47,6 +51,7 @@ public class OEFGTestToolFrame extends TestToolFrame {
 
     @Override
     public KandidatPanel getKandidatPanel() {
+        log.debug("");
         if (bottomKandidatPane == null) {
             bottomKandidatPane = new KandidatPanel(this);
             bottomKandidatPane.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -56,16 +61,19 @@ public class OEFGTestToolFrame extends TestToolFrame {
 
     @Override
     public String getFragebogenName() {
+        log.debug("");
         return OEFG_TEST_TOOL;
     }
 
     @Override
     public char[] getAllowedValues() {
+        log.debug("");
         return new OEFGAntwortPanel(false, null).getAllowedValues();
     }
 
     @Override
     public void exportFragebogen(Workbook wb, Fragebogen fragebogen) {
+        log.debug("");
         Sheet sheet = wb.createSheet(fragebogen.getTitle());
         CellStyle boldStyle = wb.createCellStyle();
         CellStyle greenStyle = wb.createCellStyle();

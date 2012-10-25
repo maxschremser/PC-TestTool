@@ -8,6 +8,7 @@ import at.oefg1880.swing.panel.KandidatPanel;
 import at.oefg1880.swing.panel.WFAAntwortPanel;
 import at.oefg1880.swing.panel.WFAFragebogenPanel;
 import at.oefg1880.swing.text.AntwortTextField;
+import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Font;
 
@@ -22,22 +23,27 @@ import java.awt.*;
  * To change this template use File | Settings | File Templates.
  */
 public class WFATestToolFrame extends TestToolFrame {
+
     public WFATestToolFrame(String title) {
         super(title);
+        log.debug("");
     }
 
     @Override
     public String getImageName() {
+        log.debug("");
         return "resources/wfa_logo.gif";
     }
 
     @Override
     public String getFavicon() {
+        log.debug("");
         return "resources/wfa_favicon.gif";
     }
 
     @Override
     public FragebogenPanel getFragebogenPanel() {
+        log.debug("");
         if (bottomFragebogenPane == null) {
             bottomFragebogenPane = new WFAFragebogenPanel(this);
             bottomFragebogenPane.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -47,6 +53,7 @@ public class WFATestToolFrame extends TestToolFrame {
 
     @Override
     public KandidatPanel getKandidatPanel() {
+        log.debug("");
         if (bottomKandidatPane == null) {
             bottomKandidatPane = new KandidatPanel(this);
             bottomKandidatPane.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -56,17 +63,20 @@ public class WFATestToolFrame extends TestToolFrame {
 
     @Override
     public String getFragebogenName() {
+        log.debug("");
         return WFA_TEST_TOOL;
     }
 
     @Override
     public char[] getAllowedValues() {
+        log.debug("");
         return new WFAAntwortPanel(false, null).getAllowedValues();
     }
 
 
     @Override
     public void exportFragebogen(Workbook wb, Fragebogen fragebogen) {
+        log.debug("");
         Sheet sheet = wb.createSheet(fragebogen.getTitle());
         CellStyle boldStyle = wb.createCellStyle();
         CellStyle greenStyle = wb.createCellStyle();

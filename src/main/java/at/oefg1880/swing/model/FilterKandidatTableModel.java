@@ -37,6 +37,7 @@ public class FilterKandidatTableModel extends KandidatTableModel {
     }
 
     public void addElement(Kandidat item) {
+        log.debug(item.toString());
         filterKandidatTable.getItems().add(item);
         refilter();
     }

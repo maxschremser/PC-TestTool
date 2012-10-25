@@ -11,6 +11,7 @@ import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +27,7 @@ import java.awt.event.*;
 public abstract class AntwortList extends JList implements ActionListener, ITexts {
     protected ResourceHandler rh = ResourceHandler.getInstance();
     public final static String PROPERTY_NAME = "at.oefg1880.swing.list.AntwortList";
+    protected final Logger log = Logger.getLogger(getClass());
     protected TestToolFrame frame;
     protected AntwortDialog dialog;
     protected Fragebogen fragebogen;

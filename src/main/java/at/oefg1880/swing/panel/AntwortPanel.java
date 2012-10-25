@@ -5,6 +5,7 @@ import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.dialog.AntwortDialog;
 import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.ResourceHandler;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,7 @@ import java.awt.*;
  */
 public abstract class AntwortPanel extends JPanel implements ITexts, IConfig { //FormDebugPanel {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.panel.AntwortPanel";
+    protected final Logger log = Logger.getLogger(getClass());
     protected boolean isInCreateMode = false;
     protected ResourceHandler rh = ResourceHandler.getInstance();
     protected JButton saveButton;
@@ -33,6 +35,7 @@ public abstract class AntwortPanel extends JPanel implements ITexts, IConfig { /
 
     public AntwortPanel(boolean isInCreateMode, AntwortDialog dialog) {
         super();
+        log.debug("");
         this.isInCreateMode = isInCreateMode;
         this.dialog = dialog;
         setup();
@@ -40,6 +43,7 @@ public abstract class AntwortPanel extends JPanel implements ITexts, IConfig { /
     }
 
     public void reset() {
+        log.debug("");
         for (Component c : getComponents()) {
             if (c instanceof AntwortTextField) {
                 ((AntwortTextField) c).setText("");
@@ -48,6 +52,7 @@ public abstract class AntwortPanel extends JPanel implements ITexts, IConfig { /
     }
 
     public int[] getValues() {
+        log.debug("");
         int[] values = new int[getNumAnswers()];
         for (Component c : getComponents()) {
             if (c instanceof AntwortTextField) {
@@ -59,6 +64,7 @@ public abstract class AntwortPanel extends JPanel implements ITexts, IConfig { /
     }
 
     public boolean isInValue(char answer, boolean isInCreateMode) {
+        log.debug("");
         if (isInCreateMode && answer == ' ') return false;
         char[] answers = getAllowedValues();
         for (char a : answers) {
@@ -70,6 +76,7 @@ public abstract class AntwortPanel extends JPanel implements ITexts, IConfig { /
     }
 
     public void setValues(int[] values) {
+        log.debug("");
         for (Component c : getComponents()) {
             if (c instanceof AntwortTextField) {
                 AntwortTextField atf = (AntwortTextField) c;
@@ -79,6 +86,7 @@ public abstract class AntwortPanel extends JPanel implements ITexts, IConfig { /
     }
 
     public boolean isFullyFilled(boolean isInCreateMode) {
+        log.debug("");
         for (int i = 0; i < getNumAnswers(); i++) {
             AntwortTextField atf = getAntwortTextField(i);
             if (!isInValue(atf.getAnswer(), isInCreateMode))
@@ -88,6 +96,7 @@ public abstract class AntwortPanel extends JPanel implements ITexts, IConfig { /
     }
 
     public void setSaveButton(JButton button) {
+        log.debug("");
         this.saveButton = button;
     }
 
@@ -96,6 +105,7 @@ public abstract class AntwortPanel extends JPanel implements ITexts, IConfig { /
     }
 
     public boolean checkEnableSaveButton(boolean isInCreateMode) {
+        log.debug("");
         if (dialog != null && !dialog.hasKandidat())
             return false;
         if (dialog != null && !isFullyFilled(isInCreateMode))

@@ -27,15 +27,16 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     private ImagePanel wfaImagePanel;
     private PropertyHandler props = PropertyHandler.getInstance();
     private ResourceHandler rh = ResourceHandler.getInstance();
-    private final Logger log = Logger.getLogger(StartFrame.class);
 
     public StartFrame(String title) throws HeadlessException {
         super(title);
         props.setOwner(this);
+        log.debug("");
         setup();
     }
 
     private void setup() {
+        log.debug("");
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
@@ -78,7 +79,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     }
 
     private void showOEFGTestToolFrame() {
-        log.debug("showOEFGTestToolFrame()");
+        log.debug("");
         new OEFGTestToolFrame(rh.getString(PROPERTY_NAME, TITLE));
         props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
         props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
@@ -86,7 +87,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     }
 
     private void showWFATestToolFrame() {
-        log.debug("showWFATestToolFrame()");
+        log.debug("");
         new WFATestToolFrame(rh.getString(PROPERTY_NAME, TITLE));
         props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
         props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
@@ -95,7 +96,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
 
 
     public ImagePanel getOEFGImagePane() {
-        log.debug("getOEFGImagePane()");
+        log.debug("");
         if (oefgImagePanel == null) {
             oefgImagePanel = new ImagePanel(getClass().getClassLoader().getResource("resources/oefg1880_logo.gif"));
             oefgImagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -120,23 +121,26 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     }
 
     public ImagePanel getWFAImagePane() {
-        log.debug("getWFAImagePane()");
+        log.debug("");
         if (wfaImagePanel == null) {
             wfaImagePanel = new ImagePanel(getClass().getClassLoader().getResource("resources/wfa_logo.gif"));
             wfaImagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
             wfaImagePanel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                    log.debug("Mouse clicked");
                     showWFATestToolFrame();
                 }
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
+                    log.debug("Mouse entered");
                     wfaImagePanel.setBorder(BorderFactory.createLineBorder(Color.black, 7));
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
+                    log.debug("Mouse exited");
                     wfaImagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
                 }
             });

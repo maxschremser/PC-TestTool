@@ -21,15 +21,18 @@ public class WFAAntwortPanel extends AntwortPanel {
 
     public WFAAntwortPanel(boolean isInCreateMode, AntwortDialog dialog) {
         super(isInCreateMode, dialog);
+        log.debug("");
     }
 
     @Override
     public int getNumAnswers() {
+        log.debug("");
         return NUM_ANSWERS;
     }
 
     @Override
     protected void setup() {
+        log.debug("");
         FormLayout layout = new FormLayout(
                 "left:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow," +
                         "6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow,6dlu,center:pref:grow",
@@ -68,6 +71,7 @@ public class WFAAntwortPanel extends AntwortPanel {
 
     @Override
     public AntwortTextField getAntwortTextField(int index) {
+        log.debug("");
         if (index >= 0 && index < getNumAnswers()) {
             Component c = getComponent(index + 15);
             if (c instanceof AntwortTextField)
@@ -78,6 +82,7 @@ public class WFAAntwortPanel extends AntwortPanel {
 
     @Override
     public char[] getAllowedValues() {
+        log.debug("");
         return allowedValues;
     }
 }

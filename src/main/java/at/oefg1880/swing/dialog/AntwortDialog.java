@@ -15,6 +15,7 @@ import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -40,6 +41,7 @@ import java.util.Iterator;
  */
 public abstract class AntwortDialog extends JDialog implements ActionListener, PropertyChangeListener, IConfig, ITexts {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.dialog.AntwortDialog";
+    protected final Logger log = Logger.getLogger(getClass());
     private ResourceHandler rh = ResourceHandler.getInstance();
     private PropertyHandler props = PropertyHandler.getInstance();
     private TestToolFrame frame;

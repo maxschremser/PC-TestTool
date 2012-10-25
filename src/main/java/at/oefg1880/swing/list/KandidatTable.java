@@ -37,6 +37,7 @@ import java.util.Date;
  */
 public class KandidatTable extends JTable implements ActionListener, IConfig, ITexts {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.list.KandidatTable";
+    protected final Logger log = Logger.getLogger(getClass());
     private ResourceHandler rh = ResourceHandler.getInstance();
 
     private static Color listForeground, listBackground, listSelectionForeground, listSelectionBackground;
@@ -44,7 +45,6 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
     private JPopupMenu menu;
     private JMenuItem menuEdit, menuDelete;
     protected TestToolFrame frame;
-    private static Logger log = Logger.getLogger(FragebogenList.class);
 
     static {
         UIDefaults uid = UIManager.getLookAndFeel().getDefaults();
