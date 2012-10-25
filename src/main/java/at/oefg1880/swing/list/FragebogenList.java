@@ -141,10 +141,12 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
     }
 
     public void add(String name, int vorhanden, int[] values) {
+        log.debug(name);
         add(new Fragebogen(name, vorhanden, values));
     }
 
     public void add(Fragebogen fragebogen) {
+        log.debug("");
         model.addElement(fragebogen);
     }
 
