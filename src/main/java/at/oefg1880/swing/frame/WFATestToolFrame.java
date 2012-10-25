@@ -297,7 +297,7 @@ public class WFATestToolFrame extends TestToolFrame {
             int j = 0;
             for (int iAnswer : a.getAnswers()) {
                 Cell cellAnswer = row.createCell(i++);
-                cellAnswer.setCellValue((AntwortTextField.translate(allowedValues, iAnswer) + ""));
+                cellAnswer.setCellValue(AntwortTextField.translate(allowedValues, iAnswer));
                 if (iAnswer == solutions[j++]) {
                     cellAnswer.setCellStyle(greenStyle);
                 } else {

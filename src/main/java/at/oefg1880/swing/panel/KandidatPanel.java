@@ -86,7 +86,7 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
         JScrollPane scrollPaneList = new JScrollPane(getKandidatTable(),
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPaneList.setPreferredSize(new Dimension((int) getWidth(), 170));
+        scrollPaneList.setPreferredSize(new Dimension(getWidth(), 170));
         add(scrollPaneList, cc.xywh(2, 4, 3, 1));
     }
 

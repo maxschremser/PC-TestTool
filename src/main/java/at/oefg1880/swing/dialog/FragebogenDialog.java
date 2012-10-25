@@ -155,7 +155,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
             JScrollPane scrollPane = new JScrollPane(getAntwortList(),
                     JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                     JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            scrollPane.setPreferredSize(new Dimension((int) getWidth(), 150));
+            scrollPane.setPreferredSize(new Dimension(getWidth(), 150));
             builder.add(scrollPane, cc.xywh(2, 16, 3, 1));
         }
 
@@ -202,14 +202,14 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     }
 
     private void save() {
-        FragebogenList list = ((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenList();
+        FragebogenList list = frame.getFragebogenPanel().getFragebogenList();
         list.add(
                 textFieldName.getText(),
                 Integer.valueOf(spinner.getValue().toString()),
                 answerPanel.getValues()
         );
         log.info("Added item '" + textFieldName.getText() + "' to list.");
-        if (((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenList().getModel().getSize() > 0) {
+        if (frame.getFragebogenPanel().getFragebogenList().getModel().getSize() > 0) {
             frame.enableButtonSave(true);
             frame.enableMenuItemSave(true);
         }
@@ -220,8 +220,6 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
         fragebogen.setTitle(textFieldName.getText());
         fragebogen.setExisting(Integer.valueOf(spinner.getValue().toString()));
         fragebogen.setSolutions(answerPanel.getValues());
-//        FragebogenList list = ((FragebogenPanel) frame.getFragebogenPanel()).getFragebogenList();
-//        list.update(fragebogen);
         close();
     }
 
