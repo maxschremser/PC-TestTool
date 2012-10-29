@@ -91,6 +91,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
 
         cancelButton = new JButton(rh.getString(PROPERTY_NAME, BUTTON_CANCEL));
         cancelButton.addActionListener(this);
+        cancelButton.setActionCommand(CANCEL);
         cancelButton.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -293,8 +294,10 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
         kandidat.setAnwesend(cbAnwesend.isSelected());
         kandidat.setPassPhoto(cbPassfoto.isSelected());
         kandidat.setKursgebuehrBezahlt(cbKursunterlagen.isSelected());
-
         frame.getKandidatPanel().getKandidatTable().getModel().setValueAt(kandidat, kandidat.getIndex() - 1, 0);
+        frame.getKandidatPanel().getKandidatTable().getModel().fireTableRowsUpdated(frame.getKandidatPanel().getKandidatTable().getSelectedRow() -1,
+                frame.getKandidatPanel().getKandidatTable().getSelectedRow()-1);
+        log.info("Updated item '" + kandidat.getName() + "' in  KandidatTable at " + (kandidat.getIndex() -1) + ".");
     }
 
     private void close() {
@@ -308,15 +311,8 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     public void actionPerformed(ActionEvent e) {
         if (SAVE.equals(e.getActionCommand())) {
             close();
-        } else if (OK.equals(e.getActionCommand())) {
-            frame.setReturnValue(JOptionPane.OK_OPTION);
-            frame.getDialog().dispose();
         } else if (CANCEL.equals(e.getActionCommand())) {
-            frame.setReturnValue(JOptionPane.CANCEL_OPTION);
-            frame.getDialog().dispose();
-        } else if (NO.equals(e.getActionCommand())) {
-            frame.setReturnValue(JOptionPane.NO_OPTION);
-            frame.getDialog().dispose();
+            dispose();
         }
     }
 
