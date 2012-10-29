@@ -157,9 +157,10 @@ public class FragebogenList extends JList implements ActionListener, IConfig, IT
         } else if (e.getSource() == menuDelete) {
             String title = ((Fragebogen) getSelectedValue()).getTitle();
             int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
-            if (n == 0) // JA
+            if (n == JOptionPane.OK_OPTION) { // JA
                 model.remove(getSelectedIndex());
-            if (model.getSize() <= 0)
+                log.info("Deleted item '" + title + "' in FragebogenList.");
+            } else if (model.getSize() <= 0)
                 frame.enableButtonSave(false);
         } else if (OK.equals(e.getActionCommand())) {
             frame.setReturnValue(JOptionPane.OK_OPTION);

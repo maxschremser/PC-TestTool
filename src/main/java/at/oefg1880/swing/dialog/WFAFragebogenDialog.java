@@ -27,6 +27,7 @@ public class WFAFragebogenDialog extends FragebogenDialog {
     public AntwortPanel getAntwortPanel() {
         AntwortPanel panel = new WFAAntwortPanel(true, null);
         panel.setSaveButton(getSaveButton());
+        getRootPane().setDefaultButton(getSaveButton());
         return panel;
     }
 

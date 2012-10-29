@@ -115,10 +115,11 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         } else if (e.getSource() == menuDelete) {
             String title = getItems().get(getSelectedRow()).getName();
             int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
-            if (n == 0) { // JA
+            if (n == JOptionPane.OK_OPTION) { // JA
                 getItems().remove(getSelectedRow());
                 model.fireTableRowsDeleted(getSelectedRow(), getSelectedRow());
                 revalidate();
+                log.info("Deleted item '" + title + "' in KandidatTable.");
             }
             if (model.getRowCount() <= 0)
                 frame.enableButtonSave(false);
