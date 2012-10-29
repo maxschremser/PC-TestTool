@@ -2,6 +2,7 @@ keystore
 *.iml
 *.iws
 *.ipr
+*.log
 app/*
 classes/*
 target/*

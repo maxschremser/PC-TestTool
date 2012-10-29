@@ -115,9 +115,14 @@ public class AntwortTextField extends JTextField implements IConfig {
                     if ((isInCreateMode && answer == ' ') || !bFound) {
                         bSkip = true;
                     }
+                    if (!bFound) {
+                        Logger.getLogger(getClass()).info("skipping value: " + str);
+                    }
+
                 } catch (ArrayIndexOutOfBoundsException aiobe) {
                     // skip the value
                     bSkip = true;
+                    Logger.getLogger(getClass()).info("skipping value: " + str);
                 }
                 // set the value text A,B,C
                 if (!bSkip) {

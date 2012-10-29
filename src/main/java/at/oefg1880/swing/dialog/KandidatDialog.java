@@ -44,7 +44,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     private JTextField tfTitle, tfName, tfStrasse, tfPLZ, tfOrt, tfGeburtsort, tfTelefon, tfEmail;
     private JComboBox comboGeburtstagTag, comboGeburtstagMonat, comboGeburtstagJahr;
     private JCheckBox cbKursunterlagen, cbPassfoto, cbAnwesend;
-    private JButton saveButton;
+    private JButton saveButton, cancelButton;
     private final static String SAVE = "update";
 
     // New Kandidat
@@ -63,18 +63,40 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
         if (kandidat != null)
             fillValues();
     }
+    
+    private void addFocusListener(final JTextField field) {
+        field.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        field.selectAll();
+                    }
+                });
+            }
+        });
+    }
 
     private void initComponents() {
         saveButton = new JButton(rh.getString(PROPERTY_NAME, BUTTON_SAVE));
         saveButton.addActionListener(this);
         saveButton.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyTyped(KeyEvent e) {
+            public void keyPressed(KeyEvent e) {
                 if (e.getKeyChar() == KeyEvent.VK_ENTER) close();
             }
         });
         saveButton.setActionCommand(SAVE);
-//    saveButton.setEnabled(false);
+
+        cancelButton = new JButton(rh.getString(PROPERTY_NAME, BUTTON_CANCEL));
+        cancelButton.addActionListener(this);
+        cancelButton.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyChar() == KeyEvent.VK_ESCAPE) dispose();
+            }
+        });
 
         labelTitle = new JLabel(" ");
         Font font = labelTitle.getFont().deriveFont(Font.PLAIN, 21);
@@ -97,15 +119,22 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
                 labelTitle.setText(tfName.getText());
             }
         });
+        addFocusListener(tfName);
 
         tfStrasse = new JTextField(rh.getString(PROPERTY_NAME, STREET), 20);
+        addFocusListener(tfStrasse);
         tfPLZ = new JFormattedTextField(new DecimalFormat("####"));
         tfPLZ.setText(rh.getString(PROPERTY_NAME, PLZ));
         tfPLZ.setHorizontalAlignment(JTextField.RIGHT);
+        addFocusListener(tfPLZ);
         tfOrt = new JTextField(rh.getString(PROPERTY_NAME, CITY), 20);
+        addFocusListener(tfOrt);
         tfGeburtsort = new JTextField(rh.getString(PROPERTY_NAME, BIRTHPLACE), 20);
+        addFocusListener(tfGeburtsort);
         tfTelefon = new JTextField(rh.getString(PROPERTY_NAME, TELEPHONE), 20);
+        addFocusListener(tfTelefon);
         tfEmail = new JTextField(rh.getString(PROPERTY_NAME, EMAIl), 20);
+        addFocusListener(tfEmail);
 
         Vector<String> vDays = new Vector<String>();
         for (int i = 1; i <= 31; i++) {
@@ -143,7 +172,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
 
         FormLayout layout = new FormLayout(
                 "6dlu,right:pref,6dlu,pref,6dlu,pref,6dlu,pref",
-                "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref");
+                "6dlu,20dlu,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref,6dlu,pref");
         PanelBuilder builder = new PanelBuilder(layout, new GradientPanel());
         CellConstraints cc = new CellConstraints();
 
@@ -192,10 +221,11 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
         // anwesend
         builder.add(cbAnwesend, cc.xywh(2, 30, 7, 1));
 
-        JPanel buttonOKBar = ButtonBarFactory.buildOKBar(saveButton);
+        JPanel buttonOKBar = ButtonBarFactory.buildOKCancelBar(saveButton, cancelButton);
         buttonOKBar.setOpaque(false);
         builder.add(buttonOKBar, cc.xywh(2, 32, 7, 1));
         builder.setBorder(BorderFactory.createLineBorder(Color.black));
+        getRootPane().setDefaultButton(saveButton);
 
         return builder.getPanel();
     }
@@ -244,6 +274,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
 
         kandidat = new Kandidat(tfTitle.getText(), tfName.getText(), new Adresse(tfStrasse.getText(), tfPLZ.getText(), tfOrt.getText()), tfTelefon.getText(), tfEmail.getText(), dt, tfGeburtsort.getText(), cbPassfoto.isSelected(), cbKursunterlagen.isSelected(), cbAnwesend.isSelected());
         frame.getKandidatPanel().getKandidatTable().add(kandidat);
+        log.info("Added item '" + kandidat.getName() + "' to KandidatTable.");
     }
 
     private void update() {

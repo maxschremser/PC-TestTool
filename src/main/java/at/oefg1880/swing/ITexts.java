@@ -19,6 +19,7 @@ public interface ITexts {
     public static final String LABEL = "label";
     public static final String BUTTON_NEW = "button_new";
     public static final String BUTTON_SAVE = "button_save";
+    public static final String BUTTON_CANCEL = "button_cancel";
     public static final String FRAGEBOGEN_NEW = "fragebogen_new";
     public static final String FRAGEBOGEN_EDIT = "fragebogen_edit";
     public static final String ANTWORT_NEW = "antwort_new";

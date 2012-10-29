@@ -8,11 +8,11 @@ import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.list.AntwortList;
 import at.oefg1880.swing.list.FragebogenList;
 import at.oefg1880.swing.panel.AntwortPanel;
-import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.apache.log4j.Logger;
@@ -40,7 +40,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     private JTextField spinnerEditorField;
     private JSpinner spinner;
     private AntwortPanel answerPanel;
-    private JButton button;
+    private JButton saveButton, cancelButton;
     private final static String SAVE = "save";
     private final static String UPDATE = "update";
 
@@ -97,17 +97,29 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
                 }
             }
         });
-        button = new JButton(rh.getString(PROPERTY_NAME, BUTTON_SAVE));
-        button.setActionCommand(SAVE);
-        button.setEnabled(false);
-        button.addActionListener(this);
-        button.addKeyListener(new KeyAdapter() {
+        saveButton = new JButton(rh.getString(PROPERTY_NAME, BUTTON_SAVE));
+        saveButton.setActionCommand(SAVE);
+        saveButton.setEnabled(false);
+        saveButton.addActionListener(this);
+        saveButton.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar() == KeyEvent.VK_ENTER) saveOrUpdate();
 //        else if (e.getKeyChar() == KeyEvent.VK_SPACE) saveOrUpdate();
             }
         });
+
+        cancelButton = new JButton(rh.getString(PROPERTY_NAME, BUTTON_CANCEL));
+        cancelButton.addActionListener(this);
+        cancelButton.setActionCommand(CANCEL);
+        cancelButton.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyChar() == KeyEvent.VK_ESCAPE) dispose();
+            }
+        });
+
+        getRootPane().setDefaultButton(saveButton);
 
         answerPanel = getAntwortPanel();
     }
@@ -147,7 +159,8 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
         builder.add(spinner, cc.xy(4, 6));
         builder.addSeparator(rh.getString(PROPERTY_NAME, LABEL_SOLUTION), cc.xywh(2, 8, 3, 1));
         builder.add(answerPanel, cc.xywh(2, 10, 3, 1));
-        builder.add(button, cc.xy(4, 12));
+        JPanel buttonOKBar = ButtonBarFactory.buildOKCancelBar(saveButton, cancelButton);
+        builder.add(buttonOKBar, cc.xywh(2, 12, 3, 1));
 
         if (fragebogen != null && fragebogen.getSolved() > 0) {
             // add Antworten to Table
@@ -208,7 +221,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
                 Integer.valueOf(spinner.getValue().toString()),
                 answerPanel.getValues()
         );
-        log.info("Added item '" + textFieldName.getText() + "' to list.");
+        log.info("Added item '" + textFieldName.getText() + "' to FragebogenList.");
         if (frame.getFragebogenPanel().getFragebogenList().getModel().getSize() > 0) {
             frame.enableButtonSave(true);
             frame.enableMenuItemSave(true);
@@ -234,6 +247,8 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
             save();
         } else if (UPDATE.equals(e.getActionCommand())) {
             update();
+        } else if (CANCEL.equals(e.getActionCommand())) {
+            dispose();
         }
     }
 
@@ -241,11 +256,11 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
         answerPanel.setValues(fragebogen.getSolutions());
         textFieldName.setText(fragebogen.getTitle());
         spinner.setValue(fragebogen.getExisting());
-        button.setActionCommand(UPDATE);
-        button.setEnabled(true);
+        saveButton.setActionCommand(UPDATE);
+        saveButton.setEnabled(true);
     }
 
     public JButton getSaveButton() {
-        return button;
+        return saveButton;
     }
 }
