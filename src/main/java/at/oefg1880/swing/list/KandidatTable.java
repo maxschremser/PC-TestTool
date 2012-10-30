@@ -96,12 +96,15 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
                 // open KandidatDialog
                 menu.setVisible(false);
                 if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
-                    if (getModel() instanceof FilterKandidatTableModel)
+                    if (getModel() instanceof FilterKandidatTableModel) {
                         frame.getKandidatPanel().editKandidatDialog(((FilterKandidatTableModel) getModel()).getFilterItems().get(rowAtPoint(e.getPoint())));
-                    else
+                    } else {
+                        setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
                         frame.getKandidatPanel().editKandidatDialog(getItems().get(rowAtPoint(e.getPoint())));
+                    }
                 } else if (SwingUtilities.isRightMouseButton(e) && getSelectedRow() > -1) {
                     // right click, open edit menu
+                    setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
                     menu.show((JTable) e.getSource(), e.getX(), e.getY());
                 }
             }
@@ -117,7 +120,8 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
             int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
             if (n == JOptionPane.OK_OPTION) { // JA
                 getItems().remove(getSelectedRow());
-                model.fireTableRowsDeleted(getSelectedRow(), getSelectedRow());
+                model.fireTableRowsDeleted(0, getRowCount());
+                model.fireTableRowsUpdated(0, getRowCount());
                 revalidate();
                 log.info("Deleted item '" + title + "' in KandidatTable.");
             }
