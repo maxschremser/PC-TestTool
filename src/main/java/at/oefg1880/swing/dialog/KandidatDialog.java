@@ -298,17 +298,14 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
         kandidat.setPassPhoto(cbPassfoto.isSelected());
         kandidat.setKursgebuehrBezahlt(cbKursunterlagen.isSelected());
 
-        frame.getKandidatPanel().getKandidatTable().getModel().setValueAt(kandidat, frame.getKandidatPanel().getKandidatTable().getSelectedRow(), 0);
-        frame.getKandidatPanel().getKandidatTable().getModel().fireTableRowsUpdated(frame.getKandidatPanel().getKandidatTable().getSelectedRow(),
-                frame.getKandidatPanel().getKandidatTable().getSelectedRow());
-        log.info("Updated item '" + kandidat.getName() + "' in  KandidatTable at " + frame.getKandidatPanel().getKandidatTable().getSelectedRow() + ".");
+        log.info("Updated item '" + kandidat.getName() + "' in  KandidatTable.");
     }
 
     private void close() {
         saveOrUpdate();
         reset();
-        frame.getKandidatPanel().getKandidatTable().getModel().fireTableRowsUpdated(frame.getKandidatPanel().getKandidatTable().getSelectedRow(),
-                frame.getKandidatPanel().getKandidatTable().getSelectedRow());
+        frame.getKandidatPanel().getKandidatTable().getModel().fireTableDataChanged();
+        log.debug("fireTableDataChanged()");
         dispose();
     }
 
