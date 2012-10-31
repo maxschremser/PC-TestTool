@@ -207,7 +207,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
                 }
             });
 
-            openAnswerPanelButton = new JButton("Zeige Test...");
+            openAnswerPanelButton = new JButton(rh.getString(PROPERTY_NAME, SHOW_TEST));
             openAnswerPanelButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -238,7 +238,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
             cell.setOpaque(true);
         }
 
-        private void updateData(Kandidat kandidat, boolean isSelected, JTable table) {
+        private void updateData(Kandidat kandidat, boolean isSelected) {
             this.kandidat = kandidat;
 
             labelName.setText(kandidat.getName());
@@ -269,7 +269,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
             if (value instanceof Kandidat) {
                 Kandidat kandidat = (Kandidat) value;
-                updateData(kandidat, isSelected, table);
+                updateData(kandidat, isSelected);
                 return cell;
             }
             return new JPanel();
@@ -284,7 +284,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             if (value instanceof Kandidat) {
                 Kandidat kandidat = (Kandidat) value;
-                updateData(kandidat, isSelected, table);
+                updateData(kandidat, isSelected);
                 return cell;
             }
             return new JPanel();

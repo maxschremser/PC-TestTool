@@ -67,5 +67,6 @@ public interface ITexts {
     public static final String EXAM_PAID = "exam_paid";
     public static final String PASSPHOTO = "passphoto";
     public static final String PRESENT = "present";
+    public static final String SHOW_TEST = "show_test";
 
 }
