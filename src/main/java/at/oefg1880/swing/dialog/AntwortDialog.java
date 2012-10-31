@@ -127,7 +127,6 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
                 objects.add(kandidat);
         }
 
-
         tfName = new FilterKandidatTable(frame, objects);
         tfName.setSelectionColor(selectedTextForeground);
         tfName.setBorder(new LineBorder(Color.black));
@@ -141,6 +140,12 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
                 }
             }
         });
+
+        if (antwort != null) {
+            objects.add(antwort.getKandidat());
+            tfName.setEnabled(false);
+            tfName.setText(antwort.getKandidat().getTitleAndName());
+        }
 
         dataset = new DefaultPieDataset();
         dataset.setValue(WRONG, 100);

@@ -5,8 +5,10 @@ import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.utils.ResourceHandler;
 import org.apache.log4j.Logger;
 
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,7 +17,7 @@ import java.util.ArrayList;
  * Time: 15:18
  * To change this template use File | Settings | File Templates.
  */
-public class KandidatTableModel extends DefaultTableModel implements IConfig {
+public class KandidatTableModel extends AbstractTableModel implements IConfig {
     protected ArrayList<Kandidat> items;
 
     public final static String PROPERTY_NAME = "at.oefg1880.swing.model.KandidatTableModel";
@@ -34,6 +36,11 @@ public class KandidatTableModel extends DefaultTableModel implements IConfig {
         this.items = items;
     }
 
+    public void add(Kandidat kandidat) {
+        items.add(kandidat);
+        fireTableRowsInserted(getRowCount()-1, getRowCount());
+    }
+
     @Override
     public int getRowCount() {
         return (items == null) ? 0 : items.size();
@@ -41,7 +48,6 @@ public class KandidatTableModel extends DefaultTableModel implements IConfig {
 
     @Override
     public int getColumnCount() {
-
         return 1;
     }
 
@@ -52,8 +58,10 @@ public class KandidatTableModel extends DefaultTableModel implements IConfig {
 
     @Override
     public void setValueAt(Object aValue, int row, int column) {
-        if (aValue != null && aValue instanceof Kandidat)
+        if (aValue != null && aValue instanceof Kandidat) {
             items.set(row, (Kandidat) aValue);
+            fireTableCellUpdated(row, column);
+        }
     }
 
     @Override
@@ -77,5 +85,8 @@ public class KandidatTableModel extends DefaultTableModel implements IConfig {
 
     public void setItems(ArrayList<Kandidat> items) {
         this.items = items;
+        fireTableRowsInserted(0, items.size());
     }
+
+
 }

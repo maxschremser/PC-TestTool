@@ -32,7 +32,7 @@ public class FilterKandidatTable extends KandidatTable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    setText(getModel().getFilterItems().get(rowAtPoint(e.getPoint())).getName());
+                    setText(getModel().getFilterItems().get(rowAtPoint(e.getPoint())).getTitleAndName());
                 }
             }
         });
