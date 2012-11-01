@@ -66,10 +66,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         super();
         this.frame = frame;
         this.model = model;
-    }
-
-    public ArrayList<Kandidat> getItems() {
-        return getModel().getItems();
+        setup();
     }
 
     @Override
@@ -80,7 +77,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
     public void setup() {
         setModel(model);
         setDefaultRenderer(Kandidat.class, new KandidatCell());
-        setDefaultEditor(Kandidat.class, new KandidatCell());
+//        setDefaultEditor(Kandidat.class, new KandidatCell());
         setRowHeight(120);
 
         menu = new JPopupMenu();
@@ -96,12 +93,15 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
                 // open KandidatDialog
                 menu.setVisible(false);
                 if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
-                    if (getModel() instanceof FilterKandidatTableModel)
+                    if (getModel() instanceof FilterKandidatTableModel) {
                         frame.getKandidatPanel().editKandidatDialog(((FilterKandidatTableModel) getModel()).getFilterItems().get(rowAtPoint(e.getPoint())));
-                    else
-                        frame.getKandidatPanel().editKandidatDialog(getItems().get(rowAtPoint(e.getPoint())));
+                    } else {
+                        setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
+                        frame.getKandidatPanel().editKandidatDialog(getModel().getItems().get(rowAtPoint(e.getPoint())));
+                    }
                 } else if (SwingUtilities.isRightMouseButton(e) && getSelectedRow() > -1) {
                     // right click, open edit menu
+                    setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
                     menu.show((JTable) e.getSource(), e.getX(), e.getY());
                 }
             }
@@ -111,17 +111,16 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menuEdit) {
-            frame.getKandidatPanel().editKandidatDialog(getItems().get(getSelectedRow()));
+            frame.getKandidatPanel().editKandidatDialog(getModel().getItems().get(getSelectedRow()));
         } else if (e.getSource() == menuDelete) {
-            String title = getItems().get(getSelectedRow()).getName();
-            int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
+            String titleName = getModel().getItems().get(getSelectedRow()).getTitleAndName();
+            int n = frame.showDeleteDialog(this, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{titleName}), rh.getString(PROPERTY_NAME, DELETE));
             if (n == JOptionPane.OK_OPTION) { // JA
-                getItems().remove(getSelectedRow());
-                model.fireTableRowsDeleted(getSelectedRow(), getSelectedRow());
-                revalidate();
-                log.info("Deleted item '" + title + "' in KandidatTable.");
+                getModel().getItems().remove(getSelectedRow());
+                getModel().fireTableDataChanged();
+                log.info("Deleted item '" + titleName + "' in KandidatTable.");
             }
-            if (model.getRowCount() <= 0)
+            if (getModel().getRowCount() <= 0)
                 frame.enableButtonSave(false);
         } else if (OK.equals(e.getActionCommand())) {
             frame.setReturnValue(JOptionPane.OK_OPTION);
@@ -141,12 +140,10 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
     }
 
     public void add(Kandidat kandidat) {
-        getItems().add(kandidat);
-        getModel().fireTableDataChanged();
-        revalidate();
+        getModel().add(kandidat);
     }
 
-    private class KandidatCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
+    private class KandidatCell extends AbstractCellEditor implements TableCellRenderer {
         private Kandidat kandidat;
         private JPopupMenu menu;
         private GradientPanel cell;
@@ -203,7 +200,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
                 }
             });
 
-            openAnswerPanelButton = new JButton("Zeige Test...");
+            openAnswerPanelButton = new JButton(rh.getString(PROPERTY_NAME, SHOW_TEST));
             openAnswerPanelButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -234,10 +231,9 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
             cell.setOpaque(true);
         }
 
-        private void updateData(Kandidat kandidat, boolean isSelected, JTable table) {
+        private void updateData(Kandidat kandidat, boolean isSelected, int row, int column) {
             this.kandidat = kandidat;
-
-            labelName.setText(kandidat.getName());
+            labelName.setText(kandidat.getTitleAndName());
             labelStrasse.setText(kandidat.getStrasse());
             labelPLZOrt.setText(kandidat.getPLZ() + " " + kandidat.getOrt());
             labelGeburtsdatumOrt.setText(new SimpleDateFormat("dd.MM.yyyy").format(kandidat.getGeburtstag()) + " in " + kandidat.getGeburtsort());
@@ -259,16 +255,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
                 cell.setColor1(color_1);
                 cell.setColor2(color_2);
             }
-        }
-
-        @Override
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            if (value instanceof Kandidat) {
-                Kandidat kandidat = (Kandidat) value;
-                updateData(kandidat, isSelected, table);
-                return cell;
-            }
-            return new JPanel();
+            getModel().fireTableCellUpdated(row, column);
         }
 
         @Override
@@ -280,7 +267,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             if (value instanceof Kandidat) {
                 Kandidat kandidat = (Kandidat) value;
-                updateData(kandidat, isSelected, table);
+                updateData(kandidat, isSelected, row, column);
                 return cell;
             }
             return new JPanel();

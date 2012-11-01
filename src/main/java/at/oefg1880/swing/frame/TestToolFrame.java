@@ -333,7 +333,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
                         list.add(new Kandidat(title, name, strasse, PLZ, ort, "", "", new Date(), "", false, false, false));
                     }
                     getKandidatPanel().getKandidatTable().getModel().setItems(list);
-                    getKandidatPanel().getKandidatTable().getModel().fireTableRowsInserted(0, list.size());
                 }
             }
             if (model.getSize() > 0) {

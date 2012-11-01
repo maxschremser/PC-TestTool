@@ -27,7 +27,7 @@ public class FilterTextField extends JTextField implements DocumentListener {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    setText(filterKandidatTable.getModel().getFilterItems().get(0).getName());
+                    setText(filterKandidatTable.getModel().getFilterItems().get(0).getTitleAndName());
                     foundKandidat = true;
                     AntwortDialog antwortDialog = filterKandidatTable.getFrame().getFragebogenPanel().getAntwortDialog();
                     antwortDialog.getAntwortPanel(antwortDialog).getAntwortTextField(0).requestFocus();

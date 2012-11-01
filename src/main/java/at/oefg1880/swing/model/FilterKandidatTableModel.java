@@ -38,19 +38,19 @@ public class FilterKandidatTableModel extends KandidatTableModel {
 
     public void addElement(Kandidat item) {
         log.debug(item.toString());
-        filterKandidatTable.getItems().add(item);
+        filterKandidatTable.getModel().getItems().add(item);
         refilter();
     }
 
     public void refilter() {
         filterItems.clear();
         String term = filterKandidatTable.getFilterField().getText();
-        for (int i = 0; i < filterKandidatTable.getItems().size(); i++) {
-            if (filterKandidatTable.getItems().get(i).getName().toLowerCase().indexOf(term.toLowerCase(), 0) != -1) {
-                filterItems.add(filterKandidatTable.getItems().get(i));
+        for (int i = 0; i < filterKandidatTable.getModel().getItems().size(); i++) {
+            if (filterKandidatTable.getModel().getItems().get(i).getName().toLowerCase().indexOf(term.toLowerCase(), 0) != -1) {
+                filterItems.add(filterKandidatTable.getModel().getItems().get(i));
             }
         }
-        filterKandidatTable.getModel().fireTableStructureChanged();
+        filterKandidatTable.getModel().fireTableDataChanged();
     }
 
 }

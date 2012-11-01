@@ -71,7 +71,11 @@ public class Kandidat {
     }
 
     public String getName() {
-        return (title + " " + name).trim();
+        return name;
+    }
+
+    public String getTitleAndName() {
+        return title != null && title.length() > 0 ? title + " " + name : name;
     }
 
     public String getPLZ() {

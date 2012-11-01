@@ -275,11 +275,11 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
 
         kandidat = new Kandidat(tfTitle.getText(), tfName.getText(), new Adresse(tfStrasse.getText(), tfPLZ.getText(), tfOrt.getText()), tfTelefon.getText(), tfEmail.getText(), dt, tfGeburtsort.getText(), cbPassfoto.isSelected(), cbKursunterlagen.isSelected(), cbAnwesend.isSelected());
         frame.getKandidatPanel().getKandidatTable().add(kandidat);
-        log.info("Added item '" + kandidat.getName() + "' to KandidatTable.");
+        log.info("Added item '" + kandidat.getTitleAndName() + "' to KandidatTable.");
     }
 
     private void update() {
-        kandidat.setTelephone(tfTitle.getText());
+        kandidat.setTitle(tfTitle.getText());
         kandidat.setName(tfName.getText());
         kandidat.setAdresse(new Adresse(tfStrasse.getText(), tfPLZ.getText(), tfOrt.getText()));
         kandidat.setGeburtsort(tfGeburtsort.getText());
@@ -291,19 +291,19 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
             pe.printStackTrace();
         }
         kandidat.setGeburtstag(dt);
+        kandidat.setGeburtsort(tfGeburtsort.getText());
+        kandidat.setTelephone(tfTelefon.getText());
+        kandidat.setEmail(tfEmail.getText());
         kandidat.setAnwesend(cbAnwesend.isSelected());
         kandidat.setPassPhoto(cbPassfoto.isSelected());
         kandidat.setKursgebuehrBezahlt(cbKursunterlagen.isSelected());
-        frame.getKandidatPanel().getKandidatTable().getModel().setValueAt(kandidat, kandidat.getIndex() - 1, 0);
-        frame.getKandidatPanel().getKandidatTable().getModel().fireTableRowsUpdated(frame.getKandidatPanel().getKandidatTable().getSelectedRow() -1,
-                frame.getKandidatPanel().getKandidatTable().getSelectedRow()-1);
-        log.info("Updated item '" + kandidat.getName() + "' in  KandidatTable at " + (kandidat.getIndex() -1) + ".");
+
+        log.info("Updated item '" + kandidat.getTitleAndName() + "' in  KandidatTable.");
     }
 
     private void close() {
         saveOrUpdate();
         reset();
-        frame.getKandidatPanel().getKandidatTable().getModel().fireTableRowsUpdated(kandidat.getIndex() - 1, kandidat.getIndex() - 1);
         dispose();
     }
 
@@ -318,7 +318,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
 
     private void fillValues() {
         // set Name
-        labelTitle.setText(kandidat.getName());
+        labelTitle.setText(kandidat.getTitleAndName());
         tfTitle.setText(kandidat.getTitle());
         tfName.setText(kandidat.getName());
         tfStrasse.setText(kandidat.getStrasse());
