@@ -31,12 +31,12 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     public StartFrame(String title) throws HeadlessException {
         super(title);
         props.setOwner(this);
-        log.debug("");
+
         setup();
     }
 
     private void setup() {
-        log.debug("");
+
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
@@ -79,7 +79,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     }
 
     private void showOEFGTestToolFrame() {
-        log.debug("");
+
         new OEFGTestToolFrame(rh.getString(PROPERTY_NAME, TITLE));
         props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
         props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
@@ -87,7 +87,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     }
 
     private void showWFATestToolFrame() {
-        log.debug("");
+
         new WFATestToolFrame(rh.getString(PROPERTY_NAME, TITLE));
         props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
         props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
@@ -96,7 +96,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
 
 
     public ImagePanel getOEFGImagePane() {
-        log.debug("");
+
         if (oefgImagePanel == null) {
             oefgImagePanel = new ImagePanel(getClass().getClassLoader().getResource("resources/oefg1880_logo.gif"));
             oefgImagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -121,7 +121,7 @@ public class StartFrame extends SheetableFrame implements ITexts, IConfig {
     }
 
     public ImagePanel getWFAImagePane() {
-        log.debug("");
+
         if (wfaImagePanel == null) {
             wfaImagePanel = new ImagePanel(getClass().getClassLoader().getResource("resources/wfa_logo.gif"));
             wfaImagePanel.setBorder(BorderFactory.createLineBorder(Color.black));

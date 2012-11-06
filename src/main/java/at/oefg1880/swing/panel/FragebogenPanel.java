@@ -51,13 +51,13 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
 
     public FragebogenPanel(TestToolFrame frame) {
         super(DIAGONAL);
-        log.debug("");
+
         this.frame = frame;
         setup();
     }
 
     private void setup() {
-        log.debug("");
+
         FormLayout layout = new FormLayout(
                 "6dlu,pref:grow,6dlu,pref,6dlu",
                 "6dlu,pref,6dlu,pref,6dlu");
@@ -86,7 +86,7 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     }
 
     public FragebogenList getFragebogenList() {
-        log.debug("");
+
         if (fragebogenList == null) {
             fragebogenList = new FragebogenList(frame);
             fragebogenList.requestFocus();
@@ -95,27 +95,27 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     }
 
     public JButton getButtonSave() {
-        log.debug("");
+
         return buttonSave;
     }
 
     public JButton getButtonNew() {
-        log.debug("");
+
         return buttonNew;
     }
 
     public FragebogenDialog getFragebogenDialog() {
-        log.debug("");
+
         return fragebogenDialog;
     }
 
     public AntwortDialog getAntwortDialog() {
-        log.debug("");
+
         return antwortDialog;
     }
 
     public AntwortDialog createNewAntwortDialog(Fragebogen fragebogen) {
-        log.debug("");
+
         if (fragebogen == null) return null;
         if (fragebogen.getSolved() == fragebogen.getExisting()) {
             return null;
@@ -128,7 +128,7 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        log.debug("");
+
         if (NEW.equals(e.getActionCommand())) {
             log.debug("actionPerformed.NEW");
             createNewFragebogenDialog();

@@ -20,12 +20,12 @@ import javax.swing.*;
 public class OEFGFragebogenPanel extends FragebogenPanel {
     public OEFGFragebogenPanel(TestToolFrame frame) {
         super(frame);
-        log.debug("");
+
     }
 
     @Override
     public JDialog createNewFragebogenDialog() {
-        log.debug("");
+
         fragebogenDialog = new OEFGFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_NEW));
         fragebogenDialog.loadProps();
         fragebogenDialog.setVisible(true);
@@ -34,7 +34,7 @@ public class OEFGFragebogenPanel extends FragebogenPanel {
 
     @Override
     public FragebogenDialog editFragebogenDialog(Fragebogen fragebogen) {
-        log.debug("");
+
         if (fragebogen == null) return null;
         fragebogenDialog = new OEFGFragebogenDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_EDIT), fragebogen);
         fragebogenDialog.setLocation(Integer.valueOf(props.getProperty(fragebogenDialog.PROPERTY_NAME + "." + POS_X)),
@@ -46,14 +46,14 @@ public class OEFGFragebogenPanel extends FragebogenPanel {
 
     @Override
     public AntwortDialog getAntwortDialog(Fragebogen fragebogen) {
-        log.debug("");
+
         antwortDialog = new OEFGAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_NEW), fragebogen);
         return antwortDialog;
     }
 
     @Override
     public AntwortDialog getAntwortDialog(Fragebogen fragebogen, Antwort antwort) {
-        log.debug("");
+
         antwortDialog = new OEFGAntwortDialog(frame, rh.getString(PROPERTY_NAME, ANTWORT_EDIT), fragebogen, antwort);
         return antwortDialog;
     }

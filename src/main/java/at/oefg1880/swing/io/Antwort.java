@@ -24,8 +24,8 @@ public class Antwort {
         return index;
     }
 
-    public String getName() {
-        return kandidat.getName();
+    public String getKandidatName() {
+        return kandidat.getTitleAndName();
     }
 
     public int[] getAnswers() {

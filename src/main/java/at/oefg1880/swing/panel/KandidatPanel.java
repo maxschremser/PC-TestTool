@@ -39,7 +39,7 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
     private JButton buttonSave, buttonNew;
 
     public KandidatDialog editKandidatDialog(Kandidat kandidat) {
-        log.debug("");
+
         kandidatDialog = new KandidatDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_NEW), kandidat);
         kandidatDialog.loadProps();
         kandidatDialog.setVisible(true);
@@ -47,7 +47,7 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
     }
 
     public JDialog createNewKandidatDialog() {
-        log.debug("");
+
         kandidatDialog = new KandidatDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_NEW));
         kandidatDialog.loadProps();
         kandidatDialog.setVisible(true);
@@ -56,13 +56,13 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
 
     public KandidatPanel(TestToolFrame frame) {
         super(DIAGONAL);
-        log.debug("");
+
         this.frame = frame;
         setup();
     }
 
     private void setup() {
-        log.debug("");
+
         FormLayout layout = new FormLayout(
                 "6dlu,pref:grow,6dlu,pref,6dlu",
                 "6dlu,pref,6dlu,pref,6dlu");
@@ -91,27 +91,28 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
     }
 
     public KandidatTable getKandidatTable() {
-        log.debug("");
+
         if (list == null) {
             list = new KandidatTable(frame);
+            list.setup();
             list.requestFocus();
         }
         return list;
     }
 
     public JButton getButtonSave() {
-        log.debug("");
+
         return buttonSave;
     }
 
     public JButton getButtonNew() {
-        log.debug("");
+
         return buttonNew;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        log.debug("");
+
         if (NEW.equals(e.getActionCommand())) {
             log.debug("actionPerformed.NEW");
             createNewKandidatDialog();

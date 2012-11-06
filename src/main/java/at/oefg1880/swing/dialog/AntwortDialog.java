@@ -116,7 +116,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
                 Fragebogen fb = (Fragebogen) enumFragebogen.nextElement();
                 Iterator<Antwort> iter = fb.getAntworten().iterator();
                 while (iter.hasNext()) {
-                    String name = iter.next().getName();
+                    String name = iter.next().getKandidatName();
                     if (name.equals(kandidat.getName())) {
                         bFound = !bFound;
                         break;
@@ -140,6 +140,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
                 }
             }
         });
+        tfName.requestFocus();
 
         if (antwort != null) {
             objects.add(antwort.getKandidat());
@@ -223,19 +224,14 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     }
 
     private void update() {
-//        antwort.setKandidat((Kandidat) tfName.getSelectedValue());
         antwort.setPercentages(dataset.getValue(1).intValue());
         antwort.setAnswers(antwortPanel.getValues());
-//        fragebogen.setAntwort(antwort);
-//        ((DefaultListModel)frame.getFragebogenPanel().getFragebogenDialog().
-//                getAntwortList().getModel()).setElementAt(antwort, antwort.getIndex());
     }
 
     private void save() {
-        Antwort antwort = new Antwort((Kandidat) tfName.getModel().getValueAt(0, 0), dataset.getValue(1).intValue(), antwortPanel.getValues());
+        Antwort antwort = new Antwort(tfName.getKandidat(), dataset.getValue(1).intValue(), antwortPanel.getValues());
         fragebogen.addAntwort(antwort);
-
-        ((Kandidat) tfName.getModel().getValueAt(0, 0)).setAntwort(fragebogen, antwort);
+        tfName.getKandidat().setAntwort(fragebogen, antwort);
     }
 
     private void saveOrUpdate() {
@@ -270,8 +266,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
 
     private void fillValues() {
         // set Name
-        tfName.setText(antwort.getName());
-        tfName.getValueAt(0, 0);
+        tfName.setText(antwort.getKandidatName());
         antwortPanel.setValues(antwort.getAnswers());
     }
 
@@ -280,7 +275,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     }
 
     public boolean hasKandidat() {
-        return tfName.getValueAt(0, 0) != null || antwort.getKandidat() != null;
+        return tfName.getKandidat() != null || (antwort != null && antwort.getKandidat() != null);
     }
 
     @Override

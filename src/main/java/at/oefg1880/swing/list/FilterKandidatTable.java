@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class FilterKandidatTable extends KandidatTable {
     private FilterTextField filterField;
     private int DEFAULT_FIELD_WIDTH = 20;
+    private Kandidat kandidat;
 
     public FilterKandidatTable(TestToolFrame frame, ArrayList<Kandidat> items) {
         super(frame, items);
@@ -32,7 +33,8 @@ public class FilterKandidatTable extends KandidatTable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    setText(getModel().getFilterItems().get(rowAtPoint(e.getPoint())).getTitleAndName());
+                    kandidat = getModel().getFilterItems().get(rowAtPoint(e.getPoint()));
+                    setText(kandidat.getTitleAndName());
                 }
             }
         });
@@ -64,5 +66,13 @@ public class FilterKandidatTable extends KandidatTable {
 
     public FilterTextField getFilterField() {
         return filterField;
+    }
+
+    public Kandidat getKandidat() {
+        return kandidat;
+    }
+
+    public void setKandidat(Kandidat kandidat) {
+        this.kandidat = kandidat;
     }
 }

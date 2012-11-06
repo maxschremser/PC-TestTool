@@ -74,12 +74,12 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     public TestToolFrame(String title) throws HeadlessException {
         super(title);
         props.setOwner(this);
-        log.debug("");
+
         setup();
     }
 
     private void createJMenuBar() {
-        log.debug("");
+
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu(rh.getString(PROPERTY_NAME, FILE));
         menu.setMnemonic(rh.getString(PROPERTY_NAME, FILE).toCharArray()[0]);
@@ -138,7 +138,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public JComponent getBottomComponent() {
-        log.debug("");
+
         if (bottomPane == null) {
             bottomPane = new FadingTabbedPane();
             bottomPane.addTab(rh.getString(KandidatPanel.PROPERTY_NAME, LABEL), getKandidatPanel());
@@ -148,7 +148,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     private void setup() {
-        log.debug("");
+
         createJMenuBar();
 
         new DropTarget(this, this);
@@ -180,7 +180,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public ImagePanel getImagePane() {
-        log.debug("");
+
         if (imagePanel == null) {
             imagePanel = new ImagePanel(getClass().getClassLoader().getResource(getImageName()));
             imagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -189,17 +189,17 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public void setReturnValue(int returnValue) {
-        log.debug("");
+
         this.returnValue = returnValue;
     }
 
     public JDialog getDialog() {
-        log.debug("");
+
         return dialog;
     }
 
     private void doWindowClosing() {
-        log.debug("");
+
         if (getFragebogenPanel().getFragebogenList().getModel().getSize() > 0) {
             int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(PROPERTY_NAME, QUESTION_SAVE));
             if (JOptionPane.YES_OPTION == a) {
@@ -218,7 +218,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public int showDeleteDialog(ActionListener list, String message, String title) {
-        log.debug("");
+
         // Ja, Nein, Abbrechen Dialog mit einer Frage und einem Icon
         dialog = new JDialog(this, title, true);
         FormLayout layout = new FormLayout(
@@ -248,7 +248,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     private void loadProps() {
-        log.debug("");
+
         if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
             int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
             int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
@@ -259,14 +259,14 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     private void storeProps() {
-        log.debug("");
+
         props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
         props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
         props.store(); // we save the properties file only when exiting the application
     }
 
     public String exportData() {
-        log.debug("");
+
         File file;
         try {
             Workbook wb = new HSSFWorkbook();
@@ -292,7 +292,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public boolean importData(File file) throws Exception {
-        log.debug("");
+
         try {
             Workbook wb = new HSSFWorkbook(new FileInputStream(file));
             log.info("Importing from: " + file.getAbsolutePath());
@@ -436,7 +436,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
     @Override
     public void drop(DropTargetDropEvent dtde) {
-        log.debug("");
+
         // handle Document dropped
         log.info(dtde.getSource());
         dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);

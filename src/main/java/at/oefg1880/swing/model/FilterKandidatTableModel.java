@@ -46,10 +46,13 @@ public class FilterKandidatTableModel extends KandidatTableModel {
         filterItems.clear();
         String term = filterKandidatTable.getFilterField().getText();
         for (int i = 0; i < filterKandidatTable.getModel().getItems().size(); i++) {
-            if (filterKandidatTable.getModel().getItems().get(i).getName().toLowerCase().indexOf(term.toLowerCase(), 0) != -1) {
+            if (filterKandidatTable.getModel().getItems().get(i).getTitleAndName().toLowerCase().indexOf(term.toLowerCase(), 0) != -1) {
                 filterItems.add(filterKandidatTable.getModel().getItems().get(i));
             }
         }
+//        if (filterItems.size() == 1) {
+//            filterKandidatTable.setKandidat(filterItems.get(0));
+//        }
         filterKandidatTable.getModel().fireTableDataChanged();
     }
 

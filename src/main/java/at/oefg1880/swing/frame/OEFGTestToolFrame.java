@@ -24,24 +24,24 @@ import java.awt.*;
 public class OEFGTestToolFrame extends TestToolFrame {
     public OEFGTestToolFrame(String title) {
         super(title);
-        log.debug("");
+
     }
 
     @Override
     public String getImageName() {
-        log.debug("");
+
         return "resources/oefg1880_logo.gif";
     }
 
     @Override
     public String getFavicon() {
-        log.debug("");
+
         return "resources/oefg_favicon.gif";
     }
 
     @Override
     public FragebogenPanel getFragebogenPanel() {
-        log.debug("");
+
         if (bottomFragebogenPane == null) {
             bottomFragebogenPane = new OEFGFragebogenPanel(this);
             bottomFragebogenPane.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -51,7 +51,7 @@ public class OEFGTestToolFrame extends TestToolFrame {
 
     @Override
     public KandidatPanel getKandidatPanel() {
-        log.debug("");
+
         if (bottomKandidatPane == null) {
             bottomKandidatPane = new KandidatPanel(this);
             bottomKandidatPane.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -61,19 +61,19 @@ public class OEFGTestToolFrame extends TestToolFrame {
 
     @Override
     public String getFragebogenName() {
-        log.debug("");
+
         return OEFG_TEST_TOOL;
     }
 
     @Override
     public char[] getAllowedValues() {
-        log.debug("");
+
         return new OEFGAntwortPanel(false, null).getAllowedValues();
     }
 
     @Override
     public void exportFragebogen(Workbook wb, Fragebogen fragebogen) {
-        log.debug("");
+
         Sheet sheet = wb.createSheet(fragebogen.getTitle());
         CellStyle boldStyle = wb.createCellStyle();
         CellStyle greenStyle = wb.createCellStyle();
@@ -198,7 +198,7 @@ public class OEFGTestToolFrame extends TestToolFrame {
         int r = 6;
         for (Antwort a : fragebogen.getAntworten()) {
             row = sheet.createRow(r++);
-            row.createCell(0).setCellValue(a.getName());
+            row.createCell(0).setCellValue(a.getKandidatName());
 //      row.createCell(1).setCellValue(a.getAlter());
             row.createCell(2).setCellValue(a.getPercentages() + "%");
             i = 4;
