@@ -6,7 +6,6 @@ import at.oefg1880.swing.dialog.AntwortDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.io.Antwort;
 import at.oefg1880.swing.io.Fragebogen;
-import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -92,7 +91,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
                     if (getSelectedIndex() >= 0)
                         createEditAntwortDialog((Antwort) getSelectedValue());
                 } else if (key == KeyEvent.VK_DELETE) {
-                    String title = ((Antwort) getSelectedValue()).getName();
+                    String title = ((Antwort) getSelectedValue()).getKandidatName();
                     int n = frame.showDeleteDialog(frame.getFragebogenPanel().getAntwortDialog(fragebogen), rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{title}), rh.getString(PROPERTY_NAME, DELETE));
                     if (n == JOptionPane.OK_OPTION) // JA
                         model.remove(getSelectedIndex());
@@ -144,7 +143,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
             createEditAntwortDialog((Antwort) getSelectedValue());
         } else if (e.getSource() == menuDelete) {
             Antwort antwort = (Antwort) getSelectedValue();
-            String name = antwort.getName();
+            String name = antwort.getKandidatName();
             int n = JOptionPane.showOptionDialog(frame, rh.getString(PROPERTY_NAME, QUESTION_DELETE, new String[]{name}), rh.getString(PROPERTY_NAME, DELETE),
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ja", "Nein"}, "Ja");
             if (n == 0) { // JA
@@ -159,7 +158,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             if (value instanceof Antwort) {
                 Antwort antwort = (Antwort) value;
-                labelName.setText(antwort.getName());
+                labelName.setText(antwort.getKandidatName());
                 labelPercentages.setText(antwort.getPercentages() + "%");
                 for (Component c : cell.getComponents()) {
                     if (isSelected) {

@@ -27,12 +27,12 @@ public class KandidatTableModel extends AbstractTableModel implements IConfig {
 
     public KandidatTableModel() {
         super();
-        log.debug("");
+
     }
 
     public KandidatTableModel(ArrayList<Kandidat> items) {
         super();
-        log.debug("");
+
         this.items = items;
     }
 

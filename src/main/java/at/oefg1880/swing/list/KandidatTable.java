@@ -66,7 +66,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         super();
         this.frame = frame;
         this.model = model;
-        setup();
+//        setup();
     }
 
     @Override

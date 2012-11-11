@@ -1,6 +1,7 @@
 package at.oefg1880.swing.list;
 
 import at.oefg1880.swing.dialog.AntwortDialog;
+import at.oefg1880.swing.io.Kandidat;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -27,7 +28,9 @@ public class FilterTextField extends JTextField implements DocumentListener {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    setText(filterKandidatTable.getModel().getFilterItems().get(0).getTitleAndName());
+                    Kandidat kandidat = filterKandidatTable.getModel().getFilterItems().get(0);
+                    filterKandidatTable.setKandidat(kandidat);
+                    setText(kandidat.getTitleAndName());
                     foundKandidat = true;
                     AntwortDialog antwortDialog = filterKandidatTable.getFrame().getFragebogenPanel().getAntwortDialog();
                     antwortDialog.getAntwortPanel(antwortDialog).getAntwortTextField(0).requestFocus();
