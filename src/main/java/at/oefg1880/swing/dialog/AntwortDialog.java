@@ -117,11 +117,13 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
                 Iterator<Antwort> iter = fb.getAntworten().iterator();
                 while (iter.hasNext()) {
                     String name = iter.next().getKandidatName();
-                    if (name.equals(kandidat.getName())) {
-                        bFound = !bFound;
+                    if (name.equals(kandidat.getTitleAndName())) {
+                        bFound = true;
                         break;
                     }
                 }
+                if (bFound)
+                  break;
             }
             if (!bFound)
                 objects.add(kandidat);
