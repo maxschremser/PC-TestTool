@@ -75,4 +75,11 @@ public class FilterKandidatTable extends KandidatTable {
     public void setKandidat(Kandidat kandidat) {
         this.kandidat = kandidat;
     }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        getFilterField().setEnabled(enabled);
+        disableDoubleClick();
+    }
 }

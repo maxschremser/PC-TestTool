@@ -81,23 +81,11 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     private void initComponents() {
         saveButton = new JButton(rh.getString(PROPERTY_NAME, BUTTON_SAVE));
         saveButton.addActionListener(this);
-        saveButton.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyChar() == KeyEvent.VK_ENTER) close();
-            }
-        });
         saveButton.setActionCommand(SAVE);
 
         cancelButton = new JButton(rh.getString(PROPERTY_NAME, BUTTON_CANCEL));
         cancelButton.addActionListener(this);
         cancelButton.setActionCommand(CANCEL);
-        cancelButton.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyChar() == KeyEvent.VK_ESCAPE) dispose();
-            }
-        });
 
         labelTitle = new JLabel(" ");
         Font font = labelTitle.getFont().deriveFont(Font.PLAIN, 21);
@@ -297,6 +285,9 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
         kandidat.setAnwesend(cbAnwesend.isSelected());
         kandidat.setPassPhoto(cbPassfoto.isSelected());
         kandidat.setKursgebuehrBezahlt(cbKursunterlagen.isSelected());
+        // update the model and tell the editor that editing has stopped, let the cell
+        // be handled by the renderer again
+        frame.getKandidatPanel().getKandidatTable().getCellEditor().stopCellEditing();
 
         log.info("Updated item '" + kandidat.getTitleAndName() + "' in  KandidatTable.");
     }

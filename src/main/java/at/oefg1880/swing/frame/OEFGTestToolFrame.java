@@ -187,7 +187,7 @@ public class OEFGTestToolFrame extends TestToolFrame {
         int[] solutions = fragebogen.getSolutions();
         int i = 4;
         for (int v : fragebogen.getSolutions()) {
-            row.createCell(i++).setCellValue(AntwortTextField.translate(allowedValues, v) + "");
+            row.createCell(i++).setCellValue(new String(new char[]{AntwortTextField.translate(allowedValues, v)}));
         }
 
         row = sheet.createRow(5);
@@ -199,13 +199,12 @@ public class OEFGTestToolFrame extends TestToolFrame {
         for (Antwort a : fragebogen.getAntworten()) {
             row = sheet.createRow(r++);
             row.createCell(0).setCellValue(a.getKandidatName());
-//      row.createCell(1).setCellValue(a.getAlter());
             row.createCell(2).setCellValue(a.getPercentages() + "%");
             i = 4;
             int j = 0;
             for (int iAnswer : a.getAnswers()) {
                 Cell cellAnswer = row.createCell(i++);
-                cellAnswer.setCellValue(AntwortTextField.translate(allowedValues, iAnswer));
+                cellAnswer.setCellValue(new String(new char[]{AntwortTextField.translate(allowedValues, iAnswer)}));
                 if (iAnswer == solutions[j++]) {
                     cellAnswer.setCellStyle(greenStyle);
                 } else {

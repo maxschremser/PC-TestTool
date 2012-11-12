@@ -10,7 +10,6 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class Kandidat {
-    private static int index;
     private String title;
     private String name;
     private Adresse adresse;
@@ -36,7 +35,6 @@ public class Kandidat {
 
     public Kandidat(String title, String name, Adresse adresse, String telephone, String email, Date geburtstag, String geburtsort, boolean bPassPhoto, boolean bKursgebuehr, boolean bAnwesend) {
         this();
-        this.index++;
         this.title = title;
         this.name = name;
         this.adresse = adresse;
@@ -60,10 +58,6 @@ public class Kandidat {
 
     public Antwort getAntwort() {
         return antwort;
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     public String getTitle() {

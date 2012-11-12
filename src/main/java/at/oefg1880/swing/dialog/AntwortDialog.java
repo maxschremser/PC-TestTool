@@ -202,6 +202,10 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         return builder.getPanel();
     }
 
+    public void disableTextfieldName() {
+        tfName.setEnabled(false);
+    }
+
     private void reset() {
         correctAnswers = 0;
         tfName.getFilterField().setText("");

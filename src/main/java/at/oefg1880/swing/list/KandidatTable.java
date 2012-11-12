@@ -2,6 +2,7 @@ package at.oefg1880.swing.list;
 
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
+import at.oefg1880.swing.dialog.AntwortDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.model.FilterKandidatTableModel;
@@ -45,6 +46,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
     private JPopupMenu menu;
     private JMenuItem menuEdit, menuDelete;
     protected TestToolFrame frame;
+    protected boolean enabled = true;
 
     static {
         UIDefaults uid = UIManager.getLookAndFeel().getDefaults();
@@ -77,7 +79,7 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
     public void setup() {
         setModel(model);
         setDefaultRenderer(Kandidat.class, new KandidatCell());
-//        setDefaultEditor(Kandidat.class, new KandidatCell());
+        setDefaultEditor(Kandidat.class, new KandidatCell());
         setRowHeight(120);
 
         menu = new JPopupMenu();
@@ -91,21 +93,27 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
             @Override
             public void mouseClicked(MouseEvent e) {
                 // open KandidatDialog
-                menu.setVisible(false);
-                if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
-                    if (getModel() instanceof FilterKandidatTableModel) {
-                        frame.getKandidatPanel().editKandidatDialog(((FilterKandidatTableModel) getModel()).getFilterItems().get(rowAtPoint(e.getPoint())));
-                    } else {
+                if (enabled) {
+                    menu.setVisible(false);
+                    if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
+                        if (getModel() instanceof FilterKandidatTableModel) {
+                            frame.getKandidatPanel().editKandidatDialog(((FilterKandidatTableModel) getModel()).getFilterItems().get(rowAtPoint(e.getPoint())));
+                        } else {
+                            setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
+                            frame.getKandidatPanel().editKandidatDialog(getModel().getItems().get(rowAtPoint(e.getPoint())));
+                        }
+                    } else if (SwingUtilities.isRightMouseButton(e) && getSelectedRow() > -1) {
+                        // right click, open edit menu
                         setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
-                        frame.getKandidatPanel().editKandidatDialog(getModel().getItems().get(rowAtPoint(e.getPoint())));
+                        menu.show((JTable) e.getSource(), e.getX(), e.getY());
                     }
-                } else if (SwingUtilities.isRightMouseButton(e) && getSelectedRow() > -1) {
-                    // right click, open edit menu
-                    setRowSelectionInterval(rowAtPoint(e.getPoint()), rowAtPoint(e.getPoint()));
-                    menu.show((JTable) e.getSource(), e.getX(), e.getY());
                 }
             }
         });
+    }
+
+    protected void disableDoubleClick() {
+        enabled = false;
     }
 
     @Override
@@ -141,9 +149,10 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
 
     public void add(Kandidat kandidat) {
         getModel().add(kandidat);
+        frame.getKandidatPanel().getButtonSave().setEnabled(true);
     }
 
-    private class KandidatCell extends AbstractCellEditor implements TableCellRenderer {
+    private class KandidatCell extends AbstractCellEditor implements TableCellRenderer, TableCellEditor {
         private Kandidat kandidat;
         private JPopupMenu menu;
         private GradientPanel cell;
@@ -204,7 +213,8 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
             openAnswerPanelButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JDialog dialog = frame.getFragebogenPanel().getAntwortDialog(kandidat.getFragebogen(), kandidat.getAntwort());
+                    AntwortDialog dialog = frame.getFragebogenPanel().getAntwortDialog(kandidat.getFragebogen(), kandidat.getAntwort());
+                    dialog.disableTextfieldName();
                     dialog.setVisible(true);
                 }
             });
@@ -259,12 +269,22 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         }
 
         @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            if (value instanceof Kandidat) {
+                Kandidat kandidat = (Kandidat) value;
+                updateData(kandidat, isSelected, row, column);
+                return cell;
+            }
+            return new JPanel();
+        }
+
+        @Override
         public Object getCellEditorValue() {
             return null;  //To change body of implemented methods use File | Settings | File Templates.
         }
 
         @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
             if (value instanceof Kandidat) {
                 Kandidat kandidat = (Kandidat) value;
                 updateData(kandidat, isSelected, row, column);

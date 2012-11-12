@@ -91,7 +91,6 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
     }
 
     public KandidatTable getKandidatTable() {
-
         if (list == null) {
             list = new KandidatTable(frame);
             list.setup();
@@ -112,12 +111,11 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (NEW.equals(e.getActionCommand())) {
             log.debug("actionPerformed.NEW");
             createNewKandidatDialog();
         } else if (SAVE.equals(e.getActionCommand())) {
-            log.debug("actioPerformed.SAVE");
+            log.debug("actionPerformed.SAVE");
             props.propertyChange(new PropertyChangeEvent(this, JOptionPane.VALUE_PROPERTY, 0, 0));
             String filePath = frame.exportData();
             int selectedOption = JOptionPane.showConfirmDialog(getParent(), rh.getString(PROPERTY_NAME, DIALOG_SAVED, new String[]{filePath}), UIManager.getString("OptionPane.titleText"), JOptionPane.YES_NO_OPTION);

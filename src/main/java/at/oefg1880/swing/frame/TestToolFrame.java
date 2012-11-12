@@ -2,6 +2,7 @@ package at.oefg1880.swing.frame;
 
 import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
+import at.oefg1880.swing.io.Antwort;
 import at.oefg1880.swing.io.Fragebogen;
 import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.panel.FragebogenPanel;
@@ -18,10 +19,8 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Font;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,6 +47,7 @@ import java.util.List;
  */
 public abstract class TestToolFrame extends SheetableFrame implements ITexts, IConfig, DropTargetListener, ActionListener {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.frame.TestToolFrame";
+    private final static String KANDIDATEN = "Kandidaten";
     protected JTabbedPane bottomPane;
     protected KandidatPanel bottomKandidatPane;
     protected FragebogenPanel bottomFragebogenPane;
@@ -135,12 +135,13 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     public void enableButtonSave(boolean bEnable) {
         log.debug(bEnable);
         getFragebogenPanel().getButtonSave().setEnabled(bEnable);
+        getKandidatPanel().getButtonSave().setEnabled(bEnable);
     }
 
     public JComponent getBottomComponent() {
-
         if (bottomPane == null) {
-            bottomPane = new FadingTabbedPane();
+//            bottomPane = new FadingTabbedPane();
+            bottomPane = new JTabbedPane();
             bottomPane.addTab(rh.getString(KandidatPanel.PROPERTY_NAME, LABEL), getKandidatPanel());
             bottomPane.addTab(rh.getString(FragebogenPanel.PROPERTY_NAME, LABEL), getFragebogenPanel());
         }
@@ -148,11 +149,8 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     private void setup() {
-
         createJMenuBar();
-
         new DropTarget(this, this);
-
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 doWindowClosing();
@@ -171,8 +169,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
         loadProps();
 
-        // we are now using the Dissolver to fade out the frame
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(new ImageIcon(getClass().getClassLoader().getResource(getFavicon())).getImage());
         pack();
         setResizable(false);
@@ -180,7 +177,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public ImagePanel getImagePane() {
-
         if (imagePanel == null) {
             imagePanel = new ImagePanel(getClass().getClassLoader().getResource(getImageName()));
             imagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -189,17 +185,14 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public void setReturnValue(int returnValue) {
-
         this.returnValue = returnValue;
     }
 
     public JDialog getDialog() {
-
         return dialog;
     }
 
     private void doWindowClosing() {
-
         if (getFragebogenPanel().getFragebogenList().getModel().getSize() > 0) {
             int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(PROPERTY_NAME, QUESTION_SAVE));
             if (JOptionPane.YES_OPTION == a) {
@@ -218,7 +211,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     public int showDeleteDialog(ActionListener list, String message, String title) {
-
         // Ja, Nein, Abbrechen Dialog mit einer Frage und einem Icon
         dialog = new JDialog(this, title, true);
         FormLayout layout = new FormLayout(
@@ -248,7 +240,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     private void loadProps() {
-
         if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
             int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
             int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
@@ -259,14 +250,67 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     }
 
     private void storeProps() {
-
         props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
         props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
         props.store(); // we save the properties file only when exiting the application
     }
 
-    public String exportData() {
+    private void exportKandidaten(Workbook wb) {
+        Sheet kandidatSheet = wb.createSheet(KANDIDATEN);
+        // Title
+        CellStyle boldStyle = wb.createCellStyle();
+        Font font = wb.createFont();
+        font.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        boldStyle.setFont(font);
 
+        Row row = kandidatSheet.createRow(0);
+        Cell cell = row.createCell(0);
+        cell.setCellValue(KANDIDATEN);
+        cell.setCellStyle(boldStyle);
+
+        row = kandidatSheet.createRow(2);
+        cell = row.createCell(0);
+        cell.setCellStyle(boldStyle);
+        cell.setCellValue("Titel");
+
+        cell = row.createCell(1);
+        cell.setCellStyle(boldStyle);
+        cell.setCellValue("Vor- und Zuname");
+
+        cell = row.createCell(2);
+        cell.setCellStyle(boldStyle);
+        cell.setCellValue("Strasse");
+
+        cell = row.createCell(3);
+        cell.setCellStyle(boldStyle);
+        cell.setCellValue("PLZ");
+
+        cell = row.createCell(4);
+        cell.setCellStyle(boldStyle);
+        cell.setCellValue("Ort");
+
+        ArrayList<Kandidat> kandidatList = getKandidatPanel().getKandidatTable().getModel().getItems();
+        int r = 3;
+        for (Kandidat kandidat : kandidatList) {
+            row = kandidatSheet.createRow(r++);
+            cell = row.createCell(0);
+            cell.setCellValue(kandidat.getTitle());
+
+            cell = row.createCell(1);
+            cell.setCellValue(kandidat.getName());
+
+            cell = row.createCell(2);
+            cell.setCellValue(kandidat.getStrasse());
+
+            cell = row.createCell(3);
+            cell.setCellValue(kandidat.getPLZ());
+
+            cell = row.createCell(4);
+            cell.setCellValue(kandidat.getOrt());
+        }
+    }
+
+    public String exportData() {
         File file;
         try {
             Workbook wb = new HSSFWorkbook();
@@ -282,6 +326,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
                 Fragebogen f = enums.nextElement();
                 exportFragebogen(wb, f);
             }
+            exportKandidaten(wb);
             wb.write(fos);
             fos.close();
             return file.getAbsolutePath().replaceAll("\\\\", "/");
@@ -291,14 +336,41 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         return "";
     }
 
-    public boolean importData(File file) throws Exception {
+    private String getValue(Cell cell) {
+        if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+            return cell.getStringCellValue();
+        } else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+            return Double.valueOf(cell.getNumericCellValue()).intValue()+"";
+        }
+        return "";
+    }
 
+    public boolean importData(File file) throws Exception {
         try {
             Workbook wb = new HSSFWorkbook(new FileInputStream(file));
             log.info("Importing from: " + file.getAbsolutePath());
             int numSheets = wb.getNumberOfSheets();
             DefaultListModel model = (DefaultListModel) getFragebogenPanel().getFragebogenList().getModel();
             char[] allowedValues = getAllowedValues();
+
+            // import Kandidaten into KandidatTable
+            ArrayList<Kandidat> kandidatList = new ArrayList<Kandidat>();
+            Sheet kandidatSheet = wb.getSheet(KANDIDATEN);
+            for (int i = 3; i <= kandidatSheet.getLastRowNum(); i++) {
+                Row kandidatRow = kandidatSheet.getRow(i);
+                Cell cell = kandidatRow.getCell(0);
+                String title = getValue(cell);
+                cell = kandidatRow.getCell(1);
+                String name = getValue(cell);
+                cell = kandidatRow.getCell(2);
+                String strasse = getValue(cell);
+                cell = kandidatRow.getCell(3);
+                String PLZ = getValue(cell);
+                cell = kandidatRow.getCell(4);
+                String ort = getValue(cell);
+                kandidatList.add(new Kandidat(title, name, strasse, PLZ, ort, "", "", new Date(), "", false, false, false));
+            }
+            getKandidatPanel().getKandidatTable().getModel().setItems(kandidatList);
 
             for (int s = 0; s < numSheets; s++) {
                 Sheet sheet = wb.getSheetAt(s);
@@ -308,31 +380,29 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
                 int numSolutions = row.getLastCellNum() - 4;
                 int[] solutions = new int[numSolutions];
 
-                if (!sheet.getSheetName().equals("Kandidaten")) {
+                if (!sheet.getSheetName().equals(KANDIDATEN)) {
                     for (int i = 4; i < row.getLastCellNum(); i++) {
                         char cellValue = row.getCell(i).getStringCellValue().toCharArray()[0];
                         solutions[i - 4] = AntwortTextField.translate(allowedValues, cellValue);
                     }
                     Fragebogen fragebogen = new Fragebogen(sheet.getSheetName(), Double.valueOf(sheet.getRow(0).getCell(5).toString()).intValue(), solutions);
-                    model.addElement(fragebogen);
-                } else {
-                    // import Kandidaten into KandidatTable
-                    ArrayList<Kandidat> list = new ArrayList<Kandidat>();
-                    for (int i = 3; i <= sheet.getLastRowNum(); i++) {
-                        Row kandidatRow = sheet.getRow(i);
-                        Cell cell = kandidatRow.getCell(0);
-                        String title = cell == null ? "" : cell.getStringCellValue();
-                        cell = kandidatRow.getCell(1);
-                        String name = cell == null ? "" : cell.getStringCellValue();
-                        cell = kandidatRow.getCell(2);
-                        String strasse = cell == null ? "" : cell.getStringCellValue();
-                        cell = kandidatRow.getCell(3);
-                        String PLZ = cell == null ? "" : Double.valueOf(cell.getNumericCellValue()).intValue() + "";
-                        cell = kandidatRow.getCell(4);
-                        String ort = cell == null ? "" : cell.getStringCellValue();
-                        list.add(new Kandidat(title, name, strasse, PLZ, ort, "", "", new Date(), "", false, false, false));
+
+                    for (int a = 6; a <= sheet.getLastRowNum(); a++) {
+                        row = sheet.getRow(a);
+                        for (int i = 4; i < row.getLastCellNum(); i++) {
+                            char cellValue = row.getCell(i).getStringCellValue().toCharArray()[0];
+                            solutions[i - 4] = AntwortTextField.translate(allowedValues, cellValue);
+                        }
+                        String kandidatName = getValue(row.getCell(0));
+                        String p = getValue(row.getCell(2));
+                        p = p.substring(0, p.length()-1);
+                        int percentages = Integer.valueOf(p).intValue();
+                        Kandidat kandidat = findKandidat(kandidatList, kandidatName);
+                        Antwort antwort = new Antwort(kandidat, percentages, solutions);
+                        kandidat.setAntwort(fragebogen, antwort);
+                        fragebogen.addAntwort(antwort);
                     }
-                    getKandidatPanel().getKandidatTable().getModel().setItems(list);
+                    model.addElement(fragebogen);
                 }
             }
             if (model.getSize() > 0) {
@@ -362,6 +432,13 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         } catch (IOException ioe) {
         }
         return true;
+    }
+
+    private Kandidat findKandidat(ArrayList<Kandidat> kandidatList, String kandidatName) {
+        for (Kandidat k : kandidatList) {
+            if (k.getTitleAndName().equals(kandidatName)) return k;
+        }
+        return null;
     }
 
     @Override

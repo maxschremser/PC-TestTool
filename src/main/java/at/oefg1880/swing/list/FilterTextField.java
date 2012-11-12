@@ -32,8 +32,7 @@ public class FilterTextField extends JTextField implements DocumentListener {
                     filterKandidatTable.setKandidat(kandidat);
                     setText(kandidat.getTitleAndName());
                     foundKandidat = true;
-                    AntwortDialog antwortDialog = filterKandidatTable.getFrame().getFragebogenPanel().getAntwortDialog();
-                    antwortDialog.getAntwortPanel(antwortDialog).getAntwortTextField(0).requestFocus();
+                    filterKandidatTable.getFrame().getFragebogenPanel().getAntwortDialog();
                 }
             });
         }

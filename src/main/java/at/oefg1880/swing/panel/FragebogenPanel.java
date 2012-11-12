@@ -110,7 +110,6 @@ public abstract class FragebogenPanel extends GradientPanel implements ITexts, I
     }
 
     public AntwortDialog getAntwortDialog() {
-
         return antwortDialog;
     }
 
