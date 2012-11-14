@@ -7,6 +7,9 @@
     <resolvers>
         <chain name="my-resolver" returnFirst="false" checkmodified="true" changingPattern=".*" latest="latest-time">
             <ibiblio name="ibiblio" m2compatible="true"/>
+            <url name="qrgen" m2compatible="true">
+                <artifact pattern="http://kenglxn.github.com/QRGen/repository/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"/>
+            </url>
         </chain>
     </resolvers>
 

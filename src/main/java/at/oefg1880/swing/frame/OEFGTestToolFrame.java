@@ -8,11 +8,15 @@ import at.oefg1880.swing.panel.KandidatPanel;
 import at.oefg1880.swing.panel.OEFGAntwortPanel;
 import at.oefg1880.swing.panel.OEFGFragebogenPanel;
 import at.oefg1880.swing.text.AntwortTextField;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.util.IOUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -186,16 +190,44 @@ public class OEFGTestToolFrame extends TestToolFrame {
         char[] allowedValues = getFragebogenPanel().getAntwortDialog(fragebogen).getAntwortPanel(null).getAllowedValues();
         int[] solutions = fragebogen.getSolutions();
         int i = 4;
+
+        // create the message for the QRCode
+        StringBuffer fBuffer = new StringBuffer();
+        String title = fragebogen.getTitle();
+        fBuffer.append(title);
+        fBuffer.append("{");
+        fBuffer.append(fragebogen.getExisting());
+        fBuffer.append(",");
+
         for (int v : fragebogen.getSolutions()) {
             row.createCell(i++).setCellValue(new String(new char[]{AntwortTextField.translate(allowedValues, v)}));
+            // add the solutions to the QRCode message
+            fBuffer.append(AntwortTextField.translate(getAllowedValues(), v));
         }
-
-        row = sheet.createRow(5);
+        fBuffer.append("}");
+        // generate the QRCode image of type PNG
+        File f = QRCode.from(fBuffer.toString()).to(ImageType.PNG).withSize(128, 128).file();
+        // draw the picture in the sheet
+        try {
+            InputStream is = new FileInputStream(f);
+            byte[] bytes = IOUtils.toByteArray(is);
+            int picIdx = wb.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
+            Drawing drawing = sheet.createDrawingPatriarch();
+            ClientAnchor anchor = wb.getCreationHelper().createClientAnchor();
+            anchor.setCol1(0);
+            anchor.setCol2(2);
+            anchor.setRow1(4);
+            anchor.setRow2(12);
+            drawing.createPicture(anchor, picIdx);
+        } catch (FileNotFoundException fnfne) {
+        } catch (IOException ioe) {
+        }
+        row = sheet.createRow(14);
         cell = row.createCell(0);
         cell.setCellValue(rh.getString(PROPERTY_NAME, LABEL_ANSWER));
         cell.setCellStyle(boldStyle);
         // Antworten
-        int r = 6;
+        int r = 16;
         for (Antwort a : fragebogen.getAntworten()) {
             row = sheet.createRow(r++);
             row.createCell(0).setCellValue(a.getKandidatName());

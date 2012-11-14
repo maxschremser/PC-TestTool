@@ -9,7 +9,6 @@ import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.panel.ImagePanel;
 import at.oefg1880.swing.panel.KandidatPanel;
-import at.oefg1880.swing.tabs.FadingTabbedPane;
 import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
@@ -17,10 +16,25 @@ import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.factories.ButtonBarFactory;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import org.apache.log4j.Logger;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.util.IOUtils;
+import org.krysalis.barcode4j.BarcodeUtil;
+import org.krysalis.barcode4j.impl.codabar.CodabarBean;
+import org.krysalis.barcode4j.impl.code128.Code128Bean;
+import org.krysalis.barcode4j.impl.datamatrix.DataMatrix;
+import org.krysalis.barcode4j.impl.datamatrix.DataMatrixBean;
+import org.krysalis.barcode4j.impl.datamatrix.SymbolShapeHint;
+import org.krysalis.barcode4j.impl.upcean.EAN13Bean;
+import org.krysalis.barcode4j.impl.upcean.UPCABean;
+import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
+import org.krysalis.barcode4j.output.bitmap.BitmapEncoder;
+import org.krysalis.barcode4j.output.bitmap.BitmapEncoderRegistry;
+import org.krysalis.barcode4j.output.java2d.Java2DCanvasProvider;
+import org.krysalis.barcode4j.tools.UnitConv;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +45,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.io.*;
 import java.net.URI;
@@ -310,6 +326,96 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         }
     }
 
+    private File exportBarcode(Enumeration<Fragebogen> enums) throws IOException {
+
+        StringBuffer fBuffer = new StringBuffer();
+        while (enums.hasMoreElements()) {
+            if (fBuffer.length() > 0)
+                fBuffer.append(",");
+            Fragebogen fragebogen = enums.nextElement();
+            String title = fragebogen.getTitle();
+            fBuffer.append(title);
+            fBuffer.append("{");
+            fBuffer.append(fragebogen.getExisting());
+            fBuffer.append(",");
+            for (int s : fragebogen.getSolutions()) {
+                fBuffer.append(AntwortTextField.translate(getAllowedValues(), s));
+            }
+            fBuffer.append("}");
+        }
+        fBuffer.append(",U{");
+        StringBuffer kBuffer = new StringBuffer();
+        ArrayList<Kandidat> kandidatList = getKandidatPanel().getKandidatTable().getModel().getItems();
+        for (Kandidat kandidat : kandidatList) {
+            if (kBuffer.length() > 0)
+                kBuffer.append(",");
+            kBuffer.append(kandidat.getTitleAndName());
+        }
+        fBuffer.append(kBuffer.toString());
+        fBuffer.append("}");
+        String msg = fBuffer.toString();
+
+        File f = QRCode.from(msg).to(ImageType.PNG).withSize(512,512).file();
+        /*
+        DataMatrixBean bean = new DataMatrixBean();
+//        UPCABean bean = new UPCABean();
+//        Code128Bean bean = new Code128Bean();
+//        EAN13Bean bean = new EAN13Bean();
+//        CodabarBean bean = new CodabarBean();
+        final int dpi = 100;
+
+        //Configure the barcode generator
+        bean.setModuleWidth(UnitConv.in2mm(8.0f / dpi)); //makes a dot/module exactly eight pixels
+        bean.doQuietZone(false);
+        bean.setShape(SymbolShapeHint.FORCE_SQUARE);
+
+        boolean antiAlias = false;
+        int orientation = 0;
+        //Set up the canvas provider to create a monochrome bitmap
+        BitmapCanvasProvider canvas = new BitmapCanvasProvider(
+                dpi, BufferedImage.TYPE_BYTE_BINARY, antiAlias, orientation);
+
+        //Generate the barcode
+        bean.generateBarcode(canvas, msg);
+
+        //Signal end of generation
+        canvas.finish();
+
+        //Get generated bitmap
+        BufferedImage symbol = canvas.getBufferedImage();
+
+        int width = symbol.getWidth();
+        int height = symbol.getHeight();
+
+        //Add padding
+        int padding = 2;
+        width += 2 * padding;
+        height += 3 * padding;
+
+        BufferedImage bitmap = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
+        Graphics2D g2d = (Graphics2D)bitmap.getGraphics();
+
+        //Place the barcode symbol
+        AffineTransform symbolPlacement = new AffineTransform();
+        symbolPlacement.translate(padding, padding);
+        g2d.drawRenderedImage(symbol, symbolPlacement);
+
+        g2d.dispose();
+
+        //Encode bitmap as file
+        String mime = "image/png";
+        File f = new File("out.png");
+        OutputStream out = new FileOutputStream(f);
+        try {
+            final BitmapEncoder encoder = BitmapEncoderRegistry.getInstance(mime);
+            encoder.encode(bitmap, out, mime, dpi);
+        } finally {
+            out.close();
+        }
+        */
+        return f;
+    }
+
     public String exportData() {
         File file;
         try {
@@ -327,6 +433,22 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
                 exportFragebogen(wb, f);
             }
             exportKandidaten(wb);
+/*
+            File f = exportBarcode((Enumeration<Fragebogen>) model.elements());
+
+            InputStream is = new FileInputStream(f);
+            byte[] bytes = IOUtils.toByteArray(is);
+            int picIdx = wb.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
+            Sheet qrSheet = wb.createSheet("QRCode");
+            Drawing drawing = qrSheet.createDrawingPatriarch();
+            ClientAnchor anchor = wb.getCreationHelper().createClientAnchor();
+            anchor.setCol1(0);
+            anchor.setCol2(10);
+            anchor.setRow1(0);
+            anchor.setRow2(10);
+            drawing.createPicture(anchor, picIdx);
+            is.close();
+*/
             wb.write(fos);
             fos.close();
             return file.getAbsolutePath().replaceAll("\\\\", "/");
@@ -340,7 +462,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
             return cell.getStringCellValue();
         } else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-            return Double.valueOf(cell.getNumericCellValue()).intValue()+"";
+            return Double.valueOf(cell.getNumericCellValue()).intValue() + "";
         }
         return "";
     }
@@ -395,7 +517,7 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
                         }
                         String kandidatName = getValue(row.getCell(0));
                         String p = getValue(row.getCell(2));
-                        p = p.substring(0, p.length()-1);
+                        p = p.substring(0, p.length() - 1);
                         int percentages = Integer.valueOf(p).intValue();
                         Kandidat kandidat = findKandidat(kandidatList, kandidatName);
                         Antwort antwort = new Antwort(kandidat, percentages, solutions);
