@@ -47,7 +47,7 @@ public abstract class AntwortList extends JList implements ActionListener, IText
 
     protected abstract void createEditAntwortDialog(Antwort antwort);
 
-    public AntwortList(TestToolFrame frame, Fragebogen fragebogen) {
+    public AntwortList(final TestToolFrame frame, Fragebogen fragebogen) {
         super();
         this.frame = frame;
         this.fragebogen = fragebogen;

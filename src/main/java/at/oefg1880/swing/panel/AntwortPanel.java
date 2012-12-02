@@ -113,4 +113,9 @@ public abstract class AntwortPanel extends JPanel implements ITexts, IConfig { /
             return false;
         return true;
     }
+
+  @Override
+  public void requestFocus() {
+    getAntwortTextField(0).requestFocus();
+  }
 }

@@ -56,15 +56,15 @@ public class KandidatTable extends JTable implements ActionListener, IConfig, IT
         listSelectionForeground = new Color(255, 255, 255);
     }
 
-    public KandidatTable(TestToolFrame frame) {
+    public KandidatTable(final TestToolFrame frame) {
         this(frame, new ArrayList<Kandidat>());
     }
 
-    public KandidatTable(TestToolFrame frame, ArrayList<Kandidat> items) {
+    public KandidatTable(final TestToolFrame frame, ArrayList<Kandidat> items) {
         this(frame, new KandidatTableModel(items));
     }
 
-    public KandidatTable(TestToolFrame frame, KandidatTableModel model) {
+    public KandidatTable(final TestToolFrame frame, KandidatTableModel model) {
         super();
         this.frame = frame;
         this.model = model;

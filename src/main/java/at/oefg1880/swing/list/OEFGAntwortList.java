@@ -13,7 +13,7 @@ import at.oefg1880.swing.io.Fragebogen;
  * To change this template use File | Settings | File Templates.
  */
 public class OEFGAntwortList extends AntwortList {
-    public OEFGAntwortList(TestToolFrame frame, Fragebogen fragebogen) {
+    public OEFGAntwortList(final TestToolFrame frame, Fragebogen fragebogen) {
         super(frame, fragebogen);
     }
 

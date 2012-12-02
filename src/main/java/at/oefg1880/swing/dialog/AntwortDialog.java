@@ -65,7 +65,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
 
     // New Answers given by user
 
-    public AntwortDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
+    public AntwortDialog(final TestToolFrame frame, String title, Fragebogen fragebogen) {
         super(frame, title, true);
         this.frame = frame;
         this.fragebogen = fragebogen;
@@ -74,7 +74,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
 
     // Edit Answers given by user
 
-    public AntwortDialog(TestToolFrame frame, String title, Fragebogen fragebogen, Antwort antwort) {
+    public AntwortDialog(final TestToolFrame frame, String title, Fragebogen fragebogen, Antwort antwort) {
         super(frame.getFragebogenPanel().getFragebogenDialog(), title, true);
         this.frame = frame;
         this.fragebogen = fragebogen;
@@ -282,6 +282,10 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
 
     public boolean hasKandidat() {
         return tfName.getKandidat() != null || (antwort != null && antwort.getKandidat() != null);
+    }
+
+    public AntwortPanel getAntwortPanel() {
+      return antwortPanel;
     }
 
     @Override

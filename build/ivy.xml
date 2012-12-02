@@ -29,9 +29,9 @@
         <dependency org="axis" name="axis-saaj" rev="1.4"/>
         <dependency org="axis" name="axis-wsdl4j" rev="1.5.1"/>
         <dependency org="log4j" name="log4j" rev="1.2.9"/>
-        <dependency org="net.sf.barcode4j" name="barcode4j" rev="2.1"/>
-        <dependency org="com.google.zxing" name="javase" rev="2.0"/>
-        <dependency org="com.google.zxing" name="core" rev="2.0"/>
-        <dependency org="net.glxn" name="qrgen" rev="1.1"/>
+        <!--<dependency org="net.sf.barcode4j" name="barcode4j" rev="2.1"/>-->
+        <!--<dependency org="com.google.zxing" name="javase" rev="2.0"/>-->
+        <!--<dependency org="com.google.zxing" name="core" rev="2.0"/>-->
+        <!--<dependency org="net.glxn" name="qrgen" rev="1.1"/>-->
     </dependencies>
 </ivy-module>

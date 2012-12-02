@@ -16,16 +16,16 @@ import at.oefg1880.swing.panel.OEFGAntwortPanel;
 public class OEFGAntwortDialog extends AntwortDialog {
     private AntwortPanel panel;
 
-    public OEFGAntwortDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
+    public OEFGAntwortDialog(final TestToolFrame frame, String title, Fragebogen fragebogen) {
         super(frame, title, fragebogen);
     }
 
-    public OEFGAntwortDialog(TestToolFrame frame, String title, Fragebogen fragebogen, Antwort antwort) {
+    public OEFGAntwortDialog(final TestToolFrame frame, String title, Fragebogen fragebogen, Antwort antwort) {
         super(frame, title, fragebogen, antwort);
     }
 
     @Override
-    public AntwortPanel getAntwortPanel(AntwortDialog dialog) {
+    public AntwortPanel getAntwortPanel(final AntwortDialog dialog) {
         if (panel == null) {
             panel = new OEFGAntwortPanel(fragebogen == null, dialog);
         }

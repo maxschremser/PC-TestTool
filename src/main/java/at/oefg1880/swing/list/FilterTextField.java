@@ -30,9 +30,7 @@ public class FilterTextField extends JTextField implements DocumentListener {
                 public void run() {
                     Kandidat kandidat = filterKandidatTable.getModel().getFilterItems().get(0);
                     filterKandidatTable.setKandidat(kandidat);
-                    setText(kandidat.getTitleAndName());
                     foundKandidat = true;
-                    filterKandidatTable.getFrame().getFragebogenPanel().getAntwortDialog();
                 }
             });
         }

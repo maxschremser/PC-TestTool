@@ -4,7 +4,6 @@ import at.oefg1880.swing.IConfig;
 import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.io.Fragebogen;
-import at.oefg1880.swing.panel.FragebogenPanel;
 import at.oefg1880.swing.panel.GradientPanel;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.layout.CellConstraints;

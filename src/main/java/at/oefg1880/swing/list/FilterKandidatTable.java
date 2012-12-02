@@ -1,5 +1,6 @@
 package at.oefg1880.swing.list;
 
+import at.oefg1880.swing.dialog.AntwortDialog;
 import at.oefg1880.swing.frame.TestToolFrame;
 import at.oefg1880.swing.io.Kandidat;
 import at.oefg1880.swing.model.FilterKandidatTableModel;
@@ -18,68 +19,67 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class FilterKandidatTable extends KandidatTable {
-    private FilterTextField filterField;
-    private int DEFAULT_FIELD_WIDTH = 20;
-    private Kandidat kandidat;
+  private FilterTextField filterField;
+  private int DEFAULT_FIELD_WIDTH = 20;
+  private Kandidat kandidat;
 
-    public FilterKandidatTable(TestToolFrame frame, ArrayList<Kandidat> items) {
-        super(frame, items);
-        model = new FilterKandidatTableModel(this, items);
-        setup();
-        filterField = new FilterTextField(this, DEFAULT_FIELD_WIDTH);
-        getModel().refilter();
-        setText("");
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    kandidat = getModel().getFilterItems().get(rowAtPoint(e.getPoint()));
-                    setText(kandidat.getTitleAndName());
-                }
-            }
-        });
-    }
+  public FilterKandidatTable(final TestToolFrame frame, ArrayList<Kandidat> items) {
+    super(frame, items);
+    model = new FilterKandidatTableModel(this, items);
+    setup();
+    filterField = new FilterTextField(this, DEFAULT_FIELD_WIDTH);
+    getModel().refilter();
+    setText("");
+    addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        if (SwingUtilities.isLeftMouseButton(e)) {
+          setKandidat(getModel().getFilterItems().get(rowAtPoint(e.getPoint())));
+        }
+      }
+    });
+  }
 
-    public FilterKandidatTableModel getModel() {
-        return (FilterKandidatTableModel) model;
-    }
+  public FilterKandidatTableModel getModel() {
+    return (FilterKandidatTableModel) model;
+  }
 
-    public TestToolFrame getFrame() {
-        return frame;
-    }
+  public TestToolFrame getFrame() {
+    return frame;
+  }
 
-    public void addItem(Kandidat item) {
-        getModel().addElement(item);
-    }
+  public void setText(String text) {
+    getFilterField().setText(text);
+  }
 
-    public void setText(String text) {
-        getFilterField().setText(text);
-    }
+//  public String getText() {
+//    return getFilterField().getText();
+//  }
 
-    public String getText() {
-        return getFilterField().getText();
-    }
+  public void setSelectionColor(Color color) {
+    getFilterField().setSelectionColor(color);
+  }
 
-    public void setSelectionColor(Color color) {
-        getFilterField().setSelectionColor(color);
-    }
+  public FilterTextField getFilterField() {
+    return filterField;
+  }
 
-    public FilterTextField getFilterField() {
-        return filterField;
-    }
+  public Kandidat getKandidat() {
+    return kandidat;
+  }
 
-    public Kandidat getKandidat() {
-        return kandidat;
-    }
+  public void setKandidat(Kandidat kandidat) {
+    this.kandidat = kandidat;
+    AntwortDialog d = frame.getFragebogenPanel().getAntwortDialog();
+    setText(kandidat.getTitleAndName());
+    if (d != null)
+      d.getAntwortPanel().requestFocus();
+  }
 
-    public void setKandidat(Kandidat kandidat) {
-        this.kandidat = kandidat;
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        getFilterField().setEnabled(enabled);
-        disableDoubleClick();
-    }
+  @Override
+  public void setEnabled(boolean enabled) {
+    super.setEnabled(enabled);
+    getFilterField().setEnabled(enabled);
+    disableDoubleClick();
+  }
 }
