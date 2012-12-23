@@ -177,8 +177,7 @@ public abstract class AntwortDialog extends SavingLoggerDialog implements Action
         FormLayout layout = new FormLayout(
                 "6dlu,100dlu,6dlu,pref,6dlu,pref",
                 "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,86dlu,6dlu,pref,6dlu,pref,6dlu,pref");
-        //PanelBuilder builder = new PanelBuilder(layout, new GradientPanel());
-        PanelBuilder builder = new PanelBuilder(layout, new FormDebugPanel());
+        PanelBuilder builder = new PanelBuilder(layout, new GradientPanel());
         CellConstraints cc = new CellConstraints();
 
         builder.add(labelTitle, cc.xywh(2, 2, 5, 1));
