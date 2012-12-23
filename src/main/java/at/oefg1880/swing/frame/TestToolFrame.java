@@ -45,7 +45,7 @@ import java.util.List;
  * Time: 10:41:56
  * To change this template use File | Settings | File Templates.
  */
-public abstract class TestToolFrame extends SheetableFrame implements ITexts, IConfig, DropTargetListener, ActionListener {
+public abstract class TestToolFrame extends SavingLoggerFrame implements ITexts, IConfig, DropTargetListener, ActionListener {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.frame.TestToolFrame";
     private final static String KANDIDATEN = "Kandidaten";
     protected JTabbedPane bottomPane;
@@ -72,14 +72,12 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
     public abstract char[] getAllowedValues();
 
     public TestToolFrame(String title) throws HeadlessException {
-        super(title);
+        super(title, PROPERTY_NAME);
         props.setOwner(this);
-
         setup();
     }
 
     private void createJMenuBar() {
-
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu(rh.getString(PROPERTY_NAME, FILE));
         menu.setMnemonic(rh.getString(PROPERTY_NAME, FILE).toCharArray()[0]);
@@ -140,7 +138,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
 
     public JComponent getBottomComponent() {
         if (bottomPane == null) {
-//            bottomPane = new FadingTabbedPane();
             bottomPane = new JTabbedPane();
             bottomPane.addTab(rh.getString(KandidatPanel.PROPERTY_NAME, LABEL), getKandidatPanel());
             bottomPane.addTab(rh.getString(FragebogenPanel.PROPERTY_NAME, LABEL), getFragebogenPanel());
@@ -166,8 +163,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         panel.add(getImagePane(), cc.xy(2, 2));
         panel.add(getBottomComponent(), cc.xy(2, 4));
         getContentPane().add(panel);
-
-        loadProps();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImage(new ImageIcon(getClass().getClassLoader().getResource(getFavicon())).getImage());
@@ -197,7 +192,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
             int a = JOptionPane.showConfirmDialog(getParent(), rh.getString(PROPERTY_NAME, QUESTION_SAVE));
             if (JOptionPane.YES_OPTION == a) {
                 getFragebogenPanel().getButtonSave().doClick();
-                storeProps();
                 dispose();
                 return;
             } else if (JOptionPane.NO_OPTION == a) {
@@ -237,22 +231,6 @@ public abstract class TestToolFrame extends SheetableFrame implements ITexts, IC
         dialog.dispose();
 
         return returnValue;
-    }
-
-    private void loadProps() {
-        if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
-            int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
-            int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
-
-            Point p = new Point(x, y);
-            setLocation(p);
-        }
-    }
-
-    private void storeProps() {
-        props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
-        props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
-        props.store(); // we save the properties file only when exiting the application
     }
 
     private void exportKandidaten(Workbook wb) {

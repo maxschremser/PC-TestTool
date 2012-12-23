@@ -36,8 +36,9 @@ public class SheetableFrame extends JFrame implements ActionListener, MouseInput
     Cursor cursor;
     AnimatingSheet animatingSheet;
 
-    public SheetableFrame(String name) {
-        super(name);
+    public SheetableFrame(String title, String name) {
+        super(title);
+        setName(name);
         cursor = getCursor();
         glass = (JPanel) getGlassPane();
         glass.addMouseListener(this);

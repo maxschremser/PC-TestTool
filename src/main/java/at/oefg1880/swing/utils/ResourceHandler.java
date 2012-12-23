@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
  */
 
 public class ResourceHandler {
-    public volatile static ResourceHandler resourceHandler; // volatile is needed so that multiple thread can reconcile the instance
+    public volatile static ResourceHandler resourceHandler; // volatile is needed so that multiple thread can reconcile the saver
     private final static String PATH = "resources.texts";
     private ResourceBundle rb;
 

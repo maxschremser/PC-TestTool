@@ -13,6 +13,7 @@ import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.PropertyHandler;
 import at.oefg1880.swing.utils.ResourceHandler;
 import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.debug.FormDebugPanel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.apache.log4j.Logger;
@@ -39,7 +40,7 @@ import java.util.Iterator;
  * Time: 13:21:52
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AntwortDialog extends JDialog implements ActionListener, PropertyChangeListener, IConfig, ITexts {
+public abstract class AntwortDialog extends SavingLoggerDialog implements ActionListener, PropertyChangeListener, IConfig, ITexts {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.dialog.AntwortDialog";
     protected final Logger log = Logger.getLogger(getClass());
     private ResourceHandler rh = ResourceHandler.getInstance();
@@ -66,7 +67,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     // New Answers given by user
 
     public AntwortDialog(final TestToolFrame frame, String title, Fragebogen fragebogen) {
-        super(frame, title, true);
+        super(frame, title, true, PROPERTY_NAME);
         this.frame = frame;
         this.fragebogen = fragebogen;
         setup();
@@ -75,7 +76,7 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     // Edit Answers given by user
 
     public AntwortDialog(final TestToolFrame frame, String title, Fragebogen fragebogen, Antwort antwort) {
-        super(frame.getFragebogenPanel().getFragebogenDialog(), title, true);
+        super(frame, title, true, PROPERTY_NAME);
         this.frame = frame;
         this.fragebogen = fragebogen;
         this.antwort = antwort;
@@ -137,7 +138,6 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
                     reset();
-                    storeProps();
                     dispose();
                 }
             }
@@ -172,21 +172,13 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
     }
 
     private JPanel buildPanel() {
-        loadProps();
-
         initComponents();
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                storeProps();
-            }
-        });
 
         FormLayout layout = new FormLayout(
                 "6dlu,100dlu,6dlu,pref,6dlu,pref",
-                "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,86dlu,6dlu,pref,6dlu,pref,6dlu,12dlu");
-        PanelBuilder builder = new PanelBuilder(layout, new GradientPanel());
+                "6dlu,pref,6dlu,pref,6dlu,pref,6dlu,86dlu,6dlu,pref,6dlu,pref,6dlu,pref");
+        //PanelBuilder builder = new PanelBuilder(layout, new GradientPanel());
+        PanelBuilder builder = new PanelBuilder(layout, new FormDebugPanel());
         CellConstraints cc = new CellConstraints();
 
         builder.add(labelTitle, cc.xywh(2, 2, 5, 1));
@@ -214,21 +206,6 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
         antwortPanel.reset();
     }
 
-    public void loadProps() {
-        if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
-            int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
-            int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
-
-            Point p = new Point(x, y);
-            setLocation(p);
-        }
-    }
-
-    private void storeProps() {
-        props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
-        props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
-    }
-
     private void update() {
         antwort.setPercentages(dataset.getValue(1).intValue());
         antwort.setAnswers(antwortPanel.getValues());
@@ -245,7 +222,6 @@ public abstract class AntwortDialog extends JDialog implements ActionListener, P
             save();
         else
             update();
-        storeProps();
     }
 
     private void close() {

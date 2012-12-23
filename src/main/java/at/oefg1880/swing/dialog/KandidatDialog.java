@@ -33,7 +33,7 @@ import java.util.Vector;
  * Time: 13:21:52
  * To change this template use File | Settings | File Templates.
  */
-public class KandidatDialog extends JDialog implements ActionListener, IConfig, ITexts {
+public class KandidatDialog extends SavingLoggerDialog implements ActionListener, IConfig, ITexts {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.dialog.KandidatDialog";
     protected final Logger log = Logger.getLogger(getClass());
     private ResourceHandler rh = ResourceHandler.getInstance();
@@ -54,7 +54,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
 
     // Update Kandidat
     public KandidatDialog(TestToolFrame frame, String title, Kandidat kandidat) {
-        super(frame, title, true);
+        super(frame, title, true, PROPERTY_NAME);
         this.frame = frame;
         this.kandidat = kandidat;
 
@@ -99,7 +99,6 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
                     reset();
-                    storeProps();
                     dispose();
                 }
             }
@@ -147,17 +146,7 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
     }
 
     private JPanel buildPanel() {
-        loadProps();
-
         initComponents();
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                storeProps();
-                dispose();
-            }
-        });
 
         FormLayout layout = new FormLayout(
                 "6dlu,right:pref,6dlu,pref,6dlu,pref,6dlu,pref",
@@ -229,27 +218,11 @@ public class KandidatDialog extends JDialog implements ActionListener, IConfig, 
         tfName.setText("");
     }
 
-    public void loadProps() {
-        if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
-            int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
-            int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
-
-            Point p = new Point(x, y);
-            setLocation(p);
-        }
-    }
-
-    private void storeProps() {
-        props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
-        props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
-    }
-
     private void saveOrUpdate() {
         if (kandidat == null)
             save();
         else
             update();
-        storeProps();
     }
 
     private void save() {

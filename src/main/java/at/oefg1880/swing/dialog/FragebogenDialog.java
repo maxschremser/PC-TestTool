@@ -28,7 +28,7 @@ import java.awt.event.*;
  * Time: 13:21:52
  * To change this template use File | Settings | File Templates.
  */
-public abstract class FragebogenDialog extends JDialog implements ActionListener, IConfig, ITexts {
+public abstract class FragebogenDialog extends SavingLoggerDialog implements ActionListener, IConfig, ITexts {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.dialog.FragebogenDialog";
     protected final Logger log = Logger.getLogger(getClass());
     protected ResourceHandler rh = ResourceHandler.getInstance();
@@ -55,7 +55,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
 
     // Update Fragebogen
     public FragebogenDialog(TestToolFrame frame, String title, Fragebogen fragebogen) {
-        super(frame, title, true);
+        super(frame, title, true, PROPERTY_NAME);
         this.frame = frame;
         this.fragebogen = fragebogen;
 
@@ -73,7 +73,6 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
                     reset();
-                    storeProps();
                     dispose();
                 }
             }
@@ -112,12 +111,6 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
         cancelButton = new JButton(rh.getString(PROPERTY_NAME, BUTTON_CANCEL));
         cancelButton.addActionListener(this);
         cancelButton.setActionCommand(CANCEL);
-        cancelButton.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyChar() == KeyEvent.VK_ESCAPE) dispose();
-            }
-        });
 
         getRootPane().setDefaultButton(saveButton);
 
@@ -125,16 +118,7 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
     }
 
     private JPanel buildPanel() {
-        loadProps();
-
         initComponents();
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                storeProps();
-            }
-        });
 
         getAntwortList().requestFocus();
 
@@ -190,28 +174,12 @@ public abstract class FragebogenDialog extends JDialog implements ActionListener
         answerPanel.reset();
     }
 
-    public void loadProps() {
-        if (props.getProperty(PROPERTY_NAME + "." + POS_X, "").length() > 0) {
-            int x = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_X, ""));
-            int y = Integer.valueOf(props.getProperty(PROPERTY_NAME + "." + POS_Y, ""));
-
-            Point p = new Point(x, y);
-            setLocation(p);
-        }
-    }
-
-    private void storeProps() {
-        props.setProperty(PROPERTY_NAME + "." + POS_X, getX() + "");
-        props.setProperty(PROPERTY_NAME + "." + POS_Y, getY() + "");
-    }
-
     private void saveOrUpdate() {
         if (fragebogen == null) {
             save();
         } else {
             update();
         }
-        storeProps();
     }
 
     private void save() {

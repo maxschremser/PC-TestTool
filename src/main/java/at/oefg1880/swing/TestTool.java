@@ -2,6 +2,7 @@ package at.oefg1880.swing;
 
 import at.oefg1880.swing.frame.StartFrame;
 import at.oefg1880.swing.utils.ResourceHandler;
+import at.oefg1880.swing.utils.WindowSaver;
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -33,6 +34,9 @@ public class TestTool implements ITexts, IConfig {
                 } catch (UnsupportedLookAndFeelException ulnfe) {
                     ulnfe.printStackTrace();
                 }
+
+                // Register WindowSaver EventListener
+                Toolkit.getDefaultToolkit().addAWTEventListener(WindowSaver.getInstance(), AWTEvent.WINDOW_EVENT_MASK);
                 PropertyConfigurator.configureAndWatch("log4j.properties", 60 * 1000);
                 log.debug("Starting StartFrame at " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
                 Properties props = new Properties();

@@ -5,6 +5,7 @@ import at.oefg1880.swing.ITexts;
 import at.oefg1880.swing.dialog.AntwortDialog;
 import at.oefg1880.swing.text.AntwortTextField;
 import at.oefg1880.swing.utils.ResourceHandler;
+import com.jgoodies.forms.debug.FormDebugPanel;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ import java.awt.*;
  * Time: 12:54:36
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AntwortPanel extends JPanel implements ITexts, IConfig { //FormDebugPanel {
+public abstract class AntwortPanel extends FormDebugPanel implements ITexts, IConfig { //FormDebugPanel {
     public final static String PROPERTY_NAME = "at.oefg1880.swing.panel.AntwortPanel";
     protected final Logger log = Logger.getLogger(getClass());
     protected boolean isInCreateMode = false;

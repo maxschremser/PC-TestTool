@@ -39,30 +39,24 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
     private JButton buttonSave, buttonNew;
 
     public KandidatDialog editKandidatDialog(Kandidat kandidat) {
-
         kandidatDialog = new KandidatDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_NEW), kandidat);
-        kandidatDialog.loadProps();
         kandidatDialog.setVisible(true);
         return kandidatDialog;
     }
 
     public JDialog createNewKandidatDialog() {
-
         kandidatDialog = new KandidatDialog(frame, rh.getString(PROPERTY_NAME, FRAGEBOGEN_NEW));
-        kandidatDialog.loadProps();
         kandidatDialog.setVisible(true);
         return kandidatDialog;
     }
 
     public KandidatPanel(TestToolFrame frame) {
         super(DIAGONAL);
-
         this.frame = frame;
         setup();
     }
 
     private void setup() {
-
         FormLayout layout = new FormLayout(
                 "6dlu,pref:grow,6dlu,pref,6dlu",
                 "6dlu,pref,6dlu,pref,6dlu");
@@ -100,12 +94,10 @@ public class KandidatPanel extends GradientPanel implements ITexts, IConfig, Act
     }
 
     public JButton getButtonSave() {
-
         return buttonSave;
     }
 
     public JButton getButtonNew() {
-
         return buttonNew;
     }
 

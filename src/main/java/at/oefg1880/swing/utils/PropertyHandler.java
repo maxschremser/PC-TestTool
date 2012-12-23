@@ -12,10 +12,10 @@ import java.io.*;
 import java.util.Properties;
 
 public class PropertyHandler implements PropertyChangeListener, ITexts, IConfig {
-    public volatile static PropertyHandler propertyHandler; // volatile is needed so that multiple thread can reconcile the instance
-    public volatile static ResourceHandler rh = ResourceHandler.getInstance(); // volatile is needed so that multiple thread can reconcile the instance
+    public volatile static PropertyHandler propertyHandler; // volatile is needed so that multiple thread can reconcile the saver
+    public volatile static ResourceHandler rh = ResourceHandler.getInstance(); // volatile is needed so that multiple thread can reconcile the saver
     private Properties props;
-    private SheetableFrame frame;
+    private JFrame frame;
     private final Logger log = Logger.getLogger(PropertyHandler.class);
     private final static String CONFIG_FILE = "config.properties";
     private final static String LICENSE_FILE = "license.file";
@@ -54,7 +54,7 @@ public class PropertyHandler implements PropertyChangeListener, ITexts, IConfig 
         return propertyHandler;
     }
 
-    public void loadProperties() {
+    private void loadProperties() {
         try {
             log.info("Load from: " + USER_CONFIG_PATH);
             props.load(new FileInputStream(USER_CONFIG_PATH));
@@ -68,31 +68,10 @@ public class PropertyHandler implements PropertyChangeListener, ITexts, IConfig 
         }
     }
 
-    public String getLicense() {
-        try {
-            log.info("Load from: " + USER_LICENSE_PATH);
-            props.load(new FileInputStream(USER_LICENSE_PATH));
-
-        } catch (Exception e) {
-        }
-        return "TRIAL";
-    }
-
     public void store() {
         try {
             File f = new File(USER_CONFIG_PATH);
             log.info("store props to : " + f.getAbsoluteFile());
-//      if (!f.getParentFile().exists()) {
-//        JOptionPane directoryCreateDialog = new JOptionPane(rh.getString(PROPERTY_NAME, DIALOG_CREATE_DIR),
-//            JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
-//        directoryCreateDialog.addPropertyChangeListener(this);
-//        JDialog dialog = directoryCreateDialog.createDialog(frame, "TestTool - Create Directory");
-//        if (frame != null) {
-//          frame.showDialogAsSheet(dialog);
-//        } else {
-//          dialog.setVisible(true);
-//        }
-//      }
             OutputStream os = new FileOutputStream(f);
             try {
                 props.store(os, "");
@@ -114,7 +93,7 @@ public class PropertyHandler implements PropertyChangeListener, ITexts, IConfig 
         props.setProperty(key, value);
     }
 
-    public void setOwner(SheetableFrame frame) {
+    public void setOwner(JFrame frame) {
         this.frame = frame;
     }
 
